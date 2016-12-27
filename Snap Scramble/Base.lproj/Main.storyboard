@@ -820,6 +820,23 @@
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KtP-KW-IOF">
+                                                    <rect key="frame" x="30" y="163" width="324" height="40"/>
+                                                    <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="iyF-cP-gOn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                                    <state key="normal" title="Find random opponent">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -829,8 +846,12 @@
                                                 <constraint firstItem="Zti-Fy-5nw" firstAttribute="leading" secondItem="kBS-Ox-MQD" secondAttribute="leading" constant="30" id="Eaf-Se-u13"/>
                                                 <constraint firstAttribute="bottom" secondItem="0Ip-oP-eV7" secondAttribute="bottom" constant="30" id="LXi-Rg-1GR"/>
                                                 <constraint firstItem="Zti-Fy-5nw" firstAttribute="top" secondItem="Dc1-ge-aXY" secondAttribute="bottom" constant="20" id="VXK-GJ-15N"/>
+                                                <constraint firstAttribute="trailing" secondItem="KtP-KW-IOF" secondAttribute="trailing" constant="30" id="bD7-ce-FMp"/>
+                                                <constraint firstItem="KtP-KW-IOF" firstAttribute="centerX" secondItem="kBS-Ox-MQD" secondAttribute="centerX" id="bp5-oI-NaW"/>
                                                 <constraint firstItem="0Ip-oP-eV7" firstAttribute="centerX" secondItem="kBS-Ox-MQD" secondAttribute="centerX" id="f0E-dW-xLA"/>
+                                                <constraint firstItem="KtP-KW-IOF" firstAttribute="leading" secondItem="kBS-Ox-MQD" secondAttribute="leading" constant="30" id="fOH-K4-TGX"/>
                                                 <constraint firstAttribute="trailing" secondItem="Dc1-ge-aXY" secondAttribute="trailing" constant="79" id="nSD-2n-tYt"/>
+                                                <constraint firstItem="KtP-KW-IOF" firstAttribute="top" secondItem="Zti-Fy-5nw" secondAttribute="bottom" constant="18" id="skH-EE-BVK"/>
                                                 <constraint firstAttribute="trailing" secondItem="Zti-Fy-5nw" secondAttribute="trailing" constant="30" id="usU-gm-J6g"/>
                                                 <constraint firstItem="Dc1-ge-aXY" firstAttribute="top" secondItem="kBS-Ox-MQD" secondAttribute="top" constant="60" id="w8O-1g-gGD"/>
                                             </constraints>
@@ -867,6 +888,7 @@
                         <outlet property="cancelButton" destination="0Ip-oP-eV7" id="7fT-aY-api"/>
                         <outlet property="friendsListButton" destination="Zti-Fy-5nw" id="yne-Sw-MLX"/>
                         <outlet property="opponentSelectionLabel" destination="Dc1-ge-aXY" id="wp2-OH-sAV"/>
+                        <outlet property="randomUserButton" destination="KtP-KW-IOF" id="PJb-g4-dcp"/>
                         <outlet property="scoreView" destination="kBS-Ox-MQD" id="prT-FB-vhI"/>
                         <segue destination="7W3-4U-ZOU" kind="show" identifier="selectFriend" id="hBm-Xi-eik"/>
                         <segue destination="5X2-Qn-gx5" kind="show" identifier="createPuzzle" id="VO9-uy-9nj"/>
@@ -931,7 +953,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3KA-l3-Vru" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3248" y="184"/>
+            <point key="canvasLocation" x="3570" y="170"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="vBb-n5-J48">

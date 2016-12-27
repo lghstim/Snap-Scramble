@@ -113,23 +113,6 @@
 #pragma mark - userMatchesTable code
 
 - (void)retrieveUserMatches {
-    //testing cloud code
-    [PFCloud callFunctionInBackground:@"findRandomGame" withParameters:@{@"player1": [PFUser currentUser]}
-                                block:^(PFObject *match, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"No error, the random match that was created was: %@", match);
-                                    }
-                                }];
-    
-    // Objective-C
-    /* [PFCloud callFunctionInBackground:@"averageStars"
-     withParameters:@{@"movie": @"The Matrix"}
-     block:^(NSNumber *ratings, NSError *error) {
-     if (!error) {
-     // ratings is 4.5
-     }
-     }]; */
-    
     [self.viewModel retrievePendingMatches:^(NSArray *matches, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);

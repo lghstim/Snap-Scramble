@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "Snap_Scramble-Swift.h"
+#import <KVNProgress/KVNProgress.h>
 
 @protocol FirstVCDelegate <NSObject>
 - (void)receiveRandomUserData:(PFUser *)opponent;
@@ -24,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet SpringView *scoreView;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) IBOutlet UILabel *opponentSelectionLabel;
+@property (nonatomic, strong) NSTimer *timeoutTimer;
+@property (nonatomic, strong) NSNumber* totalSeconds;
 
 
 @end

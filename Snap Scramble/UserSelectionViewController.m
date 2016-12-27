@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.friendsListButton addTarget:self action:@selector(openFriendsList:) forControlEvents:UIControlEventTouchUpInside];
-   [self.randomUserButton addTarget:self action:@selector(openRandomUserList:) forControlEvents:UIControlEventTouchUpInside];
+   [self.randomUserButton addTarget:self action:@selector(findRandomUser:) forControlEvents:UIControlEventTouchUpInside];
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.cancelButton.adjustsImageWhenHighlighted = NO;
 }
@@ -54,8 +54,44 @@
     [self performSegueWithIdentifier:@"selectFriend" sender:self];
 }
 
-- (IBAction)openRandomUserList:(id)sender {
-    [self performSegueWithIdentifier:@"selectRandomUser" sender:self];
+- (IBAction)findRandomUser:(id)sender {
+    self.totalSeconds = [NSNumber numberWithInt:0];
+    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+    
+    // cloud code call to get a random user from a list of 500 users
+    [KVNProgress showWithStatus:@"Searching for random opponent..."];
+    [PFCloud callFunctionInBackground:@"getRandomOpponent" withParameters:@{} block:^(id opponent, NSError *error) {
+        if (!error) {
+            [KVNProgress dismiss];
+            NSLog(@"No error, the random opponent that was found was: %@", opponent);
+            self.opponent = (PFUser *)opponent[0];
+            [self.timeoutTimer invalidate];
+
+            [self performSegueWithIdentifier:@"createPuzzle" sender:self];
+        }
+        
+        else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Unfortunately an error occurred in finding an opponent. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+            [self.timeoutTimer invalidate];
+
+        }
+    }];
+}
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    if ([self.totalSeconds intValue] > 15) {
+        [KVNProgress dismiss];
+        NSLog(@"timeout error. took longer than 15 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Unfortunately an error occurred in finding an opponent. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [self.timeoutTimer invalidate];
+    }
+
 }
 
 - (IBAction)cancelButtonDidPress:(id)sender {
@@ -71,11 +107,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-  /*  if ([segue.identifier isEqualToString:@"selectRandomUser"]) {
-        RandomUserTableViewController *randomUserTableViewController = (RandomUserTableViewController *)segue.destinationViewController;
-        randomUserTableViewController.delegate = self;
-    } */
-    
+ 
     if ([segue.identifier isEqualToString:@"selectFriend"]) {
         FriendsTableViewController *friendsTableViewController = (FriendsTableViewController *)segue.destinationViewController;
         friendsTableViewController.delegate = self;
@@ -89,12 +121,6 @@
 }
 
 #pragma mark - delegate methods
-
-- (void)receiveRandomUserData:(PFUser *)opponent {
-    self.opponent = opponent;
-    NSLog(@"delegate success. (random) opponent selected: %@", self.opponent);
-    [self performSegueWithIdentifier:@"createPuzzle" sender:self];
-}
 
 - (void)receiveFriendUserData:(PFUser *)opponent {
     self.opponent = opponent;
