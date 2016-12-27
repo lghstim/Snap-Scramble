@@ -7,7 +7,6 @@
 //
 
 #import "FriendsTableViewController.h"
-#import "EditFriendsTableViewController.h"
 #import "Reachability.h"
 #import "CreatePuzzleViewController.h"
 #import "FriendsViewModel.h"

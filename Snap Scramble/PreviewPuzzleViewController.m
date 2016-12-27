@@ -10,6 +10,7 @@
 #import "GameViewController.h"
 #import "ChallengeViewController.h"
 #import "PreviewPuzzleViewModel.h"
+#import "DKEditorView.h"
 
 @interface PreviewPuzzleViewController ()
 
@@ -25,6 +26,11 @@
     if (self)
     {
         _viewModel = [[PreviewPuzzleViewModel alloc] init];
+        /* DKEditorView *dkev = (DKEditorView *)self.view;
+        UIGraphicsBeginImageContext(dkev.frame.size);
+        [dkev.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext(); */
     }
     
     return self;

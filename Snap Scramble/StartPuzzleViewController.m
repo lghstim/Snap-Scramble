@@ -154,7 +154,7 @@
     self.roundObject = roundObject;
     
     // delegate allows us to transfer user's data back to ChallengeViewController for creating puzzle game, which then sends data to CreatePuzzleVC
-    [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
+    [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
