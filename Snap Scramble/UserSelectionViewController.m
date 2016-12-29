@@ -66,7 +66,6 @@
             NSLog(@"No error, the random opponent that was found was: %@", opponent);
             self.opponent = (PFUser *)opponent[0];
             [self.timeoutTimer invalidate];
-
             [self performSegueWithIdentifier:@"createPuzzle" sender:self];
         }
         

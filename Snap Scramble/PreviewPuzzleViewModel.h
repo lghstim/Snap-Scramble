@@ -28,6 +28,5 @@
 - (PFObject *)getRoundObject;
 - (void)saveFile:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion;
-- (void)sendNotificationToOpponent;
 
 @end

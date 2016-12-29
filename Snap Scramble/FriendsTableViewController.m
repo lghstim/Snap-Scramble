@@ -193,7 +193,6 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
 
     if(cell == nil)
     {

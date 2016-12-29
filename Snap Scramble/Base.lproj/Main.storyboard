@@ -181,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQ8-1z-hCM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1830" y="-1604"/>
+            <point key="canvasLocation" x="1532" y="-1610"/>
         </scene>
         <!--Snap Scramble-->
         <scene sceneID="vFI-LU-C9F">
@@ -336,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IVL-r2-AQA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1830" y="-752"/>
+            <point key="canvasLocation" x="1532" y="-752"/>
         </scene>
         <!--Create Puzzle View Controller-->
         <scene sceneID="n87-es-Dgz">
@@ -565,7 +565,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AH0-yy-FNg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3248" y="-1531"/>
+            <point key="canvasLocation" x="3569" y="-1566"/>
         </scene>
         <!--Preview Puzzle View Controller-->
         <scene sceneID="5M5-4s-jbf">
@@ -636,7 +636,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLb-2P-6r4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4364" y="-707"/>
+            <point key="canvasLocation" x="4518" y="-707"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ek1-UL-RNo">
@@ -660,7 +660,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rjy-Dw-81f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1242" y="-752"/>
+            <point key="canvasLocation" x="489" y="-752"/>
         </scene>
         <!--Start Puzzle View Controller-->
         <scene sceneID="3nb-JS-cDu">
@@ -760,7 +760,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SIw-CQ-U6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2746" y="-1531"/>
+            <point key="canvasLocation" x="2636" y="-1611"/>
         </scene>
         <!--User Selection View Controller-->
         <scene sceneID="hIj-7v-u2v">
@@ -1166,7 +1166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5k-pO-ZKr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2118" y="200"/>
+            <point key="canvasLocation" x="1830" y="198"/>
         </scene>
         <!--Legal-->
         <scene sceneID="B49-0P-Gyn">
@@ -1202,7 +1202,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WJq-sX-Ojq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2118" y="1083"/>
+            <point key="canvasLocation" x="1830" y="1083"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="H5M-Ma-bcH">
@@ -1358,7 +1358,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nV8-Po-R9T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1532" y="200"/>
+            <point key="canvasLocation" x="994" y="199"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="5D2-aB-veC">
@@ -1429,7 +1429,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="goa-0c-aK5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4922" y="-707"/>
+            <point key="canvasLocation" x="5225" y="-707"/>
         </scene>
         <!--Pause View Controller-->
         <scene sceneID="IEC-84-2MQ">
@@ -1599,7 +1599,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecJ-Bm-8yM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3868" y="-1531"/>
+            <point key="canvasLocation" x="4292" y="-1531"/>
         </scene>
         <!--Pause View Controller-->
         <scene sceneID="UOt-g3-D6f">
@@ -1769,7 +1769,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jzb-87-fkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5498" y="-707"/>
+            <point key="canvasLocation" x="6134" y="-707"/>
         </scene>
         <!--Game Over View Controller-->
         <scene sceneID="qAF-dx-p60">
@@ -1898,7 +1898,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7J-a3-prU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4380" y="179"/>
+            <point key="canvasLocation" x="4441" y="170"/>
         </scene>
         <!--Game Over View Controller-->
         <scene sceneID="Dcd-sF-prJ">
@@ -2041,8 +2041,8 @@
         <image name="input-outline" width="250" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ABQ-DS-waV"/>
-        <segue reference="VO9-uy-9nj"/>
         <segue reference="odM-ze-1MK"/>
+        <segue reference="gCo-d5-hdL"/>
+        <segue reference="ABQ-DS-waV"/>
     </inferredMetricsTieBreakers>
 </document>

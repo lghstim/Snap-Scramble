@@ -34,9 +34,6 @@
     [super viewDidLoad];
     
     
-    
-    
-    
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setHidden:false];
     self.currentGamesTable.delegate = self;
@@ -86,6 +83,8 @@
         NSString* usernameText = @"Username: ";
         usernameText = [usernameText stringByAppendingString:currentUser.username];
         [self.usernameLabel setText:usernameText];
+        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
+        [[PFInstallation currentInstallation] saveInBackground];
     }
     
     else {
@@ -158,7 +157,7 @@
         self.currentGamesTable.backgroundView = self.backgroundView;
         self.currentGamesTable.backgroundView.hidden = NO;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.currentGamesTable.scrollEnabled = true;
+        self.currentGamesTable.scrollEnabled = false; // disable scroll if there're no games
     }
     
     if ([self.currentGames count] != 0 || [self.currentPendingGames count] != 0) {

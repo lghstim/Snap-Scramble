@@ -43,9 +43,9 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeSearch</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Add friends</string>
+			<string>Add Friends</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).First</string>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).addFriends</string>
 		</dict>
 	</array>
 	<key>UILaunchStoryboardName</key>

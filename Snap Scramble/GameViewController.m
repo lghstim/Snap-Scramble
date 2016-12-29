@@ -218,7 +218,7 @@
         else { // sent game
             NSLog(@"the turn was switched successfully.");
             [self.navigationController popToRootViewControllerAnimated:YES];
-            // [self.viewModel sendNotificationToOpponent]; // send the push notification
+            [self.viewModel sendNotificationToOpponent]; // send the push notification
         }
     }];
 }

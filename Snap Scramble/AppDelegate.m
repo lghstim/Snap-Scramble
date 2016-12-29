@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
 #import "ChallengeViewController.h"
+#import "FriendsTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -56,6 +57,9 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTheTable" object:nil];
     [PFPush handlePush:userInfo];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 
@@ -78,10 +82,27 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveEventually];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
 }
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    if ([shortcutItem.type isEqualToString:@"com.timgorer.SnapScrambleDescrambleFriends.addFriends"]) {
+        NSLog(@"%@", shortcutItem.type);
+        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        FriendsTableViewController *friendsVC = (FriendsTableViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"FriendsVC"];
+        [navigationController pushViewController:friendsVC animated:YES];
+    }
+}
+
+
 
 @end

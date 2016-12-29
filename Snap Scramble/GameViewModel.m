@@ -31,5 +31,36 @@
     [self.createdGame saveInBackgroundWithBlock:completion];
 }
 
+- (void)sendNotificationToOpponent {
+    PFUser *currentUser = [PFUser currentUser];
+    PFQuery *innerQuery = [PFUser query];
+    
+    NSLog(@"You sent a notification to: objectID: %@", self.opponent.objectId);
+    [innerQuery whereKey:@"objectId" equalTo:self.opponent.objectId];
+    
+    // Build the actual push notification target query
+    PFQuery *query = [PFInstallation query];
+    
+    // only return Installations that belong to a User that
+    // matches the innerQuery
+    [query whereKey:@"User" matchesQuery:innerQuery];
+    
+    // Send the notification.
+    PFPush *push = [[PFPush alloc] init];
+    [push setQuery:query];
+    
+    NSString *message = [NSString stringWithFormat:@"%@ has sent you a puzzle!", currentUser.username];
+    [push setMessage:message];
+    
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          message, @"alert",
+                          @"Increment", @"badge",
+                          @"cheering.caf", @"sound",
+                          nil];
+    [push setData:data];
+    [push sendPushInBackground];
+}
+
+
 
 @end
