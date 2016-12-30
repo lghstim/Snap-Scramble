@@ -165,7 +165,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if ([self.currentGames count] == 0 && [self.currentPendingGames count] == 0) {
-        
         // set the "no games" background image. change this code later on.
         self.currentGamesTable.backgroundView = self.backgroundView;
         self.currentGamesTable.backgroundView.hidden = NO;
@@ -293,6 +292,19 @@
                 cell.detailTextLabel.text = @"Opponent's turn to play";
             }
         }
+        
+       /* else if ([[aCurrentPendingGame objectForKey:@"receiverName"] isEqualToString:@""]) {
+            NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
+            [self.viewModel deleteGame:aCurrentPendingGame completion:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    [tempCurrentPendingGames removeObject:aCurrentPendingGame];
+                    self.currentPendingGames = tempCurrentPendingGames;
+                }
+                else {
+                    NSLog(@"game failed to delete.");
+                }
+            }];
+        } */
     }
     
     return cell;

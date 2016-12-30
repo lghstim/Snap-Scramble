@@ -75,11 +75,9 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
-  install_resource "Parse/Parse/Resources/en.lproj"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "KVNProgress/KVNProgress/Resources/KVNProgressView.xib"
-  install_resource "Parse/Parse/Resources/en.lproj"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

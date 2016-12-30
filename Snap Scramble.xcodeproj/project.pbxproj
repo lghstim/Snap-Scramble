@@ -78,6 +78,11 @@
 		6AA59AF61E15DE5A00D2F4CF /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59AF51E15DE5A00D2F4CF /* IAPViewController.swift */; };
 		6AA59AFF1E1622B400D2F4CF /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */; };
 		6AA59B021E16235100D2F4CF /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59B011E16235100D2F4CF /* LoginViewModel.m */; };
+		6AA5A9AF1E16478300D2F4CF /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA5A9AD1E16478300D2F4CF /* Bolts.framework */; };
+		6AA5A9B01E16478300D2F4CF /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA5A9AE1E16478300D2F4CF /* Parse.framework */; };
+		6AA5A9B31E164D9100D2F4CF /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA5A9B21E164D9100D2F4CF /* FBSDKCoreKit.framework */; };
+		6AA5A9B51E164DA800D2F4CF /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA5A9B41E164DA800D2F4CF /* FBSDKLoginKit.framework */; };
+		6AA5A9B71E164DB400D2F4CF /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA5A9B61E164DB400D2F4CF /* FBSDKShareKit.framework */; };
 		6AB628941C8ACE6200D68261 /* StartPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */; };
 		6AB628981C8B8A5000D68261 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */; };
 		6AB6289B1C8BA32700D68261 /* UserSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */; };
@@ -120,6 +125,18 @@
 			remoteInfo = "Snap Scramble";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6AA5A97F1E16358200D2F4CF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1CDEA9AF7E13E8FD8DEC61D7 /* Pods-Snap Scramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.release.xcconfig"; sourceTree = "<group>"; };
@@ -223,6 +240,11 @@
 		6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewModel.m; sourceTree = "<group>"; };
 		6AA59B001E16235100D2F4CF /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		6AA59B011E16235100D2F4CF /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
+		6AA5A9AD1E16478300D2F4CF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
+		6AA5A9AE1E16478300D2F4CF /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Carthage/Build/iOS/Parse.framework; sourceTree = "<group>"; };
+		6AA5A9B21E164D9100D2F4CF /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		6AA5A9B41E164DA800D2F4CF /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		6AA5A9B61E164DB400D2F4CF /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		6AB628921C8ACE6100D68261 /* StartPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPuzzleViewController.h; sourceTree = "<group>"; };
 		6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPuzzleViewController.m; sourceTree = "<group>"; };
 		6AB628961C8B8A5000D68261 /* FriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewController.h; sourceTree = "<group>"; };
@@ -274,12 +296,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AA5A9AF1E16478300D2F4CF /* Bolts.framework in Frameworks */,
+				6AA5A9B01E16478300D2F4CF /* Parse.framework in Frameworks */,
+				6AA5A9B51E164DA800D2F4CF /* FBSDKLoginKit.framework in Frameworks */,
 				6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */,
 				6AD28CD41B5E080500BCD802 /* UIKit.framework in Frameworks */,
 				6AD28CD21B5E080000BCD802 /* CoreGraphics.framework in Frameworks */,
 				6AD28CD01B5E07FC00BCD802 /* Foundation.framework in Frameworks */,
 				6AD28CCE1B5E07F000BCD802 /* AudioToolbox.framework in Frameworks */,
 				6AD28CCC1B5E07EC00BCD802 /* CFNetwork.framework in Frameworks */,
+				6AA5A9B31E164D9100D2F4CF /* FBSDKCoreKit.framework in Frameworks */,
 				6AD28CCA1B5E07E800BCD802 /* CoreLocation.framework in Frameworks */,
 				6AD28CC81B5E07E300BCD802 /* libz.dylib in Frameworks */,
 				6AD28CC61B5E07DF00BCD802 /* MobileCoreServices.framework in Frameworks */,
@@ -287,6 +313,7 @@
 				6AD28CC21B5E07C900BCD802 /* Security.framework in Frameworks */,
 				6AD28CC01B5E07C500BCD802 /* StoreKit.framework in Frameworks */,
 				6AD28CBE1B5E07BF00BCD802 /* SystemConfiguration.framework in Frameworks */,
+				6AA5A9B71E164DB400D2F4CF /* FBSDKShareKit.framework in Frameworks */,
 				6AD28CBC1B5E07B800BCD802 /* ExternalAccessory.framework in Frameworks */,
 				8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */,
 				DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */,
@@ -550,6 +577,11 @@
 		6AD28CD51B5E081200BCD802 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AA5A9B61E164DB400D2F4CF /* FBSDKShareKit.framework */,
+				6AA5A9B41E164DA800D2F4CF /* FBSDKLoginKit.framework */,
+				6AA5A9B21E164D9100D2F4CF /* FBSDKCoreKit.framework */,
+				6AA5A9AD1E16478300D2F4CF /* Bolts.framework */,
+				6AA5A9AE1E16478300D2F4CF /* Parse.framework */,
 				6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */,
 				6AD28CD31B5E080500BCD802 /* UIKit.framework */,
 				6AD28CD11B5E080000BCD802 /* CoreGraphics.framework */,
@@ -582,6 +614,8 @@
 				6A112AA51B5DFB0D0035A75C /* Resources */,
 				19C5A2312F5DA7A785AD5212 /* [CP] Embed Pods Frameworks */,
 				A93EFBE4716EF23AC6BE2A3B /* [CP] Copy Pods Resources */,
+				6AA5A97F1E16358200D2F4CF /* CopyFiles */,
+				6AA5A9B11E16479300D2F4CF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -721,6 +755,21 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		6AA5A9B11E16479300D2F4CF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Parse.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bolts.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		A93EFBE4716EF23AC6BE2A3B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -873,7 +922,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -918,7 +967,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -946,10 +995,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "Snap Scramble/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -971,10 +1021,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "Snap Scramble/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

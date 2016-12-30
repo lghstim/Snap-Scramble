@@ -161,6 +161,7 @@
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
             NSLog(@"Game already started: %@", self.createdGame);
             previewPuzzleViewController.createdGame = self.createdGame;
+            previewPuzzleViewController.roundObject = [self.createdGame objectForKey:@"round"];
         }
         
         else if (self.createdGame == nil) { // entirely new game

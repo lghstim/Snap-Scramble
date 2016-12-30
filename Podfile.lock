@@ -1,5 +1,4 @@
 PODS:
-  - Bolts/Tasks (1.8.4)
   - Firebase/AdMob (3.4.0):
     - Firebase/Analytics
     - Google-Mobile-Ads-SDK (= 7.9.1)
@@ -65,8 +64,6 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
   - KVNProgress (2.3)
   - LLSimpleCamera (4.2.0)
-  - Parse (1.14.2):
-    - Bolts/Tasks (~> 1.8)
   - RMActionController (1.0.5)
   - RMPickerViewController (2.0.3):
     - RMActionController (~> 1.0.5)
@@ -80,11 +77,9 @@ DEPENDENCIES:
   - Firebase/Storage
   - KVNProgress
   - LLSimpleCamera (~> 4.1)
-  - Parse
   - RMPickerViewController (~> 2.0.3)
 
 SPEC CHECKSUMS:
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Firebase: 754562547af419cc2f4b15247fee419081924bc2
   FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
   FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
@@ -102,10 +97,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   KVNProgress: d0459bfa4dca0379cdba5c038326ea34e9fc2df9
   LLSimpleCamera: ed7813ce4827ff3e34c6af159c99b5b56e54d1c6
-  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
 
-PODFILE CHECKSUM: c7e68d121a79122fb032c3b382d0cbf6c3b94450
+PODFILE CHECKSUM: d1789b171a7c4c297afc6c6faa34a9d305ced5bc
 
 COCOAPODS: 1.1.1
