@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Parse/Parse.h"
+#import <Parse/Parse.h>
 
 @interface LoginViewModel : NSObject
 

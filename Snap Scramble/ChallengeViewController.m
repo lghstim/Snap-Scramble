@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "ChallengeViewModel.h"
 
+
 @interface ChallengeViewController ()
 
 @property(nonatomic, strong) ChallengeViewModel *viewModel;
@@ -32,7 +33,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setHidden:false];
@@ -106,7 +106,20 @@
 
 // this starts an entirely new game, don't be confused.
 - (IBAction)selectUserFromOptions:(id)sender {
-    [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
+    NSLog(@"%lu", (self.currentGames.count + self.currentPendingGames.count));
+    if ((self.currentGames.count + self.currentPendingGames.count) >= 10) {
+        // if the user doesn't have the premium in-app purchase of Snap Scramble, push him to the IAPViewController {
+        [self performSegueWithIdentifier:@"openIAP" sender:self];
+
+        // }
+        
+        // else if he has the in-app purchase then let him create a new game.
+    }
+    
+    // if the user has less than 10 existing games then let him create more.
+    else if ((self.currentGames.count + self.currentPendingGames.count) <= 10) {
+        [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
+    }
 }
 
 #pragma mark - userMatchesTable code

@@ -25,6 +25,8 @@
 @property (nonatomic, strong) NSArray *puzzleSizes;
 @property (nonatomic, strong) NSString *puzzleSize;
 @property (nonatomic, strong) PFObject* roundObject;
+@property (nonatomic, strong) NSTimer *timeoutTimer;
+@property (nonatomic, strong) NSNumber* totalSeconds;
 
 
 @end

@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "LoginViewModel.h"
 
+
 @interface LoginViewController ()
 
 @property(nonatomic, strong) LoginViewModel *viewModel;
@@ -32,12 +33,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
     self.navigationItem.hidesBackButton = YES;
     [self.navigationItem.backBarButtonItem setTitle:@""];
     self.usernameField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.passwordField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.passwordField setDelegate:self];
     [self.usernameField setDelegate:self];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

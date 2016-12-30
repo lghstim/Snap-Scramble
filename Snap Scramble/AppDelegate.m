@@ -12,6 +12,7 @@
 #import "ChallengeViewController.h"
 #import "FriendsTableViewController.h"
 
+
 @interface AppDelegate ()
 
 @end
@@ -30,7 +31,7 @@
         configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
         configuration.server = @"http://snapscramble.herokuapp.com/parse";
     }]];
-    
+  
     // Register for Push Notitications, if running iOS 8
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |

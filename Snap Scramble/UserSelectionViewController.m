@@ -62,18 +62,12 @@
     [KVNProgress showWithStatus:@"Searching for random opponent..."];
     [PFCloud callFunctionInBackground:@"getRandomOpponent" withParameters:@{} block:^(id opponent, NSError *error) {
         if (!error) {
+            [NSThread sleepForTimeInterval:2];
             [KVNProgress dismiss];
             NSLog(@"No error, the random opponent that was found was: %@", opponent);
             self.opponent = (PFUser *)opponent[0];
             [self.timeoutTimer invalidate];
             [self performSegueWithIdentifier:@"createPuzzle" sender:self];
-        }
-        
-        else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Unfortunately an error occurred in finding an opponent. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertView show];
-            [self.timeoutTimer invalidate];
-
         }
     }];
 }
@@ -83,6 +77,7 @@
     self.totalSeconds = [NSNumber numberWithInt:value + 1];
     NSLog(@"%@", self.totalSeconds);
     
+    // if too much time passed
     if ([self.totalSeconds intValue] > 15) {
         [KVNProgress dismiss];
         NSLog(@"timeout error. took longer than 15 seconds");

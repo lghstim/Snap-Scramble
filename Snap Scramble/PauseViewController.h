@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Snap_Scramble-Swift.h"
-#import "Parse/Parse.h"
+#import "Parse.h"
 #import "GameObject.h"
 
 @interface PauseViewController : UIViewController

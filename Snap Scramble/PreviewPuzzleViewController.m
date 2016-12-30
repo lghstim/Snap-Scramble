@@ -149,6 +149,9 @@
 # pragma mark - game methods
 
 - (IBAction)sendGame:(id)sender { // after creating game, upload it
+    // initiate timer for timeout
+    self.totalSeconds = [NSNumber numberWithInt:0];
+    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
     NSData *fileData;
     NSString *fileName;
     NSString *fileType;
@@ -161,16 +164,15 @@
             fileType = @"image";
             self.sendButton.userInteractionEnabled = NO;
             NSLog(@"image before upload: %@", self.originalImage);
-   
             // Adds a status below the circle
             [KVNProgress showWithStatus:@"Starting game... Get ready to solve the puzzle as fast as possible."];
-            
             [self setViewModelProperties]; // set view model properties
             self.createdGame = [self.viewModel setGameKeyParameters:fileData fileType:fileType fileName:fileName]; // set all of the key values that the cloud game model requires. this is for new games and games where the receiver has yet to send back.
             
             // save image file and cloud game model
             [self.viewModel saveFile:^(BOOL succeeded, NSError *error) {
                 if (error) {
+                    [KVNProgress dismiss];
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
@@ -178,11 +180,13 @@
                 else {
                     [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                         if (error) {
+                            [KVNProgress dismiss];
                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                             [alertView show];
                         }
                        
                         else {
+                            [self.timeoutTimer invalidate];
                             NSLog(@"this was the uploaded game cloud object: %@", self.createdGame);
                             self.sendButton.userInteractionEnabled = YES;
                             [NSThread sleepForTimeInterval:2];
@@ -204,6 +208,24 @@
     else {
         NSLog(@"some problem");
     }
+}
+
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        [KVNProgress dismiss];
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alertView show];
+        [self.timeoutTimer invalidate];
+        self.sendButton.userInteractionEnabled = YES;
+    }
+    
 }
 
 

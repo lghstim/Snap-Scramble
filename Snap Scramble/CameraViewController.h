@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LLSimpleCamera.h"
-#import "Parse/Parse.h"
+#import "Parse.h"
 
 @interface CameraViewController : UIViewController
 

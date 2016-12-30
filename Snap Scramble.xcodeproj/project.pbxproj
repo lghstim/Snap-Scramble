@@ -32,7 +32,6 @@
 		6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */; };
 		6A77DF7D1D44978E00ECD9BC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */; };
 		6A7C81671D49EC3F00F36C43 /* SignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */; };
-		6A7C816A1D49EC5A00F36C43 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81691D49EC5A00F36C43 /* LoginViewModel.m */; };
 		6A7C81731D49F77A00F36C43 /* camera-flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C816B1D49F77A00F36C43 /* camera-flash.png */; };
 		6A7C81741D49F77A00F36C43 /* camera-flash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C816C1D49F77A00F36C43 /* camera-flash@2x.png */; };
 		6A7C81751D49F77A00F36C43 /* camera-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C816D1D49F77A00F36C43 /* camera-switch.png */; };
@@ -76,10 +75,12 @@
 		6A8F2FEF1D45E1020031A8A0 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEA1D45E1020031A8A0 /* UIImage+Crop.m */; };
 		6A8F2FF01D45E1020031A8A0 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEC1D45E1020031A8A0 /* UIImage+Resize.m */; };
 		6A8F2FF11D45E1020031A8A0 /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEE1D45E1020031A8A0 /* ViewUtils.m */; };
+		6AA59AF61E15DE5A00D2F4CF /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59AF51E15DE5A00D2F4CF /* IAPViewController.swift */; };
+		6AA59AFF1E1622B400D2F4CF /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */; };
+		6AA59B021E16235100D2F4CF /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59B011E16235100D2F4CF /* LoginViewModel.m */; };
 		6AB628941C8ACE6200D68261 /* StartPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */; };
 		6AB628981C8B8A5000D68261 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */; };
 		6AB6289B1C8BA32700D68261 /* UserSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */; };
-		6ABA8D031C5764FE00810DE6 /* SnapScrambleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */; };
 		6AC60AFC1D5871EA00681C90 /* DKVerticalColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60AFB1D5871EA00681C90 /* DKVerticalColorPicker.m */; };
 		6AC60AFF1D5871F300681C90 /* DKPhotoCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60AFE1D5871F300681C90 /* DKPhotoCapture.m */; };
 		6AC60B061D58720600681C90 /* DKEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60B011D58720600681C90 /* DKEditorView.m */; };
@@ -106,7 +107,6 @@
 		6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD28CE21B5E092E00BCD802 /* Images.xcassets */; };
 		6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD633901B71EB4C0038A4EB /* Reachability.m */; };
 		6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6439E1D516C2300121E98 /* PauseViewModel.m */; };
-		6AD643A21D5407DB00121E98 /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD643A11D5407DB00121E98 /* GameOverViewModel.m */; };
 		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 		DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 /* End PBXBuildFile section */
@@ -171,8 +171,6 @@
 		6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		6A7C81651D49EC3F00F36C43 /* SignupViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewModel.h; sourceTree = "<group>"; };
 		6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewModel.m; sourceTree = "<group>"; };
-		6A7C81681D49EC5A00F36C43 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
-		6A7C81691D49EC5A00F36C43 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		6A7C816B1D49F77A00F36C43 /* camera-flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-flash.png"; sourceTree = "<group>"; };
 		6A7C816C1D49F77A00F36C43 /* camera-flash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-flash@2x.png"; sourceTree = "<group>"; };
 		6A7C816D1D49F77A00F36C43 /* camera-switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-switch.png"; sourceTree = "<group>"; };
@@ -220,13 +218,17 @@
 		6A8F2FEC1D45E1020031A8A0 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		6A8F2FED1D45E1020031A8A0 /* ViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewUtils.h; sourceTree = "<group>"; };
 		6A8F2FEE1D45E1020031A8A0 /* ViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUtils.m; sourceTree = "<group>"; };
+		6AA59AF51E15DE5A00D2F4CF /* IAPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
+		6AA59AFD1E1622B400D2F4CF /* GameOverViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewModel.h; sourceTree = "<group>"; };
+		6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewModel.m; sourceTree = "<group>"; };
+		6AA59B001E16235100D2F4CF /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
+		6AA59B011E16235100D2F4CF /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		6AB628921C8ACE6100D68261 /* StartPuzzleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPuzzleViewController.h; sourceTree = "<group>"; };
 		6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPuzzleViewController.m; sourceTree = "<group>"; };
 		6AB628961C8B8A5000D68261 /* FriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewController.h; sourceTree = "<group>"; };
 		6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
 		6AB628991C8BA32600D68261 /* UserSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionViewController.h; sourceTree = "<group>"; };
 		6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionViewController.m; sourceTree = "<group>"; };
-		6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SnapScrambleTableViewCell.xib; path = ../SnapScrambleTableViewCell.xib; sourceTree = "<group>"; };
 		6AC60AFA1D5871EA00681C90 /* DKVerticalColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKVerticalColorPicker.h; sourceTree = "<group>"; };
 		6AC60AFB1D5871EA00681C90 /* DKVerticalColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKVerticalColorPicker.m; sourceTree = "<group>"; };
 		6AC60AFD1D5871F300681C90 /* DKPhotoCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKPhotoCapture.h; sourceTree = "<group>"; };
@@ -263,8 +265,6 @@
 		6AD633901B71EB4C0038A4EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
 		6AD6439D1D516C2300121E98 /* PauseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewModel.h; sourceTree = "<group>"; };
 		6AD6439E1D516C2300121E98 /* PauseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewModel.m; sourceTree = "<group>"; };
-		6AD643A01D5407DB00121E98 /* GameOverViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverViewModel.h; path = ../GameOverViewModel.h; sourceTree = "<group>"; };
-		6AD643A11D5407DB00121E98 /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverViewModel.m; path = ../GameOverViewModel.m; sourceTree = "<group>"; };
 		7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
 		FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -316,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				6A508CE31CC3621C0011B317 /* Models */,
+				6AA3E08D1E14C3BB000A4B20 /* Views */,
 				6AC7129A1D18DF2700D21066 /* View Models */,
 				6A112AA91B5DFB0D0035A75C /* Controllers */,
 				6A112AC31B5DFB0D0035A75C /* Snap ScrambleTests */,
@@ -365,6 +366,7 @@
 				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
 				6A13A6391CB450AD00A134AF /* LegalViewController.h */,
 				6A13A63A1CB450AD00A134AF /* LegalViewController.m */,
+				6AA59AF51E15DE5A00D2F4CF /* IAPViewController.swift */,
 				6A112AAA1B5DFB0D0035A75C /* Supporting Files */,
 			);
 			name = Controllers;
@@ -394,7 +396,6 @@
 				6A112AAE1B5DFB0D0035A75C /* AppDelegate.h */,
 				6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */,
 				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
-				6ABA8D021C5764FE00810DE6 /* SnapScrambleTableViewCell.xib */,
 				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
 				6A8F2FE81D45E0F90031A8A0 /* Utility */,
 				6AD28CE21B5E092E00BCD802 /* Images.xcassets */,
@@ -508,7 +509,7 @@
 			name = Utility;
 			sourceTree = "<group>";
 		};
-		6AC7129A1D18DF2700D21066 /* View Models */ = {
+		6AA3E08D1E14C3BB000A4B20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				6AD28CB51B5E06F900BCD802 /* TargetView.h */,
@@ -517,10 +518,18 @@
 				6AD28CB91B5E071D00BCD802 /* PieceView.m */,
 				6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */,
 				6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */,
+			);
+			name = Views;
+			path = "Snap Scramble";
+			sourceTree = "<group>";
+		};
+		6AC7129A1D18DF2700D21066 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				6AA59B001E16235100D2F4CF /* LoginViewModel.h */,
+				6AA59B011E16235100D2F4CF /* LoginViewModel.m */,
 				6A7C81651D49EC3F00F36C43 /* SignupViewModel.h */,
 				6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */,
-				6A7C81681D49EC5A00F36C43 /* LoginViewModel.h */,
-				6A7C81691D49EC5A00F36C43 /* LoginViewModel.m */,
 				6AC7129C1D18E2ED00D21066 /* ChallengeViewModel.h */,
 				6AC7129D1D18E2ED00D21066 /* ChallengeViewModel.m */,
 				6A4ED85D1D42EB60006213A7 /* FriendsViewModel.h */,
@@ -531,8 +540,8 @@
 				6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */,
 				6AD6439D1D516C2300121E98 /* PauseViewModel.h */,
 				6AD6439E1D516C2300121E98 /* PauseViewModel.m */,
-				6AD643A01D5407DB00121E98 /* GameOverViewModel.h */,
-				6AD643A11D5407DB00121E98 /* GameOverViewModel.m */,
+				6AA59AFD1E1622B400D2F4CF /* GameOverViewModel.h */,
+				6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */,
 			);
 			name = "View Models";
 			path = "Snap Scramble";
@@ -658,7 +667,6 @@
 				6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */,
 				6A8B197F1E1259DA009CD77D /* Spring.podspec in Resources */,
 				6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */,
-				6ABA8D031C5764FE00810DE6 /* SnapScrambleTableViewCell.xib in Resources */,
 				6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */,
 				6A7C81751D49F77A00F36C43 /* camera-switch.png in Resources */,
 				6A7C81771D49F77A00F36C43 /* cancel.png in Resources */,
@@ -711,7 +719,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A93EFBE4716EF23AC6BE2A3B /* [CP] Copy Pods Resources */ = {
@@ -745,16 +753,17 @@
 				6A8F2FF01D45E1020031A8A0 /* UIImage+Resize.m in Sources */,
 				6A8B19731E1259DA009CD77D /* SoundPlayer.swift in Sources */,
 				6A8B19761E1259DA009CD77D /* SpringButton.swift in Sources */,
+				6AA59B021E16235100D2F4CF /* LoginViewModel.m in Sources */,
 				6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */,
 				6A8B19691E1259DA009CD77D /* DesignableTabBarController.swift in Sources */,
 				6A13A63B1CB450AD00A134AF /* LegalViewController.m in Sources */,
-				6A7C816A1D49EC5A00F36C43 /* LoginViewModel.m in Sources */,
 				6A8B19621E1259DA009CD77D /* AsyncButton.swift in Sources */,
 				6A4C51521D23C3EA00D917FA /* GameObject.m in Sources */,
 				6A8B19781E1259DA009CD77D /* SpringLabel.swift in Sources */,
 				6AC60B061D58720600681C90 /* DKEditorView.m in Sources */,
 				6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */,
 				6A1E77C61CB303C0002688D0 /* LoginViewController.m in Sources */,
+				6AA59AF61E15DE5A00D2F4CF /* IAPViewController.swift in Sources */,
 				6AD28CB71B5E06F900BCD802 /* TargetView.m in Sources */,
 				6A8B196C1E1259DA009CD77D /* DesignableView.swift in Sources */,
 				6A112AE71B5E02870035A75C /* GameViewController.m in Sources */,
@@ -767,6 +776,7 @@
 				6A112AB01B5DFB0D0035A75C /* AppDelegate.m in Sources */,
 				6A8B19721E1259DA009CD77D /* Misc.swift in Sources */,
 				6A112AD81B5E02450035A75C /* SignupViewController.m in Sources */,
+				6AA59AFF1E1622B400D2F4CF /* GameOverViewModel.m in Sources */,
 				6A8B19671E1259DA009CD77D /* DesignableImageView.swift in Sources */,
 				6AC60AFF1D5871F300681C90 /* DKPhotoCapture.m in Sources */,
 				6A112AAD1B5DFB0D0035A75C /* main.m in Sources */,
@@ -775,7 +785,6 @@
 				6A8B196A1E1259DA009CD77D /* DesignableTextField.swift in Sources */,
 				6A8B19631E1259DA009CD77D /* AsyncImageView.swift in Sources */,
 				6AC60B071D58720600681C90 /* ForwardingTextField.m in Sources */,
-				6AD643A21D5407DB00121E98 /* GameOverViewModel.m in Sources */,
 				6A4ED85F1D42EB60006213A7 /* FriendsViewModel.m in Sources */,
 				6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */,
 				6A8B196D1E1259DA009CD77D /* ImageLoader.swift in Sources */,
