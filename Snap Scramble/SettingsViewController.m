@@ -7,6 +7,8 @@
 //
 
 #import "SettingsViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 @interface SettingsViewController ()
 
@@ -17,9 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL =
+    [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
+    content.contentTitle = @"Download Snap Scramble";
+    content.contentDescription = @"Check out the iPhone game Snap Scramble!";
+    self.facebookSendButton.shareContent = content;
     [self.logoutButton addTarget:self action:@selector(logoutButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.goBackButton addTarget:self action:@selector(goBackButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    self.goBackButton.adjustsImageWhenHighlighted = NO;
+    self.goBackButton.adjustsImageWhenHighlighted = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "Snap_Scramble-Swift.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 @interface SettingsViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UIButton *termsAndConditionsButton;
 @property (weak, nonatomic) IBOutlet UIButton* goBackButton;
+@property (weak, nonatomic) IBOutlet FBSDKSendButton *facebookSendButton;
 @property (weak, nonatomic) IBOutlet SpringView *settingsView;
 
 @end

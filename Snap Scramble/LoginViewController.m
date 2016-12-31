@@ -8,7 +8,9 @@
 
 #import "LoginViewController.h"
 #import "LoginViewModel.h"
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
 
 
 
@@ -35,11 +37,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.center = self.view.center;
-    [self.view addSubview:loginButton];
-    
-    
     self.navigationItem.hidesBackButton = YES;
     [self.navigationItem.backBarButtonItem setTitle:@""];
     self.usernameField.autocorrectionType = UITextAutocorrectionTypeNo;
