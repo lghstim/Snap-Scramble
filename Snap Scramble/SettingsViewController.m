@@ -24,6 +24,7 @@
     [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
     content.contentTitle = @"Download Snap Scramble";
     content.contentDescription = @"Check out the iPhone game Snap Scramble!";
+    self.facebookSendButton.titleLabel.text = @"Share through Facebook Messenger";
     self.facebookSendButton.shareContent = content;
     [self.logoutButton addTarget:self action:@selector(logoutButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.goBackButton addTarget:self action:@selector(goBackButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -60,6 +61,34 @@
     [self.settingsView animate];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+- (IBAction)unlockFullVersionButtonDidPress:(id)sender {
+    [PFPurchase buyProduct:@"com.timgorer.SnapScrambleDescrambleFriends.SnapScramblePremiumApp" block:^(NSError *error) {
+        if (!error) {
+            // Run UI logic that informs user the product has been purchased, such as displaying an alert view.
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        
+        else {
+            NSLog(@"hi: %@", error);
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred in purchasing Snap Scramble Premium." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+    }];
+}
+
+- (IBAction)restorePurchasesButtonDidPress:(id)sender {
+    [PFPurchase restore];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults boolForKey:@"premiumUser"] != true) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No purchases to restore" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alertView show];
+    } else if ([userDefaults boolForKey:@"premiumUser"] == true) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Snap Scramble Premium restored." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
 
 /*
 #pragma mark - Navigation

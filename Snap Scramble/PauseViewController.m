@@ -35,7 +35,7 @@
     [self.resignButton addTarget:self action:@selector(resignButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
       [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.reportButton addTarget:self action:@selector(reportButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    self.cancelButton.adjustsImageWhenHighlighted = NO;
+    self.cancelButton.adjustsImageWhenHighlighted = YES;
     // pause the timer here. this is for version 2.
 }
 

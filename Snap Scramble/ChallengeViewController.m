@@ -10,6 +10,8 @@
 #import "CreatePuzzleViewController.h"
 #import "Reachability.h"
 #import "ChallengeViewModel.h"
+#import "Snap_Scramble-Swift.h"
+
 
 
 @interface ChallengeViewController ()
@@ -33,7 +35,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setHidden:false];
     self.currentGamesTable.delegate = self;
@@ -43,10 +44,9 @@
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
     [self.headerView addSubview:self.usernameLabel];
-    
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
-    
+
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
     [self.challengeButton addTarget:self action:@selector(selectUserFromOptions:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
@@ -106,14 +106,18 @@
 
 // this starts an entirely new game, don't be confused.
 - (IBAction)selectUserFromOptions:(id)sender {
-    NSLog(@"%lu", (self.currentGames.count + self.currentPendingGames.count));
+    NSLog(@"%u", (self.currentGames.count + self.currentPendingGames.count));
     if ((self.currentGames.count + self.currentPendingGames.count) >= 10) {
-        // if the user doesn't have the premium in-app purchase of Snap Scramble, push him to the IAPViewController {
-        [self performSegueWithIdentifier:@"openIAP" sender:self];
-
-        // }
+        // if the user doesn't have the premium in-app purchase of Snap Scramble, push him to the IAPViewController
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        if ([userDefaults boolForKey:@"premiumUser"] != true) {
+            [self performSegueWithIdentifier:@"openIAP" sender:self];
+        }
         
         // else if he has the in-app purchase then let him create a new game.
+        else {
+            [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
+        }
     }
     
     // if the user has less than 10 existing games then let him create more.
@@ -125,21 +129,7 @@
 #pragma mark - userMatchesTable code
 
 - (void)retrieveUserMatches {
-    [self.viewModel retrievePendingMatches:^(NSArray *matches, NSError *error) {
-        if (error) {
-            NSLog(@"Error %@ %@", error, [error userInfo]);
-        }
-        
-        else {
-            if ([self.refreshControl isRefreshing]) {
-                [self.refreshControl endRefreshing];
-            }
-            
-            self.currentPendingGames = matches;
-            [self.currentGamesTable reloadData];
-        }
-    }];
-    
+    // retrieve current matches
     [self.viewModel retrieveCurrentMatches:^(NSArray *matches, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
@@ -152,6 +142,34 @@
             
             self.currentGames = matches;
             [self.currentGamesTable reloadData];
+            
+            // then retrieve pending matches
+            [self.viewModel retrievePendingMatches:^(NSArray *matches, NSError *error) {
+                if (error) {
+                    NSLog(@"Error %@ %@", error, [error userInfo]);
+                }
+                
+                else {
+                    if ([self.refreshControl isRefreshing]) {
+                        [self.refreshControl endRefreshing];
+                    }
+                    
+                    self.currentPendingGames = matches;
+                    [self.currentGamesTable reloadData];
+                    
+                    // save games count to User class
+                    NSUInteger gamesCount = (self.currentGames.count + self.currentPendingGames.count);
+                    NSNumber *gamesCountNSNumber = [NSNumber numberWithInteger:gamesCount];
+                    [[PFUser currentUser] setObject:gamesCountNSNumber forKey:@"gamesCount"];
+                    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        if (!error) {
+                            NSLog(@"games count saved: %@", gamesCountNSNumber);
+                        } else {
+                            NSLog(@"error saving games count");
+                        }
+                    }];
+                }
+            }];
         }
     }];
 }
@@ -281,30 +299,36 @@
         
         // if current user is the sender for the round
         if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) {
-            NSString *opponentName = [aCurrentPendingGame objectForKey:@"receiverName"];
-            cell.textLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
-            
-            // check if it is the receiver's (not the current user in this case) turn to reply or to play for the round
-            if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
-                cell.detailTextLabel.text = @"Opponent's turn to reply";
+            // delete if game had an error with assigning receiver
+            if ([[aCurrentPendingGame objectForKey:@"receiverName"] isEqualToString:@""]) {
+                NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
+                [self.viewModel deleteGame:aCurrentPendingGame completion:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        NSLog(@"deleted game");
+                        [tempCurrentPendingGames removeObject:aCurrentPendingGame];
+                        self.currentPendingGames = tempCurrentPendingGames;
+                        [tableView reloadData];
+                    }
+                    else {
+                        NSLog(@"game failed to delete.");
+                    }
+                }];
             }
-            else if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
-                cell.detailTextLabel.text = @"Opponent's turn to play";
+            
+            // otherwise proceed
+            else {
+                NSString *opponentName = [aCurrentPendingGame objectForKey:@"receiverName"];
+                cell.textLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
+                
+                // check if it is the receiver's (not the current user in this case) turn to reply or to play for the round
+                if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
+                    cell.detailTextLabel.text = @"Opponent's turn to reply";
+                }
+                else if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
+                    cell.detailTextLabel.text = @"Opponent's turn to play";
+                }
             }
         }
-        
-       /* else if ([[aCurrentPendingGame objectForKey:@"receiverName"] isEqualToString:@""]) {
-            NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
-            [self.viewModel deleteGame:aCurrentPendingGame completion:^(BOOL succeeded, NSError *error) {
-                if (!error) {
-                    [tempCurrentPendingGames removeObject:aCurrentPendingGame];
-                    self.currentPendingGames = tempCurrentPendingGames;
-                }
-                else {
-                    NSLog(@"game failed to delete.");
-                }
-            }];
-        } */
     }
     
     return cell;

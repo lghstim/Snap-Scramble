@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    self.cancelButton.adjustsImageWhenHighlighted = NO;
+    self.cancelButton.adjustsImageWhenHighlighted = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated

@@ -22,6 +22,7 @@
 		6A15C9211B675FB800DD46E3 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A15C9201B675FB800DD46E3 /* GameOverViewController.m */; };
 		6A1E77C61CB303C0002688D0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1E77C51CB303C0002688D0 /* LoginViewController.m */; };
 		6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1E77CB1CB31487002688D0 /* SettingsViewController.m */; };
+		6A2F1DF11E1E48D300DAAA87 /* IAPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2F1DF01E1E48D300DAAA87 /* IAPViewController.m */; };
 		6A4AC5051D2E2E2200FA7797 /* PuzzleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */; };
 		6A4C51521D23C3EA00D917FA /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4C51511D23C3EA00D917FA /* GameObject.m */; };
 		6A4C51551D25186600D917FA /* PuzzleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4C51541D25186600D917FA /* PuzzleObject.m */; };
@@ -74,7 +75,6 @@
 		6A8F2FEF1D45E1020031A8A0 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEA1D45E1020031A8A0 /* UIImage+Crop.m */; };
 		6A8F2FF01D45E1020031A8A0 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEC1D45E1020031A8A0 /* UIImage+Resize.m */; };
 		6A8F2FF11D45E1020031A8A0 /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F2FEE1D45E1020031A8A0 /* ViewUtils.m */; };
-		6AA59AF61E15DE5A00D2F4CF /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59AF51E15DE5A00D2F4CF /* IAPViewController.swift */; };
 		6AA59AFF1E1622B400D2F4CF /* GameOverViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */; };
 		6AA59B021E16235100D2F4CF /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA59B011E16235100D2F4CF /* LoginViewModel.m */; };
 		6AA5A9AF1E16478300D2F4CF /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA5A9AD1E16478300D2F4CF /* Bolts.framework */; };
@@ -171,6 +171,8 @@
 		6A1E77CA1CB31487002688D0 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		6A1E77CB1CB31487002688D0 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Snap Scramble.entitlements"; sourceTree = "<group>"; };
+		6A2F1DEF1E1E48D300DAAA87 /* IAPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPViewController.h; sourceTree = "<group>"; };
+		6A2F1DF01E1E48D300DAAA87 /* IAPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPViewController.m; sourceTree = "<group>"; };
 		6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleView.h; sourceTree = "<group>"; };
 		6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleView.m; sourceTree = "<group>"; };
 		6A4C51501D23C3EA00D917FA /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameObject.h; path = "Snap Scramble/GameObject.h"; sourceTree = "<group>"; };
@@ -235,7 +237,6 @@
 		6A8F2FEC1D45E1020031A8A0 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		6A8F2FED1D45E1020031A8A0 /* ViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewUtils.h; sourceTree = "<group>"; };
 		6A8F2FEE1D45E1020031A8A0 /* ViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUtils.m; sourceTree = "<group>"; };
-		6AA59AF51E15DE5A00D2F4CF /* IAPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
 		6AA59AFD1E1622B400D2F4CF /* GameOverViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewModel.h; sourceTree = "<group>"; };
 		6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewModel.m; sourceTree = "<group>"; };
 		6AA59B001E16235100D2F4CF /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
@@ -366,6 +367,8 @@
 		6A112AA91B5DFB0D0035A75C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6A2F1DEF1E1E48D300DAAA87 /* IAPViewController.h */,
+				6A2F1DF01E1E48D300DAAA87 /* IAPViewController.m */,
 				6A112AD61B5E02450035A75C /* SignupViewController.h */,
 				6A112AD71B5E02450035A75C /* SignupViewController.m */,
 				6A1E77C41CB303C0002688D0 /* LoginViewController.h */,
@@ -394,7 +397,6 @@
 				6A15C9201B675FB800DD46E3 /* GameOverViewController.m */,
 				6A13A6391CB450AD00A134AF /* LegalViewController.h */,
 				6A13A63A1CB450AD00A134AF /* LegalViewController.m */,
-				6AA59AF51E15DE5A00D2F4CF /* IAPViewController.swift */,
 				6A112AAA1B5DFB0D0035A75C /* Supporting Files */,
 			);
 			name = Controllers;
@@ -808,13 +810,13 @@
 				6A112AE11B5E026E0035A75C /* CreatePuzzleViewController.m in Sources */,
 				6A8B19691E1259DA009CD77D /* DesignableTabBarController.swift in Sources */,
 				6A13A63B1CB450AD00A134AF /* LegalViewController.m in Sources */,
+				6A2F1DF11E1E48D300DAAA87 /* IAPViewController.m in Sources */,
 				6A8B19621E1259DA009CD77D /* AsyncButton.swift in Sources */,
 				6A4C51521D23C3EA00D917FA /* GameObject.m in Sources */,
 				6A8B19781E1259DA009CD77D /* SpringLabel.swift in Sources */,
 				6AC60B061D58720600681C90 /* DKEditorView.m in Sources */,
 				6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */,
 				6A1E77C61CB303C0002688D0 /* LoginViewController.m in Sources */,
-				6AA59AF61E15DE5A00D2F4CF /* IAPViewController.swift in Sources */,
 				6AD28CB71B5E06F900BCD802 /* TargetView.m in Sources */,
 				6A8B196C1E1259DA009CD77D /* DesignableView.swift in Sources */,
 				6A112AE71B5E02870035A75C /* GameViewController.m in Sources */,

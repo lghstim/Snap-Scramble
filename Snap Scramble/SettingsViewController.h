@@ -21,4 +21,9 @@
 @property (weak, nonatomic) IBOutlet FBSDKSendButton *facebookSendButton;
 @property (weak, nonatomic) IBOutlet SpringView *settingsView;
 
+- (IBAction)unlockFullVersionButtonDidPress:(id)sender;
+- (IBAction)restorePurchasesButtonDidPress:(id)sender;
+
+
 @end
+

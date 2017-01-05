@@ -35,7 +35,7 @@
     [self.takePhotoButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.choosePhotoButton addTarget:self action:@selector(choosePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    self.backButton.adjustsImageWhenHighlighted = NO;
+    self.backButton.adjustsImageWhenHighlighted = YES;
     self.takePhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.takePhotoButton.titleLabel.minimumScaleFactor = 0.5;
     self.choosePhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;

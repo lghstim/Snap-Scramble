@@ -31,7 +31,7 @@
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = @"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
         configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
-        configuration.server = @"http://snapscramble.herokuapp.com/parse";
+        configuration.server = @"https://snapscramble.herokuapp.com/parse";
     }]];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
@@ -47,6 +47,16 @@
         [application registerForRemoteNotifications];
     }
 
+    
+    // Use the product identifier from iTunes to register a handler.
+    [PFPurchase addObserverForProduct:@"com.timgorer.SnapScrambleDescrambleFriends.SnapScramblePremiumApp" block:^(SKPaymentTransaction *transaction) {
+        // Write business logic that should run once this product is purchased.
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setBool:true forKey:@"premiumUser"];
+        [userDefaults synchronize];
+    }];
+
+    
     [self.window makeKeyAndVisible];
     
     return YES;

@@ -25,7 +25,7 @@
     [self.friendsListButton addTarget:self action:@selector(openFriendsList:) forControlEvents:UIControlEventTouchUpInside];
    [self.randomUserButton addTarget:self action:@selector(findRandomUser:) forControlEvents:UIControlEventTouchUpInside];
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    self.cancelButton.adjustsImageWhenHighlighted = NO;
+    self.cancelButton.adjustsImageWhenHighlighted = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -65,7 +65,7 @@
             [NSThread sleepForTimeInterval:2];
             [KVNProgress dismiss];
             NSLog(@"No error, the random opponent that was found was: %@", opponent);
-            self.opponent = (PFUser *)opponent[0];
+            self.opponent = (PFUser *)opponent[0]; // get the first opponent in the list
             [self.timeoutTimer invalidate];
             [self performSegueWithIdentifier:@"createPuzzle" sender:self];
         }

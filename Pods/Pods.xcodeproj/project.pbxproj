@@ -87,10 +87,10 @@
 		19E9CDCAFFA89E6278177C8E5A36F06D /* LLSimpleCamera.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LLSimpleCamera.xcconfig; sourceTree = "<group>"; };
 		1CD841784E91B08E87271F7E428D28E5 /* UIImage+KVNImageEffects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+KVNImageEffects.h"; path = "KVNProgress/Categories/UIImage+KVNImageEffects.h"; sourceTree = "<group>"; };
 		24E7C7213C4E886A6CA31E7BE078C733 /* RMActionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMActionController.m; path = RMActionController/RMActionController.m; sourceTree = "<group>"; };
-		290E8C63BCFA9FBBC532537570ED96C0 /* libKVNProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libKVNProgress.a; path = libKVNProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		290E8C63BCFA9FBBC532537570ED96C0 /* libKVNProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKVNProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F042D1969AB98FD5A01756885385E69 /* RMActionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RMActionController.h; path = RMActionController/RMActionController.h; sourceTree = "<group>"; };
 		32D2C1A0EE06E20CD3ADBB06A94588CE /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KVNProgressConfiguration.m; path = KVNProgress/Classes/KVNProgressConfiguration.m; sourceTree = "<group>"; };
-		3C27816073072BA6C2E12D762AF07ED0 /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Snap Scramble.a"; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C27816073072BA6C2E12D762AF07ED0 /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CAEBF6A90B8CA6779CFA1FD61F89A8E /* GoogleParsingUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleParsingUtilities.framework; path = Frameworks/GoogleParsingUtilities.framework; sourceTree = "<group>"; };
 		47D3430BB2E4F976CD0B2990CDC84020 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
 		49D2C0F62B5BF7D46506C4630DD91A0C /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
@@ -101,11 +101,11 @@
 		5AEAB17003461AFC035C65A647B9A4AD /* Pods-Snap Scramble-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snap Scramble-dummy.m"; sourceTree = "<group>"; };
 		5D27DDEE80E958B567963BE3065D481D /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KVNProgressConfiguration.h; path = KVNProgress/Classes/KVNProgressConfiguration.h; sourceTree = "<group>"; };
 		5D9A3414BC7D3D484987A149A53695E5 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+FixOrientation.h"; path = "LLSimpleCamera/UIImage+FixOrientation.h"; sourceTree = "<group>"; };
-		5DA77C3FFD85A40552D6FBA3352EF363 /* libLLSimpleCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libLLSimpleCamera.a; path = libLLSimpleCamera.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		69058CF36A7D440B66BB2603983736CC /* libRMActionController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRMActionController.a; path = libRMActionController.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DA77C3FFD85A40552D6FBA3352EF363 /* libLLSimpleCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLLSimpleCamera.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		69058CF36A7D440B66BB2603983736CC /* libRMActionController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRMActionController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		696C979AC35E82897A2C7FD336527CAC /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = Frameworks/FirebaseDatabase.framework; sourceTree = "<group>"; };
 		6ABACC41C69F3DF31DA9438487A0B3FC /* KVNProgress.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KVNProgress.h; path = KVNProgress/Classes/KVNProgress.h; sourceTree = "<group>"; };
-		6E0BE38219B643F33A2955C74D14170D /* libRMPickerViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRMPickerViewController.a; path = libRMPickerViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E0BE38219B643F33A2955C74D14170D /* libRMPickerViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRMPickerViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		70CA93425DFF8FBC00F797BB5AEDA1D6 /* RMPickerViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RMPickerViewController-prefix.pch"; sourceTree = "<group>"; };
 		71A54A949FE0798A7CF5E163E36398E1 /* UIImage+KVNEmpty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+KVNEmpty.h"; path = "KVNProgress/Categories/UIImage+KVNEmpty.h"; sourceTree = "<group>"; };
 		74F3E488D11690A93E3A30715EB7D733 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		897747BBAE3D30ED679F1DCE0FA22CE2 /* RMActionController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RMActionController-dummy.m"; sourceTree = "<group>"; };
 		9155F3859303468F5BABBACC7AB58578 /* KVNProgress-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KVNProgress-dummy.m"; sourceTree = "<group>"; };
 		9258689530E0134765B96D0A7C691916 /* FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceID.h; path = Sources/FIRInstanceID.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		969B842421F15E4FB8C22016EA650D40 /* UIImage+KVNEmpty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+KVNEmpty.m"; path = "KVNProgress/Categories/UIImage+KVNEmpty.m"; sourceTree = "<group>"; };
 		A1508F1E6DCD8DAF78CFEA6603531FB4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		A65198D8190D7B9FAA1CC7D8CD16A971 /* LLSimpleCamera-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LLSimpleCamera-prefix.pch"; sourceTree = "<group>"; };
@@ -202,7 +202,6 @@
 			children = (
 				D23C5F3BCDEA01986786C6AC6429A70E /* Frameworks */,
 			);
-			name = FirebaseRemoteConfig;
 			path = FirebaseRemoteConfig;
 			sourceTree = "<group>";
 		};
@@ -211,7 +210,6 @@
 			children = (
 				21A4E488D925D12269611EBE32B02C57 /* Frameworks */,
 			);
-			name = GoogleSymbolUtilities;
 			path = GoogleSymbolUtilities;
 			sourceTree = "<group>";
 		};
@@ -222,7 +220,6 @@
 				24E7C7213C4E886A6CA31E7BE078C733 /* RMActionController.m */,
 				BA4A807EBC22D007AA4011F1CA7EE0FA /* Support Files */,
 			);
-			name = RMActionController;
 			path = RMActionController;
 			sourceTree = "<group>";
 		};
@@ -283,7 +280,6 @@
 			children = (
 				0ACEE98282B28F7A442B029B84D6848D /* Frameworks */,
 			);
-			name = FirebaseAuth;
 			path = FirebaseAuth;
 			sourceTree = "<group>";
 		};
@@ -340,7 +336,6 @@
 			children = (
 				427D0CB604D4C5E05FD4820DF08C5395 /* Frameworks */,
 			);
-			name = GoogleInterchangeUtilities;
 			path = GoogleInterchangeUtilities;
 			sourceTree = "<group>";
 		};
@@ -360,7 +355,6 @@
 				94FCA1819E8AC559A68B25C3E8F87AD7 /* Resources */,
 				E9EE77A5184F8E20D083CF93B351CD1A /* Support Files */,
 			);
-			name = KVNProgress;
 			path = KVNProgress;
 			sourceTree = "<group>";
 		};
@@ -369,7 +363,6 @@
 			children = (
 				3157E1039FE66EE5ACD2AAEB2B2A276C /* Frameworks */,
 			);
-			name = GoogleParsingUtilities;
 			path = GoogleParsingUtilities;
 			sourceTree = "<group>";
 		};
@@ -378,7 +371,6 @@
 			children = (
 				9CFCA324DA4152977F3E8B973A7449FB /* Frameworks */,
 			);
-			name = FirebaseDatabase;
 			path = FirebaseDatabase;
 			sourceTree = "<group>";
 		};
@@ -391,7 +383,6 @@
 				EC5A63B1323E832D7C9E9FAC91C4500B /* UIImage+FixOrientation.m */,
 				A4E46D809DC09784E3E6B1889ED2058F /* Support Files */,
 			);
-			name = LLSimpleCamera;
 			path = LLSimpleCamera;
 			sourceTree = "<group>";
 		};
@@ -434,7 +425,6 @@
 			children = (
 				4BA74C6589CC1F82C53C354064D7415F /* Frameworks */,
 			);
-			name = FirebaseStorage;
 			path = FirebaseStorage;
 			sourceTree = "<group>";
 		};
@@ -443,7 +433,6 @@
 			children = (
 				B219DEF7AC2A80C5386049E1909D3622 /* Frameworks */,
 			);
-			name = GoogleIPhoneUtilities;
 			path = GoogleIPhoneUtilities;
 			sourceTree = "<group>";
 		};
@@ -460,7 +449,6 @@
 			children = (
 				3420B24510DC978898D37F16FE17A448 /* Frameworks */,
 			);
-			name = FirebaseCrash;
 			path = FirebaseCrash;
 			sourceTree = "<group>";
 		};
@@ -499,7 +487,6 @@
 				D52A587E74F80B34B1269AAF81E869BA /* RMPickerViewController.m */,
 				B6C034CB00AA3ED4BEAD0A922AF1146C /* Support Files */,
 			);
-			name = RMPickerViewController;
 			path = RMPickerViewController;
 			sourceTree = "<group>";
 		};
@@ -508,7 +495,6 @@
 			children = (
 				1971199123607B71DDFACC8D61EBE0A7 /* Frameworks */,
 			);
-			name = GoogleNetworkingUtilities;
 			path = GoogleNetworkingUtilities;
 			sourceTree = "<group>";
 		};
@@ -558,7 +544,6 @@
 			children = (
 				3C0953B38E63FBB493CF656869B41812 /* Frameworks */,
 			);
-			name = FirebaseAnalytics;
 			path = FirebaseAnalytics;
 			sourceTree = "<group>";
 		};
@@ -568,7 +553,6 @@
 				9258689530E0134765B96D0A7C691916 /* FIRInstanceID.h */,
 				1E2BA176C3407B021A952E5A62FFE823 /* Frameworks */,
 			);
-			name = FirebaseInstanceID;
 			path = FirebaseInstanceID;
 			sourceTree = "<group>";
 		};
@@ -577,7 +561,6 @@
 			children = (
 				876BF7D2E062F428B97E6780BEB9575F /* Frameworks */,
 			);
-			name = GoogleUtilities;
 			path = GoogleUtilities;
 			sourceTree = "<group>";
 		};
@@ -620,7 +603,6 @@
 			children = (
 				FD7A3E343490461FDBEABA3392D402FC /* Analytics */,
 			);
-			name = Firebase;
 			path = Firebase;
 			sourceTree = "<group>";
 		};
@@ -629,7 +611,6 @@
 			children = (
 				79F4702ABA22604CFCFBA7EBF3F8C4AB /* Frameworks */,
 			);
-			name = "Google-Mobile-Ads-SDK";
 			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
 		};

@@ -62,7 +62,7 @@
     self.backButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.backButton.titleLabel.minimumScaleFactor = 0.5;
     self.selectPuzzleSizeButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.selectPuzzleSizeButton.titleLabel.minimumScaleFactor = 0.5;
+   self.selectPuzzleSizeButton.titleLabel.minimumScaleFactor = 0.5;
     self.sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.sendButton.titleLabel.minimumScaleFactor = 0.5;
 
@@ -108,7 +108,11 @@
 
 - (IBAction)selectPuzzleSizeButtonDidPress:(id)sender {
     //Create select action
-    RMAction *selectAction = [RMAction actionWithTitle:@"Select" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+    RMAction *selectAction = [RMAction actionWithTitle:@"Start Game" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+        controller.disableBlurEffectsForBackgroundView = YES;
+        controller.disableBlurEffects = YES;
+        controller.disableBlurEffectsForContentView = YES;
+
         UIPickerView *picker = ((RMPickerViewController *)controller).picker;
         
         NSString *puzzleSizeText;
@@ -119,12 +123,14 @@
         }
         
         NSLog(@"puzzle size selected: %@", self.puzzleSize);
+        [self sendGame:self]; // start game
     
         self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
     }];
     
     
-    RMAction *cancelAction = [RMAction actionWithTitle:@"Cancel" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
+    RMAction *cancelAction = [RMAction actionWithTitle:@"Go Back" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
+        [self.navigationController popViewControllerAnimated:YES];
         NSLog(@"Row selection was canceled");
     }];
 
@@ -181,8 +187,8 @@
                     [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                         if (error) {
                             [KVNProgress dismiss];
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                            [alertView show];
+                            /* UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                            [alertView show]; */
                         }
                        
                         else {
@@ -217,7 +223,7 @@
     NSLog(@"%@", self.totalSeconds);
     
     // if too much time passed in uploading
-    if ([self.totalSeconds intValue] > 20) {
+    if ([self.totalSeconds intValue] > 30) {
         [KVNProgress dismiss];
         NSLog(@"timeout error. took longer than 20 seconds");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
