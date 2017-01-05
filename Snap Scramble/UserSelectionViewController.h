@@ -12,7 +12,6 @@
 #import <KVNProgress/KVNProgress.h>
 
 @protocol FirstVCDelegate <NSObject>
-- (void)receiveRandomUserData:(PFUser *)opponent;
 - (void)receiveFriendUserData:(PFUser *)opponent;
 @end
 

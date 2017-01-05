@@ -27,7 +27,6 @@
 		6A4C51551D25186600D917FA /* PuzzleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4C51541D25186600D917FA /* PuzzleObject.m */; };
 		6A4ED85F1D42EB60006213A7 /* FriendsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED85E1D42EB60006213A7 /* FriendsViewModel.m */; };
 		6A4ED8621D440352006213A7 /* PreviewPuzzleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED8611D440352006213A7 /* PreviewPuzzleViewModel.m */; };
-		6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */; };
 		6A6FB62F1D4DC95300EFA6C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */; };
 		6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */; };
 		6A77DF7D1D44978E00ECD9BC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */; };
@@ -102,7 +101,6 @@
 		6AD28CC21B5E07C900BCD802 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC11B5E07C900BCD802 /* Security.framework */; };
 		6AD28CC41B5E07DB00BCD802 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC31B5E07DB00BCD802 /* QuartzCore.framework */; };
 		6AD28CC61B5E07DF00BCD802 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC51B5E07DF00BCD802 /* MobileCoreServices.framework */; };
-		6AD28CC81B5E07E300BCD802 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC71B5E07E300BCD802 /* libz.dylib */; };
 		6AD28CCA1B5E07E800BCD802 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CC91B5E07E800BCD802 /* CoreLocation.framework */; };
 		6AD28CCC1B5E07EC00BCD802 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CCB1B5E07EC00BCD802 /* CFNetwork.framework */; };
 		6AD28CCE1B5E07F000BCD802 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD28CCD1B5E07F000BCD802 /* AudioToolbox.framework */; };
@@ -112,6 +110,8 @@
 		6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD28CE21B5E092E00BCD802 /* Images.xcassets */; };
 		6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD633901B71EB4C0038A4EB /* Reachability.m */; };
 		6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6439E1D516C2300121E98 /* PauseViewModel.m */; };
+		6AF197CF1E1E1F56004840FC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */; };
+		6AF197D11E1E1F73004840FC /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF197CE1E1E1F56004840FC /* libz.1.dylib */; };
 		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 		DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
 /* End PBXBuildFile section */
@@ -170,6 +170,7 @@
 		6A1E77C51CB303C0002688D0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6A1E77CA1CB31487002688D0 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		6A1E77CB1CB31487002688D0 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Snap Scramble.entitlements"; sourceTree = "<group>"; };
 		6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleView.h; sourceTree = "<group>"; };
 		6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleView.m; sourceTree = "<group>"; };
 		6A4C51501D23C3EA00D917FA /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameObject.h; path = "Snap Scramble/GameObject.h"; sourceTree = "<group>"; };
@@ -180,7 +181,6 @@
 		6A4ED85E1D42EB60006213A7 /* FriendsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewModel.m; sourceTree = "<group>"; };
 		6A4ED8601D440352006213A7 /* PreviewPuzzleViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewPuzzleViewModel.h; sourceTree = "<group>"; };
 		6A4ED8611D440352006213A7 /* PreviewPuzzleViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPuzzleViewModel.m; sourceTree = "<group>"; };
-		6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A6FB6341D508FB700EFA6C3 /* GameViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewModel.h; sourceTree = "<group>"; };
 		6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewModel.m; sourceTree = "<group>"; };
@@ -275,7 +275,6 @@
 		6AD28CC11B5E07C900BCD802 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6AD28CC31B5E07DB00BCD802 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6AD28CC51B5E07DF00BCD802 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		6AD28CC71B5E07E300BCD802 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6AD28CC91B5E07E800BCD802 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6AD28CCB1B5E07EC00BCD802 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6AD28CCD1B5E07F000BCD802 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -287,6 +286,8 @@
 		6AD633901B71EB4C0038A4EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
 		6AD6439D1D516C2300121E98 /* PauseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewModel.h; sourceTree = "<group>"; };
 		6AD6439E1D516C2300121E98 /* PauseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewModel.m; sourceTree = "<group>"; };
+		6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
+		6AF197CE1E1E1F56004840FC /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
 		FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -296,10 +297,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AF197D11E1E1F73004840FC /* libz.1.dylib in Frameworks */,
+				6AF197CF1E1E1F56004840FC /* libsqlite3.dylib in Frameworks */,
 				6AA5A9AF1E16478300D2F4CF /* Bolts.framework in Frameworks */,
 				6AA5A9B01E16478300D2F4CF /* Parse.framework in Frameworks */,
 				6AA5A9B51E164DA800D2F4CF /* FBSDKLoginKit.framework in Frameworks */,
-				6A62D55E1B5E1C9400AC638E /* libsqlite3.dylib in Frameworks */,
 				6AD28CD41B5E080500BCD802 /* UIKit.framework in Frameworks */,
 				6AD28CD21B5E080000BCD802 /* CoreGraphics.framework in Frameworks */,
 				6AD28CD01B5E07FC00BCD802 /* Foundation.framework in Frameworks */,
@@ -307,7 +309,6 @@
 				6AD28CCC1B5E07EC00BCD802 /* CFNetwork.framework in Frameworks */,
 				6AA5A9B31E164D9100D2F4CF /* FBSDKCoreKit.framework in Frameworks */,
 				6AD28CCA1B5E07E800BCD802 /* CoreLocation.framework in Frameworks */,
-				6AD28CC81B5E07E300BCD802 /* libz.dylib in Frameworks */,
 				6AD28CC61B5E07DF00BCD802 /* MobileCoreServices.framework in Frameworks */,
 				6AD28CC41B5E07DB00BCD802 /* QuartzCore.framework in Frameworks */,
 				6AD28CC21B5E07C900BCD802 /* Security.framework in Frameworks */,
@@ -403,6 +404,7 @@
 		6A112AAA1B5DFB0D0035A75C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */,
 				6A8B193B1E1259DA009CD77D /* Spring-masterr */,
 				6AC60B091D591C4200681C90 /* DKImagePickerOverlay.xib */,
 				6AC60B0A1D591C4200681C90 /* DKImageEdit.xib */,
@@ -577,19 +579,19 @@
 		6AD28CD51B5E081200BCD802 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */,
+				6AF197CE1E1E1F56004840FC /* libz.1.dylib */,
 				6AA5A9B61E164DB400D2F4CF /* FBSDKShareKit.framework */,
 				6AA5A9B41E164DA800D2F4CF /* FBSDKLoginKit.framework */,
 				6AA5A9B21E164D9100D2F4CF /* FBSDKCoreKit.framework */,
 				6AA5A9AD1E16478300D2F4CF /* Bolts.framework */,
 				6AA5A9AE1E16478300D2F4CF /* Parse.framework */,
-				6A62D55D1B5E1C9400AC638E /* libsqlite3.dylib */,
 				6AD28CD31B5E080500BCD802 /* UIKit.framework */,
 				6AD28CD11B5E080000BCD802 /* CoreGraphics.framework */,
 				6AD28CCF1B5E07FC00BCD802 /* Foundation.framework */,
 				6AD28CCD1B5E07F000BCD802 /* AudioToolbox.framework */,
 				6AD28CCB1B5E07EC00BCD802 /* CFNetwork.framework */,
 				6AD28CC91B5E07E800BCD802 /* CoreLocation.framework */,
-				6AD28CC71B5E07E300BCD802 /* libz.dylib */,
 				6AD28CC51B5E07DF00BCD802 /* MobileCoreServices.framework */,
 				6AD28CC31B5E07DB00BCD802 /* QuartzCore.framework */,
 				6AD28CC11B5E07C900BCD802 /* Security.framework */,
@@ -991,6 +993,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -1017,6 +1020,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
