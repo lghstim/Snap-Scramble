@@ -51,10 +51,13 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:false];
     
+    
     self.friendsRelation = self.viewModel.friendsRelation;
+    [KVNProgress showWithStatus:@"Loading friends list..."];
     [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
+            [KVNProgress dismiss];
         }
         
         else {
@@ -64,24 +67,30 @@
             
             [self.viewModel getFounder:^(PFObject* founderUser, NSError* error) {
                 if(!error) {
+                    // if the founder is not on the user's friendslist, add him
                     if (![self.viewModel isFriend:founderUser friendsList:self.mutableFriendsList]) {
                         [self.mutableFriendsList addObject:founderUser];
                         [self.friendsRelation addObject:founderUser];
                         [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
                             if (error) {
                                 NSLog(@"Error %@ %@", error, [error userInfo]);
+                                [KVNProgress dismiss];
                             }
                             
                             else {
                                 NSLog(@"friends list: %@", self.mutableFriendsList);
+                                [KVNProgress dismiss];
                                 [self.tableView reloadData];
                             }
                         }];
                     }
                     
                     else {
+                        [KVNProgress dismiss];
                         NSLog(@"Good. Founder is already a friend.");
                     }
+                } else {
+                    [KVNProgress dismiss];
                 }
             }];
         }
@@ -141,6 +150,7 @@
                                     [KVNProgress dismiss];
                                     NSLog(@"new friends list: %@", self.mutableFriendsList);
                                     [self.tableView reloadData];
+                                } else {
                                 }
                             }];
                         }
@@ -152,13 +162,14 @@
                             [alertView show];
                         }
                     }
-                    
-                    // if the user doesn't exist, display a message
-                    else {
-                        [KVNProgress dismiss];
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"This user does not exist." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                        [alertView show];
-                    }
+                }
+                
+                
+                // if the user doesn't exist, display a message
+                else {
+                    [KVNProgress dismiss];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"This user does not exist." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alertView show];
                 }
             }];
         }
@@ -168,12 +179,11 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         NSLog(@"Cancel pressed");
     }]];
-    
     alert.popoverPresentationController.sourceView = self.view;
-    
     [self presentViewController:alert animated:YES
                      completion:nil];
 }
+
 
 #pragma mark - Table view data source
 

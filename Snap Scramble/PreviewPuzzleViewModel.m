@@ -13,7 +13,6 @@
 -(id)init {
     self = [super init];
     if (self) {
-      
         // properties get set later
     }
     
@@ -35,21 +34,15 @@
         [self.createdGame setObject:[PFUser currentUser].username forKey:@"senderName"]; // receiver becomes sender here
         [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
-        
-        // increment the round
-        self.roundNumber = [self getRoundNumber];
-        [self incrementRoundNumber];
-        
-        // set the round object to the game
-        [self.createdGame setObject:self.roundObject forKey:@"round"];
-        
         // set later so that a glitch doesn't happen
         [self.createdGame setObject:@"" forKey:@"receiverID"];
         [self.createdGame setObject:@"" forKey:@"receiverName"];
+        [self.createdGame setObject:[NSNumber numberWithInt:0] forKey:@"receiverTime"]; // reset the time
+        [self.createdGame setObject:[NSNumber numberWithInt:0] forKey:@"senderTime"]; // reset the time
     }
     
     else if (self.createdGame == nil) { // if the game is a NEWLY created game, current user is the SENDER. This game is executed when the current user creates a new game.
-        self.createdGame = [PFObject objectWithClassName:@"Messages"];
+        self.createdGame = [PFObject objectWithClassName:@"Game"];
         [self.createdGame setObject:self.puzzleSize forKey:@"puzzleSize"];
         [self.createdGame setObject:[[PFUser currentUser] objectId] forKey:@"senderID"];
         [self.createdGame setObject:[[PFUser currentUser] username] forKey:@"senderName"];
@@ -59,14 +52,6 @@
         [self.createdGame setObject:file forKey:@"file"];
         [self.createdGame setObject:fileType forKey:@"fileType"];
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
-        
-        // create the round object for the initial game
-        self.roundObject = [PFObject objectWithClassName:@"Round"];
-        [self.roundObject setObject:[NSNumber numberWithInt:1] forKey:@"roundNumber"]; // set initial round for a brand new game
-        
-        // set the round object to the game
-        [self.createdGame setObject:self.roundObject forKey:@"round"];
-        
         // set later so that a glitch doesn't happen
         [self.createdGame setObject:@"" forKey:@"receiverID"];
         [self.createdGame setObject:@"" forKey:@"receiverName"];
@@ -74,24 +59,6 @@
     
     self.file = file; // set the file property
     return self.createdGame;
-}
-
-// get the current round
-- (NSNumber*)getRoundNumber {
-    self.roundNumber = [self.roundObject objectForKey:@"roundNumber"];
-    return self.roundNumber;
-}
-
-// increment the round once the current round is over
-- (void)incrementRoundNumber {
-    // increment the round
-    int roundIntValue = [self.roundNumber intValue];
-    self.roundNumber = [NSNumber numberWithInt:roundIntValue + 1];
-    [self.createdGame setObject:self.roundNumber forKey:@"roundNumber"];
-}
-
-- (PFObject *)getRoundObject {
-    return self.roundObject;
 }
 
 // save the file (photo) before saving the game cloud object

@@ -42,14 +42,13 @@
     _viewModel.opponent = self.opponent;
     _viewModel.createdGame = self.createdGame;
     _viewModel.puzzleSize = self.puzzleSize;
-    _viewModel.roundObject = self.roundObject;
 }
 
 #pragma mark - view controller methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.puzzleSizes = [[NSArray alloc] initWithObjects:@"3 x 3", @"4 x 4", @"5 x 5", nil];
+    self.puzzleSizes = [[NSArray alloc] initWithObjects:@"4 x 4", @"5 x 5", @"6 x 6", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -152,7 +151,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-# pragma mark - game methods
+# pragma mark - upload game methods
 
 - (IBAction)sendGame:(id)sender { // after creating game, upload it
     // initiate timer for timeout
@@ -165,7 +164,7 @@
     if (self.originalImage != nil) { // just make sure that there is no problem and that images were selected
         if (self.puzzleSize != nil) { // make sure a puzzle size was chosen in memory
             UIImage* tempOriginalImage = self.originalImage;
-            fileData = UIImageJPEGRepresentation(tempOriginalImage, 0.6); // compress original image
+            fileData = UIImageJPEGRepresentation(tempOriginalImage, 0.4); // compress original image
             fileName = @"image.jpg";
             fileType = @"image";
             self.sendButton.userInteractionEnabled = NO;
@@ -179,7 +178,7 @@
             [self.viewModel saveFile:^(BOOL succeeded, NSError *error) {
                 if (error) {
                     [KVNProgress dismiss];
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
                
@@ -187,8 +186,7 @@
                     [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                         if (error) {
                             [KVNProgress dismiss];
-                            /* UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                            [alertView show]; */
+                            [self.timeoutTimer invalidate];
                         }
                        
                         else {
@@ -226,7 +224,7 @@
     if ([self.totalSeconds intValue] > 30) {
         [KVNProgress dismiss];
         NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alertView show];
         [self.timeoutTimer invalidate];
         self.sendButton.userInteractionEnabled = YES;
@@ -243,7 +241,6 @@
         gameViewController.opponent = self.opponent;
         NSLog(@"the opponent %@", gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;
-        gameViewController.roundObject = [self.viewModel getRoundObject];
     }
 }
 

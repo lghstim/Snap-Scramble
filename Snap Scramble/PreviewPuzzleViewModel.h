@@ -15,10 +15,6 @@
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) PFFile* file;
 @property (nonatomic, strong) PFObject* createdGame;
-@property (nonatomic, strong) PFObject* roundObject;
-@property (nonatomic, strong) NSNumber *roundNumber;
-
-
 
 
 -(id)init;

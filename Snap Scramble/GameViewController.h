@@ -28,7 +28,6 @@
 @property (nonatomic, strong) PFObject *createdGame;
 @property (nonatomic, strong) GameObject *game;
 @property (nonatomic, strong) UIImage *puzzleImage;
-@property (nonatomic, strong) PFObject* roundObject;
 @property (nonatomic, strong) GameViewModel *viewModel;
 
 - (void)hideShowStatsButtonUI;

@@ -15,5 +15,7 @@
 - (void)retrieveCurrentMatches:(void (^)(NSArray *matches, NSError *error))completion;
 - (void)retrievePendingMatches:(void (^)(NSArray *matches, NSError *error))completion;
 - (void)deleteGame:(PFObject *)gameToDelete completion:(void (^)(BOOL succeeded, NSError *error))completion;
+- (void)getCurrentUser:(void (^)(PFObject* currentUser, NSError *error))completion;
+
 
 @end

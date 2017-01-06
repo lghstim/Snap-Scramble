@@ -202,25 +202,14 @@
 
 - (IBAction)replyButtonDidPress:(id)sender {
     // delegate allows us to transfer user's data back to  StartPuzzleVC for creating puzzle game
-    [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
+    [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-// when the main menu button is pressed, switch turns at that point.
+// when the main menu button is pressed, send push at that point.
 - (IBAction)mainMenuButtonDidPress:(id)sender {
-    [self.viewModel switchTurns];
-    [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please quit the app and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-        
-        else { // sent game
-            NSLog(@"the turn was switched successfully.");
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            [self.viewModel sendNotificationToOpponent]; // send the push notification
-        }
-    }];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.viewModel sendNotificationToOpponent]; // send the push notification
 }
 
 
@@ -232,7 +221,6 @@
         gameOverViewController.createdGame = self.createdGame;
         gameOverViewController.currentUserTotalSeconds = self.game.totalSeconds; // current user's total seconds to solve puzzle
         gameOverViewController.opponent = self.opponent;
-        gameOverViewController.roundObject = [self.createdGame objectForKey:@"round"];
     }
     
     if ([segue.identifier isEqualToString:@"pauseMenu"]) {

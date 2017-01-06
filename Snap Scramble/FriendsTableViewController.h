@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSArray *friends;
 @property (nonatomic, strong) NSMutableArray *mutableFriendsList;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addFriendBarButton;
+@property (nonatomic, strong) NSTimer *timeoutTimer;
+@property (nonatomic, strong) NSNumber* totalSeconds;
 
 
 @end

@@ -43,24 +43,46 @@
 
     if (!self.image) { // if the image is being retrieved from the server by the receiving player
         // Adds a status below the circle
+        self.totalSeconds = [NSNumber numberWithInt:0];
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
         [KVNProgress showWithStatus:@"Downloading..."];
         self.startPuzzleButton.userInteractionEnabled = false;
         [self.startPuzzleButton setTitle:@"Start Puzzle" forState:UIControlStateNormal];
         [[self.createdGame objectForKey:@"file"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             if (!error) {
+                [self.timeoutTimer invalidate]; // invalidate the timer if success
                 UIImage *image = [UIImage imageWithData:data];
                 NSLog(@"downloaded image before resizing: %@", image);
-                
                 // resizing the photo when it's sent from a sender to the receiver. should work for all screen sizes.
                 self.image = [self prepareImageForGame:image];
-                
                 NSLog(@"downloaded image after resizing: %@", self.image);
                 self.startPuzzleButton.userInteractionEnabled = true;
                 [KVNProgress dismiss];
+            } else {
+                [KVNProgress dismiss];
+                [self.timeoutTimer invalidate];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                [alertView show];
             }
         }];
     }
 }
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        [KVNProgress dismiss];
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alertView show];
+        [self.timeoutTimer invalidate];
+    }
+}
+
 
 -(UIImage*)prepareImageForGame:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
@@ -148,10 +170,9 @@
 
 #pragma mark - delegate methods
 
-- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject {
+- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent {
     self.createdGame = selectedGame;
     self.opponent = opponent;
-    self.roundObject = roundObject;
     
     // delegate allows us to transfer user's data back to ChallengeViewController for creating puzzle game, which then sends data to CreatePuzzleVC
     [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent];

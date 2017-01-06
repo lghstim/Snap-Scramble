@@ -27,11 +27,12 @@
 @property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
 @property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *challengeButton;
-
-
+@property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
 // background view properties
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
+- (void)retrieveUserMatches;
+- (void)updateScoreLabel;
 
 
 

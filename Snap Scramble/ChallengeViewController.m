@@ -88,7 +88,7 @@
     }
     
     else {
-        [self performSegueWithIdentifier:@"showLogin" sender:self]; // show log in screen if user not signed in
+        [self performSegueWithIdentifier:@"showSignup" sender:self]; // show sign up screen if user not signed in
     }
 }
 
@@ -172,8 +172,31 @@
             }];
         }
     }];
+    
+    // update the score label each time matches are retrieved
+    [self updateScoreLabel];
 }
 
+- (void)updateScoreLabel {
+    [self.viewModel getCurrentUser:^(PFObject *currentUser, NSError *error) {
+        if (error) {
+            NSLog(@"error...");
+        } else {
+            NSNumber *wins = [currentUser objectForKey:@"wins"];
+            NSNumber *losses = [currentUser objectForKey:@"losses"];
+            if (wins > 0 && losses > 0) {
+                NSLog(@"Wins: %@ | Losses: %@", wins, losses);
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: %@", wins, losses];
+            } else if (wins > 0) {
+                NSLog(@"Wins: %@ | Losses: 0", wins);
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: 0", wins];
+            } else if (losses > 0) {
+                NSLog(@"Wins: 0 | Losses: %@", losses);
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: %@", losses];
+            }
+        }
+    }];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.

@@ -103,8 +103,7 @@
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *reenteredPassword = [self.reenterPasswordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email = [self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    
+    NSRange whiteSpaceRange = [username rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *lowercaseString = [username lowercaseString]; // get the lowercase username
     BOOL containsUppercaseLetter = false;
     
@@ -130,23 +129,20 @@
         [alertView show];
     }
     
-    
     else if ([username length] < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too short. Please keep it between 3 and 10 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
     
-    // check for whitespaces
-    NSRange whiteSpaceRange = [username rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (whiteSpaceRange.location != NSNotFound) {
+   // check for whitespaces
+   else if (whiteSpaceRange.location != NSNotFound) {
         NSLog(@"Found whitespace");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username has a space in it." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
 
-    
     else if (containsUppercaseLetter == true) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username cannot contain capital letters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
