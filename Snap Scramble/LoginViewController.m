@@ -86,7 +86,7 @@
  */
 
 - (IBAction)signupScreenButtonDidPress:(id)sender {
-    [self performSegueWithIdentifier:@"showSignup" sender:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

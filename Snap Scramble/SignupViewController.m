@@ -94,9 +94,6 @@
  }
  */
 
-- (IBAction)loginScreenButtonDidPress:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (IBAction)signupButtonDidPress:(id)sender {
     NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

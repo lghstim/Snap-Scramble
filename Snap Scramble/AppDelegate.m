@@ -28,11 +28,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+    /* [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = @"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
         configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
         configuration.server = @"https://snapscramble.herokuapp.com/parse";
-    }]];
+    }]]; */
+    
+    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+     configuration.applicationId = @"TIMZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
+     configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
+        configuration.server = @"https://pacific-harbor-61840.herokuapp.com/parse";
+     }]];
+    
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
   
@@ -64,9 +71,10 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation saveInBackground];
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    [installation setDeviceTokenFromData:deviceToken];
+    installation.channels = @[ @"global" ];
+    [installation saveInBackground];
 }
 
 - (BOOL)application:(UIApplication *)application

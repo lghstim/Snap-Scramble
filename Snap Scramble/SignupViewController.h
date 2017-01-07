@@ -22,7 +22,6 @@
 
 
 - (IBAction)signupButtonDidPress:(id)sender;
-- (IBAction)loginScreenButtonDidPress:(id)sender;
 
 
 @end

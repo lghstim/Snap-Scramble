@@ -225,12 +225,8 @@
 }
 
 - (IBAction)doneButtonDidPress:(id)sender {
-    self.statsView.animation = @"fall";
-    self.statsView.delay = 5.0;
-    [self.statsView animate];
     [self.viewModel updateGame]; // update the game appropriately once current user has played
 
-    
     //This for loop iterates through all the view controllers in navigation stack.
     for (UIViewController* viewController in self.navigationController.viewControllers) {
         if ([viewController isKindOfClass:[GameViewController class]] ) {
@@ -252,6 +248,8 @@
                 [gameViewController updateToMainMenuButtonUI];
             }
             
+            self.statsView.animation = @"fall";
+            [self.statsView animate];
             [self.navigationController popToViewController:gameViewController animated:YES];
             break;
         }

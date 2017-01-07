@@ -323,12 +323,12 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wins: 0 | Losses: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXr-f5-Fqr">
-                                            <rect key="frame" x="111" y="183" width="199" height="24"/>
+                                            <rect key="frame" x="84" y="184" width="257" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="aeQ-X9-S00"/>
-                                                <constraint firstAttribute="width" constant="199" id="xMW-F7-SBY"/>
+                                                <constraint firstAttribute="height" constant="25" id="aeQ-X9-S00"/>
+                                                <constraint firstAttribute="width" constant="257" id="xMW-F7-SBY"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
                                             <color key="textColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -336,16 +336,16 @@
                                     <color key="backgroundColor" red="0.94605457782745361" green="0.95496565103530884" blue="0.9801211953163147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="E3q-ef-wME" firstAttribute="top" secondItem="WYo-Bi-rbz" secondAttribute="bottom" constant="13" id="CB6-i0-rEA"/>
-                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="top" secondItem="EhL-74-ihv" secondAttribute="bottom" constant="15" id="HAN-At-8db"/>
+                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="top" secondItem="EhL-74-ihv" secondAttribute="bottom" constant="16" id="HAN-At-8db"/>
                                         <constraint firstItem="E3q-ef-wME" firstAttribute="centerX" secondItem="WYo-Bi-rbz" secondAttribute="centerX" id="IEO-12-fl9"/>
                                         <constraint firstItem="AHb-Cv-gbd" firstAttribute="top" secondItem="EhL-74-ihv" secondAttribute="bottom" constant="58" id="N7B-uL-QmB"/>
                                         <constraint firstAttribute="trailing" secondItem="AHb-Cv-gbd" secondAttribute="trailing" constant="24" id="du3-Lj-u1x"/>
                                         <constraint firstItem="E3q-ef-wME" firstAttribute="centerX" secondItem="EhL-74-ihv" secondAttribute="centerX" id="eLg-zg-h3r"/>
-                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="leading" secondItem="r0n-qc-oaI" secondAttribute="leading" constant="111" id="g8L-tS-8OI"/>
+                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="leading" secondItem="r0n-qc-oaI" secondAttribute="leading" constant="84" id="g8L-tS-8OI"/>
                                         <constraint firstAttribute="bottom" secondItem="AHb-Cv-gbd" secondAttribute="bottom" constant="1" id="idh-Kk-r9n"/>
                                         <constraint firstItem="AHb-Cv-gbd" firstAttribute="leading" secondItem="r0n-qc-oaI" secondAttribute="leading" constant="33" id="jQO-fQ-eeq"/>
                                         <constraint firstItem="E3q-ef-wME" firstAttribute="bottom" secondItem="EhL-74-ihv" secondAttribute="bottom" id="qFk-KM-SZM"/>
-                                        <constraint firstAttribute="trailing" secondItem="ZXr-f5-Fqr" secondAttribute="trailing" constant="104" id="udN-UL-l4M"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZXr-f5-Fqr" secondAttribute="trailing" constant="73" id="udN-UL-l4M"/>
                                         <constraint firstItem="EhL-74-ihv" firstAttribute="centerX" secondItem="r0n-qc-oaI" secondAttribute="centerX" id="vBT-Z7-l1U"/>
                                     </constraints>
                                 </view>
@@ -411,7 +411,6 @@
                         <segue destination="5X2-Qn-gx5" kind="show" identifier="createPuzzle" id="gCo-d5-hdL"/>
                         <segue destination="8h6-im-2Zw" kind="show" identifier="startPuzzleScreen" animates="NO" id="g8y-xy-U3C"/>
                         <segue destination="tPf-QV-Zf5" kind="show" identifier="selectUserOptionsScreen" animates="NO" id="hpS-t2-Fvj"/>
-                        <segue destination="FiJ-nO-J5o" kind="show" identifier="showLogin" id="OAo-J4-4ax"/>
                         <segue destination="mfd-ih-2za" kind="show" identifier="openIAP" id="IAb-1J-ISt"/>
                         <segue destination="mvK-FC-Ewg" kind="show" identifier="showSignup" id="1BJ-u5-0Y5"/>
                     </connections>
@@ -1133,7 +1132,7 @@
                                             <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="loginScreenButtonDidPress:" destination="mvK-FC-Ewg" eventType="touchUpInside" id="xTB-9F-5nm"/>
+                                            <segue destination="FiJ-nO-J5o" kind="show" identifier="showLogin" id="jzi-EB-us7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1220,7 +1219,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5k-pO-ZKr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1786" y="199"/>
+            <point key="canvasLocation" x="880" y="133"/>
         </scene>
         <!--Legal-->
         <scene sceneID="B49-0P-Gyn">
@@ -1407,12 +1406,11 @@
                         <outlet property="loginView" destination="5o7-T0-K0V" id="Mdq-JR-Q9N"/>
                         <outlet property="passwordField" destination="ffv-Bp-6ig" id="D0G-i4-5DH"/>
                         <outlet property="usernameField" destination="evs-ce-ihq" id="ehG-mO-Psp"/>
-                        <segue destination="mvK-FC-Ewg" kind="show" identifier="showSignup" id="R8U-O0-cRz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nV8-Po-R9T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="199"/>
+            <point key="canvasLocation" x="1736" y="133"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="5D2-aB-veC">
@@ -2393,7 +2391,6 @@
         <image name="resume-button" width="354" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1BJ-u5-0Y5"/>
         <segue reference="gCo-d5-hdL"/>
         <segue reference="H2T-pd-LdQ"/>
         <segue reference="ABQ-DS-waV"/>

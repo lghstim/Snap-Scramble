@@ -429,10 +429,7 @@
     NSLog(@"delegate success. replying... opponent: %@    game: %@", self.opponent, self.selectedGame);
     [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it
 }
-
-- (void)showLoginScreen {
-    [self performSegueWithIdentifier:@"showLogin" sender:self];
-}
+  
 
 - (void)showSignupScreen {
     [self performSegueWithIdentifier:@"showSignup" sender:self];
