@@ -58,6 +58,41 @@
     [[PFUser currentUser] saveInBackgroundWithBlock:completion];
 }
 
+- (void)incrementWins {
+    // update the amount of wins the opponent has.
+    [PFCloud callFunctionInBackground:@"incrementWins" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentWins, NSError *error) {
+        if (error) {
+            NSLog(@"error incrementing opponent's wins.");
+        } else {
+            NSLog(@"successfully incremented opponent's wins: %@", opponentWins);
+        }
+    }];
+}
+
+- (void)incrementLosses {
+    // update the amount of losses the opponent has.
+    [PFCloud callFunctionInBackground:@"incrementLosses" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentLosses, NSError *error) {
+        if (error) {
+            NSLog(@"error incrementing opponent's losses.");
+        } else {
+            NSLog(@"successfully incremented opponent's losses: %@", opponentLosses);
+        }
+    }];
+}
+
+
+- (void)sendPushToOpponent {
+    [PFCloud callFunctionInBackground:@"sendPushToOpponent" withParameters:@{@"userId": self.opponent.objectId} block:^(PFUser *opponent, NSError *error) {
+        if (error) {
+            NSLog(@"error sending push.");
+        } else {
+            NSLog(@"successfully sent push to: %@", opponent);
+        }
+    }];
+}
+
+
+
 
 
 

@@ -52,8 +52,19 @@
 }
 
 - (IBAction)logoutButtonDidPress:(id)sender {
-    [PFUser logOut]; // log out current user
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    // this is for resetting the key necessary for push notifications on logout.
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        [[PFInstallation currentInstallation] removeObjectForKey:@"User"]; // reset "User" key
+        [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"error resetting PFInstallation 'User' key");
+            } else {
+                [PFUser logOut]; // log out current user
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    }
 }
 
 - (IBAction)goBackButtonDidPress:(id)sender {

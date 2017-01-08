@@ -152,6 +152,7 @@
     self.mainMenuButton.userInteractionEnabled = NO;
 }
 
+// executes if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him
 - (void)updateToReplyButtonUI {
     // update the UI
     [self hideShowStatsButtonUI];
@@ -167,6 +168,7 @@
     [self.view bringSubviewToFront:self.replyLaterButton];
 }
 
+ // executes if current user is the sender. This code is executed when the user starts sending his own game to someone else.
 - (void)updateToMainMenuButtonUI {
     [self hideShowStatsButtonUI];
     [self hideReplyButtonUI];
@@ -200,6 +202,7 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+
 - (IBAction)replyButtonDidPress:(id)sender {
     // delegate allows us to transfer user's data back to  StartPuzzleVC for creating puzzle game
     [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent];
@@ -209,7 +212,6 @@
 // when the main menu button is pressed, send push at that point.
 - (IBAction)mainMenuButtonDidPress:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
-    [self.viewModel sendNotificationToOpponent]; // send the push notification
 }
 
 

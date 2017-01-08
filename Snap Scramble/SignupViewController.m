@@ -97,6 +97,7 @@
 
 - (IBAction)signupButtonDidPress:(id)sender {
     NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    username = [username lowercaseString]; // make all strings lowercase
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *reenteredPassword = [self.reenterPasswordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email = [self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -140,11 +141,6 @@
         [alertView show];
     }
 
-    else if (containsUppercaseLetter == true) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username cannot contain capital letters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [alertView show];
-    }
     
     else if (![reenteredPassword isEqualToString:password]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Make sure your you enter your password correctly both times." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

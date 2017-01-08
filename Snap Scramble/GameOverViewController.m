@@ -120,7 +120,7 @@
             }
             
             // check who won
-            if (self.currentUserTotalSeconds > self.opponentTotalSeconds) {
+            if (self.currentUserTotalSeconds > self.opponentTotalSeconds) { // if current user lost
                 self.headerStatsLabel.text = @"You lost! It is your turn to reply now.";
                 // update the amount of losses the current user has.
                 NSNumber *losses = [[PFUser currentUser] objectForKey:@"losses"];
@@ -150,17 +150,11 @@
                 }
 
                 // update the amount of wins the opponent has.
-                [PFCloud callFunctionInBackground:@"incrementWins" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentWins, NSError *error) {
-                    if (error) {
-                        NSLog(@"error incrementing opponent's wins.");
-                    } else {
-                        NSLog(@"successfully incremented opponent's wins: %@", opponentWins);
-                    }
-                }];
-            } else if (self.currentUserTotalSeconds == self.opponentTotalSeconds) {
+                [self.viewModel incrementWins];
+            } else if (self.currentUserTotalSeconds == self.opponentTotalSeconds) { // if tie
                 // don't update losses or wins since the game is a tie.
                 self.headerStatsLabel.text = @"Tie game! It is your turn to reply now.";
-            } else if (self.currentUserTotalSeconds < self.opponentTotalSeconds) {
+            } else if (self.currentUserTotalSeconds < self.opponentTotalSeconds) { // if current user won
                 // update the amount of wins the current user has.
                 NSNumber *wins = [[PFUser currentUser] objectForKey:@"wins"];
                 if (wins != nil) {
@@ -188,14 +182,7 @@
                 }
                
                 // update the amount of losses the opponent has.
-                [PFCloud callFunctionInBackground:@"incrementLosses" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentLosses, NSError *error) {
-                    if (error) {
-                        NSLog(@"error incrementing opponent's losses.");
-                    } else {
-                        NSLog(@"successfully incremented opponent's losses: %@", opponentLosses);
-                    }
-                }];
-                
+                [self.viewModel incrementLosses];
                 self.headerStatsLabel.text = @"You won! It is your turn to reply now.";
             }
         }
@@ -245,7 +232,9 @@
             
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, show main menu button UI");
-                [gameViewController updateToMainMenuButtonUI];
+                
+                [self.viewModel sendPushToOpponent]; // send push notification to opponent
+                [gameViewController updateToMainMenuButtonUI]; // update UI to main menu button
             }
             
             self.statsView.animation = @"fall";
