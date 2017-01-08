@@ -430,15 +430,32 @@
                     <view key="view" contentMode="scaleToFill" id="EtS-Pf-wfO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="88Q-Mx-g5h">
+                                <rect key="frame" x="11" y="692" width="72" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="fnb-NC-Q8T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <state key="normal" image="icon-back"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="88Q-Mx-g5h" firstAttribute="leading" secondItem="EtS-Pf-wfO" secondAttribute="leading" constant="11" id="Ol2-Rf-NCt"/>
+                            <constraint firstItem="dot-OV-Qgl" firstAttribute="top" secondItem="88Q-Mx-g5h" secondAttribute="bottom" constant="20" id="YTg-xC-oV6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="88Q-Mx-g5h" secondAttribute="trailing" constant="311" id="bZB-wf-KLa"/>
+                            <constraint firstItem="88Q-Mx-g5h" firstAttribute="top" secondItem="fQw-ZM-6nq" secondAttribute="bottom" constant="628" id="xw6-C6-jvY"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="88Q-Mx-g5h" id="YiE-eD-zla"/>
                         <segue destination="4g6-Rs-myH" kind="show" identifier="previewPuzzleSender" id="ASb-Oy-YdI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCB-Fh-T4e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3700" y="-734"/>
+            <point key="canvasLocation" x="3700.0000000000005" y="-734.51086956521749"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="UxI-i6-ZWb">
@@ -524,7 +541,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUs-3g-2Xe">
-                                <rect key="frame" x="90" y="691" width="234" height="25"/>
+                                <rect key="frame" x="93" y="691" width="234" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="72C-aU-8aA"/>
                                 </constraints>
@@ -533,19 +550,31 @@
                                     <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAV-Fo-oKE">
+                                <rect key="frame" x="11" y="692" width="72" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24.329999999999998" id="3bk-sw-nSR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <state key="normal" image="icon-back"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94605457782745361" green="0.95496565103530884" blue="0.9801211953163147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EUs-3g-2Xe" firstAttribute="leading" secondItem="axZ-ir-62Z" secondAttribute="leadingMargin" constant="70" id="HEQ-zs-myz"/>
+                            <constraint firstItem="cZz-Hc-lAh" firstAttribute="top" secondItem="UAV-Fo-oKE" secondAttribute="bottom" constant="19.670000000000002" id="6vC-XR-5cu"/>
+                            <constraint firstItem="UAV-Fo-oKE" firstAttribute="top" secondItem="jhm-Tx-gsa" secondAttribute="bottom" constant="628" id="Kbz-bS-Osd"/>
                             <constraint firstItem="cZz-Hc-lAh" firstAttribute="top" secondItem="EUs-3g-2Xe" secondAttribute="bottom" constant="20" id="NsM-Mu-AbZ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="EUs-3g-2Xe" secondAttribute="trailing" constant="70" id="Nzp-Ee-DQb"/>
-                            <constraint firstItem="EUs-3g-2Xe" firstAttribute="centerX" secondItem="axZ-ir-62Z" secondAttribute="centerX" id="exp-4B-S4p"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EUs-3g-2Xe" secondAttribute="trailing" constant="67" id="Nzp-Ee-DQb"/>
+                            <constraint firstItem="UAV-Fo-oKE" firstAttribute="leading" secondItem="axZ-ir-62Z" secondAttribute="leading" constant="11" id="XJ0-Ym-pPn"/>
+                            <constraint firstItem="EUs-3g-2Xe" firstAttribute="centerX" secondItem="axZ-ir-62Z" secondAttribute="centerX" constant="3" id="exp-4B-S4p"/>
+                            <constraint firstItem="EUs-3g-2Xe" firstAttribute="leading" secondItem="UAV-Fo-oKE" secondAttribute="trailing" constant="10" id="z5q-kA-Exf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="s5k-ND-NoZ">
                         <barButtonItem key="backBarButtonItem" title="   " id="eXp-Is-T3c"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="UAV-Fo-oKE" id="aEX-xF-ELK"/>
                         <outlet property="selectPuzzleSizeButton" destination="EUs-3g-2Xe" id="SYT-Xx-Dg4"/>
                         <segue destination="ekz-KO-VhB" kind="show" identifier="createGame" id="USZ-oE-ufM"/>
                     </connections>
@@ -2250,7 +2279,7 @@
                                             </mask>
                                         </variation>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You &quot;&quot; the previous game!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kk-94-ZXt">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You &quot;&quot; the previous game:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kk-94-ZXt">
                                         <rect key="frame" x="54" y="4" width="192" height="96"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
                                         <color key="textColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2344,6 +2373,7 @@
         <image name="Line" width="1077" height="3"/>
         <image name="empty_table_background" width="1242" height="1200"/>
         <image name="go-back-button" width="354" height="120"/>
+        <image name="icon-back" width="11" height="20"/>
         <image name="icon-hamburger" width="22" height="16"/>
         <image name="input-outline" width="250" height="44"/>
         <image name="ok-button" width="354" height="120"/>
@@ -2352,6 +2382,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="2L4-gE-vSk"/>
         <segue reference="odM-ze-1MK"/>
-        <segue reference="u0U-4m-TET"/>
+        <segue reference="ASb-Oy-YdI"/>
     </inferredMetricsTieBreakers>
 </document>

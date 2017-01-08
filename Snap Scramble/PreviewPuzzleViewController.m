@@ -26,6 +26,8 @@
     if (self)
     {
         _viewModel = [[PreviewPuzzleViewModel alloc] init];
+        
+        // editing photo functionality... not working
         /* DKEditorView *dkev = (DKEditorView *)self.view;
         UIGraphicsBeginImageContext(dkev.frame.size);
         [dkev.layer renderInContext:UIGraphicsGetCurrentContext()];

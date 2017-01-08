@@ -14,8 +14,9 @@
     PFQuery *currentGamesQuery = [PFQuery queryWithClassName:@"Game"];
     [currentGamesQuery orderByDescending:@"updatedAt"];
     [currentGamesQuery whereKey:@"receiverName" equalTo:[PFUser currentUser].username];
-    [currentGamesQuery includeKey:@"sender"]; // delete?
-    [currentGamesQuery includeKey:@"receiver"]; // delete?
+    [currentGamesQuery includeKey:@"sender"];
+    [currentGamesQuery includeKey:@"receiver"];
+    [currentGamesQuery includeKey:@"rounds"];
     [currentGamesQuery findObjectsInBackgroundWithBlock:completion];
 }
 

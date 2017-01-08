@@ -36,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController.navigationBar setHidden:false];
     self.currentGamesTable.delegate = self;
     self.currentGamesTable.dataSource = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil]; // reload the table if the user receives a notification?

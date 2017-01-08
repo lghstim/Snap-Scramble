@@ -27,6 +27,7 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
@@ -107,6 +108,8 @@
     self.snapButton.layer.shouldRasterize = YES;
     [self.snapButton addTarget:self action:@selector(snapButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.snapButton];
+    [self.view addSubview:self.backButton]; // back button
+
     
     // button to toggle flash
     self.flashButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -153,9 +156,19 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
 }
+
+- (IBAction)backButtonDidPress:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 /* camera button methods */
