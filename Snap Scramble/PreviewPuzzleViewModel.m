@@ -52,6 +52,7 @@
         [self.createdGame setObject:file forKey:@"file"];
         [self.createdGame setObject:fileType forKey:@"fileType"];
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
+       
         // set later so that a glitch doesn't happen
         [self.createdGame setObject:@"" forKey:@"receiverID"];
         [self.createdGame setObject:@"" forKey:@"receiverName"];
@@ -60,6 +61,17 @@
     self.file = file; // set the file property
     return self.createdGame;
 }
+
+
+// get the current round
+/* - (NSNumber*)getRoundNumber {
+    self.roundNumber = [self.roundObject objectForKey:@"roundNumber"];
+    return self.roundNumber;
+}
+
+- (PFObject *)getRoundObject {
+    return self.roundObject;
+} */
 
 // save the file (photo) before saving the game cloud object
 - (void)saveFile:(void (^)(BOOL succeeded, NSError *error))completion {

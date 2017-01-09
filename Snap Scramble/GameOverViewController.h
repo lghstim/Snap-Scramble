@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSNumber* currentUserTotalSeconds;
 @property (nonatomic, strong) NSNumber* opponentTotalSeconds;
 @property (nonatomic, strong) PFUser* opponent;
+@property (nonatomic, strong) PFObject* roundObject;
+
 
 
 

@@ -2358,6 +2358,9 @@
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="l4C-ea-edp" id="SgW-PH-eSs"/>
+                        <outlet property="currentUserTimeLabel" destination="IZY-cR-Oue" id="mFA-q6-8AQ"/>
+                        <outlet property="headerStatsLabel" destination="5kk-94-ZXt" id="cb4-eb-bED"/>
+                        <outlet property="opponentTimeLabel" destination="BXT-2D-g1L" id="8mk-9T-kA0"/>
                         <outlet property="scoreView" destination="DZF-KE-hJr" id="Mtm-CU-af4"/>
                         <outlet property="startPuzzleButton" destination="7Ja-Am-xel" id="mxk-qE-feu"/>
                         <segue destination="j6W-j7-tyE" kind="show" identifier="beginGame" id="3Yf-WC-Nf6"/>
@@ -2382,6 +2385,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="2L4-gE-vSk"/>
         <segue reference="odM-ze-1MK"/>
-        <segue reference="ASb-Oy-YdI"/>
+        <segue reference="u0U-4m-TET"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -13,7 +13,7 @@
 #import "ChallengeViewController.h"
 
 @protocol StartVCDelegate <NSObject>
-- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent;
+- (void)receiveReplyGameData2:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject;
 @end
 
 @interface StartPuzzleViewController : UIViewController <StartVCDelegate>
@@ -22,7 +22,6 @@
 @property (nonatomic, strong) PFObject* createdGame;
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) PFUser* opponent;
-@property (nonatomic, strong) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UIButton* startPuzzleButton;
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
 @property (nonatomic, strong) UIImage* image;
@@ -31,5 +30,10 @@
 @property (weak, nonatomic) IBOutlet SpringView *scoreView;
 @property (nonatomic, strong) NSTimer *timeoutTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
+@property (weak, nonatomic) IBOutlet UILabel *headerStatsLabel;
+@property (weak, nonatomic) IBOutlet DesignableTextField *currentUserTimeLabel; // the current user's time label
+@property (weak, nonatomic) IBOutlet DesignableTextField *opponentTimeLabel; // the opponent's time label
+@property (nonatomic, strong) PFObject* roundObject;
+
 
 @end

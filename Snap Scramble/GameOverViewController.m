@@ -72,13 +72,14 @@
     self.viewModel.createdGame = self.createdGame;
     self.viewModel.currentUserTotalSeconds = self.currentUserTotalSeconds;
     self.viewModel.opponent = self.opponent;
+    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
+    self.viewModel.roundObject = [PFObject objectWithClassName:@"Round"]; // round object
 }
 
 
 # pragma mark - view controller methods
 
 - (void)updateStatsView {
-    [self setViewModelProperties]; // set view model properties
     // format the current user's time
     int intValueTotalSeconds = [self.currentUserTotalSeconds intValue];
     NSLog(@"intval: %d", intValueTotalSeconds);
@@ -97,11 +98,15 @@
         self.currentUserTimeLabel.text = [NSString stringWithFormat:@"Your time: %d:%d", minutes, seconds];
     }
     
+
+    [self setViewModelProperties]; // set view model properties
+    [self.viewModel updateGame]; // update the game appropriately once current user has played
     if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him.
         NSString *opponentName = [self.createdGame objectForKey:@"senderName"];
         self.opponentTotalSeconds = [self.createdGame objectForKey:@"senderTime"];
         
         if (self.opponentTotalSeconds != nil) {
+            
             // format the opponent's time
             int intValueTotalSeconds = [self.opponentTotalSeconds intValue];
             int minutes = 0; int seconds = 0;
@@ -148,7 +153,7 @@
                         }
                     }];
                 }
-
+                
                 // update the amount of wins the opponent has.
                 [self.viewModel incrementWins];
             } else if (self.currentUserTotalSeconds == self.opponentTotalSeconds) { // if tie
@@ -180,7 +185,7 @@
                         }
                     }];
                 }
-               
+                
                 // update the amount of losses the opponent has.
                 [self.viewModel incrementLosses];
                 self.headerStatsLabel.text = @"You won! It is your turn to reply now.";
@@ -193,8 +198,7 @@
     }
     
     else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
-        NSLog(@"wtf");
-        [self.viewModel switchTurns];
+        [self.viewModel switchTurns]; // switch turns
         [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
             if (error) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
@@ -212,8 +216,6 @@
 }
 
 - (IBAction)doneButtonDidPress:(id)sender {
-    [self.viewModel updateGame]; // update the game appropriately once current user has played
-
     //This for loop iterates through all the view controllers in navigation stack.
     for (UIViewController* viewController in self.navigationController.viewControllers) {
         if ([viewController isKindOfClass:[GameViewController class]] ) {
@@ -226,6 +228,7 @@
             
             if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him.
                 NSLog(@"current user is the receiver, show reply button UI");
+                gameViewController.roundObject = self.viewModel.roundObject;
                 [gameViewController updateToReplyButtonUI];
                 
             }
@@ -233,7 +236,6 @@
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, show main menu button UI");
                 
-                [self.viewModel sendPushToOpponent]; // send push notification to opponent
                 [gameViewController updateToMainMenuButtonUI]; // update UI to main menu button
             }
             

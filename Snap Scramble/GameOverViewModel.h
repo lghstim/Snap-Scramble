@@ -14,8 +14,12 @@
 @property (nonatomic, strong) NSNumber* currentUserTotalSeconds;
 @property (nonatomic, strong) PFObject* createdGame;
 @property (nonatomic, strong) PFUser* opponent;
+@property (nonatomic, strong) PFObject* roundObject;
+@property (nonatomic, strong) PFRelation* roundsRelation;
+
 
 - (void)updateGame;
+- (void)retrieveRounds:(void (^)(NSArray *objects, NSError *error))completion;
 - (void)switchTurns;
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)saveCurrentUser:(void (^)(BOOL succeeded, NSError *error))completion;

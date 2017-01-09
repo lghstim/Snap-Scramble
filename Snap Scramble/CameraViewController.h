@@ -17,6 +17,8 @@
 @property (nonatomic, strong) PFObject* createdGame;
 @property (nonatomic, strong) PFUser* opponent;
 @property (weak, nonatomic) IBOutlet UIButton* backButton;
+@property (nonatomic, strong) PFObject* roundObject;
+
 
 
 
