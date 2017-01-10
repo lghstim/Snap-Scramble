@@ -52,6 +52,7 @@
         [self.createdGame setObject:file forKey:@"file"];
         [self.createdGame setObject:fileType forKey:@"fileType"];
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played
+        [self.createdGame setObject:[NSNumber numberWithInt:0] forKey:@"roundNumber"]; // placeholder
        
         // set later so that a glitch doesn't happen
         [self.createdGame setObject:@"" forKey:@"receiverID"];

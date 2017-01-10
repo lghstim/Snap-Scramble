@@ -14,15 +14,20 @@
     if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him.
         [self.createdGame setObject:[NSNumber numberWithBool:true] forKey:@"receiverPlayed"]; // receiver played, set true
         [self.createdGame setObject:self.currentUserTotalSeconds forKey:@"receiverTime"]; // set the time
+ 
+       
+        NSNumber *currentRoundNumber = [self.createdGame objectForKey:@"roundNumber"];          // get the current round number
+
         
-        [self retrieveRounds:^(NSArray *rounds, NSError *error) {
+        [self getRoundObject:^(PFObject *round, NSError *error) { // get current round object with matching round number
+            NSLog(@"hello");
             if (error) {
-                NSLog(@"failed to retrieve rounds");
+                NSLog(@"error");
             } else {
-                self.roundObject = [rounds objectAtIndex:0];
-                [self.roundObject setObject:self.currentUserTotalSeconds forKey:@"receiverTime"]; // set the  time for the round
-             
+                self.roundObject = round;
+                NSLog(@"current round number: %@    current round object: %@", [self.roundObject objectForKey:@"roundNumber"], self.roundObject);
                 
+                [self.roundObject setObject:self.currentUserTotalSeconds forKey:@"receiverTime"]; // set the time for the round
                 NSLog(@"current user is the receiver. let him see stats, and then reply or end game. RECEIVER HAS PLAYED");
                 [self.roundObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (error) {
@@ -30,7 +35,7 @@
                         [alertView show];
                     }
                     else {
-                       [self.roundsRelation addObject:self.roundObject]; // add the round object to the game's rounds relation
+                        [self.roundsRelation addObject:self.roundObject]; // add the round object to the game's rounds relation
                         NSLog(@"round saved successfully. %@", self.roundObject);
                         [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (error) {
@@ -45,16 +50,27 @@
                     }
                 }];
             }
-        }];
+        } whereRoundNumberIs:currentRoundNumber];
+        
     }
     
-    else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
+
+    if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
+        
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played. i did this already in PreviewPuzzleVC, but I'm doing it again here to stop any confusion.
-     
+        
         self.roundObject = [PFObject objectWithClassName:@"Round"];         // create a new round object
         [self.roundObject setObject:self.currentUserTotalSeconds forKey:@"senderTime"]; // set the round time
-        [self.roundsRelation addObject:self.roundObject]; // add the round object to the game's rounds relation
         [self.createdGame setObject:self.currentUserTotalSeconds forKey:@"senderTime"]; // set the time
+        
+        NSNumber *roundNumber = [self.createdGame objectForKey:@"roundNumber"];
+        int roundNumberInt = [roundNumber intValue];
+        [self.roundObject setObject:[NSNumber numberWithInt:roundNumberInt + 1] forKey:@"roundNumber"]; // increment the round object roundNumber
+        [self.createdGame setObject:[NSNumber numberWithInt:roundNumberInt + 1] forKey:@"roundNumber"]; // increment the game key roundNumber
+        
+        
+         NSLog(@"round number on creation of new round: %@    current round object: %@", [self.roundObject objectForKey:@"roundNumber"], self.roundObject);
+        
         [self sendPushToOpponent]; // send push notification to opponent
         NSLog(@"current user is not the receiver, he's the sender. let him see stats, switch turns / send a push notification and then go to main menu to wait. RECEIVER HAS NOT PLAYED.");
         [self.roundObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -63,7 +79,7 @@
                 [alertView show];
             }
             else {
-                 [self.roundsRelation addObject:self.roundObject]; // add the round object to the game's rounds relation
+                [self.roundsRelation addObject:self.roundObject]; // add the new round object to the game's rounds relation
                 NSLog(@"round saved successfully. %@", self.roundObject);
                 [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (error) {
@@ -77,14 +93,15 @@
                 
             }
         }];
+        
     }
 }
 
-- (void)retrieveRounds:(void (^)(NSArray *objects, NSError *error))completion {
-    // load all of the rounds of the current game
+- (void)getRoundObject:(void (^)(PFObject *round, NSError *error))completion whereRoundNumberIs:(NSNumber *)roundNumber {
+    // get the round object with the matching round number
     PFQuery *roundsQuery = [self.roundsRelation query];
-    [roundsQuery orderByDescending:@"createdAt"]; // order from newest created round to oldest
-    [roundsQuery findObjectsInBackgroundWithBlock:completion];
+    [roundsQuery whereKey:@"roundNumber" equalTo:roundNumber];
+    [roundsQuery getFirstObjectInBackgroundWithBlock:completion];
 }
 
 // save the game cloud object
