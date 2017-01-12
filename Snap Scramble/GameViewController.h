@@ -16,10 +16,11 @@
 #import "GameObject.h"
 #import "PuzzleObject.h"
 #import "GameViewModel.h"
+#import "PuzzleView.h"
 
 @interface GameViewController : UIViewController
 
-@property (weak, nonatomic) id<StartVCDelegate> delegate;
+@property (strong, nonatomic) id<StartVCDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UIButton *statsButton;
 @property (strong, nonatomic) IBOutlet UIButton *replyButton;
 @property (strong, nonatomic) IBOutlet UIButton *replyLaterButton;
@@ -30,6 +31,9 @@
 @property (nonatomic, strong) UIImage *puzzleImage;
 @property (nonatomic, strong) GameViewModel *viewModel;
 @property (nonatomic, strong) PFObject* roundObject;
+@property (nonatomic, strong) PuzzleObject* puzzle;
+
+
 
 
 - (void)hideShowStatsButtonUI;
@@ -37,5 +41,6 @@
 - (void)hideMainMenuUI;
 - (void)updateToReplyButtonUI;
 - (void)updateToMainMenuButtonUI;
+- (void)deallocGameProperties;
 
 @end

@@ -36,7 +36,6 @@
       [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.reportButton addTarget:self action:@selector(reportButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.cancelButton.adjustsImageWhenHighlighted = YES;
-    // pause the timer here. this is for version 2.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,19 +57,8 @@
     self.pauseView.animation = @"fall";
     self.pauseView.delay = 5.0;
     [self.pauseView animate];
-    
-    //This for loop iterates through all the view controllers in navigation stack.
-    for (UIViewController* viewController in self.navigationController.viewControllers) {
-        if ([viewController isKindOfClass:[GameViewController class]] ) {
-            
-            // Here viewController is a reference of UIViewController base class of CreatePuzzleViewController
-            // but viewController holds CreatePuzzleViewController  object so we can type cast it here
-            GameViewController *gameViewController = (GameViewController *)viewController;
-            [gameViewController.game resume]; // resume the timer
-            [self.navigationController popToViewController:gameViewController animated:YES];
-            break;
-        }
-    }
+    [self.game resume]; // resume the timer
+    [self.navigationController popViewControllerAnimated:YES]; // pop like this
 }
 
 // delete the game if pressed

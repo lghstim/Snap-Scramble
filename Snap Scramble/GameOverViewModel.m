@@ -10,15 +10,12 @@
 
 @implementation GameOverViewModel
 
-- (void)updateGame {
+- (void)updateGame:(void (^)(BOOL succeeded, NSError *error))completion {
     if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him.
         [self.createdGame setObject:[NSNumber numberWithBool:true] forKey:@"receiverPlayed"]; // receiver played, set true
         [self.createdGame setObject:self.currentUserTotalSeconds forKey:@"receiverTime"]; // set the time
- 
-       
         NSNumber *currentRoundNumber = [self.createdGame objectForKey:@"roundNumber"];          // get the current round number
 
-        
         [self getRoundObject:^(PFObject *round, NSError *error) { // get current round object with matching round number
             NSLog(@"hello");
             if (error) {
@@ -37,16 +34,7 @@
                     else {
                         [self.roundsRelation addObject:self.roundObject]; // add the round object to the game's rounds relation
                         NSLog(@"round saved successfully. %@", self.roundObject);
-                        [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            if (error) {
-                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                                [alertView show];
-                            }
-                            else {
-                                NSLog(@"game updated successfully. %@", self.createdGame);
-                            }
-                        }];
-                        
+                        [self.createdGame saveInBackgroundWithBlock:completion]; // save game
                     }
                 }];
             }
@@ -62,15 +50,14 @@
         self.roundObject = [PFObject objectWithClassName:@"Round"];         // create a new round object
         [self.roundObject setObject:self.currentUserTotalSeconds forKey:@"senderTime"]; // set the round time
         [self.createdGame setObject:self.currentUserTotalSeconds forKey:@"senderTime"]; // set the time
-        
+        [self.roundObject setObject:self.opponent.username forKey:@"receiverName"]; // set opponent to receiver
+        [self.roundObject setObject:[PFUser currentUser].username forKey:@"senderName"]; // set opponent to receiver
+        [self.createdGame setObject:[PFUser currentUser].username forKey:@"senderName"]; // set current user to sender
         NSNumber *roundNumber = [self.createdGame objectForKey:@"roundNumber"];
         int roundNumberInt = [roundNumber intValue];
         [self.roundObject setObject:[NSNumber numberWithInt:roundNumberInt + 1] forKey:@"roundNumber"]; // increment the round object roundNumber
         [self.createdGame setObject:[NSNumber numberWithInt:roundNumberInt + 1] forKey:@"roundNumber"]; // increment the game key roundNumber
-        
-        
          NSLog(@"round number on creation of new round: %@    current round object: %@", [self.roundObject objectForKey:@"roundNumber"], self.roundObject);
-        
         [self sendPushToOpponent]; // send push notification to opponent
         NSLog(@"current user is not the receiver, he's the sender. let him see stats, switch turns / send a push notification and then go to main menu to wait. RECEIVER HAS NOT PLAYED.");
         [self.roundObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -81,20 +68,11 @@
             else {
                 [self.roundsRelation addObject:self.roundObject]; // add the new round object to the game's rounds relation
                 NSLog(@"round saved successfully. %@", self.roundObject);
-                [self.createdGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (error) {
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                        [alertView show];
-                    }
-                    else {
-                        NSLog(@"game saved successfully. %@", self.createdGame);
-                    }
-                }];
-                
+                [self.createdGame saveInBackgroundWithBlock:completion]; // save game
             }
         }];
-        
     }
+    
 }
 
 - (void)getRoundObject:(void (^)(PFObject *round, NSError *error))completion whereRoundNumberIs:(NSNumber *)roundNumber {

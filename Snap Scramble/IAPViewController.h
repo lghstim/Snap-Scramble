@@ -12,6 +12,7 @@
 
 @interface IAPViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *IAPlabel;
 - (IBAction)goBackButtonDidPress:(id)sender;
 - (IBAction)unlockFullVersionButtonDidPress:(id)sender;
 

@@ -33,6 +33,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerStatsLabel;
 @property (weak, nonatomic) IBOutlet DesignableTextField *currentUserTimeLabel; // the current user's time label
 @property (weak, nonatomic) IBOutlet DesignableTextField *opponentTimeLabel; // the opponent's time label
+@property (nonatomic, strong) NSNumber* currentUserTotalSeconds;
+@property (nonatomic, strong) NSNumber* opponentTotalSeconds;
+@property (nonatomic, strong) PFObject* previousRoundObject;
 @property (nonatomic, strong) PFObject* roundObject;
 
 

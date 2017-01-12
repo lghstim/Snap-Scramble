@@ -9,18 +9,34 @@
 #import "StartPuzzleViewController.h"
 #import "GameViewController.h"
 #import "Snap_Scramble-Swift.h"
+#import "StartPuzzleViewModel.h"
 
 @interface StartPuzzleViewController ()
+
+@property(nonatomic, strong) StartPuzzleViewModel *viewModel;
+
 
 @end
 
 @implementation StartPuzzleViewController
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        _viewModel = [[StartPuzzleViewModel alloc] init];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.cancelButton.adjustsImageWhenHighlighted = YES;
+    [self setViewModelProperties];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -50,22 +66,153 @@
         [self.startPuzzleButton setTitle:@"Start Puzzle" forState:UIControlStateNormal];
         [[self.createdGame objectForKey:@"file"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             if (!error) {
-                [self.timeoutTimer invalidate]; // invalidate the timer if success
                 UIImage *image = [UIImage imageWithData:data];
                 NSLog(@"downloaded image before resizing: %@", image);
                 // resizing the photo when it's sent from a sender to the receiver. should work for all screen sizes.
                 self.image = [self prepareImageForGame:image];
                 NSLog(@"downloaded image after resizing: %@", self.image);
                 self.startPuzzleButton.userInteractionEnabled = true;
+                
+                // update the stats view and then dismiss progress view
+                [self updateStatsView];
+            } else { // if error
                 [KVNProgress dismiss];
-            } else {
-                [KVNProgress dismiss];
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 [self.timeoutTimer invalidate];
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                 [alertView show];
-            }
+            } // dismiss progressview if first error or after last save. invalidate timer if first error or after last save. go back a VC if error.
         }];
     }
+}
+
+- (void)setViewModelProperties {
+    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
+}
+
+- (void)updateStatsView {
+    NSLog(@"update states view");
+    // get the previous round number so we can get the data from that round object
+    [self.createdGame fetchInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"error");
+        } else {
+            self.createdGame = object;
+            NSNumber *currentRoundNumber = [self.createdGame objectForKey:@"roundNumber"];
+            NSNumber *previousRoundNumber = [[NSNumber alloc] init];
+            int currentRounderNumberInt = [currentRoundNumber intValue];
+            if (currentRounderNumberInt == 1) { // if it's the first round then there is no previous round
+                NSLog(@"round 1");
+                int previousRoundNumberInt = 1;
+                previousRoundNumber = [NSNumber numberWithInt:previousRoundNumberInt];
+            } else {
+                int previousRoundNumberInt = [currentRoundNumber intValue] - 1;
+                previousRoundNumber = [NSNumber numberWithInt:previousRoundNumberInt];
+            }
+            
+            [self.viewModel getRoundObject:^(PFObject *round, NSError *error) { // get previous round object
+                NSLog(@"hello");
+                if (error) {
+                    NSLog(@"error");
+                } else {
+                    [self.timeoutTimer invalidate]; // invalidate the timer if success
+                    [KVNProgress dismiss]; // dismiss downloading view
+                    NSLog(@"pass");
+                    // display the data from the previous round object
+                    self.previousRoundObject = round;
+                    
+                
+                    NSString *opponentName = @""; // placeholder
+                    
+                    // figure out who is who
+                    if ([[self.previousRoundObject objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) {
+                        opponentName = [self.previousRoundObject objectForKey:@"senderName"]; // opponent was sender last round
+                        self.opponentTotalSeconds = [self.previousRoundObject objectForKey:@"senderTime"]; // opponent total seconds
+                        self.currentUserTotalSeconds = [self.previousRoundObject objectForKey:@"receiverTime"];
+                        
+                    } else if ([[self.previousRoundObject objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) {
+                        opponentName = [self.previousRoundObject objectForKey:@"receiverName"]; // opponent was receiver last round
+                        self.opponentTotalSeconds = [self.previousRoundObject objectForKey:@"receiverTime"]; // opponent total seconds
+                        self.currentUserTotalSeconds = [self.previousRoundObject objectForKey:@"senderTime"];
+                    }
+                    
+                    NSLog(@"opponent: %@   opponent time: %@    current user time: %@", opponentName, self.opponentTotalSeconds, self.currentUserTotalSeconds);
+                  
+                    
+                    // format the current user's time
+                    int intValueTotalSeconds = [self.currentUserTotalSeconds intValue];
+                    NSLog(@"intval: %d", intValueTotalSeconds);
+                    int minutes = 0; int seconds = 0;
+                    
+                    seconds = intValueTotalSeconds % 60;
+                    if (intValueTotalSeconds >= 60) {
+                        minutes = intValueTotalSeconds / 60;
+                    }
+                    
+                    if (seconds < 10) {
+                        self.currentUserTimeLabel.text = [NSString stringWithFormat:@"Your time: %d:0%d", minutes, seconds];
+                    }
+                    
+                    else if (seconds >= 10) {
+                        self.currentUserTimeLabel.text = [NSString stringWithFormat:@"Your time: %d:%d", minutes, seconds];
+                    }
+                    
+                    int opponentTotalSecondsInt = [self.opponentTotalSeconds intValue];
+                    int currentUserTotalSecondsInt = [self.currentUserTotalSeconds intValue];
+                    if (opponentTotalSecondsInt > 0 && currentUserTotalSecondsInt > 0) { // both have played so we can display the data
+                        // format the opponent's time
+                        int intValueTotalSeconds = [self.opponentTotalSeconds intValue];
+                        int minutes = 0; int seconds = 0;
+                        
+                        seconds = intValueTotalSeconds % 60;
+                        if (intValueTotalSeconds >= 60) {
+                            minutes = intValueTotalSeconds / 60;
+                        }
+                        
+                        if (seconds < 10) {
+                            self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:0%d", opponentName, minutes, seconds];
+                        }
+                        
+                        else if (seconds >= 10) {
+                            self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:%d", opponentName, minutes, seconds];
+                        }
+                        
+                        // check who won
+                        if (self.currentUserTotalSeconds > self.opponentTotalSeconds) { // if current user lost
+                            self.headerStatsLabel.text = @"You lost the previous round:";
+                        } else if (self.currentUserTotalSeconds == self.opponentTotalSeconds) { // if tie
+                            // don't update losses or wins since the game is a tie.
+                            self.headerStatsLabel.text = @"You tied the previous round:";
+                        } else if (self.currentUserTotalSeconds < self.opponentTotalSeconds) { // if current user won
+                            self.headerStatsLabel.text = @"You won the previous round:";
+                        }
+                    } else if (currentUserTotalSecondsInt == 0 && opponentTotalSecondsInt > 0) {
+                        // format the opponent's time
+                        int intValueTotalSeconds = [self.opponentTotalSeconds intValue];
+                        int minutes = 0; int seconds = 0;
+                        
+                        seconds = intValueTotalSeconds % 60;
+                        if (intValueTotalSeconds >= 60) {
+                            minutes = intValueTotalSeconds / 60;
+                        }
+                        
+                        if (seconds < 10) {
+                            self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:0%d", opponentName, minutes, seconds];
+                        }
+                        
+                        else if (seconds >= 10) {
+                            self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:%d", opponentName, minutes, seconds];
+                        }
+
+                        self.headerStatsLabel.text = [NSString stringWithFormat:@"Try to solve the puzzle faster!"];
+                        self.currentUserTimeLabel.text = [NSString stringWithFormat:@"You haven't played yet."];
+
+                    }
+                }
+            } whereRoundNumberIs:previousRoundNumber];
+        }
+    }];
 }
 
 - (void)incrementTime {
@@ -75,7 +222,6 @@
     
     // if too much time passed in uploading
     if ([self.totalSeconds intValue] > 20) {
-        [KVNProgress dismiss];
         NSLog(@"timeout error. took longer than 20 seconds");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alertView show];

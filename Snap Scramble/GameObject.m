@@ -33,7 +33,7 @@
 }
 
 - (void)resume {
-    NSLog(@"resumed?");
+    NSLog(@"why is this not owrking");
     self.isPaused = [NSNumber numberWithBool:false];
     self.gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(gameOver) userInfo:nil repeats:YES];
 }

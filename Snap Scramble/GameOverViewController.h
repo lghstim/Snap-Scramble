@@ -10,6 +10,11 @@
 #import "Snap_Scramble-Swift.h"
 #import <Parse/Parse.h>
 #import "GameOverViewController.h"
+#import "GameObject.h"
+#import "PuzzleObject.h"
+#import "PuzzleView.h"
+#import "TargetView.h"
+#import "PieceView.h"
 
 @interface GameOverViewController : UIViewController
 
@@ -23,6 +28,14 @@
 @property (nonatomic, strong) NSNumber* opponentTotalSeconds;
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) PFObject* roundObject;
+
+// game properties
+@property (nonatomic, strong) PuzzleObject* puzzle;
+@property (nonatomic, strong) GameObject *game;
+
+
+
+
 
 
 

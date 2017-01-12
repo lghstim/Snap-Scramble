@@ -18,11 +18,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UIButton *termsAndConditionsButton;
 @property (weak, nonatomic) IBOutlet UIButton* goBackButton;
-@property (weak, nonatomic) IBOutlet FBSDKSendButton *facebookSendButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet SpringView *settingsView;
 
 - (IBAction)unlockFullVersionButtonDidPress:(id)sender;
 - (IBAction)restorePurchasesButtonDidPress:(id)sender;
+- (IBAction)shareButtonDidPress:(id)sender;
 
 
 @end

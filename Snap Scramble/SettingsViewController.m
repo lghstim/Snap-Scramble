@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import "IAPViewController.h"
 
 @interface SettingsViewController ()
 
@@ -19,13 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    content.contentURL =
-    [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
-    content.contentTitle = @"Download Snap Scramble";
-    content.contentDescription = @"Check out the iPhone game Snap Scramble!";
-    self.facebookSendButton.titleLabel.text = @"Share through Facebook Messenger";
-    self.facebookSendButton.shareContent = content;
     [self.logoutButton addTarget:self action:@selector(logoutButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.goBackButton addTarget:self action:@selector(goBackButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.goBackButton.adjustsImageWhenHighlighted = YES;
@@ -74,18 +68,7 @@
 }
 
 - (IBAction)unlockFullVersionButtonDidPress:(id)sender {
-    [PFPurchase buyProduct:@"com.timgorer.SnapScrambleDescrambleFriends.SnapScramblePremiumApp" block:^(NSError *error) {
-        if (!error) {
-            // Run UI logic that informs user the product has been purchased, such as displaying an alert view.
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-        
-        else {
-            NSLog(@"hi: %@", error);
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred in purchasing Snap Scramble Premium." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-    }];
+    // performs the chooseToBuyIAP segue
 }
 
 - (IBAction)restorePurchasesButtonDidPress:(id)sender {
@@ -100,15 +83,39 @@
     }
 }
 
+- (IBAction)shareButtonDidPress:(id)sender {
+    NSString *textToShare = @"Check out the iPhone game Snap Scramble!";
+    NSURL *myWebsite = [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
+    
+    NSArray *objectsToShare = @[textToShare, myWebsite];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    activityVC.excludedActivityTypes = excludeActivities;
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
 
-/*
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"chooseToBuyIAP"]) {
+        IAPViewController *viewController = (IAPViewController *)segue.destinationViewController;
+        viewController.IAPlabel.text = @"The full version doesn't have the 10 game limit that the free version has.";
+    }
 }
-*/
+
 
 @end

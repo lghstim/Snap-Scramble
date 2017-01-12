@@ -18,7 +18,7 @@
 @property (nonatomic, strong) PFRelation* roundsRelation;
 
 
-- (void)updateGame;
+- (void)updateGame:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)getRoundObject:(void (^)(PFObject *round, NSError *error))completion whereRoundNumberIs:(NSNumber *)roundNumber;
 - (void)switchTurns;
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion;

@@ -85,13 +85,7 @@
 		6AB628941C8ACE6200D68261 /* StartPuzzleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628931C8ACE6100D68261 /* StartPuzzleViewController.m */; };
 		6AB628981C8B8A5000D68261 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */; };
 		6AB6289B1C8BA32700D68261 /* UserSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */; };
-		6AC60AFC1D5871EA00681C90 /* DKVerticalColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60AFB1D5871EA00681C90 /* DKVerticalColorPicker.m */; };
-		6AC60AFF1D5871F300681C90 /* DKPhotoCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60AFE1D5871F300681C90 /* DKPhotoCapture.m */; };
-		6AC60B061D58720600681C90 /* DKEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60B011D58720600681C90 /* DKEditorView.m */; };
-		6AC60B071D58720600681C90 /* ForwardingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60B031D58720600681C90 /* ForwardingTextField.m */; };
 		6AC60B081D58720600681C90 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC60B051D58720600681C90 /* UIImage+Scale.m */; };
-		6AC60B0B1D591C4200681C90 /* DKImagePickerOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC60B091D591C4200681C90 /* DKImagePickerOverlay.xib */; };
-		6AC60B0C1D591C4200681C90 /* DKImageEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AC60B0A1D591C4200681C90 /* DKImageEdit.xib */; };
 		6AC7129E1D18E2ED00D21066 /* ChallengeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AC7129D1D18E2ED00D21066 /* ChallengeViewModel.m */; };
 		6AD28CB71B5E06F900BCD802 /* TargetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD28CB61B5E06F900BCD802 /* TargetView.m */; };
 		6AD28CBA1B5E071D00BCD802 /* PieceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD28CB91B5E071D00BCD802 /* PieceView.m */; };
@@ -110,6 +104,7 @@
 		6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD28CE21B5E092E00BCD802 /* Images.xcassets */; };
 		6AD633911B71EB4C0038A4EB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD633901B71EB4C0038A4EB /* Reachability.m */; };
 		6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD6439E1D516C2300121E98 /* PauseViewModel.m */; };
+		6AE073031E24D2A7009854AE /* StartPuzzleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE073021E24D2A7009854AE /* StartPuzzleViewModel.m */; };
 		6AF197CF1E1E1F56004840FC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */; };
 		6AF197D11E1E1F73004840FC /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF197CE1E1E1F56004840FC /* libz.1.dylib */; };
 		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
@@ -252,18 +247,8 @@
 		6AB628971C8B8A5000D68261 /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
 		6AB628991C8BA32600D68261 /* UserSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectionViewController.h; sourceTree = "<group>"; };
 		6AB6289A1C8BA32600D68261 /* UserSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectionViewController.m; sourceTree = "<group>"; };
-		6AC60AFA1D5871EA00681C90 /* DKVerticalColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKVerticalColorPicker.h; sourceTree = "<group>"; };
-		6AC60AFB1D5871EA00681C90 /* DKVerticalColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKVerticalColorPicker.m; sourceTree = "<group>"; };
-		6AC60AFD1D5871F300681C90 /* DKPhotoCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKPhotoCapture.h; sourceTree = "<group>"; };
-		6AC60AFE1D5871F300681C90 /* DKPhotoCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPhotoCapture.m; sourceTree = "<group>"; };
-		6AC60B001D58720600681C90 /* DKEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKEditorView.h; sourceTree = "<group>"; };
-		6AC60B011D58720600681C90 /* DKEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKEditorView.m; sourceTree = "<group>"; };
-		6AC60B021D58720600681C90 /* ForwardingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForwardingTextField.h; sourceTree = "<group>"; };
-		6AC60B031D58720600681C90 /* ForwardingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForwardingTextField.m; sourceTree = "<group>"; };
 		6AC60B041D58720600681C90 /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
 		6AC60B051D58720600681C90 /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
-		6AC60B091D591C4200681C90 /* DKImagePickerOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DKImagePickerOverlay.xib; sourceTree = "<group>"; };
-		6AC60B0A1D591C4200681C90 /* DKImageEdit.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DKImageEdit.xib; sourceTree = "<group>"; };
 		6AC7129C1D18E2ED00D21066 /* ChallengeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeViewModel.h; sourceTree = "<group>"; };
 		6AC7129D1D18E2ED00D21066 /* ChallengeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeViewModel.m; sourceTree = "<group>"; };
 		6AD28CB51B5E06F900BCD802 /* TargetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TargetView.h; sourceTree = "<group>"; };
@@ -287,6 +272,8 @@
 		6AD633901B71EB4C0038A4EB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
 		6AD6439D1D516C2300121E98 /* PauseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewModel.h; sourceTree = "<group>"; };
 		6AD6439E1D516C2300121E98 /* PauseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewModel.m; sourceTree = "<group>"; };
+		6AE073011E24D2A7009854AE /* StartPuzzleViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPuzzleViewModel.h; sourceTree = "<group>"; };
+		6AE073021E24D2A7009854AE /* StartPuzzleViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPuzzleViewModel.m; sourceTree = "<group>"; };
 		6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
 		6AF197CE1E1E1F56004840FC /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
@@ -408,16 +395,6 @@
 			children = (
 				6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */,
 				6A8B193B1E1259DA009CD77D /* Spring-masterr */,
-				6AC60B091D591C4200681C90 /* DKImagePickerOverlay.xib */,
-				6AC60B0A1D591C4200681C90 /* DKImageEdit.xib */,
-				6AC60AFA1D5871EA00681C90 /* DKVerticalColorPicker.h */,
-				6AC60AFB1D5871EA00681C90 /* DKVerticalColorPicker.m */,
-				6AC60AFD1D5871F300681C90 /* DKPhotoCapture.h */,
-				6AC60AFE1D5871F300681C90 /* DKPhotoCapture.m */,
-				6AC60B001D58720600681C90 /* DKEditorView.h */,
-				6AC60B011D58720600681C90 /* DKEditorView.m */,
-				6AC60B021D58720600681C90 /* ForwardingTextField.h */,
-				6AC60B031D58720600681C90 /* ForwardingTextField.m */,
 				6AC60B041D58720600681C90 /* UIImage+Scale.h */,
 				6AC60B051D58720600681C90 /* UIImage+Scale.m */,
 				6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */,
@@ -560,6 +537,8 @@
 				6AA59B001E16235100D2F4CF /* LoginViewModel.h */,
 				6AA59B011E16235100D2F4CF /* LoginViewModel.m */,
 				6A7C81651D49EC3F00F36C43 /* SignupViewModel.h */,
+				6AE073011E24D2A7009854AE /* StartPuzzleViewModel.h */,
+				6AE073021E24D2A7009854AE /* StartPuzzleViewModel.m */,
 				6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */,
 				6AC7129C1D18E2ED00D21066 /* ChallengeViewModel.h */,
 				6AC7129D1D18E2ED00D21066 /* ChallengeViewModel.m */,
@@ -701,7 +680,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A7C81791D49F77A00F36C43 /* cancel@3x.png in Resources */,
-				6AC60B0B1D591C4200681C90 /* DKImagePickerOverlay.xib in Resources */,
 				6A7C81741D49F77A00F36C43 /* camera-flash@2x.png in Resources */,
 				6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */,
 				6A8B197F1E1259DA009CD77D /* Spring.podspec in Resources */,
@@ -709,7 +687,6 @@
 				6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */,
 				6A7C81751D49F77A00F36C43 /* camera-switch.png in Resources */,
 				6A7C81771D49F77A00F36C43 /* cancel.png in Resources */,
-				6AC60B0C1D591C4200681C90 /* DKImageEdit.xib in Resources */,
 				6A8B196E1E1259DA009CD77D /* Info.plist in Resources */,
 				6A8B19601E1259DA009CD77D /* LICENSE in Resources */,
 				6A8B195F1E1259DA009CD77D /* .gitignore in Resources */,
@@ -803,6 +780,7 @@
 				6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */,
 				6A8B19701E1259DA009CD77D /* LoadingView.swift in Sources */,
 				6A8B196B1E1259DA009CD77D /* DesignableTextView.swift in Sources */,
+				6AE073031E24D2A7009854AE /* StartPuzzleViewModel.m in Sources */,
 				6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */,
 				6A8F2FF01D45E1020031A8A0 /* UIImage+Resize.m in Sources */,
 				6A8B19731E1259DA009CD77D /* SoundPlayer.swift in Sources */,
@@ -815,7 +793,6 @@
 				6A8B19621E1259DA009CD77D /* AsyncButton.swift in Sources */,
 				6A4C51521D23C3EA00D917FA /* GameObject.m in Sources */,
 				6A8B19781E1259DA009CD77D /* SpringLabel.swift in Sources */,
-				6AC60B061D58720600681C90 /* DKEditorView.m in Sources */,
 				6A112AE41B5E02780035A75C /* PreviewPuzzleViewController.m in Sources */,
 				6A1E77C61CB303C0002688D0 /* LoginViewController.m in Sources */,
 				6AD28CB71B5E06F900BCD802 /* TargetView.m in Sources */,
@@ -826,19 +803,16 @@
 				6A8F2FEF1D45E1020031A8A0 /* UIImage+Crop.m in Sources */,
 				6A8B197B1E1259DA009CD77D /* SpringView.swift in Sources */,
 				6AB6289B1C8BA32700D68261 /* UserSelectionViewController.m in Sources */,
-				6AC60AFC1D5871EA00681C90 /* DKVerticalColorPicker.m in Sources */,
 				6A112AB01B5DFB0D0035A75C /* AppDelegate.m in Sources */,
 				6A8B19721E1259DA009CD77D /* Misc.swift in Sources */,
 				6A112AD81B5E02450035A75C /* SignupViewController.m in Sources */,
 				6AA59AFF1E1622B400D2F4CF /* GameOverViewModel.m in Sources */,
 				6A8B19671E1259DA009CD77D /* DesignableImageView.swift in Sources */,
-				6AC60AFF1D5871F300681C90 /* DKPhotoCapture.m in Sources */,
 				6A112AAD1B5DFB0D0035A75C /* main.m in Sources */,
 				6A8B197A1E1259DA009CD77D /* SpringTextView.swift in Sources */,
 				6A8B19741E1259DA009CD77D /* Spring.swift in Sources */,
 				6A8B196A1E1259DA009CD77D /* DesignableTextField.swift in Sources */,
 				6A8B19631E1259DA009CD77D /* AsyncImageView.swift in Sources */,
-				6AC60B071D58720600681C90 /* ForwardingTextField.m in Sources */,
 				6A4ED85F1D42EB60006213A7 /* FriendsViewModel.m in Sources */,
 				6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */,
 				6A8B196D1E1259DA009CD77D /* ImageLoader.swift in Sources */,

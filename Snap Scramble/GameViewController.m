@@ -20,6 +20,8 @@
 @property (nonatomic) NSInteger pieceNum;
 @property (strong,nonatomic) NSMutableArray* targets;
 @property (strong,nonatomic) NSMutableArray* pieces;
+@property (nonatomic) PuzzleView *pView;
+
 
 @end
 
@@ -57,17 +59,16 @@
    [self.mainMenuButton addTarget:self action:@selector(mainMenuButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     
     // GAME & PUZZLE INITIALIZATION code
-    PuzzleObject *puzzle = [[PuzzleObject alloc] initWithImage:self.puzzleImage andPuzzleSize:[self.createdGame objectForKey:@"puzzleSize"]];
-    self.game = [[GameObject alloc] initWithPuzzle:puzzle opponent:self.opponent andPFObject:self.createdGame]; // this line of code creates the game object
-    PuzzleView* puzzleView; // puzzle view variable
-    puzzleView = [[PuzzleView alloc] initWithGameObject:self.game andFrame:CGRectMake( 0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.puzzle = [[PuzzleObject alloc] initWithImage:self.puzzleImage andPuzzleSize:[self.createdGame objectForKey:@"puzzleSize"]];
+    self.game = [[GameObject alloc] initWithPuzzle:self.puzzle opponent:self.opponent andPFObject:self.createdGame]; // this line of code creates the game object
+    self.pView = [[PuzzleView alloc] initWithGameObject:self.game andFrame:CGRectMake( 0, 0, self.view.frame.size.width, self.view.frame.size.height)]; // puzzle view variable
     NSLog(@"stop before here?");
-    [self.view addSubview:puzzleView]; // add the puzzle view to the main view
-
-
+    [self.view addSubview:self.pView]; // add the puzzle view to the main view
+    
+    
     // Set the delegate
-    puzzleView.delegate = self; // set the delegate of the puzzle view to be this view controller so that the pause button segue works
-    self.game.gameDelegate = puzzleView; // this delegate is so that the game object can constantly update the puzzle view's timer label
+    self.pView.delegate = self; // set the delegate of the puzzle view to be this view controller so that the pause button segue works
+    self.game.gameDelegate = self.pView; // this delegate is so that the game object can constantly update the puzzle view's timer label
     self.game.gameUIDelegate = self; // this delegate is so that the game object can update the UI
 }
 
@@ -85,6 +86,8 @@
     [super viewWillAppear:animated];
     // Do any additional setup after loading the view, typically from a nib.
     [self.navigationController.navigationBar setHidden:true];
+    
+
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -107,7 +110,6 @@
 }
 
 # pragma mark - UI updates
-
 
 
 - (void)updateToShowStatsButtonUI {
@@ -223,12 +225,15 @@
         gameOverViewController.createdGame = self.createdGame;
         gameOverViewController.currentUserTotalSeconds = self.game.totalSeconds; // current user's total seconds to solve puzzle
         gameOverViewController.opponent = self.opponent;
+        gameOverViewController.puzzle = self.puzzle;
+        gameOverViewController.game = self.game;
     }
     
     if ([segue.identifier isEqualToString:@"pauseMenu"]) {
         PauseViewController *pauseViewController = (PauseViewController *)segue.destinationViewController;
         pauseViewController.createdGame = self.createdGame;
         pauseViewController.opponent = self.opponent;
+        pauseViewController.game = self.game;
     }
 }
 
@@ -268,6 +273,14 @@
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
 }
+
+- (void)deallocGameProperties {
+    self.puzzle = nil;
+    self.game = nil;
+    self.pView = nil;
+    self.puzzleImage = nil;
+}
+
 
 
 @end

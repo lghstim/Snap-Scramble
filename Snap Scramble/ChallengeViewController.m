@@ -10,6 +10,7 @@
 #import "CreatePuzzleViewController.h"
 #import "Reachability.h"
 #import "ChallengeViewModel.h"
+#import "IAPViewController.h"
 #import "Snap_Scramble-Swift.h"
 
 
@@ -110,7 +111,7 @@
         // if the user doesn't have the premium in-app purchase of Snap Scramble, push him to the IAPViewController
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         if ([userDefaults boolForKey:@"premiumUser"] != true) {
-            [self performSegueWithIdentifier:@"openIAP" sender:self];
+            [self performSegueWithIdentifier:@"limitOpenIAP" sender:self];
         }
         
         // else if he has the in-app purchase then let him create a new game.
@@ -418,6 +419,8 @@
         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
     }
 }
+
+
 
 
 #pragma mark - delegate methods

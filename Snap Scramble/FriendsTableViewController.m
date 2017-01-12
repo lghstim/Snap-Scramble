@@ -51,13 +51,18 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:false];
     
-    
+    self.totalSeconds = [NSNumber numberWithInt:0];
+    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
     self.friendsRelation = self.viewModel.friendsRelation;
     [KVNProgress showWithStatus:@"Loading friends list..."];
     [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
             [KVNProgress dismiss];
+            [self.timeoutTimer invalidate];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"An error occurred. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         
         else {
@@ -74,11 +79,11 @@
                         [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
                             if (error) {
                                 NSLog(@"Error %@ %@", error, [error userInfo]);
-                                [KVNProgress dismiss];
                             }
                             
                             else {
                                 NSLog(@"friends list: %@", self.mutableFriendsList);
+                                [self.timeoutTimer invalidate];
                                 [KVNProgress dismiss];
                                 [self.tableView reloadData];
                             }
@@ -87,12 +92,13 @@
                     
                     else {
                         [KVNProgress dismiss];
+                        [self.timeoutTimer invalidate];
                         NSLog(@"Good. Founder is already a friend.");
                     }
-                } else {
-                    [KVNProgress dismiss];
+                } else { // error
+                    NSLog(@"error");
                 }
-            }];
+            }]; // dismiss progressview if first error or after last save. invalidate timer if first error or after last save or if founder is a friend. go back a VC if error.
         }
     }];
 }
@@ -106,6 +112,8 @@
         
         if (textField) {
             [KVNProgress showWithStatus:@"Adding friend..."];
+            self.totalSeconds = [NSNumber numberWithInt:0];
+            self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
         }
         
         NSString *username = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -117,6 +125,7 @@
         
         if ([username length] == 0) {
             [KVNProgress dismiss];
+            [self.timeoutTimer invalidate];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Please enter a username" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
@@ -124,12 +133,14 @@
         
         else if ([username isEqualToString:comparisonUsername]) {
             [KVNProgress dismiss];
+            [self.timeoutTimer invalidate];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"You cannot play a game with yourself." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
         
         else if (networkStatus == NotReachable) {
             [KVNProgress dismiss];
+            [self.timeoutTimer invalidate];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }
@@ -147,10 +158,12 @@
                             [self.friendsRelation addObject:searchedUser];
                             [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
                                 if (!error) {
+                                    [self.timeoutTimer invalidate];
                                     [KVNProgress dismiss];
                                     NSLog(@"new friends list: %@", self.mutableFriendsList);
                                     [self.tableView reloadData];
                                 } else {
+                                    NSLog(@"error");
                                 }
                             }];
                         }
@@ -158,9 +171,15 @@
                         // if the user is already a friend, don't add him
                         else {
                             [KVNProgress dismiss];
+                            [self.timeoutTimer invalidate];
                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"This user is already on your friends list." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                             [alertView show];
                         }
+                    } else { // error
+                        [KVNProgress dismiss];
+                        [self.timeoutTimer invalidate];
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"An error occurred. Please try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alertView show];
                     }
                 }
                 
@@ -168,10 +187,11 @@
                 // if the user doesn't exist, display a message
                 else {
                     [KVNProgress dismiss];
+                    [self.timeoutTimer invalidate];
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry!" message:@"This user does not exist." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
-            }];
+            }]; // dismiss progressview if first error or after last save. invalidate timer if first error or after last save. go back a VC if error.
         }
     }]];
     
@@ -183,6 +203,21 @@
     [self presentViewController:alert animated:YES
                      completion:nil];
 }
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alertView show];
+        [self.timeoutTimer invalidate];
+    }
+}
+
 
 
 #pragma mark - Table view data source

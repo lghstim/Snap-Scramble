@@ -162,8 +162,8 @@
                 [button setTitle:@"Pause" forState:UIControlStateNormal];
                 UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
                 button.titleLabel.font = myFont;
-                button.frame = CGRectMake(0, 0, 60.0, 21.0);
-                button.center = target.center;
+                [button setTitleColor:[self colorWithHexString:@"71C7F0"] forState:UIControlStateNormal];
+                button.frame = CGRectMake(self.frame.size.width - 100, 10, 60.0, 21.0);
                 button.adjustsImageWhenHighlighted = YES;
                 [self addSubview:button];
             }

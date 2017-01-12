@@ -10,7 +10,6 @@
 #import "GameViewController.h"
 #import "ChallengeViewController.h"
 #import "PreviewPuzzleViewModel.h"
-#import "DKEditorView.h"
 
 @interface PreviewPuzzleViewController ()
 
@@ -26,13 +25,6 @@
     if (self)
     {
         _viewModel = [[PreviewPuzzleViewModel alloc] init];
-        
-        // editing photo functionality... not working
-        /* DKEditorView *dkev = (DKEditorView *)self.view;
-        UIGraphicsBeginImageContext(dkev.frame.size);
-        [dkev.layer renderInContext:UIGraphicsGetCurrentContext()];
-        UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext(); */
     }
     
     return self;
@@ -179,7 +171,9 @@
             // save image file and cloud game model
             [self.viewModel saveFile:^(BOOL succeeded, NSError *error) {
                 if (error) {
+                    [self.timeoutTimer invalidate];
                     [KVNProgress dismiss];
+                    [self.navigationController popViewControllerAnimated:YES]; // go back a VC
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
@@ -187,8 +181,7 @@
                 else {
                     [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                         if (error) {
-                            [KVNProgress dismiss];
-                            [self.timeoutTimer invalidate];
+                            NSLog(@"error");
                         }
                        
                         else {
@@ -200,7 +193,7 @@
                             [self performSegueWithIdentifier:@"createGame" sender:self];
                         }
                     }];
-                }
+                } // dismiss progressview if first error or after last save. invalidate timer if first error or after last save. go back a VC if error.
             }];
         }
         
@@ -224,7 +217,6 @@
     
     // if too much time passed in uploading
     if ([self.totalSeconds intValue] > 30) {
-        [KVNProgress dismiss];
         NSLog(@"timeout error. took longer than 20 seconds");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alertView show];
