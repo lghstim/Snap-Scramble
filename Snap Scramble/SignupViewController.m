@@ -101,22 +101,29 @@
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *reenteredPassword = [self.reenterPasswordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email = [self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    // white space check variable
     NSRange whiteSpaceRange = [username rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    
+    // convert string to lowercase
     NSString *lowercaseString = [username lowercaseString]; // get the lowercase username
-    BOOL containsUppercaseLetter = false;
     
-    if (![username isEqualToString:lowercaseString])
-    {
-        containsUppercaseLetter = true;
-    }
-    
-    else if ([username isEqualToString:lowercaseString]) {
-        containsUppercaseLetter = false;
-    }
+    // check if username has only alphanumeric characters
+    NSCharacterSet *alphaSet = [NSCharacterSet alphanumericCharacterSet];
+    BOOL alphaNumericValid = [[username stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
+  
     
     // checks for if the sign up information is valid start here
     if ([username length] == 0 || [password length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+    }
+    
+    // alphanumeric check
+    else if (alphaNumericValid == false) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Password must contain only letters and numbers." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
@@ -155,15 +162,22 @@
     }
     
     else {
+        // initiate timer for timeout
+        self.totalSeconds = [NSNumber numberWithInt:0];
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+        
+        
         [KVNProgress showWithStatus:@"Signing up..."]; // UI
         [self.viewModel signUpUser:username password:password email:email completion:^(BOOL succeeded, NSError *error) {
             if (error) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alertView show];
+                [self.timeoutTimer invalidate];
                 [KVNProgress dismiss];
             }
             
             else {
+                [self.timeoutTimer invalidate];
                 [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
                 NSLog(@"User %@ signed up.", [PFUser currentUser]);
                 [KVNProgress dismiss];
@@ -174,5 +188,23 @@
         }];
     }
 }
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"A server error occurred." message:@"Please play again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [KVNProgress dismiss];
+        [self.timeoutTimer invalidate];
+    }
+    
+}
+
+
 
 @end

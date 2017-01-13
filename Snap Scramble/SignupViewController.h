@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet DesignableTextField *emailField;
 @property (weak, nonatomic) IBOutlet SpringView *signupView;
 @property (weak, nonatomic) IBOutlet UIButton *legalButton;
+@property (nonatomic, strong) NSTimer *timeoutTimer;
+@property (nonatomic, strong) NSNumber* totalSeconds;
 
 
 - (IBAction)signupButtonDidPress:(id)sender;

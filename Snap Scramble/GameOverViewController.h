@@ -28,6 +28,8 @@
 @property (nonatomic, strong) NSNumber* opponentTotalSeconds;
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) PFObject* roundObject;
+@property (nonatomic, strong) NSTimer *timeoutTimer;
+@property (nonatomic, strong) NSNumber* totalSeconds;
 
 // game properties
 @property (nonatomic, strong) PuzzleObject* puzzle;

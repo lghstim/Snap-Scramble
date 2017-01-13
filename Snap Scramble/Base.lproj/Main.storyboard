@@ -292,7 +292,7 @@
                                 <inset key="scrollIndicatorInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="separatorColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
-                                <color key="sectionIndexBackgroundColor" red="0.94605457782745361" green="0.95496565103530884" blue="0.9801211953163147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.94509803921568625" green="0.95686274509803915" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="r0n-qc-oaI">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="228"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -364,18 +364,18 @@
                                         <rect key="frame" x="0.0" y="250" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lbh-Wu-3m8" id="9iB-e4-yZ2">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zle-Gq-cF2">
-                                                    <rect key="frame" x="15.000000000000002" y="21" width="31.666666666666668" height="19.333333333333332"/>
+                                                    <rect key="frame" x="15" y="20" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Lp-GF-eCX">
-                                                    <rect key="frame" x="357.33333333333331" y="21" width="41.666666666666664" height="19.333333333333332"/>
+                                                    <rect key="frame" x="357" y="20" width="42" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -405,7 +405,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Snap Scramble" id="Ehs-ZM-7Ke">
-                        <barButtonItem key="rightBarButtonItem" image="icon-hamburger" id="bWv-pq-tkG">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="bWv-pq-tkG">
                             <connections>
                                 <segue destination="81A-Q2-0De" kind="show" id="vXV-vn-qBg"/>
                             </connections>
@@ -633,18 +633,18 @@
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n7s-RE-9Vs" id="bsM-gN-44N">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t9P-af-UpB">
-                                            <rect key="frame" x="15.000000000000002" y="21" width="31.666666666666668" height="19.333333333333332"/>
+                                            <rect key="frame" x="15" y="20" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="beK-KW-JUb">
-                                            <rect key="frame" x="357.33333333333331" y="21" width="41.666666666666664" height="19.333333333333332"/>
+                                            <rect key="frame" x="357" y="20" width="42" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1793,7 +1793,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynH-S1-40T">
-                                                    <rect key="frame" x="110" y="248.66666666666652" width="80" height="26.999999999999943"/>
+                                                    <rect key="frame" x="110" y="248.66666666666669" width="80" height="27"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="5Ip-W1-bcx"/>
                                                         <constraint firstAttribute="height" constant="27" id="uZv-ZX-vgF"/>
@@ -2482,8 +2482,8 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="jBb-nJ-X41"/>
                                             <exclude reference="XvA-fd-Q4P"/>
+                                            <exclude reference="jBb-nJ-X41"/>
                                             <exclude reference="sZb-DE-zhP"/>
                                             <exclude reference="whw-Xu-YSK"/>
                                         </mask>
@@ -2513,10 +2513,9 @@
     <resources>
         <image name="Challenge_Button" width="330" height="330"/>
         <image name="Line" width="1077" height="3"/>
-        <image name="empty_table_background" width="1242" height="1200"/>
+        <image name="empty_table_background" width="1896" height="1962"/>
         <image name="go-back-button" width="354" height="120"/>
         <image name="icon-back" width="11" height="20"/>
-        <image name="icon-hamburger" width="22" height="16"/>
         <image name="input-outline" width="250" height="44"/>
         <image name="ok-button" width="354" height="120"/>
         <image name="resume-button" width="354" height="120"/>

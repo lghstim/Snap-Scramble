@@ -79,7 +79,7 @@
                 [KVNProgress dismiss];
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 [self.timeoutTimer invalidate];
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alertView show];
             } // dismiss progressview if first error or after last save. invalidate timer if first error or after last save. go back a VC if error.
         }];
@@ -187,7 +187,7 @@
                         } else if (self.currentUserTotalSeconds < self.opponentTotalSeconds) { // if current user won
                             self.headerStatsLabel.text = @"You won the previous round:";
                         }
-                    } else if (currentUserTotalSecondsInt == 0 && opponentTotalSecondsInt > 0) {
+                    } else if (currentUserTotalSecondsInt == 0 && opponentTotalSecondsInt > 0) { // if only opponent has played last round
                         // format the opponent's time
                         int intValueTotalSeconds = [self.opponentTotalSeconds intValue];
                         int minutes = 0; int seconds = 0;
@@ -223,8 +223,9 @@
     // if too much time passed in uploading
     if ([self.totalSeconds intValue] > 20) {
         NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
+        [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
     }
 }

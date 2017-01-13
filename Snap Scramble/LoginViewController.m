@@ -102,6 +102,11 @@
         [alertView show];
     }
     else {
+        // initiate timer for timeout
+        self.totalSeconds = [NSNumber numberWithInt:0];
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+        
+        
         [KVNProgress showWithStatus:@"Logging in..."]; // UI
         [self.viewModel logInUser:username password:password completion:^(PFUser *user, NSError *error) {
             if (error) {
@@ -109,9 +114,11 @@
                                                                     message:@"Your e-mail or password don't match an account we have in our database."
                                                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alertView show];
+                [self.timeoutTimer invalidate];
                 [KVNProgress dismiss];
             }
             else {
+                [self.timeoutTimer invalidate];
                 [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
                 NSLog(@"User %@ logged in.", user);
                 [KVNProgress dismiss];
@@ -122,5 +129,22 @@
         }];
     }
 }
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"A server error occurred." message:@"Please play again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [KVNProgress dismiss];
+        [self.timeoutTimer invalidate];
+    }
+    
+}
+
 
 @end

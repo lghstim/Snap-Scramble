@@ -174,7 +174,7 @@
                     [self.timeoutTimer invalidate];
                     [KVNProgress dismiss];
                     [self.navigationController popViewControllerAnimated:YES]; // go back a VC
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                     [alertView show];
                 }
                
@@ -218,8 +218,9 @@
     // if too much time passed in uploading
     if ([self.totalSeconds intValue] > 30) {
         NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
+        [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
         self.sendButton.userInteractionEnabled = YES;
     }

@@ -68,7 +68,7 @@
     [alert addAction: [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self.viewModel deleteGame:self.createdGame completion:^(BOOL succeeded, NSError *error) {
             if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alertView show];
             }
             
@@ -110,7 +110,7 @@
         
         
         NSString *blockedText = [@"Successfully blocked: " stringByAppendingString:self.opponent.username];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Blocked" message:blockedText delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Blocked" message:blockedText delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }]];

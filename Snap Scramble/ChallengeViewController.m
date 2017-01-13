@@ -184,15 +184,20 @@
         } else {
             NSNumber *wins = [currentUser objectForKey:@"wins"];
             NSNumber *losses = [currentUser objectForKey:@"losses"];
-            if (wins > 0 && losses > 0) {
+            int winsInt = [wins intValue];
+            int lossesInt = [losses intValue];
+            if (winsInt > 0 && lossesInt > 0) {
                 NSLog(@"Wins: %@ | Losses: %@", wins, losses);
                 self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: %@", wins, losses];
-            } else if (wins > 0) {
+            } else if (winsInt > 0 && lossesInt == 0) {
                 NSLog(@"Wins: %@ | Losses: 0", wins);
                 self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: 0", wins];
-            } else if (losses > 0) {
+            } else if (lossesInt > 0 && winsInt == 0) {
                 NSLog(@"Wins: 0 | Losses: %@", losses);
                 self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: %@", losses];
+            } else if (lossesInt == 0 && winsInt == 0) {
+                NSLog(@"Wins: 0 | Losses: 0");
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];
             }
         }
     }];

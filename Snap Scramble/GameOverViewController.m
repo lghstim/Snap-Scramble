@@ -102,14 +102,21 @@
         self.currentUserTimeLabel.text = [NSString stringWithFormat:@"Your time: %d:%d", minutes, seconds];
     }
     
+    // initiate timer for timeout
+    self.totalSeconds = [NSNumber numberWithInt:0];
+    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+    
     [KVNProgress showWithStatus:@"Loading..."];
     [self setViewModelProperties]; // set view model properties
     [self.viewModel updateGame:^(BOOL succeeded, NSError *error) {
         if (error) {
+            [self.timeoutTimer invalidate];
             [KVNProgress dismiss];
-             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try playing again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try playing again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
              [alertView show];
+            [self.navigationController popToRootViewControllerAnimated:YES];
          } else {
+             [self.timeoutTimer invalidate];
              [KVNProgress dismiss];
              NSLog(@"game saved successfully. %@", self.createdGame);
              // update the game appropriately once current user has played
@@ -215,7 +222,7 @@
                  [self.viewModel switchTurns]; // switch turns
                  [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
                      if (error) {
-                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                          [alertView show];
                      }
                      
@@ -262,6 +269,22 @@
             break;
         }
     }
+}
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"A server error occurred." message:@"Please play again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [KVNProgress dismiss];
+        [self.timeoutTimer invalidate];
+    }
+    
 }
 
 

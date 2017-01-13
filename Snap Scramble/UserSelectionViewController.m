@@ -83,6 +83,7 @@
         NSLog(@"timeout error. took longer than 15 seconds");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Unfortunately an error occurred in finding an opponent. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
+        [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
     }
 

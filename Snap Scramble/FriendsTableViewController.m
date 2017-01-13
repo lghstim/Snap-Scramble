@@ -212,7 +212,7 @@
     // if too much time passed in uploading
     if ([self.totalSeconds intValue] > 20) {
         NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
         [self.timeoutTimer invalidate];
     }

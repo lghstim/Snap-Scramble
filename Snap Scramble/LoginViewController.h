@@ -16,6 +16,10 @@
 @property (weak, nonatomic) IBOutlet DesignableTextField *usernameField;
 @property (weak, nonatomic) IBOutlet DesignableTextField *passwordField;
 @property (weak, nonatomic) IBOutlet SpringView *loginView;
+@property (nonatomic, strong) PFObject* roundObject;
+@property (nonatomic, strong) NSTimer *timeoutTimer;
+@property (nonatomic, strong) NSNumber* totalSeconds;
+
 
 - (IBAction)loginButtonDidPress:(id)sender;
 - (IBAction)signupScreenButtonDidPress:(id)sender;

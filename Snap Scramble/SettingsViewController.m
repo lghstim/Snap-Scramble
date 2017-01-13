@@ -75,10 +75,10 @@
     [PFPurchase restore];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults boolForKey:@"premiumUser"] != true) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No purchases to restore" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No purchases to restore" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     } else if ([userDefaults boolForKey:@"premiumUser"] == true) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Snap Scramble Premium restored." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Snap Scramble Premium restored." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
