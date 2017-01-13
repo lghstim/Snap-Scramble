@@ -12,6 +12,11 @@
 #import "ChallengeViewController.h"
 #import "FriendsTableViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "OnboardingViewController.h"
+#import "OnboardingContentViewController.h"
+#import "SignupViewController.h"
+
+static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 
 
@@ -20,7 +25,6 @@
 @end
 
 @import UIKit;
-@import Firebase;
 
 @implementation AppDelegate
 
@@ -28,11 +32,24 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    /* [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        configuration.applicationId = @"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
-        configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
-        configuration.server = @"https://snapscramble.herokuapp.com/parse";
-    }]]; */
+   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    // determine if the user has onboarded yet or not
+    BOOL userHasOnboarded = [[NSUserDefaults standardUserDefaults] boolForKey:kUserHasOnboardedKey];
+    
+    // if the user has already onboarded, just set up the normal root view controller
+    // for the application
+    if (userHasOnboarded) {
+        [self setupNormalRootViewController];
+    }
+    
+    // otherwise set the root view controller to the onboarding view controller
+    else {
+        self.window.rootViewController = [self generateStandardOnboardingVC];
+    }
+    
+    application.statusBarStyle = UIStatusBarStyleLightContent;
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
      configuration.applicationId = @"TIMZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
@@ -68,6 +85,54 @@
     
     return YES;
 }
+
+
+- (void)setupNormalRootViewController {
+    // create whatever your root view controller is going to be, in this case just a simple view controller
+    // wrapped in a navigation controller
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    
+    UINavigationController *controller = (UINavigationController*)[mainStoryboard
+                                                                   instantiateViewControllerWithIdentifier: @"navSnap"];
+    self.window.rootViewController = controller;
+}
+
+- (void)handleOnboardingCompletion {
+    // set that we have completed onboarding so we only do it once... for demo
+
+   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserHasOnboardedKey];
+    
+    // transition to the main application
+    [self setupNormalRootViewController];
+}
+
+- (OnboardingViewController *)generateStandardOnboardingVC {
+    OnboardingContentViewController *firstPage = [OnboardingContentViewController contentWithTitle:@"Welcome to Snap Scramble" body:@"Snap Scramble is an awesome social jigsaw puzzle game for iPhone!" image:nil buttonText:nil action:nil];
+    
+    OnboardingContentViewController *secondPage = [OnboardingContentViewController contentWithTitle:@"Create a game" body:@"Choose from your friends list or play with a random opponent." image:nil buttonText:nil action:nil];
+   
+    
+    OnboardingContentViewController *thirdPage = [OnboardingContentViewController contentWithTitle:@"Select a photo" body:@"Snap a picture or choose from your photo library." image:nil buttonText:nil action:nil];
+    
+    OnboardingContentViewController *fourthPage = [OnboardingContentViewController contentWithTitle:@"Choose a puzzle size" body:@"Available sizes: 4 x 4, 5 x 5, or 6 x 6." image:nil buttonText:nil action:nil];
+
+    
+    OnboardingContentViewController *fifthPage = [OnboardingContentViewController contentWithTitle:@"Solve the jigsaw puzzle as fast as possible." body:@"Correctly placed pieces lock into place. The person with the fastest time wins that round." image:nil buttonText:@"Get Started" action:^{
+        [self handleOnboardingCompletion];
+    }];
+    
+    
+    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:[UIImage imageNamed:@"iphone-onboard"] contents:@[firstPage, secondPage, thirdPage, fourthPage, fifthPage]];
+    onboardingVC.shouldFadeTransitions = YES;
+    onboardingVC.fadePageControlOnLastPage = YES;
+    onboardingVC.fadeSkipButtonOnLastPage = YES;
+    
+    
+    return onboardingVC;
+}
+
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.

@@ -42,6 +42,11 @@
     self.choosePhotoButton.titleLabel.minimumScaleFactor = 0.5;
     self.createPuzzleLabel.adjustsFontSizeToFitWidth = YES;
     self.createPuzzleLabel.minimumScaleFactor = 0.5;
+    self.opponentLabel.adjustsFontSizeToFitWidth = YES;
+    self.opponentLabel.minimumScaleFactor = 0.5;
+    
+    // set opponent label
+    self.opponentLabel.text = [NSString stringWithFormat:@"Opponent: %@", self.opponent.username];
 }
 
 - (IBAction)takePhoto:(id)sender {
@@ -63,7 +68,7 @@
 - (IBAction)backButtonDidPress:(id)sender {
     self.createPuzzleView.animation = @"fall";
     [self.createPuzzleView animate];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Image Picker Controller delegate

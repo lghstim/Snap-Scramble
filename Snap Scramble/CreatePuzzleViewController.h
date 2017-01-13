@@ -20,12 +20,11 @@
 @property (nonatomic, strong) NSArray* friends;
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) PFObject* createdGame;
-@property (weak, nonatomic) IBOutlet UILabel* usernameDisplay;
 @property (weak, nonatomic) IBOutlet UIImageView* previewPuzzle;
 @property (weak, nonatomic) IBOutlet UIButton* takePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton* choosePhotoButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (nonatomic, strong) IBOutlet UILabel *headerLabel;
+@property (nonatomic, strong) IBOutlet UILabel *opponentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *createPuzzleLabel;
 @property (weak, nonatomic) IBOutlet SpringView *createPuzzleView;
 @property (nonatomic, strong) PFObject* roundObject;

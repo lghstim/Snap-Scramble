@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Onboard.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Snap Scramble.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0E31893CB635EBB8C37DD701E5742AD7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2A39584C26CC601021B9B20A763AB4E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6F1B72DC1E2A665388EE8F248A251AA4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>718C907AD5C0699BFCD493BCEF9C1650</key>
+		<key>6124B7B88D3C748456E919C33F5E10D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8001A4C66DB95D61BD1127759ADDD0B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B6CA1A9E36D1C2725A965D7DEF00912F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C667C2207FDDF3F5AF875FD61BBF6153</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5511171D8D9E41F54C90E93C3A87883</key>
 		<dict>
 			<key>primary</key>
 			<true/>

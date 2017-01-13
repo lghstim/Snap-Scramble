@@ -7,163 +7,158 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09473C201E8AB5AAC61D392422125D81 /* RMPickerViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E462A5CA86334366787C2701CD9D802 /* RMPickerViewController-dummy.m */; };
-		098DB5538373D0B63907032CFA5FEF5D /* KVNProgress-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9155F3859303468F5BABBACC7AB58578 /* KVNProgress-dummy.m */; };
+		098DB5538373D0B63907032CFA5FEF5D /* KVNProgress-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CB56F299E65A5C873BBF2B6CBE2DB527 /* KVNProgress-dummy.m */; };
+		0D9D2DC13478FAF7E81AA977DDB42806 /* RMActionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 023B84CE3E7EAD06D9A0C00D206108B4 /* RMActionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E8253444569B647C8F1B9045D335211 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39BAB9ECA94AA3FF02A27C782078C4E /* QuartzCore.framework */; };
-		220528B6AAFCDA4DF851B91B766896FC /* KVNProgressConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D27DDEE80E958B567963BE3065D481D /* KVNProgressConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22720ED1C90F31757D547118424DB924 /* KVNProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ABACC41C69F3DF31DA9438487A0B3FC /* KVNProgress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		16A37B4F17170D9CA27888AD0486D379 /* OnboardingContentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 093CF86EADA7A2F483600910A3C9BCA4 /* OnboardingContentViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		19EF5834614FE642FF05741D572352F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39BAB9ECA94AA3FF02A27C782078C4E /* QuartzCore.framework */; };
+		220528B6AAFCDA4DF851B91B766896FC /* KVNProgressConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D639A28365D320056122ABFC6C991A0 /* KVNProgressConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22720ED1C90F31757D547118424DB924 /* KVNProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = DE5EBBC5C43DC8A6170E0E4AAA2806E1 /* KVNProgress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24575B40C4689FDF7F01F0F9823D2F6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
-		32C64C5E1BFAB13CBA5FDAC4C6FBCFD8 /* RMActionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F042D1969AB98FD5A01756885385E69 /* RMActionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CF48AD099B3198BEBFD1AB1A04A357C /* RMPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEA2AA985903A1190711A5DEFE72512 /* RMPickerViewController.m */; };
 		363819AB0D08817C0A39B173C270E361 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
-		3AA0FA4C758156B5E8E63B10AF673FAB /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B84CCA2A1AD5BE06A35D6AEFE32AE6 /* KVNProgress.m */; };
-		440916E316844675D5B679523F102576 /* LLSimpleCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DACBF268F289299B5CB892232E3550 /* LLSimpleCamera.m */; };
-		46620C2A9B0C78215B32AA6413093627 /* RMPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D52A587E74F80B34B1269AAF81E869BA /* RMPickerViewController.m */; };
+		3AA0FA4C758156B5E8E63B10AF673FAB /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6D6DBBD34A7066050B8139D5EB6A0C /* KVNProgress.m */; };
+		3E345AF7582F09AD21255BBCD2A67D87 /* RMPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 499A5C8D5381E9C5F7F7BCB96A996AC1 /* RMPickerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3EB1BCB59053AB3F13D9206B6F45EA69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
+		440916E316844675D5B679523F102576 /* LLSimpleCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9304190BA27EA199433C78B8ACEEA2 /* LLSimpleCamera.m */; };
 		4BD9AE2C22149ACB5C304961D9363F61 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1508F1E6DCD8DAF78CFEA6603531FB4 /* AVFoundation.framework */; };
-		542716FA9518C0C9D6F2733A5C5E6D0A /* UIColor+KVNContrast.h in Headers */ = {isa = PBXBuildFile; fileRef = 76732632C34AC8F6F4A809A5F584D049 /* UIColor+KVNContrast.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		56E61C31305B6EE04C79D91A7F2A503A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
-		5C211C5E922EDC84DE99864ADCF70DE5 /* RMPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 597B7D19AA5AF4AD617E41DEB69A61C2 /* RMPickerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5EB1B0FA677C795CF302C24568AC67DA /* UIImage+KVNImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 805CE895612A0D4927C626675505F0F2 /* UIImage+KVNImageEffects.m */; };
-		6A412449598390EE5D0DF6FD3A81B501 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF10F788642A6ACDA55F45B1ABD72509 /* CoreGraphics.framework */; };
-		6E52B87686EF3BC740E2F8FF609E9205 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
-		74F29A21CF97717E1726D8C526F506DC /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5A63B1323E832D7C9E9FAC91C4500B /* UIImage+FixOrientation.m */; };
-		899B45DFECF194DC6F8427876774FBAD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39BAB9ECA94AA3FF02A27C782078C4E /* QuartzCore.framework */; };
-		8D2F3CAEA9E7CD74A4546043C9BEA9FB /* UIImage+FixOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D9A3414BC7D3D484987A149A53695E5 /* UIImage+FixOrientation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8DDA186EC466A571980B9251C26114CC /* UIImage+KVNImageEffects.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CD841784E91B08E87271F7E428D28E5 /* UIImage+KVNImageEffects.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9F1EB077FA948EEA396BD50B8FD9EBF8 /* UIImage+KVNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 969B842421F15E4FB8C22016EA650D40 /* UIImage+KVNEmpty.m */; };
-		A4C1C40C01E0F086F23F20CFB7E25D36 /* LLSimpleCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CF1551CC774C56C7EAB63393C794A30 /* LLSimpleCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C147C074CE584FE72C1EABF0E4EE866D /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D2C1A0EE06E20CD3ADBB06A94588CE /* KVNProgressConfiguration.m */; };
-		D1B357DF9EB26EE785EDBA349EA68590 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
-		D290D039332A24F924E905718EA23BBF /* RMActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E7C7213C4E886A6CA31E7BE078C733 /* RMActionController.m */; };
-		D8BF9FB34FAEF2F6EE8C8BF4ED5CC4C8 /* LLSimpleCamera-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A72B5922EC717F03289D4527F4B5A9 /* LLSimpleCamera-dummy.m */; };
-		E1B37AB6D85A421851130808CCF2EFA7 /* UIColor+KVNContrast.m in Sources */ = {isa = PBXBuildFile; fileRef = ED304E28A136695F935809AEFB80883A /* UIColor+KVNContrast.m */; };
+		4C3B342A0EED58D573EDC8C544746482 /* RMPickerViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E660D59A5EAFEAB075B5236D4327FD /* RMPickerViewController-dummy.m */; };
+		542716FA9518C0C9D6F2733A5C5E6D0A /* UIColor+KVNContrast.h in Headers */ = {isa = PBXBuildFile; fileRef = A1F1137AF5063A8C52CCEDE9FA7C72D1 /* UIColor+KVNContrast.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57693CC8656F31842A9F4CBDED1C37DB /* Onboard-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A86514059C40ED98E5FB3FB548CE26 /* Onboard-dummy.m */; };
+		5EB1B0FA677C795CF302C24568AC67DA /* UIImage+KVNImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 320CFF02640CFF834E94A231BDE332C9 /* UIImage+KVNImageEffects.m */; };
+		661438CCBDDC595BBCEA7945192F5C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
+		6B67AC20C65DD1AC5643266E9559CEE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
+		6E5C71BFAE1656A9A2316F711E80E7F2 /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDFD7F9DCD9B2DD276F01A83079CA7E2 /* OnboardingContentViewController.m */; };
+		71CCCA574BFC21A9E9B4BC03B6D6853F /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72104F75104A95661FB29321BB87C0D6 /* OnboardingViewController.m */; };
+		74F29A21CF97717E1726D8C526F506DC /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C619337801DAF76C3B817A4395D02FF /* UIImage+FixOrientation.m */; };
+		8D2F3CAEA9E7CD74A4546043C9BEA9FB /* UIImage+FixOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = D4ADBD9B87F79AE7E9887E9A66C5EC9F /* UIImage+FixOrientation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8DDA186EC466A571980B9251C26114CC /* UIImage+KVNImageEffects.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E57144EF8D09FA9626C764885726581 /* UIImage+KVNImageEffects.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F7F8041CC99D5FC143706F3633B9524 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF10F788642A6ACDA55F45B1ABD72509 /* CoreGraphics.framework */; };
+		9F1EB077FA948EEA396BD50B8FD9EBF8 /* UIImage+KVNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = E98CECA71B27F6F22CA3B7D9522C69E8 /* UIImage+KVNEmpty.m */; };
+		A4C1C40C01E0F086F23F20CFB7E25D36 /* LLSimpleCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F13B9EA07483702D16A1BA09A298A9 /* LLSimpleCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD7460C6F61EF4CC2F5D937FE4F099AC /* Pods-Snap Scramble-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEAB17003461AFC035C65A647B9A4AD /* Pods-Snap Scramble-dummy.m */; };
+		C147C074CE584FE72C1EABF0E4EE866D /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367B0ED553F67855B54B3859DCF70FA /* KVNProgressConfiguration.m */; };
+		D8BF9FB34FAEF2F6EE8C8BF4ED5CC4C8 /* LLSimpleCamera-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDADABDB6FDD0338A55A76BFF1D2A02 /* LLSimpleCamera-dummy.m */; };
+		E1B37AB6D85A421851130808CCF2EFA7 /* UIColor+KVNContrast.m in Sources */ = {isa = PBXBuildFile; fileRef = 644C626996B094676A4BC65A6001C9E6 /* UIColor+KVNContrast.m */; };
+		E1E2AADE59D2F18FB161211624CB119D /* OnboardingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D6631C60978FA35144617639D8B2D3D1 /* OnboardingViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4C9605C3F30DFF41AFCDB0FC89E9104 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */; };
+		F5BBDC1D61CE9070450B78514FB7250E /* RMActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E1AD755D93A56512622A132EE82E6E /* RMActionController.m */; };
 		F8B14FE8D909DFDCF1D4C9CD4763DC0A /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B828652C98D56E43F96C1BFDF22EA148 /* GLKit.framework */; };
-		F8BD74E48F3600BDA10C0FB9D5C76C85 /* RMActionController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 897747BBAE3D30ED679F1DCE0FA22CE2 /* RMActionController-dummy.m */; };
-		FB4B275BF0229ACBDFB57259DEE4C823 /* Pods-Snap Scramble-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEAB17003461AFC035C65A647B9A4AD /* Pods-Snap Scramble-dummy.m */; };
-		FF4D1CAD4E4CC85EE88F087C705F31EB /* UIImage+KVNEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 71A54A949FE0798A7CF5E163E36398E1 /* UIImage+KVNEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA68F993D3316BE94E060B5AA49B1FDB /* RMActionController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EB3933A8276D781FBA22F4B9048206 /* RMActionController-dummy.m */; };
+		FF4D1CAD4E4CC85EE88F087C705F31EB /* UIImage+KVNEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = FE99DD0BF9802B1A5C851A8E99DF9B68 /* UIImage+KVNEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		09B0C536989368EC5643191A39071930 /* PBXContainerItemProxy */ = {
+		643E4CFE79BACDD8849F826676F290F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6124B7B88D3C748456E919C33F5E10D8;
+			remoteInfo = RMActionController;
+		};
+		738E0BAAA1D5FDBA3BF106FC919C81DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C667C2207FDDF3F5AF875FD61BBF6153;
+			remoteInfo = Onboard;
+		};
+		7E2D9B3E3FAE5EB69D7F4E63CBDFB5D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2A39584C26CC601021B9B20A763AB4E2;
 			remoteInfo = KVNProgress;
 		};
-		204B471C3C67C7BD93EF48DB7079A4E5 /* PBXContainerItemProxy */ = {
+		9DE8AA35BEF64FC0811CFF8A91EA2922 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0E31893CB635EBB8C37DD701E5742AD7;
+			remoteGlobalIDString = B6CA1A9E36D1C2725A965D7DEF00912F;
+			remoteInfo = RMPickerViewController;
+		};
+		AECAF3AB86C5089F2C0C6F0769E4F9E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6124B7B88D3C748456E919C33F5E10D8;
 			remoteInfo = RMActionController;
 		};
-		3C37204DC74BC55213B183BB829687B5 /* PBXContainerItemProxy */ = {
+		F395A3482ED11DF3BD653302F3880A29 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8001A4C66DB95D61BD1127759ADDD0B6;
 			remoteInfo = LLSimpleCamera;
 		};
-		75F16AF309F83B4D8D6D7BD5E7278253 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6F1B72DC1E2A665388EE8F248A251AA4;
-			remoteInfo = RMPickerViewController;
-		};
-		EB3E5FECF34BBB58EB2C5DA04A073F0B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0E31893CB635EBB8C37DD701E5742AD7;
-			remoteInfo = RMActionController;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		023B84CE3E7EAD06D9A0C00D206108B4 /* RMActionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RMActionController.h; path = RMActionController/RMActionController.h; sourceTree = "<group>"; };
+		093CF86EADA7A2F483600910A3C9BCA4 /* OnboardingContentViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OnboardingContentViewController.h; path = Source/OnboardingContentViewController.h; sourceTree = "<group>"; };
 		0A4585F7515E7805FAD8656D240EC631 /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
-		1645D878E2AF7FF5791C2A43D5EA83B2 /* RMActionController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RMActionController.xcconfig; sourceTree = "<group>"; };
-		177B5A6374671398D3B5CF3C4D2B3E9F /* FirebaseCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCrash.framework; path = Frameworks/frameworks/FirebaseCrash.framework; sourceTree = "<group>"; };
-		19E9CDCAFFA89E6278177C8E5A36F06D /* LLSimpleCamera.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LLSimpleCamera.xcconfig; sourceTree = "<group>"; };
-		1CD841784E91B08E87271F7E428D28E5 /* UIImage+KVNImageEffects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+KVNImageEffects.h"; path = "KVNProgress/Categories/UIImage+KVNImageEffects.h"; sourceTree = "<group>"; };
-		24E7C7213C4E886A6CA31E7BE078C733 /* RMActionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMActionController.m; path = RMActionController/RMActionController.m; sourceTree = "<group>"; };
-		290E8C63BCFA9FBBC532537570ED96C0 /* libKVNProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKVNProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F042D1969AB98FD5A01756885385E69 /* RMActionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RMActionController.h; path = RMActionController/RMActionController.h; sourceTree = "<group>"; };
-		32D2C1A0EE06E20CD3ADBB06A94588CE /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KVNProgressConfiguration.m; path = KVNProgress/Classes/KVNProgressConfiguration.m; sourceTree = "<group>"; };
-		3C27816073072BA6C2E12D762AF07ED0 /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3CAEBF6A90B8CA6779CFA1FD61F89A8E /* GoogleParsingUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleParsingUtilities.framework; path = Frameworks/GoogleParsingUtilities.framework; sourceTree = "<group>"; };
-		47D3430BB2E4F976CD0B2990CDC84020 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
-		49D2C0F62B5BF7D46506C4630DD91A0C /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
-		4CF1551CC774C56C7EAB63393C794A30 /* LLSimpleCamera.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LLSimpleCamera.h; path = LLSimpleCamera/LLSimpleCamera.h; sourceTree = "<group>"; };
-		4FAD466B990FCD3F8A38868944B8F440 /* Firebase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = Analytics/Sources/Firebase.h; sourceTree = "<group>"; };
-		597B7D19AA5AF4AD617E41DEB69A61C2 /* RMPickerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RMPickerViewController.h; path = RMPickerViewController/RMPickerViewController.h; sourceTree = "<group>"; };
+		12E1AD755D93A56512622A132EE82E6E /* RMActionController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMActionController.m; path = RMActionController/RMActionController.m; sourceTree = "<group>"; };
+		1367B0ED553F67855B54B3859DCF70FA /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KVNProgressConfiguration.m; path = KVNProgress/Classes/KVNProgressConfiguration.m; sourceTree = "<group>"; };
+		1565974E7BF3D02B76C761ED6EFA48CE /* libOnboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libOnboard.a; path = libOnboard.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		24A1A3707BE52A81ED1B25DBFE3F6017 /* RMPickerViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RMPickerViewController-prefix.pch"; sourceTree = "<group>"; };
+		275E046A2E2A76A9F7E83AFED216C4E8 /* LLSimpleCamera-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LLSimpleCamera-prefix.pch"; sourceTree = "<group>"; };
+		2D639A28365D320056122ABFC6C991A0 /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KVNProgressConfiguration.h; path = KVNProgress/Classes/KVNProgressConfiguration.h; sourceTree = "<group>"; };
+		2F5C50B0507C17AFED7C484820B17009 /* libRMActionController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRMActionController.a; path = libRMActionController.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		320CFF02640CFF834E94A231BDE332C9 /* UIImage+KVNImageEffects.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+KVNImageEffects.m"; path = "KVNProgress/Categories/UIImage+KVNImageEffects.m"; sourceTree = "<group>"; };
+		376496E696E730904006AD1EFFD0086B /* RMActionController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RMActionController-prefix.pch"; sourceTree = "<group>"; };
+		41B219D216941658A9FFB9F91842421B /* KVNProgress.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KVNProgress.xcconfig; sourceTree = "<group>"; };
+		499A5C8D5381E9C5F7F7BCB96A996AC1 /* RMPickerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RMPickerViewController.h; path = RMPickerViewController/RMPickerViewController.h; sourceTree = "<group>"; };
+		54E660D59A5EAFEAB075B5236D4327FD /* RMPickerViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RMPickerViewController-dummy.m"; sourceTree = "<group>"; };
+		57D507B0572BD9CB00547BD4EBEC4F19 /* KVNProgress-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KVNProgress-prefix.pch"; sourceTree = "<group>"; };
 		5AB422A2F730264F854FA30564072DC6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5AEAB17003461AFC035C65A647B9A4AD /* Pods-Snap Scramble-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snap Scramble-dummy.m"; sourceTree = "<group>"; };
-		5D27DDEE80E958B567963BE3065D481D /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KVNProgressConfiguration.h; path = KVNProgress/Classes/KVNProgressConfiguration.h; sourceTree = "<group>"; };
-		5D9A3414BC7D3D484987A149A53695E5 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+FixOrientation.h"; path = "LLSimpleCamera/UIImage+FixOrientation.h"; sourceTree = "<group>"; };
-		5DA77C3FFD85A40552D6FBA3352EF363 /* libLLSimpleCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLLSimpleCamera.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		69058CF36A7D440B66BB2603983736CC /* libRMActionController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRMActionController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		696C979AC35E82897A2C7FD336527CAC /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = Frameworks/FirebaseDatabase.framework; sourceTree = "<group>"; };
-		6ABACC41C69F3DF31DA9438487A0B3FC /* KVNProgress.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KVNProgress.h; path = KVNProgress/Classes/KVNProgress.h; sourceTree = "<group>"; };
-		6E0BE38219B643F33A2955C74D14170D /* libRMPickerViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRMPickerViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		70CA93425DFF8FBC00F797BB5AEDA1D6 /* RMPickerViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RMPickerViewController-prefix.pch"; sourceTree = "<group>"; };
-		71A54A949FE0798A7CF5E163E36398E1 /* UIImage+KVNEmpty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+KVNEmpty.h"; path = "KVNProgress/Categories/UIImage+KVNEmpty.h"; sourceTree = "<group>"; };
-		74F3E488D11690A93E3A30715EB7D733 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		76732632C34AC8F6F4A809A5F584D049 /* UIColor+KVNContrast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+KVNContrast.h"; path = "KVNProgress/Categories/UIColor+KVNContrast.h"; sourceTree = "<group>"; };
-		7841641A74BA5A1DF746F3D21A28DBF1 /* FirebaseStorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseStorage.framework; path = Frameworks/FirebaseStorage.framework; sourceTree = "<group>"; };
-		7E462A5CA86334366787C2701CD9D802 /* RMPickerViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RMPickerViewController-dummy.m"; sourceTree = "<group>"; };
-		805CE895612A0D4927C626675505F0F2 /* UIImage+KVNImageEffects.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+KVNImageEffects.m"; path = "KVNProgress/Categories/UIImage+KVNImageEffects.m"; sourceTree = "<group>"; };
-		84A72B5922EC717F03289D4527F4B5A9 /* LLSimpleCamera-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LLSimpleCamera-dummy.m"; sourceTree = "<group>"; };
+		5E57144EF8D09FA9626C764885726581 /* UIImage+KVNImageEffects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+KVNImageEffects.h"; path = "KVNProgress/Categories/UIImage+KVNImageEffects.h"; sourceTree = "<group>"; };
+		5F6D6DBBD34A7066050B8139D5EB6A0C /* KVNProgress.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KVNProgress.m; path = KVNProgress/Classes/KVNProgress.m; sourceTree = "<group>"; };
+		644C626996B094676A4BC65A6001C9E6 /* UIColor+KVNContrast.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+KVNContrast.m"; path = "KVNProgress/Categories/UIColor+KVNContrast.m"; sourceTree = "<group>"; };
+		66A86514059C40ED98E5FB3FB548CE26 /* Onboard-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Onboard-dummy.m"; sourceTree = "<group>"; };
+		72104F75104A95661FB29321BB87C0D6 /* OnboardingViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OnboardingViewController.m; path = Source/OnboardingViewController.m; sourceTree = "<group>"; };
+		7DDADABDB6FDD0338A55A76BFF1D2A02 /* LLSimpleCamera-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LLSimpleCamera-dummy.m"; sourceTree = "<group>"; };
 		84FF2BCFB5DA666B1003D2878A076DBD /* Pods-Snap Scramble-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snap Scramble-acknowledgements.markdown"; sourceTree = "<group>"; };
-		897747BBAE3D30ED679F1DCE0FA22CE2 /* RMActionController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RMActionController-dummy.m"; sourceTree = "<group>"; };
-		9155F3859303468F5BABBACC7AB58578 /* KVNProgress-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KVNProgress-dummy.m"; sourceTree = "<group>"; };
-		9258689530E0134765B96D0A7C691916 /* FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceID.h; path = Sources/FIRInstanceID.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		969B842421F15E4FB8C22016EA650D40 /* UIImage+KVNEmpty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+KVNEmpty.m"; path = "KVNProgress/Categories/UIImage+KVNEmpty.m"; sourceTree = "<group>"; };
+		850718E2538BE5AE3FB4AA8EAAA37725 /* RMPickerViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RMPickerViewController.xcconfig; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9A9304190BA27EA199433C78B8ACEEA2 /* LLSimpleCamera.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LLSimpleCamera.m; path = LLSimpleCamera/LLSimpleCamera.m; sourceTree = "<group>"; };
+		9AD323A4BDCD72076EF252161F7B380A /* libKVNProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libKVNProgress.a; path = libKVNProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C619337801DAF76C3B817A4395D02FF /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+FixOrientation.m"; path = "LLSimpleCamera/UIImage+FixOrientation.m"; sourceTree = "<group>"; };
 		A1508F1E6DCD8DAF78CFEA6603531FB4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		A65198D8190D7B9FAA1CC7D8CD16A971 /* LLSimpleCamera-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LLSimpleCamera-prefix.pch"; sourceTree = "<group>"; };
-		AA444A541546C9D355FC7D2E25516538 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
-		B0BD725F552CE643C58BBBA33B510088 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
-		B5135C67AC4513556D268987A280C212 /* RMPickerViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RMPickerViewController.xcconfig; sourceTree = "<group>"; };
-		B6CB7E247D878F9EF55C1EE71E6CF339 /* RMActionController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RMActionController-prefix.pch"; sourceTree = "<group>"; };
+		A1F1137AF5063A8C52CCEDE9FA7C72D1 /* UIColor+KVNContrast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+KVNContrast.h"; path = "KVNProgress/Categories/UIColor+KVNContrast.h"; sourceTree = "<group>"; };
+		A686C98D4DBE8F18F29384EF20F59E7A /* RMActionController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RMActionController.xcconfig; sourceTree = "<group>"; };
+		B70B20AFBFBC837B4BEEE76C948092FF /* Onboard-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Onboard-prefix.pch"; sourceTree = "<group>"; };
 		B828652C98D56E43F96C1BFDF22EA148 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
-		C0DACBF268F289299B5CB892232E3550 /* LLSimpleCamera.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LLSimpleCamera.m; path = LLSimpleCamera/LLSimpleCamera.m; sourceTree = "<group>"; };
-		C959D1C17BFEB73147A16E39E514BF50 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Frameworks/frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		C0EF6D7121BDBC333F69DC56E1486083 /* Onboard.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Onboard.xcconfig; sourceTree = "<group>"; };
+		CAEA2AA985903A1190711A5DEFE72512 /* RMPickerViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMPickerViewController.m; path = RMPickerViewController/RMPickerViewController.m; sourceTree = "<group>"; };
+		CB56F299E65A5C873BBF2B6CBE2DB527 /* KVNProgress-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KVNProgress-dummy.m"; sourceTree = "<group>"; };
 		CF10F788642A6ACDA55F45B1ABD72509 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		CF4E75706D3DC12EE52DCF3947548171 /* Pods-Snap Scramble-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snap Scramble-frameworks.sh"; sourceTree = "<group>"; };
-		D52A587E74F80B34B1269AAF81E869BA /* RMPickerViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMPickerViewController.m; path = RMPickerViewController/RMPickerViewController.m; sourceTree = "<group>"; };
-		D7E29E6B63E66BF81D8D1F76113AB595 /* KVNProgressView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = KVNProgressView.xib; path = KVNProgress/Resources/KVNProgressView.xib; sourceTree = "<group>"; };
-		DA464E0C1BC454C5390E90523BAC6FEC /* GoogleIPhoneUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleIPhoneUtilities.framework; path = Frameworks/GoogleIPhoneUtilities.framework; sourceTree = "<group>"; };
-		DACD7B81F893933A55FCD99E81175797 /* KVNProgress.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KVNProgress.xcconfig; sourceTree = "<group>"; };
-		E304A2E151FFBFFEBA6C2B1275D9F4C3 /* KVNProgress-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KVNProgress-prefix.pch"; sourceTree = "<group>"; };
+		D1748BD7BC18DDFA9C2314E6F7C73188 /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Snap Scramble.a"; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3D46D4A7E82FF9EC73F2DB116287BDB /* KVNProgressView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = KVNProgressView.xib; path = KVNProgress/Resources/KVNProgressView.xib; sourceTree = "<group>"; };
+		D4ADBD9B87F79AE7E9887E9A66C5EC9F /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+FixOrientation.h"; path = "LLSimpleCamera/UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		D6631C60978FA35144617639D8B2D3D1 /* OnboardingViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OnboardingViewController.h; path = Source/OnboardingViewController.h; sourceTree = "<group>"; };
+		D9EB3933A8276D781FBA22F4B9048206 /* RMActionController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RMActionController-dummy.m"; sourceTree = "<group>"; };
+		DE5EBBC5C43DC8A6170E0E4AAA2806E1 /* KVNProgress.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KVNProgress.h; path = KVNProgress/Classes/KVNProgress.h; sourceTree = "<group>"; };
 		E3A082DD09D7D8406EDE406795CB3650 /* Pods-Snap Scramble-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snap Scramble-resources.sh"; sourceTree = "<group>"; };
-		E4B84CCA2A1AD5BE06A35D6AEFE32AE6 /* KVNProgress.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KVNProgress.m; path = KVNProgress/Classes/KVNProgress.m; sourceTree = "<group>"; };
 		E6D0804D47A339ABB284039325088492 /* Pods-Snap Scramble-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Snap Scramble-acknowledgements.plist"; sourceTree = "<group>"; };
-		EB6909FC393052D921B32E0325A84560 /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseRemoteConfig.framework; path = Frameworks/frameworks/FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
-		EC5A63B1323E832D7C9E9FAC91C4500B /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+FixOrientation.m"; path = "LLSimpleCamera/UIImage+FixOrientation.m"; sourceTree = "<group>"; };
-		ED304E28A136695F935809AEFB80883A /* UIColor+KVNContrast.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+KVNContrast.m"; path = "KVNProgress/Categories/UIColor+KVNContrast.m"; sourceTree = "<group>"; };
-		EEFDF5BCA62FE4CAC37DA795383BD021 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAuth.framework; path = Frameworks/frameworks/FirebaseAuth.framework; sourceTree = "<group>"; };
+		E7906AE36B70E595FCAAAD503D971DD2 /* libLLSimpleCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libLLSimpleCamera.a; path = libLLSimpleCamera.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E891FB99FE9279835513B48B97CA37D7 /* LLSimpleCamera.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LLSimpleCamera.xcconfig; sourceTree = "<group>"; };
+		E98CECA71B27F6F22CA3B7D9522C69E8 /* UIImage+KVNEmpty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+KVNEmpty.m"; path = "KVNProgress/Categories/UIImage+KVNEmpty.m"; sourceTree = "<group>"; };
+		EDFD7F9DCD9B2DD276F01A83079CA7E2 /* OnboardingContentViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OnboardingContentViewController.m; path = Source/OnboardingContentViewController.m; sourceTree = "<group>"; };
+		F193E6240E3994FAB8701F3102E86327 /* libRMPickerViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRMPickerViewController.a; path = libRMPickerViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39BAB9ECA94AA3FF02A27C782078C4E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		F40E537732D7AB7259816B76405BA406 /* GoogleNetworkingUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleNetworkingUtilities.framework; path = Frameworks/GoogleNetworkingUtilities.framework; sourceTree = "<group>"; };
 		F4CDDD1938C1C59EC28DD1956BE72839 /* Pods-Snap Scramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snap Scramble.release.xcconfig"; sourceTree = "<group>"; };
+		F4F13B9EA07483702D16A1BA09A298A9 /* LLSimpleCamera.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LLSimpleCamera.h; path = LLSimpleCamera/LLSimpleCamera.h; sourceTree = "<group>"; };
+		FE99DD0BF9802B1A5C851A8E99DF9B68 /* UIImage+KVNEmpty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+KVNEmpty.h"; path = "KVNProgress/Categories/UIImage+KVNEmpty.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		04D298862DFFE633F4CE20C26B690996 /* Frameworks */ = {
+		4465F11DC25C6E70D8BF4CA62FAFBFE5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1B357DF9EB26EE785EDBA349EA68590 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		367A7EE0C690E2A68FEAD467F4C01BD1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A412449598390EE5D0DF6FD3A81B501 /* CoreGraphics.framework in Frameworks */,
-				6E52B87686EF3BC740E2F8FF609E9205 /* Foundation.framework in Frameworks */,
-				899B45DFECF194DC6F8427876774FBAD /* QuartzCore.framework in Frameworks */,
+				3EB1BCB59053AB3F13D9206B6F45EA69 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,11 +171,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C16DFE727A36679C035A4AA799659689 /* Frameworks */ = {
+		725B9EE5B9F2E46E822E174305F2A553 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56E61C31305B6EE04C79D91A7F2A503A /* Foundation.framework in Frameworks */,
+				661438CCBDDC595BBCEA7945192F5C29 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73BC73B587ED7459E33EAD471DBE8A1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B67AC20C65DD1AC5643266E9559CEE3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A330F04A5F1AE9544B5EE59C81CA4305 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F7F8041CC99D5FC143706F3633B9524 /* CoreGraphics.framework in Frameworks */,
+				F4C9605C3F30DFF41AFCDB0FC89E9104 /* Foundation.framework in Frameworks */,
+				19EF5834614FE642FF05741D572352F5 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,66 +210,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		014B463B681CAF63448211D5D7F7B0F0 /* FirebaseRemoteConfig */ = {
+		05D37EC0C3B4797DDABF68BE97E12CDA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D23C5F3BCDEA01986786C6AC6429A70E /* Frameworks */,
+				E86970B6ABE9EDEE2650215D1167C325 /* KVNProgress */,
+				677D7AB6EF1D44AC8C2226D9FCB2A4D9 /* LLSimpleCamera */,
+				F994394112DBB9D4CBDC9C7A33024FAC /* Onboard */,
+				BAB2A2832B4410934FE2E18C1A69C841 /* RMActionController */,
+				2E7B90FE3D50EE29CF8AE92532AAF87A /* RMPickerViewController */,
 			);
-			path = FirebaseRemoteConfig;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		05535232ECECFF32AA425E95633A287D /* GoogleSymbolUtilities */ = {
+		1DAE22D307032440740C8BD2262CEA92 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				21A4E488D925D12269611EBE32B02C57 /* Frameworks */,
+				C0EF6D7121BDBC333F69DC56E1486083 /* Onboard.xcconfig */,
+				66A86514059C40ED98E5FB3FB548CE26 /* Onboard-dummy.m */,
+				B70B20AFBFBC837B4BEEE76C948092FF /* Onboard-prefix.pch */,
 			);
-			path = GoogleSymbolUtilities;
-			sourceTree = "<group>";
-		};
-		09223E0E9A72A0E77037A841D2FFBD10 /* RMActionController */ = {
-			isa = PBXGroup;
-			children = (
-				2F042D1969AB98FD5A01756885385E69 /* RMActionController.h */,
-				24E7C7213C4E886A6CA31E7BE078C733 /* RMActionController.m */,
-				BA4A807EBC22D007AA4011F1CA7EE0FA /* Support Files */,
-			);
-			path = RMActionController;
-			sourceTree = "<group>";
-		};
-		0ACEE98282B28F7A442B029B84D6848D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EEFDF5BCA62FE4CAC37DA795383BD021 /* FirebaseAuth.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1971199123607B71DDFACC8D61EBE0A7 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F40E537732D7AB7259816B76405BA406 /* GoogleNetworkingUtilities.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1C0B307FA4AAE81B00B0683926BBB272 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				290E8C63BCFA9FBBC532537570ED96C0 /* libKVNProgress.a */,
-				5DA77C3FFD85A40552D6FBA3352EF363 /* libLLSimpleCamera.a */,
-				3C27816073072BA6C2E12D762AF07ED0 /* libPods-Snap Scramble.a */,
-				69058CF36A7D440B66BB2603983736CC /* libRMActionController.a */,
-				6E0BE38219B643F33A2955C74D14170D /* libRMPickerViewController.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		1E2BA176C3407B021A952E5A62FFE823 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C959D1C17BFEB73147A16E39E514BF50 /* FirebaseInstanceID.framework */,
-			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../Target Support Files/Onboard";
 			sourceTree = "<group>";
 		};
 		1F70664CCD3EF302FE6B9ABB4DAA5A9D /* Targets Support Files */ = {
@@ -275,115 +249,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		219A3AB35E368FD16C8F60FE255D5F00 /* FirebaseAuth */ = {
+		2E7B90FE3D50EE29CF8AE92532AAF87A /* RMPickerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				0ACEE98282B28F7A442B029B84D6848D /* Frameworks */,
+				499A5C8D5381E9C5F7F7BCB96A996AC1 /* RMPickerViewController.h */,
+				CAEA2AA985903A1190711A5DEFE72512 /* RMPickerViewController.m */,
+				4D2C3FE3D655D18472CE2085C762C0AA /* Support Files */,
 			);
-			path = FirebaseAuth;
+			name = RMPickerViewController;
+			path = RMPickerViewController;
 			sourceTree = "<group>";
 		};
-		21A4E488D925D12269611EBE32B02C57 /* Frameworks */ = {
+		4D2C3FE3D655D18472CE2085C762C0AA /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				B0BD725F552CE643C58BBBA33B510088 /* GoogleSymbolUtilities.framework */,
+				850718E2538BE5AE3FB4AA8EAAA37725 /* RMPickerViewController.xcconfig */,
+				54E660D59A5EAFEAB075B5236D4327FD /* RMPickerViewController-dummy.m */,
+				24A1A3707BE52A81ED1B25DBFE3F6017 /* RMPickerViewController-prefix.pch */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3157E1039FE66EE5ACD2AAEB2B2A276C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3CAEBF6A90B8CA6779CFA1FD61F89A8E /* GoogleParsingUtilities.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3420B24510DC978898D37F16FE17A448 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				177B5A6374671398D3B5CF3C4D2B3E9F /* FirebaseCrash.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3C0953B38E63FBB493CF656869B41812 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				74F3E488D11690A93E3A30715EB7D733 /* FirebaseAnalytics.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		427D0CB604D4C5E05FD4820DF08C5395 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				47D3430BB2E4F976CD0B2990CDC84020 /* GoogleInterchangeUtilities.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4BA74C6589CC1F82C53C354064D7415F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7841641A74BA5A1DF746F3D21A28DBF1 /* FirebaseStorage.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5B9956CA839749A2F0D7A945AC7C7151 /* GoogleInterchangeUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				427D0CB604D4C5E05FD4820DF08C5395 /* Frameworks */,
-			);
-			path = GoogleInterchangeUtilities;
-			sourceTree = "<group>";
-		};
-		600A9E7660C2FE8EF255851ED6AFF6AE /* KVNProgress */ = {
-			isa = PBXGroup;
-			children = (
-				6ABACC41C69F3DF31DA9438487A0B3FC /* KVNProgress.h */,
-				E4B84CCA2A1AD5BE06A35D6AEFE32AE6 /* KVNProgress.m */,
-				5D27DDEE80E958B567963BE3065D481D /* KVNProgressConfiguration.h */,
-				32D2C1A0EE06E20CD3ADBB06A94588CE /* KVNProgressConfiguration.m */,
-				76732632C34AC8F6F4A809A5F584D049 /* UIColor+KVNContrast.h */,
-				ED304E28A136695F935809AEFB80883A /* UIColor+KVNContrast.m */,
-				71A54A949FE0798A7CF5E163E36398E1 /* UIImage+KVNEmpty.h */,
-				969B842421F15E4FB8C22016EA650D40 /* UIImage+KVNEmpty.m */,
-				1CD841784E91B08E87271F7E428D28E5 /* UIImage+KVNImageEffects.h */,
-				805CE895612A0D4927C626675505F0F2 /* UIImage+KVNImageEffects.m */,
-				94FCA1819E8AC559A68B25C3E8F87AD7 /* Resources */,
-				E9EE77A5184F8E20D083CF93B351CD1A /* Support Files */,
-			);
-			path = KVNProgress;
-			sourceTree = "<group>";
-		};
-		61419E749EB4F8E346A5AD578A39F442 /* GoogleParsingUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				3157E1039FE66EE5ACD2AAEB2B2A276C /* Frameworks */,
-			);
-			path = GoogleParsingUtilities;
-			sourceTree = "<group>";
-		};
-		6201A880226911C10CDAE5D6009A38E2 /* FirebaseDatabase */ = {
-			isa = PBXGroup;
-			children = (
-				9CFCA324DA4152977F3E8B973A7449FB /* Frameworks */,
-			);
-			path = FirebaseDatabase;
-			sourceTree = "<group>";
-		};
-		64903F620BD305928E2DC037AC7A87DD /* LLSimpleCamera */ = {
-			isa = PBXGroup;
-			children = (
-				4CF1551CC774C56C7EAB63393C794A30 /* LLSimpleCamera.h */,
-				C0DACBF268F289299B5CB892232E3550 /* LLSimpleCamera.m */,
-				5D9A3414BC7D3D484987A149A53695E5 /* UIImage+FixOrientation.h */,
-				EC5A63B1323E832D7C9E9FAC91C4500B /* UIImage+FixOrientation.m */,
-				A4E46D809DC09784E3E6B1889ED2058F /* Support Files */,
-			);
-			path = LLSimpleCamera;
+			name = "Support Files";
+			path = "../Target Support Files/RMPickerViewController";
 			sourceTree = "<group>";
 		};
 		6531C2FA6D634C28FDFBC8B1C98DD45A /* Pods-Snap Scramble */ = {
@@ -401,12 +286,30 @@
 			path = "Target Support Files/Pods-Snap Scramble";
 			sourceTree = "<group>";
 		};
-		79F4702ABA22604CFCFBA7EBF3F8C4AB /* Frameworks */ = {
+		677D7AB6EF1D44AC8C2226D9FCB2A4D9 /* LLSimpleCamera */ = {
 			isa = PBXGroup;
 			children = (
-				49D2C0F62B5BF7D46506C4630DD91A0C /* GoogleMobileAds.framework */,
+				F4F13B9EA07483702D16A1BA09A298A9 /* LLSimpleCamera.h */,
+				9A9304190BA27EA199433C78B8ACEEA2 /* LLSimpleCamera.m */,
+				D4ADBD9B87F79AE7E9887E9A66C5EC9F /* UIImage+FixOrientation.h */,
+				9C619337801DAF76C3B817A4395D02FF /* UIImage+FixOrientation.m */,
+				8BAC618F96A7B28637AF73C94C6679A3 /* Support Files */,
 			);
-			name = Frameworks;
+			name = LLSimpleCamera;
+			path = LLSimpleCamera;
+			sourceTree = "<group>";
+		};
+		6DA064184D770492BB628A5EEB3333D3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9AD323A4BDCD72076EF252161F7B380A /* libKVNProgress.a */,
+				E7906AE36B70E595FCAAAD503D971DD2 /* libLLSimpleCamera.a */,
+				1565974E7BF3D02B76C761ED6EFA48CE /* libOnboard.a */,
+				D1748BD7BC18DDFA9C2314E6F7C73188 /* libPods-Snap Scramble.a */,
+				2F5C50B0507C17AFED7C484820B17009 /* libRMActionController.a */,
+				F193E6240E3994FAB8701F3102E86327 /* libRMPickerViewController.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -414,42 +317,10 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				20B56609144CE204DFA8221F742B2D76 /* Frameworks */,
-				D867836602E847673C152153A84BFFAC /* Pods */,
-				1C0B307FA4AAE81B00B0683926BBB272 /* Products */,
+				05D37EC0C3B4797DDABF68BE97E12CDA /* Pods */,
+				6DA064184D770492BB628A5EEB3333D3 /* Products */,
 				1F70664CCD3EF302FE6B9ABB4DAA5A9D /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		811CD37FFE7B8CA9C91E30321CB09E2C /* FirebaseStorage */ = {
-			isa = PBXGroup;
-			children = (
-				4BA74C6589CC1F82C53C354064D7415F /* Frameworks */,
-			);
-			path = FirebaseStorage;
-			sourceTree = "<group>";
-		};
-		8619F1C0ED8193BC0F3269FC4AC9AFD1 /* GoogleIPhoneUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				B219DEF7AC2A80C5386049E1909D3622 /* Frameworks */,
-			);
-			path = GoogleIPhoneUtilities;
-			sourceTree = "<group>";
-		};
-		876BF7D2E062F428B97E6780BEB9575F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AA444A541546C9D355FC7D2E25516538 /* GoogleUtilities.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		89B2155BD478D416B35AC7A7F747608B /* FirebaseCrash */ = {
-			isa = PBXGroup;
-			children = (
-				3420B24510DC978898D37F16FE17A448 /* Frameworks */,
-			);
-			path = FirebaseCrash;
 			sourceTree = "<group>";
 		};
 		8AEAF18B47BB8622EF0251432306D0A9 /* iOS */ = {
@@ -464,173 +335,89 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		94FCA1819E8AC559A68B25C3E8F87AD7 /* Resources */ = {
+		8B48A6118A9F8E2E1B3FA472144E7FAA /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				D7E29E6B63E66BF81D8D1F76113AB595 /* KVNProgressView.xib */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		9CFCA324DA4152977F3E8B973A7449FB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				696C979AC35E82897A2C7FD336527CAC /* FirebaseDatabase.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A30E9D4B83E1416657125AB4BDD96C9A /* RMPickerViewController */ = {
-			isa = PBXGroup;
-			children = (
-				597B7D19AA5AF4AD617E41DEB69A61C2 /* RMPickerViewController.h */,
-				D52A587E74F80B34B1269AAF81E869BA /* RMPickerViewController.m */,
-				B6C034CB00AA3ED4BEAD0A922AF1146C /* Support Files */,
-			);
-			path = RMPickerViewController;
-			sourceTree = "<group>";
-		};
-		A4790B4E2B320F0169DB4C78AA83221E /* GoogleNetworkingUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				1971199123607B71DDFACC8D61EBE0A7 /* Frameworks */,
-			);
-			path = GoogleNetworkingUtilities;
-			sourceTree = "<group>";
-		};
-		A4E46D809DC09784E3E6B1889ED2058F /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				19E9CDCAFFA89E6278177C8E5A36F06D /* LLSimpleCamera.xcconfig */,
-				84A72B5922EC717F03289D4527F4B5A9 /* LLSimpleCamera-dummy.m */,
-				A65198D8190D7B9FAA1CC7D8CD16A971 /* LLSimpleCamera-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/LLSimpleCamera";
-			sourceTree = "<group>";
-		};
-		B219DEF7AC2A80C5386049E1909D3622 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DA464E0C1BC454C5390E90523BAC6FEC /* GoogleIPhoneUtilities.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B6C034CB00AA3ED4BEAD0A922AF1146C /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				B5135C67AC4513556D268987A280C212 /* RMPickerViewController.xcconfig */,
-				7E462A5CA86334366787C2701CD9D802 /* RMPickerViewController-dummy.m */,
-				70CA93425DFF8FBC00F797BB5AEDA1D6 /* RMPickerViewController-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/RMPickerViewController";
-			sourceTree = "<group>";
-		};
-		BA4A807EBC22D007AA4011F1CA7EE0FA /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1645D878E2AF7FF5791C2A43D5EA83B2 /* RMActionController.xcconfig */,
-				897747BBAE3D30ED679F1DCE0FA22CE2 /* RMActionController-dummy.m */,
-				B6CB7E247D878F9EF55C1EE71E6CF339 /* RMActionController-prefix.pch */,
+				A686C98D4DBE8F18F29384EF20F59E7A /* RMActionController.xcconfig */,
+				D9EB3933A8276D781FBA22F4B9048206 /* RMActionController-dummy.m */,
+				376496E696E730904006AD1EFFD0086B /* RMActionController-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/RMActionController";
 			sourceTree = "<group>";
 		};
-		BEFB1BED252BCA3D6243388135627A40 /* FirebaseAnalytics */ = {
+		8BAC618F96A7B28637AF73C94C6679A3 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				3C0953B38E63FBB493CF656869B41812 /* Frameworks */,
+				E891FB99FE9279835513B48B97CA37D7 /* LLSimpleCamera.xcconfig */,
+				7DDADABDB6FDD0338A55A76BFF1D2A02 /* LLSimpleCamera-dummy.m */,
+				275E046A2E2A76A9F7E83AFED216C4E8 /* LLSimpleCamera-prefix.pch */,
 			);
-			path = FirebaseAnalytics;
+			name = "Support Files";
+			path = "../Target Support Files/LLSimpleCamera";
 			sourceTree = "<group>";
 		};
-		C2E42F96C73C8025B07BEA64DF5C8A72 /* FirebaseInstanceID */ = {
+		901629AAA578C6EEF8D4BA18C189975E /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				9258689530E0134765B96D0A7C691916 /* FIRInstanceID.h */,
-				1E2BA176C3407B021A952E5A62FFE823 /* Frameworks */,
-			);
-			path = FirebaseInstanceID;
-			sourceTree = "<group>";
-		};
-		CAC7D3965DE56B66D24006763E8C8E0A /* GoogleUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				876BF7D2E062F428B97E6780BEB9575F /* Frameworks */,
-			);
-			path = GoogleUtilities;
-			sourceTree = "<group>";
-		};
-		D23C5F3BCDEA01986786C6AC6429A70E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EB6909FC393052D921B32E0325A84560 /* FirebaseRemoteConfig.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D867836602E847673C152153A84BFFAC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E30551F17DB4869D94B0E868BC761F56 /* Firebase */,
-				BEFB1BED252BCA3D6243388135627A40 /* FirebaseAnalytics */,
-				219A3AB35E368FD16C8F60FE255D5F00 /* FirebaseAuth */,
-				89B2155BD478D416B35AC7A7F747608B /* FirebaseCrash */,
-				6201A880226911C10CDAE5D6009A38E2 /* FirebaseDatabase */,
-				C2E42F96C73C8025B07BEA64DF5C8A72 /* FirebaseInstanceID */,
-				014B463B681CAF63448211D5D7F7B0F0 /* FirebaseRemoteConfig */,
-				811CD37FFE7B8CA9C91E30321CB09E2C /* FirebaseStorage */,
-				E32355848FAE73D3F5E1ACD3581FC1D8 /* Google-Mobile-Ads-SDK */,
-				5B9956CA839749A2F0D7A945AC7C7151 /* GoogleInterchangeUtilities */,
-				8619F1C0ED8193BC0F3269FC4AC9AFD1 /* GoogleIPhoneUtilities */,
-				A4790B4E2B320F0169DB4C78AA83221E /* GoogleNetworkingUtilities */,
-				61419E749EB4F8E346A5AD578A39F442 /* GoogleParsingUtilities */,
-				05535232ECECFF32AA425E95633A287D /* GoogleSymbolUtilities */,
-				CAC7D3965DE56B66D24006763E8C8E0A /* GoogleUtilities */,
-				600A9E7660C2FE8EF255851ED6AFF6AE /* KVNProgress */,
-				64903F620BD305928E2DC037AC7A87DD /* LLSimpleCamera */,
-				09223E0E9A72A0E77037A841D2FFBD10 /* RMActionController */,
-				A30E9D4B83E1416657125AB4BDD96C9A /* RMPickerViewController */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		E30551F17DB4869D94B0E868BC761F56 /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				FD7A3E343490461FDBEABA3392D402FC /* Analytics */,
-			);
-			path = Firebase;
-			sourceTree = "<group>";
-		};
-		E32355848FAE73D3F5E1ACD3581FC1D8 /* Google-Mobile-Ads-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				79F4702ABA22604CFCFBA7EBF3F8C4AB /* Frameworks */,
-			);
-			path = "Google-Mobile-Ads-SDK";
-			sourceTree = "<group>";
-		};
-		E9EE77A5184F8E20D083CF93B351CD1A /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				DACD7B81F893933A55FCD99E81175797 /* KVNProgress.xcconfig */,
-				9155F3859303468F5BABBACC7AB58578 /* KVNProgress-dummy.m */,
-				E304A2E151FFBFFEBA6C2B1275D9F4C3 /* KVNProgress-prefix.pch */,
+				41B219D216941658A9FFB9F91842421B /* KVNProgress.xcconfig */,
+				CB56F299E65A5C873BBF2B6CBE2DB527 /* KVNProgress-dummy.m */,
+				57D507B0572BD9CB00547BD4EBEC4F19 /* KVNProgress-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/KVNProgress";
 			sourceTree = "<group>";
 		};
-		FD7A3E343490461FDBEABA3392D402FC /* Analytics */ = {
+		90AD02625073B67E46B9B1272CA6FB3B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4FAD466B990FCD3F8A38868944B8F440 /* Firebase.h */,
+				D3D46D4A7E82FF9EC73F2DB116287BDB /* KVNProgressView.xib */,
 			);
-			name = Analytics;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		BAB2A2832B4410934FE2E18C1A69C841 /* RMActionController */ = {
+			isa = PBXGroup;
+			children = (
+				023B84CE3E7EAD06D9A0C00D206108B4 /* RMActionController.h */,
+				12E1AD755D93A56512622A132EE82E6E /* RMActionController.m */,
+				8B48A6118A9F8E2E1B3FA472144E7FAA /* Support Files */,
+			);
+			name = RMActionController;
+			path = RMActionController;
+			sourceTree = "<group>";
+		};
+		E86970B6ABE9EDEE2650215D1167C325 /* KVNProgress */ = {
+			isa = PBXGroup;
+			children = (
+				DE5EBBC5C43DC8A6170E0E4AAA2806E1 /* KVNProgress.h */,
+				5F6D6DBBD34A7066050B8139D5EB6A0C /* KVNProgress.m */,
+				2D639A28365D320056122ABFC6C991A0 /* KVNProgressConfiguration.h */,
+				1367B0ED553F67855B54B3859DCF70FA /* KVNProgressConfiguration.m */,
+				A1F1137AF5063A8C52CCEDE9FA7C72D1 /* UIColor+KVNContrast.h */,
+				644C626996B094676A4BC65A6001C9E6 /* UIColor+KVNContrast.m */,
+				FE99DD0BF9802B1A5C851A8E99DF9B68 /* UIImage+KVNEmpty.h */,
+				E98CECA71B27F6F22CA3B7D9522C69E8 /* UIImage+KVNEmpty.m */,
+				5E57144EF8D09FA9626C764885726581 /* UIImage+KVNImageEffects.h */,
+				320CFF02640CFF834E94A231BDE332C9 /* UIImage+KVNImageEffects.m */,
+				90AD02625073B67E46B9B1272CA6FB3B /* Resources */,
+				901629AAA578C6EEF8D4BA18C189975E /* Support Files */,
+			);
+			name = KVNProgress;
+			path = KVNProgress;
+			sourceTree = "<group>";
+		};
+		F994394112DBB9D4CBDC9C7A33024FAC /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				093CF86EADA7A2F483600910A3C9BCA4 /* OnboardingContentViewController.h */,
+				EDFD7F9DCD9B2DD276F01A83079CA7E2 /* OnboardingContentViewController.m */,
+				D6631C60978FA35144617639D8B2D3D1 /* OnboardingViewController.h */,
+				72104F75104A95661FB29321BB87C0D6 /* OnboardingViewController.m */,
+				1DAE22D307032440740C8BD2262CEA92 /* Support Files */,
+			);
+			name = Onboard;
+			path = Onboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -645,11 +432,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4348F9AA25A863D5EFA1915DD3DF77E1 /* Headers */ = {
+		0E6A84B9E18D98E1A3ABFA0C1B740D78 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C211C5E922EDC84DE99864ADCF70DE5 /* RMPickerViewController.h in Headers */,
+				3E345AF7582F09AD21255BBCD2A67D87 /* RMPickerViewController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E8CA9BFA860CD682F1480903F01473D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D9D2DC13478FAF7E81AA977DDB42806 /* RMActionController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,34 +460,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D715FFEC41BD5D82B2533898A9002CF8 /* Headers */ = {
+		BA69AA9A5A502263888867D1EE3E5431 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32C64C5E1BFAB13CBA5FDAC4C6FBCFD8 /* RMActionController.h in Headers */,
+				16A37B4F17170D9CA27888AD0486D379 /* OnboardingContentViewController.h in Headers */,
+				E1E2AADE59D2F18FB161211624CB119D /* OnboardingViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0E31893CB635EBB8C37DD701E5742AD7 /* RMActionController */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D39FD71D47AF7B5F13E5379312CDCC35 /* Build configuration list for PBXNativeTarget "RMActionController" */;
-			buildPhases = (
-				86EF12FE6FD0B997DA1048AE29042BDF /* Sources */,
-				367A7EE0C690E2A68FEAD467F4C01BD1 /* Frameworks */,
-				D715FFEC41BD5D82B2533898A9002CF8 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RMActionController;
-			productName = RMActionController;
-			productReference = 69058CF36A7D440B66BB2603983736CC /* libRMActionController.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		2A39584C26CC601021B9B20A763AB4E2 /* KVNProgress */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D75CC1E75A8F99CEB6BD0F59473D97D7 /* Build configuration list for PBXNativeTarget "KVNProgress" */;
@@ -707,45 +486,24 @@
 			);
 			name = KVNProgress;
 			productName = KVNProgress;
-			productReference = 290E8C63BCFA9FBBC532537570ED96C0 /* libKVNProgress.a */;
+			productReference = 9AD323A4BDCD72076EF252161F7B380A /* libKVNProgress.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		6F1B72DC1E2A665388EE8F248A251AA4 /* RMPickerViewController */ = {
+		6124B7B88D3C748456E919C33F5E10D8 /* RMActionController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 58D4B7FC87FEA103B72940DBE20A3A01 /* Build configuration list for PBXNativeTarget "RMPickerViewController" */;
+			buildConfigurationList = 543736E01909754BB4EB33B7F6C51E58 /* Build configuration list for PBXNativeTarget "RMActionController" */;
 			buildPhases = (
-				C7BB36CDD0C0327E5C6656128234F788 /* Sources */,
-				C16DFE727A36679C035A4AA799659689 /* Frameworks */,
-				4348F9AA25A863D5EFA1915DD3DF77E1 /* Headers */,
+				CA2F7FD2DB663171DFEA644C356AFD8D /* Sources */,
+				A330F04A5F1AE9544B5EE59C81CA4305 /* Frameworks */,
+				1E8CA9BFA860CD682F1480903F01473D /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				01BD9ABC5130307079DBA4E66CEA6535 /* PBXTargetDependency */,
 			);
-			name = RMPickerViewController;
-			productName = RMPickerViewController;
-			productReference = 6E0BE38219B643F33A2955C74D14170D /* libRMPickerViewController.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		718C907AD5C0699BFCD493BCEF9C1650 /* Pods-Snap Scramble */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 18A10260EC11F3FC2F99F18A3EDF95E3 /* Build configuration list for PBXNativeTarget "Pods-Snap Scramble" */;
-			buildPhases = (
-				E6439AF5C2669204B8F50B8AA60939FC /* Sources */,
-				04D298862DFFE633F4CE20C26B690996 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				36B3648A418A436D5F53C1573B816690 /* PBXTargetDependency */,
-				D3938EF0D26905C5AEA7D4C3E9AE6028 /* PBXTargetDependency */,
-				3519F0F8636AAA8A6A6E345058E03D91 /* PBXTargetDependency */,
-				5644AF6EED45532EE9BB8642A73EF5AA /* PBXTargetDependency */,
-			);
-			name = "Pods-Snap Scramble";
-			productName = "Pods-Snap Scramble";
-			productReference = 3C27816073072BA6C2E12D762AF07ED0 /* libPods-Snap Scramble.a */;
+			name = RMActionController;
+			productName = RMActionController;
+			productReference = 2F5C50B0507C17AFED7C484820B17009 /* libRMActionController.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8001A4C66DB95D61BD1127759ADDD0B6 /* LLSimpleCamera */ = {
@@ -762,7 +520,63 @@
 			);
 			name = LLSimpleCamera;
 			productName = LLSimpleCamera;
-			productReference = 5DA77C3FFD85A40552D6FBA3352EF363 /* libLLSimpleCamera.a */;
+			productReference = E7906AE36B70E595FCAAAD503D971DD2 /* libLLSimpleCamera.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B6CA1A9E36D1C2725A965D7DEF00912F /* RMPickerViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDE5A72E7E83984D04BB3167907506AA /* Build configuration list for PBXNativeTarget "RMPickerViewController" */;
+			buildPhases = (
+				BCA65A88FB30175EC40CC9E0C74171A1 /* Sources */,
+				4465F11DC25C6E70D8BF4CA62FAFBFE5 /* Frameworks */,
+				0E6A84B9E18D98E1A3ABFA0C1B740D78 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E9BD422A3BC339C8E550F0566D4BFC4 /* PBXTargetDependency */,
+			);
+			name = RMPickerViewController;
+			productName = RMPickerViewController;
+			productReference = F193E6240E3994FAB8701F3102E86327 /* libRMPickerViewController.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C667C2207FDDF3F5AF875FD61BBF6153 /* Onboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 106D9DB2199B2079EFB420DDEBB27AB7 /* Build configuration list for PBXNativeTarget "Onboard" */;
+			buildPhases = (
+				7F2986B618F5EC28A8AAD6C0023F94C3 /* Sources */,
+				725B9EE5B9F2E46E822E174305F2A553 /* Frameworks */,
+				BA69AA9A5A502263888867D1EE3E5431 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Onboard;
+			productName = Onboard;
+			productReference = 1565974E7BF3D02B76C761ED6EFA48CE /* libOnboard.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D5511171D8D9E41F54C90E93C3A87883 /* Pods-Snap Scramble */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C8C5ABA5723D299785ADBC60CE87A32 /* Build configuration list for PBXNativeTarget "Pods-Snap Scramble" */;
+			buildPhases = (
+				72C499118AAD3EC9E6BD99C035886137 /* Sources */,
+				73BC73B587ED7459E33EAD471DBE8A1A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1264724D9AE94849036F405A53DFF86 /* PBXTargetDependency */,
+				B1FF7B52D9DA38A01463209F6CDB35C4 /* PBXTargetDependency */,
+				B6F60866BE547A4100589E3007220AC1 /* PBXTargetDependency */,
+				8CD7CF197688C46D6EFC56074EFAB716 /* PBXTargetDependency */,
+				286ADB6CB9BD374B9C17DF01FC92A3D2 /* PBXTargetDependency */,
+			);
+			name = "Pods-Snap Scramble";
+			productName = "Pods-Snap Scramble";
+			productReference = D1748BD7BC18DDFA9C2314E6F7C73188 /* libPods-Snap Scramble.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -782,15 +596,16 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 1C0B307FA4AAE81B00B0683926BBB272 /* Products */;
+			productRefGroup = 6DA064184D770492BB628A5EEB3333D3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				2A39584C26CC601021B9B20A763AB4E2 /* KVNProgress */,
 				8001A4C66DB95D61BD1127759ADDD0B6 /* LLSimpleCamera */,
-				718C907AD5C0699BFCD493BCEF9C1650 /* Pods-Snap Scramble */,
-				0E31893CB635EBB8C37DD701E5742AD7 /* RMActionController */,
-				6F1B72DC1E2A665388EE8F248A251AA4 /* RMPickerViewController */,
+				C667C2207FDDF3F5AF875FD61BBF6153 /* Onboard */,
+				D5511171D8D9E41F54C90E93C3A87883 /* Pods-Snap Scramble */,
+				6124B7B88D3C748456E919C33F5E10D8 /* RMActionController */,
+				B6CA1A9E36D1C2725A965D7DEF00912F /* RMPickerViewController */,
 			);
 		};
 /* End PBXProject section */
@@ -809,6 +624,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		72C499118AAD3EC9E6BD99C035886137 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD7460C6F61EF4CC2F5D937FE4F099AC /* Pods-Snap Scramble-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7DCD20A27AFC89FC084CD1593C908172 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -819,64 +642,72 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		86EF12FE6FD0B997DA1048AE29042BDF /* Sources */ = {
+		7F2986B618F5EC28A8AAD6C0023F94C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8BD74E48F3600BDA10C0FB9D5C76C85 /* RMActionController-dummy.m in Sources */,
-				D290D039332A24F924E905718EA23BBF /* RMActionController.m in Sources */,
+				57693CC8656F31842A9F4CBDED1C37DB /* Onboard-dummy.m in Sources */,
+				6E5C71BFAE1656A9A2316F711E80E7F2 /* OnboardingContentViewController.m in Sources */,
+				71CCCA574BFC21A9E9B4BC03B6D6853F /* OnboardingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C7BB36CDD0C0327E5C6656128234F788 /* Sources */ = {
+		BCA65A88FB30175EC40CC9E0C74171A1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09473C201E8AB5AAC61D392422125D81 /* RMPickerViewController-dummy.m in Sources */,
-				46620C2A9B0C78215B32AA6413093627 /* RMPickerViewController.m in Sources */,
+				4C3B342A0EED58D573EDC8C544746482 /* RMPickerViewController-dummy.m in Sources */,
+				2CF48AD099B3198BEBFD1AB1A04A357C /* RMPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E6439AF5C2669204B8F50B8AA60939FC /* Sources */ = {
+		CA2F7FD2DB663171DFEA644C356AFD8D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4B275BF0229ACBDFB57259DEE4C823 /* Pods-Snap Scramble-dummy.m in Sources */,
+				FA68F993D3316BE94E060B5AA49B1FDB /* RMActionController-dummy.m in Sources */,
+				F5BBDC1D61CE9070450B78514FB7250E /* RMActionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		01BD9ABC5130307079DBA4E66CEA6535 /* PBXTargetDependency */ = {
+		0E9BD422A3BC339C8E550F0566D4BFC4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RMActionController;
-			target = 0E31893CB635EBB8C37DD701E5742AD7 /* RMActionController */;
-			targetProxy = EB3E5FECF34BBB58EB2C5DA04A073F0B /* PBXContainerItemProxy */;
+			target = 6124B7B88D3C748456E919C33F5E10D8 /* RMActionController */;
+			targetProxy = AECAF3AB86C5089F2C0C6F0769E4F9E4 /* PBXContainerItemProxy */;
 		};
-		3519F0F8636AAA8A6A6E345058E03D91 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RMActionController;
-			target = 0E31893CB635EBB8C37DD701E5742AD7 /* RMActionController */;
-			targetProxy = 204B471C3C67C7BD93EF48DB7079A4E5 /* PBXContainerItemProxy */;
-		};
-		36B3648A418A436D5F53C1573B816690 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = KVNProgress;
-			target = 2A39584C26CC601021B9B20A763AB4E2 /* KVNProgress */;
-			targetProxy = 09B0C536989368EC5643191A39071930 /* PBXContainerItemProxy */;
-		};
-		5644AF6EED45532EE9BB8642A73EF5AA /* PBXTargetDependency */ = {
+		286ADB6CB9BD374B9C17DF01FC92A3D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RMPickerViewController;
-			target = 6F1B72DC1E2A665388EE8F248A251AA4 /* RMPickerViewController */;
-			targetProxy = 75F16AF309F83B4D8D6D7BD5E7278253 /* PBXContainerItemProxy */;
+			target = B6CA1A9E36D1C2725A965D7DEF00912F /* RMPickerViewController */;
+			targetProxy = 9DE8AA35BEF64FC0811CFF8A91EA2922 /* PBXContainerItemProxy */;
 		};
-		D3938EF0D26905C5AEA7D4C3E9AE6028 /* PBXTargetDependency */ = {
+		8CD7CF197688C46D6EFC56074EFAB716 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RMActionController;
+			target = 6124B7B88D3C748456E919C33F5E10D8 /* RMActionController */;
+			targetProxy = 643E4CFE79BACDD8849F826676F290F0 /* PBXContainerItemProxy */;
+		};
+		B1FF7B52D9DA38A01463209F6CDB35C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = LLSimpleCamera;
 			target = 8001A4C66DB95D61BD1127759ADDD0B6 /* LLSimpleCamera */;
-			targetProxy = 3C37204DC74BC55213B183BB829687B5 /* PBXContainerItemProxy */;
+			targetProxy = F395A3482ED11DF3BD653302F3880A29 /* PBXContainerItemProxy */;
+		};
+		B6F60866BE547A4100589E3007220AC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Onboard;
+			target = C667C2207FDDF3F5AF875FD61BBF6153 /* Onboard */;
+			targetProxy = 738E0BAAA1D5FDBA3BF106FC919C81DD /* PBXContainerItemProxy */;
+		};
+		F1264724D9AE94849036F405A53DFF86 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KVNProgress;
+			target = 2A39584C26CC601021B9B20A763AB4E2 /* KVNProgress */;
+			targetProxy = 7E2D9B3E3FAE5EB69D7F4E63CBDFB5D0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -925,9 +756,9 @@
 			};
 			name = Debug;
 		};
-		144911FDD88EDACFFC6D5F8B6317E44F /* Debug */ = {
+		2975C1B04281768DA57D8C203039AB4F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A4585F7515E7805FAD8656D240EC631 /* Pods-Snap Scramble.debug.xcconfig */;
+			baseConfigurationReference = A686C98D4DBE8F18F29384EF20F59E7A /* RMActionController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -935,16 +766,17 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/RMActionController/RMActionController-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -988,9 +820,9 @@
 			};
 			name = Release;
 		};
-		4E292D44FF47769FD4EDC53DFF517EA6 /* Debug */ = {
+		59BE7CB1E1C39A18B35D8BD08298F864 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1645D878E2AF7FF5791C2A43D5EA83B2 /* RMActionController.xcconfig */;
+			baseConfigurationReference = 0A4585F7515E7805FAD8656D240EC631 /* Pods-Snap Scramble.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -998,23 +830,22 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/RMActionController/RMActionController-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		7744FE8B4CBA30554124A922EE54033B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19E9CDCAFFA89E6278177C8E5A36F06D /* LLSimpleCamera.xcconfig */;
+			baseConfigurationReference = E891FB99FE9279835513B48B97CA37D7 /* LLSimpleCamera.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1036,7 +867,7 @@
 			};
 			name = Debug;
 		};
-		9AFB703262C998D0C6578DAA86B141B7 /* Release */ = {
+		A26EF39928A46A0E99D5EE29E16C7D1E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4CDDD1938C1C59EC28DD1956BE72839 /* Pods-Snap Scramble.release.xcconfig */;
 			buildSettings = {
@@ -1059,9 +890,33 @@
 			};
 			name = Release;
 		};
+		A339B00FFB8BD709D03965F590F194EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0EF6D7121BDBC333F69DC56E1486083 /* Onboard.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Onboard/Onboard-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		AB2BC1B1FEFE24ADAB385AB0F1169863 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DACD7B81F893933A55FCD99E81175797 /* KVNProgress.xcconfig */;
+			baseConfigurationReference = 41B219D216941658A9FFB9F91842421B /* KVNProgress.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1083,9 +938,33 @@
 			};
 			name = Debug;
 		};
-		CF8A829C59B487E83CC57AE0ED2F18B2 /* Release */ = {
+		C18011491EE386A972074E07E48906D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1645D878E2AF7FF5791C2A43D5EA83B2 /* RMActionController.xcconfig */;
+			baseConfigurationReference = 850718E2538BE5AE3FB4AA8EAAA37725 /* RMPickerViewController.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/RMPickerViewController/RMPickerViewController-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		CB47D63E9B68C937128176AD5576510F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A686C98D4DBE8F18F29384EF20F59E7A /* RMActionController.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1107,9 +986,57 @@
 			};
 			name = Release;
 		};
+		D3D333134DC69D9FC9F81B9F796D9D19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 850718E2538BE5AE3FB4AA8EAAA37725 /* RMPickerViewController.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/RMPickerViewController/RMPickerViewController-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		D850AEF678F3C9739CA85E37476C446E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0EF6D7121BDBC333F69DC56E1486083 /* Onboard.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Onboard/Onboard-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
 		D9CFDC2FFD976D5976285DE85E2DA046 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DACD7B81F893933A55FCD99E81175797 /* KVNProgress.xcconfig */;
+			baseConfigurationReference = 41B219D216941658A9FFB9F91842421B /* KVNProgress.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1131,57 +1058,9 @@
 			};
 			name = Release;
 		};
-		EC65068549AF26B8FB45F5F60D0641A7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5135C67AC4513556D268987A280C212 /* RMPickerViewController.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/RMPickerViewController/RMPickerViewController-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		F13395863A77DCB63AC8D17572147F67 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5135C67AC4513556D268987A280C212 /* RMPickerViewController.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/RMPickerViewController/RMPickerViewController-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
 		FF97A8B86614876AD7F5B23CB6C6BA96 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19E9CDCAFFA89E6278177C8E5A36F06D /* LLSimpleCamera.xcconfig */;
+			baseConfigurationReference = E891FB99FE9279835513B48B97CA37D7 /* LLSimpleCamera.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1206,11 +1085,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		18A10260EC11F3FC2F99F18A3EDF95E3 /* Build configuration list for PBXNativeTarget "Pods-Snap Scramble" */ = {
+		106D9DB2199B2079EFB420DDEBB27AB7 /* Build configuration list for PBXNativeTarget "Onboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				144911FDD88EDACFFC6D5F8B6317E44F /* Debug */,
-				9AFB703262C998D0C6578DAA86B141B7 /* Release */,
+				D850AEF678F3C9739CA85E37476C446E /* Debug */,
+				A339B00FFB8BD709D03965F590F194EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1233,20 +1112,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		58D4B7FC87FEA103B72940DBE20A3A01 /* Build configuration list for PBXNativeTarget "RMPickerViewController" */ = {
+		543736E01909754BB4EB33B7F6C51E58 /* Build configuration list for PBXNativeTarget "RMActionController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F13395863A77DCB63AC8D17572147F67 /* Debug */,
-				EC65068549AF26B8FB45F5F60D0641A7 /* Release */,
+				2975C1B04281768DA57D8C203039AB4F /* Debug */,
+				CB47D63E9B68C937128176AD5576510F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D39FD71D47AF7B5F13E5379312CDCC35 /* Build configuration list for PBXNativeTarget "RMActionController" */ = {
+		6C8C5ABA5723D299785ADBC60CE87A32 /* Build configuration list for PBXNativeTarget "Pods-Snap Scramble" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4E292D44FF47769FD4EDC53DFF517EA6 /* Debug */,
-				CF8A829C59B487E83CC57AE0ED2F18B2 /* Release */,
+				59BE7CB1E1C39A18B35D8BD08298F864 /* Debug */,
+				A26EF39928A46A0E99D5EE29E16C7D1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDE5A72E7E83984D04BB3167907506AA /* Build configuration list for PBXNativeTarget "RMPickerViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C18011491EE386A972074E07E48906D9 /* Debug */,
+				D3D333134DC69D9FC9F81B9F796D9D19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
