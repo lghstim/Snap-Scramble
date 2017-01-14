@@ -182,7 +182,6 @@
                 NSLog(@"User %@ signed up.", [PFUser currentUser]);
                 [KVNProgress dismiss];
                 self.signupView.animation = @"fall";
-                self.signupView.delay = 1.0;
                 [self.signupView animate];
             }
         }];

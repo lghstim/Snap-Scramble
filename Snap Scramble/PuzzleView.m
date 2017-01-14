@@ -205,6 +205,8 @@
                     if (piece.pieceId == piece.targetView.targetId) { // check if piece is matched to its target
                         piece.isMatched = true; // if matched at beginning, set it to true
                         piece.userInteractionEnabled = false;
+                        piece.layer.borderWidth = 4.0f;
+                        piece.layer.borderColor = [self colorWithHexString:@"71C7F0"].CGColor;
                     }
                     else if (piece.pieceId != piece.targetView.targetId) {
                         piece.isMatched = false; // if it's not matched at beginning, set it to false
@@ -287,6 +289,8 @@
                     piece.targetView = currentTargetView; // assign the target view to it
                     if (piece.pieceId == piece.targetView.targetId) { // check if piece is matched to its target
                         piece.isMatched = true; // if matched at beginning, set it to true
+                        piece.layer.borderWidth = 4.0f;
+                        piece.layer.borderColor = [self colorWithHexString:@"71C7F0"].CGColor;
                     }
                     else if (piece.pieceId != piece.targetView.targetId) {
                         piece.isMatched = false; // if it's not matched at beginning, set it to false
@@ -358,7 +362,7 @@
             // if it exists, get the pieceview that's about to be swapped (the noncurrent piece view) and place it on current pieceview's old targetview
             for (PieceView* aPieceView in self.puzzle.pieces) {
                 
-                // find the piece view about to be swapped, which lies on the current target view
+                // find the piece view about to be swapped, which lies on the non current target view
                 if (aPieceView.targetView == nonCurrentTargetView) {
                     nonCurrentPieceView = aPieceView; // piece view about to be swapped
                     
@@ -371,6 +375,7 @@
                     }
                     
                     else if (nonCurrentPieceView.isMatched) {
+                        currentPieceView.center = currentPieceView.targetView.center;
                         NSLog(@"this non current piece view is already matched, try placing the current piece view somewhere else.");
                         break;
                     }
@@ -393,17 +398,20 @@
             
             else if (nonCurrentPieceView == nil) { // if we don't have a noncurrent piece view, we will be placing the current piece in an empty target
                 // place the current piece view on the nearest target, which in this case is empty
-                currentPieceView.targetView = nonCurrentTargetView;
+                currentPieceView.targetView = nonCurrentTargetView; // place it back to original spot if it can't be placed 
                 currentPieceView.center = currentPieceView.targetView.center;
                 break;
             }
         }
     }
     
+    
     // check if current piece is matched to its target
     if (currentPieceView.pieceId == currentPieceView.targetView.targetId) {
         currentPieceView.isMatched = true; // if matched, set it to true
         currentPieceView.userInteractionEnabled = false;
+        currentPieceView.layer.borderWidth = 3.5f;
+        currentPieceView.layer.borderColor = [self colorWithHexString:@"71C7F0"].CGColor;
     } else{
         currentPieceView.isMatched = false; // if it's not matched, set it to false
     }
@@ -412,6 +420,9 @@
     if (nonCurrentPieceView.pieceId == nonCurrentPieceView.targetView.targetId) {
         nonCurrentPieceView.isMatched = true; // if matched, set it to true
         nonCurrentPieceView.userInteractionEnabled = false;
+        nonCurrentPieceView.layer.borderWidth = 3.5f;
+        nonCurrentPieceView.layer.borderColor = [self colorWithHexString:@"71C7F0"].CGColor;
+
     } else{
         nonCurrentPieceView.isMatched = false; // if it's not matched, set it to false
     }

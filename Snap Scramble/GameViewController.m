@@ -128,7 +128,7 @@
     
     [self.statsButton setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height - 60)];
     [self.statsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.statsButton setTitle:@"Show Stats" forState:UIControlStateNormal];
+    [self.statsButton setTitle:@"Next" forState:UIControlStateNormal];
     self.statsButton.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
     [self.view bringSubviewToFront:self.statsButton];
 }

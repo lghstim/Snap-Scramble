@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "Snap_Scramble-Swift.h"
+
 
 
 @interface IAPViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet SpringView *IAPView;
 @property (weak, nonatomic) IBOutlet UILabel *IAPlabel;
 - (IBAction)goBackButtonDidPress:(id)sender;
 - (IBAction)unlockFullVersionButtonDidPress:(id)sender;

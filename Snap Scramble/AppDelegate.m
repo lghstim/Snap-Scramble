@@ -119,12 +119,15 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     OnboardingContentViewController *fourthPage = [OnboardingContentViewController contentWithTitle:@"Choose a puzzle size" body:@"Available sizes: 4 x 4, 5 x 5, or 6 x 6." image:nil buttonText:nil action:nil];
 
     
-    OnboardingContentViewController *fifthPage = [OnboardingContentViewController contentWithTitle:@"Solve the jigsaw puzzle as fast as possible." body:@"Correctly placed pieces lock into place. The person with the fastest time wins that round." image:nil buttonText:@"Get Started" action:^{
+    OnboardingContentViewController *fifthPage = [OnboardingContentViewController contentWithTitle:@"Solve the jigsaw puzzle as fast as possible." body:@"The person with the fastest time wins that round." image:nil buttonText:nil action:nil];
+    
+    OnboardingContentViewController *sixthPage = [OnboardingContentViewController contentWithTitle:@"Quick tip:" body:@"Correctly placed pieces lock into place with a blue border around them." image:nil buttonText:@"Get Started" action:^{
         [self handleOnboardingCompletion];
     }];
     
     
-    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:[UIImage imageNamed:@"iphone-onboard"] contents:@[firstPage, secondPage, thirdPage, fourthPage, fifthPage]];
+    
+    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:[UIImage imageNamed:@"iphone-onboard"] contents:@[firstPage, secondPage, thirdPage, fourthPage, fifthPage, sixthPage]];
     onboardingVC.shouldFadeTransitions = YES;
     onboardingVC.fadePageControlOnLastPage = YES;
     onboardingVC.fadeSkipButtonOnLastPage = YES;

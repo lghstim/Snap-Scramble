@@ -235,7 +235,7 @@
                                     </variation>
                                 </view>
                                 <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -303,60 +303,52 @@
                                                 <constraint firstAttribute="height" constant="1" id="XXA-WA-0ah"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3q-ef-wME">
-                                            <rect key="frame" x="147" y="58" width="120" height="110"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="110" id="M1d-ZJ-krZ"/>
-                                                <constraint firstAttribute="width" constant="120" id="lY3-js-3zv"/>
-                                            </constraints>
-                                            <state key="normal" image="Challenge_Button">
-                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Play now" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhL-74-ihv">
-                                            <rect key="frame" x="177" y="141" width="60" height="27"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="KGg-R1-pmM"/>
-                                                <constraint firstAttribute="height" constant="27" id="OKO-wt-EYQ"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYo-Bi-rbz">
-                                            <rect key="frame" x="186" y="24" width="43" height="21"/>
+                                            <rect key="frame" x="186" y="43" width="43" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="5XP-l6-3V4"/>
+                                                <constraint firstAttribute="height" constant="21" id="bH5-4t-HN9"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                             <color key="textColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wins: 0 | Losses: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXr-f5-Fqr">
-                                            <rect key="frame" x="84" y="184" width="257" height="25"/>
+                                            <rect key="frame" x="82" y="164" width="257" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="aeQ-X9-S00"/>
-                                                <constraint firstAttribute="width" constant="257" id="xMW-F7-SBY"/>
+                                                <constraint firstAttribute="height" constant="25" id="eeJ-RD-C8F"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
                                             <color key="textColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIA-Vv-mwF" customClass="DesignableButton" customModule="Snap_Scramble" customModuleProvider="target">
+                                            <rect key="frame" x="62" y="94" width="300" height="40"/>
+                                            <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                            <state key="normal" title="Create new game">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.94605457782745361" green="0.95496565103530884" blue="0.9801211953163147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstItem="E3q-ef-wME" firstAttribute="top" secondItem="WYo-Bi-rbz" secondAttribute="bottom" constant="13" id="CB6-i0-rEA"/>
-                                        <constraint firstItem="AHb-Cv-gbd" firstAttribute="top" secondItem="ZXr-f5-Fqr" secondAttribute="bottom" constant="17" id="DZN-IQ-RRy"/>
-                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="top" secondItem="EhL-74-ihv" secondAttribute="bottom" constant="16" id="HAN-At-8db"/>
-                                        <constraint firstItem="E3q-ef-wME" firstAttribute="centerX" secondItem="WYo-Bi-rbz" secondAttribute="centerX" id="IEO-12-fl9"/>
-                                        <constraint firstAttribute="trailing" secondItem="AHb-Cv-gbd" secondAttribute="trailing" constant="24" id="du3-Lj-u1x"/>
-                                        <constraint firstItem="E3q-ef-wME" firstAttribute="centerX" secondItem="EhL-74-ihv" secondAttribute="centerX" id="eLg-zg-h3r"/>
-                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="leading" secondItem="r0n-qc-oaI" secondAttribute="leading" constant="84" id="g8L-tS-8OI"/>
-                                        <constraint firstAttribute="bottom" secondItem="AHb-Cv-gbd" secondAttribute="bottom" constant="1" id="idh-Kk-r9n"/>
-                                        <constraint firstItem="AHb-Cv-gbd" firstAttribute="leading" secondItem="r0n-qc-oaI" secondAttribute="leading" constant="33" id="jQO-fQ-eeq"/>
-                                        <constraint firstItem="E3q-ef-wME" firstAttribute="bottom" secondItem="EhL-74-ihv" secondAttribute="bottom" id="qFk-KM-SZM"/>
-                                        <constraint firstAttribute="trailing" secondItem="ZXr-f5-Fqr" secondAttribute="trailing" constant="73" id="udN-UL-l4M"/>
-                                        <constraint firstItem="EhL-74-ihv" firstAttribute="centerX" secondItem="r0n-qc-oaI" secondAttribute="centerX" id="vBT-Z7-l1U"/>
+                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="leading" secondItem="JIA-Vv-mwF" secondAttribute="leading" constant="20" id="2yx-o5-Hgw"/>
+                                        <constraint firstItem="JIA-Vv-mwF" firstAttribute="centerX" secondItem="WYo-Bi-rbz" secondAttribute="centerX" constant="4.5" id="6bz-N8-D3R"/>
+                                        <constraint firstItem="AHb-Cv-gbd" firstAttribute="leading" secondItem="r0n-qc-oaI" secondAttribute="leading" constant="33" id="ArS-Wv-RFc"/>
+                                        <constraint firstItem="WYo-Bi-rbz" firstAttribute="centerX" secondItem="r0n-qc-oaI" secondAttribute="centerX" id="AtJ-sK-btT"/>
+                                        <constraint firstAttribute="trailing" secondItem="AHb-Cv-gbd" secondAttribute="trailing" constant="24" id="KaH-3g-u3j"/>
+                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="top" secondItem="JIA-Vv-mwF" secondAttribute="bottom" constant="30" id="Rtm-RL-IBL"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZXr-f5-Fqr" secondAttribute="trailing" constant="75" id="TAC-HF-Sy0"/>
+                                        <constraint firstItem="AHb-Cv-gbd" firstAttribute="top" secondItem="ZXr-f5-Fqr" secondAttribute="bottom" constant="37" id="WPG-Id-E2V"/>
+                                        <constraint firstAttribute="bottom" secondItem="ZXr-f5-Fqr" secondAttribute="bottom" constant="39" id="X96-93-tPq"/>
+                                        <constraint firstItem="WYo-Bi-rbz" firstAttribute="top" secondItem="r0n-qc-oaI" secondAttribute="top" constant="43" id="bRG-wD-NYq"/>
+                                        <constraint firstItem="JIA-Vv-mwF" firstAttribute="top" secondItem="WYo-Bi-rbz" secondAttribute="bottom" constant="30" id="lq7-0d-xwV"/>
+                                        <constraint firstItem="ZXr-f5-Fqr" firstAttribute="leading" secondItem="r0n-qc-oaI" secondAttribute="leading" constant="82" id="nzg-29-XOF"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -413,7 +405,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundView" destination="utL-Br-HYU" id="8RT-fn-2b0"/>
-                        <outlet property="challengeButton" destination="E3q-ef-wME" id="TUg-ma-FD4"/>
+                        <outlet property="challengeButton" destination="JIA-Vv-mwF" id="Av5-Al-cvu"/>
                         <outlet property="currentGamesTable" destination="8hq-Cg-ZJl" id="yis-iP-9GR"/>
                         <outlet property="headerView" destination="r0n-qc-oaI" id="dGi-tl-MW2"/>
                         <outlet property="scoreLabel" destination="ZXr-f5-Fqr" id="0tQ-ag-S7u"/>
@@ -633,18 +625,18 @@
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n7s-RE-9Vs" id="bsM-gN-44N">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t9P-af-UpB">
-                                            <rect key="frame" x="15" y="20" width="32" height="20"/>
+                                            <rect key="frame" x="15.000000000000002" y="21" width="31.666666666666668" height="19.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="beK-KW-JUb">
-                                            <rect key="frame" x="357" y="20" width="42" height="20"/>
+                                            <rect key="frame" x="357.33333333333331" y="21" width="41.666666666666664" height="19.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1297,7 +1289,7 @@
                                     </variation>
                                 </view>
                                 <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1467,7 +1459,7 @@
                                     </variation>
                                 </view>
                                 <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1858,7 +1850,7 @@
                                     </variation>
                                 </view>
                                 <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1870,6 +1862,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="IAPView" destination="5F6-gz-Pkj" id="B3d-yk-kqu"/>
                         <outlet property="IAPlabel" destination="bR1-4z-HUW" id="8AP-MH-Vfk"/>
                     </connections>
                 </viewController>
@@ -2037,7 +2030,7 @@
                                     </variation>
                                 </view>
                                 <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2211,7 +2204,7 @@
                                     </variation>
                                 </view>
                                 <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2503,7 +2496,7 @@
                                     </variation>
                                 </view>
                                 <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2515,6 +2508,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="IAPView" destination="Wa2-RI-5RJ" id="G9e-be-lqq"/>
                         <outlet property="IAPlabel" destination="ScW-HB-daQ" id="Jfb-KP-QzZ"/>
                     </connections>
                 </viewController>
@@ -2524,7 +2518,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Challenge_Button" width="330" height="330"/>
         <image name="Line" width="1077" height="3"/>
         <image name="empty_table_background" width="1896" height="1962"/>
         <image name="go-back-button" width="354" height="120"/>
@@ -2534,8 +2527,8 @@
         <image name="resume-button" width="354" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="odM-ze-1MK"/>
+        <segue reference="p0X-sm-y7k"/>
         <segue reference="u0U-4m-TET"/>
-        <segue reference="2L4-gE-vSk"/>
-        <segue reference="H2T-pd-LdQ"/>
     </inferredMetricsTieBreakers>
 </document>

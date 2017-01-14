@@ -88,6 +88,8 @@
             NSLog(@"hello");
             pv.userInteractionEnabled = NO;
             pv.layer.masksToBounds = NO;
+            pv.layer.borderWidth = 0.0f;
+            pv.layer.borderColor = nil;
         }
         
         for(TargetView* tv in self.targets) {

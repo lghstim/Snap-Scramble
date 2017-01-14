@@ -42,7 +42,9 @@
 */
 
 - (IBAction)goBackButtonDidPress:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    self.IAPView.animation = @"fall";
+    [self.IAPView animate];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)unlockFullVersionButtonDidPress:(id)sender {
