@@ -24,8 +24,10 @@
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)saveCurrentUser:(void (^)(BOOL succeeded, NSError *error))completion;
 - (void)sendPushToOpponent;
-- (void)incrementWins;
-- (void)incrementLosses;
+- (void)incrementOpponentWins;
+- (void)incrementOpponentLosses;
+- (void)incrementCurrentUserWins;
+- (void)incrementCurrentUserLosses;
 
 
   

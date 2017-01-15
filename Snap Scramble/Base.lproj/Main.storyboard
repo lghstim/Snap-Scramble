@@ -1339,7 +1339,7 @@
                                                         <constraint firstAttribute="height" constant="44" id="GzQ-xZ-RcA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
-                                                    <state key="normal" title="Delete game">
+                                                    <state key="normal" title="Too hard? Give up.">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>

@@ -12,6 +12,7 @@
 #import "ChallengeViewModel.h"
 #import "IAPViewController.h"
 #import "Snap_Scramble-Swift.h"
+@import Firebase;
 
 
 
@@ -111,6 +112,13 @@
         // if the user doesn't have the premium in-app purchase of Snap Scramble, push him to the IAPViewController
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         if ([userDefaults boolForKey:@"premiumUser"] != true) {
+            [FIRAnalytics logEventWithName:kFIREventSelectContent
+                                parameters:@{
+                                             kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
+                                             kFIRParameterItemName:@"open-IAP-game-limit",
+                                             kFIRParameterContentType:@"image"
+                                             }];
+            
             [self performSegueWithIdentifier:@"limitOpenIAP" sender:self];
         }
         

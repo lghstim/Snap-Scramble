@@ -42,7 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.puzzleSizes = [[NSArray alloc] initWithObjects:@"4 x 4", @"5 x 5", @"6 x 6", nil];
+    self.puzzleSizes = [[NSArray alloc] initWithObjects:@"2 x 2", @"4 x 4", @"5 x 5", @"6 x 6", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

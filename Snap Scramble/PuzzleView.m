@@ -207,6 +207,14 @@
                         piece.userInteractionEnabled = false;
                         piece.layer.borderWidth = 4.0f;
                         piece.layer.borderColor = [self colorWithHexString:@"71C7F0"].CGColor;
+                       /*  UILabel *pieceLabel = [UILabel new];
+                        pieceLabel.center = piece.center;
+                        NSNumber *pieceId = @(piece.pieceId);
+                        pieceLabel.text = [NSString stringWithFormat:@"%@", pieceId];
+                        UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
+                        pieceLabel.textColor = [UIColor whiteColor];
+                        pieceLabel.font = myFont;
+                        [self addSubview:pieceLabel]; */
                     }
                     else if (piece.pieceId != piece.targetView.targetId) {
                         piece.isMatched = false; // if it's not matched at beginning, set it to false
@@ -412,6 +420,16 @@
         currentPieceView.userInteractionEnabled = false;
         currentPieceView.layer.borderWidth = 3.5f;
         currentPieceView.layer.borderColor = [self colorWithHexString:@"71C7F0"].CGColor;
+        /* UILabel *pieceLabel = [UILabel new];
+        NSNumber *pieceId = @(currentPieceView.pieceId);
+        pieceLabel.text = [NSString stringWithFormat:@"%@", pieceId];
+        UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
+        pieceLabel.textColor = [UIColor whiteColor];
+        pieceLabel.font = myFont;
+        pieceLabel.frame = CGRectMake(0, 0, currentPieceView.frame.size.width, 21.0);
+        pieceLabel.center = currentPieceView.center;
+        [self addSubview:pieceLabel];
+        [self bringSubviewToFront:pieceLabel]; */
     } else{
         currentPieceView.isMatched = false; // if it's not matched, set it to false
     }
@@ -422,6 +440,16 @@
         nonCurrentPieceView.userInteractionEnabled = false;
         nonCurrentPieceView.layer.borderWidth = 3.5f;
         nonCurrentPieceView.layer.borderColor = [self colorWithHexString:@"71C7F0"].CGColor;
+        /* UILabel *pieceLabel = [UILabel new];
+        NSNumber *pieceId = @(currentPieceView.pieceId);
+        pieceLabel.text = [NSString stringWithFormat:@"%@", pieceId];
+        UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
+        pieceLabel.textColor = [UIColor whiteColor];
+        pieceLabel.font = myFont;
+        pieceLabel.frame = CGRectMake(0, 0, nonCurrentPieceView.frame.size.width, 21.0);
+        pieceLabel.center = nonCurrentPieceView.center;
+        [self addSubview:pieceLabel];
+        [self bringSubviewToFront:pieceLabel]; */
 
     } else{
         nonCurrentPieceView.isMatched = false; // if it's not matched, set it to false

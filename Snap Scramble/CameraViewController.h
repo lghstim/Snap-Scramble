@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "LLSimpleCamera.h"
 #import <Parse/Parse.h>
+#import "JPSVolumeButtonHandler.h"
+
 
 @interface CameraViewController : UIViewController
 
@@ -18,6 +20,9 @@
 @property (nonatomic, strong) PFUser* opponent;
 @property (weak, nonatomic) IBOutlet UIButton* backButton;
 @property (nonatomic, strong) PFObject* roundObject;
+@property (nonatomic, strong) JPSVolumeButtonHandler* volumeButtonHandler;
+
+
 
 
 

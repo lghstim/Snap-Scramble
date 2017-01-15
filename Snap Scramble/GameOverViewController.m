@@ -148,67 +148,18 @@
                      // check who won
                      if (currentUserTotalSecondsInt > opponentTotalSecondsInt) { // if current user lost
                          self.headerStatsLabel.text = @"You lost! It is your turn to reply now.";
-                         // update the amount of losses the current user has.
-                         NSNumber *losses = [[PFUser currentUser] objectForKey:@"losses"];
-                         if (losses != nil) {
-                             int intLosses = [losses intValue];
-                             losses = [NSNumber numberWithInt:intLosses + 1];
-                             [[PFUser currentUser] setObject:losses forKey:@"losses"];
-                             [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
-                                 if (error) {
-                                     NSLog(@"failed updating losses");
-                                 } else {
-                                     
-                                     NSLog(@"current user losses: %@", losses);
-                                 }
-                             }];
-                         } else {
-                             losses = [NSNumber numberWithInt:1];
-                             int intLosses = [losses intValue];
-                             [[PFUser currentUser] setObject:losses forKey:@"losses"];
-                             [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
-                                 if (error) {
-                                     NSLog(@"failed updating losses");
-                                 } else {
-                                     NSLog(@"current user losses: %d", intLosses);
-                                 }
-                             }];
-                         }
-                         
-                         // update the amount of wins the opponent has.
-                         [self.viewModel incrementWins];
+                        
+                         [self.viewModel incrementCurrentUserLosses]; // update the amount of losses the current user has.
+                         [self.viewModel incrementOpponentWins]; // update the amount of wins the opponent has.
+
                      } else if (currentUserTotalSecondsInt == opponentTotalSecondsInt) { // if tie
                          // don't update losses or wins since the game is a tie.
                          self.headerStatsLabel.text = @"Tie game! It is your turn to reply now.";
                      } else if (currentUserTotalSecondsInt < opponentTotalSecondsInt) { // if current user won
-                         // update the amount of wins the current user has.
-                         NSNumber *wins = [[PFUser currentUser] objectForKey:@"wins"];
-                         if (wins != nil) {
-                             int intWins = [wins intValue];
-                             wins = [NSNumber numberWithInt:intWins + 1];
-                             [[PFUser currentUser] setObject:wins forKey:@"wins"];
-                             [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
-                                 if (error) {
-                                     NSLog(@"failed updating wins");
-                                 } else {
-                                     NSLog(@"current user wins: %@", wins);
-                                 }
-                             }];
-                         } else {
-                             wins = [NSNumber numberWithInt:1];
-                             int intWins = [wins intValue];
-                             [[PFUser currentUser] setObject:wins forKey:@"wins"];
-                             [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
-                                 if (error) {
-                                     NSLog(@"failed updating wins");
-                                 } else {
-                                     NSLog(@"current user wins: %d", intWins);
-                                 }
-                             }];
-                         }
-                         
-                         // update the amount of losses the opponent has.
-                         [self.viewModel incrementLosses];
+                   
+                         [self.viewModel incrementCurrentUserWins]; // update the amount of wins the current user has.
+                         [self.viewModel incrementOpponentLosses]; // update the amount of losses the opponent has.
+
                          self.headerStatsLabel.text = @"You won! It is your turn to reply now.";
                      }
                  }

@@ -28,7 +28,6 @@
 		6A4C51551D25186600D917FA /* PuzzleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4C51541D25186600D917FA /* PuzzleObject.m */; };
 		6A4ED85F1D42EB60006213A7 /* FriendsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED85E1D42EB60006213A7 /* FriendsViewModel.m */; };
 		6A4ED8621D440352006213A7 /* PreviewPuzzleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED8611D440352006213A7 /* PreviewPuzzleViewModel.m */; };
-		6A6FB62F1D4DC95300EFA6C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */; };
 		6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */; };
 		6A77DF7D1D44978E00ECD9BC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */; };
 		6A7C81671D49EC3F00F36C43 /* SignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */; };
@@ -39,6 +38,12 @@
 		6A7C81771D49F77A00F36C43 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C816F1D49F77A00F36C43 /* cancel.png */; };
 		6A7C81781D49F77A00F36C43 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C81701D49F77A00F36C43 /* cancel@2x.png */; };
 		6A7C81791D49F77A00F36C43 /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C81711D49F77A00F36C43 /* cancel@3x.png */; };
+		6A8335621E2B3D04003EAA56 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6A83355B1E2B3D04003EAA56 /* .gitignore */; };
+		6A8335631E2B3D04003EAA56 /* JPSVolumeButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A83355E1E2B3D04003EAA56 /* JPSVolumeButtonHandler.m */; };
+		6A8335641E2B3D04003EAA56 /* JPSVolumeButtonHandler.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6A83355F1E2B3D04003EAA56 /* JPSVolumeButtonHandler.podspec */; };
+		6A8335651E2B3D04003EAA56 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6A8335601E2B3D04003EAA56 /* LICENSE.txt */; };
+		6A8335661E2B3D04003EAA56 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6A8335611E2B3D04003EAA56 /* README.md */; };
+		6A8335681E2B6616003EAA56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A8335671E2B6616003EAA56 /* GoogleService-Info.plist */; };
 		6A8B195F1E1259DA009CD77D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6A8B193C1E1259DA009CD77D /* .gitignore */; };
 		6A8B19601E1259DA009CD77D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6A8B193D1E1259DA009CD77D /* LICENSE */; };
 		6A8B19611E1259DA009CD77D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6A8B193E1E1259DA009CD77D /* README.md */; };
@@ -178,7 +183,8 @@
 		6A4ED85E1D42EB60006213A7 /* FriendsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewModel.m; sourceTree = "<group>"; };
 		6A4ED8601D440352006213A7 /* PreviewPuzzleViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewPuzzleViewModel.h; sourceTree = "<group>"; };
 		6A4ED8611D440352006213A7 /* PreviewPuzzleViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPuzzleViewModel.m; sourceTree = "<group>"; };
-		6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6A567F841E2B37D8007ACF44 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		6A567F861E2B37E6007ACF44 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6A6FB6341D508FB700EFA6C3 /* GameViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewModel.h; sourceTree = "<group>"; };
 		6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewModel.m; sourceTree = "<group>"; };
 		6A77DF7B1D44978E00ECD9BC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
@@ -192,6 +198,13 @@
 		6A7C816F1D49F77A00F36C43 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		6A7C81701D49F77A00F36C43 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		6A7C81711D49F77A00F36C43 /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
+		6A83355B1E2B3D04003EAA56 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6A83355D1E2B3D04003EAA56 /* JPSVolumeButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPSVolumeButtonHandler.h; sourceTree = "<group>"; };
+		6A83355E1E2B3D04003EAA56 /* JPSVolumeButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPSVolumeButtonHandler.m; sourceTree = "<group>"; };
+		6A83355F1E2B3D04003EAA56 /* JPSVolumeButtonHandler.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JPSVolumeButtonHandler.podspec; sourceTree = "<group>"; };
+		6A8335601E2B3D04003EAA56 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		6A8335611E2B3D04003EAA56 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6A8335671E2B6616003EAA56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A8B193C1E1259DA009CD77D /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6A8B193D1E1259DA009CD77D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6A8B193E1E1259DA009CD77D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -393,11 +406,12 @@
 		6A112AAA1B5DFB0D0035A75C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A8335671E2B6616003EAA56 /* GoogleService-Info.plist */,
+				6A83355A1E2B3D04003EAA56 /* JPSVolumeButtonHandler-master */,
 				6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */,
 				6A8B193B1E1259DA009CD77D /* Spring-masterr */,
 				6AC60B041D58720600681C90 /* UIImage+Scale.h */,
 				6AC60B051D58720600681C90 /* UIImage+Scale.m */,
-				6A6FB62E1D4DC95300EFA6C3 /* GoogleService-Info.plist */,
 				6A7C81721D49F77A00F36C43 /* Images */,
 				6AD6338F1B71EB4C0038A4EB /* Reachability.h */,
 				6AD633901B71EB4C0038A4EB /* Reachability.m */,
@@ -453,6 +467,27 @@
 				6A7C81711D49F77A00F36C43 /* cancel@3x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		6A83355A1E2B3D04003EAA56 /* JPSVolumeButtonHandler-master */ = {
+			isa = PBXGroup;
+			children = (
+				6A83355B1E2B3D04003EAA56 /* .gitignore */,
+				6A83355C1E2B3D04003EAA56 /* JPSVolumeButtonHandler */,
+				6A83355F1E2B3D04003EAA56 /* JPSVolumeButtonHandler.podspec */,
+				6A8335601E2B3D04003EAA56 /* LICENSE.txt */,
+				6A8335611E2B3D04003EAA56 /* README.md */,
+			);
+			path = "JPSVolumeButtonHandler-master";
+			sourceTree = "<group>";
+		};
+		6A83355C1E2B3D04003EAA56 /* JPSVolumeButtonHandler */ = {
+			isa = PBXGroup;
+			children = (
+				6A83355D1E2B3D04003EAA56 /* JPSVolumeButtonHandler.h */,
+				6A83355E1E2B3D04003EAA56 /* JPSVolumeButtonHandler.m */,
+			);
+			path = JPSVolumeButtonHandler;
 			sourceTree = "<group>";
 		};
 		6A8B193B1E1259DA009CD77D /* Spring-masterr */ = {
@@ -560,6 +595,8 @@
 		6AD28CD51B5E081200BCD802 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A567F861E2B37E6007ACF44 /* AVFoundation.framework */,
+				6A567F841E2B37D8007ACF44 /* MediaPlayer.framework */,
 				6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */,
 				6AF197CE1E1E1F56004840FC /* libz.1.dylib */,
 				6AA5A9B61E164DB400D2F4CF /* FBSDKShareKit.framework */,
@@ -683,18 +720,21 @@
 				6A7C81741D49F77A00F36C43 /* camera-flash@2x.png in Resources */,
 				6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */,
 				6A8B197F1E1259DA009CD77D /* Spring.podspec in Resources */,
+				6A8335651E2B3D04003EAA56 /* LICENSE.txt in Resources */,
+				6A8335621E2B3D04003EAA56 /* .gitignore in Resources */,
 				6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */,
 				6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */,
 				6A7C81751D49F77A00F36C43 /* camera-switch.png in Resources */,
 				6A7C81771D49F77A00F36C43 /* cancel.png in Resources */,
 				6A8B196E1E1259DA009CD77D /* Info.plist in Resources */,
+				6A8335681E2B6616003EAA56 /* GoogleService-Info.plist in Resources */,
 				6A8B19601E1259DA009CD77D /* LICENSE in Resources */,
 				6A8B195F1E1259DA009CD77D /* .gitignore in Resources */,
 				6A7C81781D49F77A00F36C43 /* cancel@2x.png in Resources */,
-				6A6FB62F1D4DC95300EFA6C3 /* GoogleService-Info.plist in Resources */,
 				6A8B19711E1259DA009CD77D /* LoadingView.xib in Resources */,
 				6A7C81761D49F77A00F36C43 /* camera-switch@2x.png in Resources */,
 				6A7C81731D49F77A00F36C43 /* camera-flash.png in Resources */,
+				6A8335641E2B3D04003EAA56 /* JPSVolumeButtonHandler.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,6 +819,7 @@
 				6AD6439F1D516C2300121E98 /* PauseViewModel.m in Sources */,
 				6A1E77CC1CB31487002688D0 /* SettingsViewController.m in Sources */,
 				6A8B19701E1259DA009CD77D /* LoadingView.swift in Sources */,
+				6A8335631E2B3D04003EAA56 /* JPSVolumeButtonHandler.m in Sources */,
 				6A8B196B1E1259DA009CD77D /* DesignableTextView.swift in Sources */,
 				6AE073031E24D2A7009854AE /* StartPuzzleViewModel.m in Sources */,
 				6A112ADE1B5E02640035A75C /* ChallengeViewController.m in Sources */,
@@ -816,6 +857,7 @@
 				6A4ED85F1D42EB60006213A7 /* FriendsViewModel.m in Sources */,
 				6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */,
 				6A8B196D1E1259DA009CD77D /* ImageLoader.swift in Sources */,
+				6A8335661E2B3D04003EAA56 /* README.md in Sources */,
 				6A8B19771E1259DA009CD77D /* SpringImageView.swift in Sources */,
 				6A8B19641E1259DA009CD77D /* AutoTextView.swift in Sources */,
 				6AC60B081D58720600681C90 /* UIImage+Scale.m in Sources */,
@@ -972,7 +1014,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 67D5VP8GSS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -987,8 +1029,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f39d1c4c-6c5d-42ba-acd9-a55bda76bfa8";
-				PROVISIONING_PROFILE_SPECIFIER = "App Store Snap Scramble Provisioning Profile";
+				PROVISIONING_PROFILE = "be9a5377-e619-4e17-8495-ff2f323a9bda";
+				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1001,7 +1043,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 67D5VP8GSS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1016,8 +1058,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f39d1c4c-6c5d-42ba-acd9-a55bda76bfa8";
-				PROVISIONING_PROFILE_SPECIFIER = "App Store Snap Scramble Provisioning Profile";
+				PROVISIONING_PROFILE = "be9a5377-e619-4e17-8495-ff2f323a9bda";
+				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

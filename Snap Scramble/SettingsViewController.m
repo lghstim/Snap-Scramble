@@ -10,6 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "IAPViewController.h"
+@import Firebase;
 
 @interface SettingsViewController ()
 
@@ -69,6 +70,13 @@
 
 - (IBAction)unlockFullVersionButtonDidPress:(id)sender {
     // performs the chooseToBuyIAP segue
+    [FIRAnalytics logEventWithName:kFIREventSelectContent
+                        parameters:@{
+                                     kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
+                                     kFIRParameterItemName:@"open-IAP-button-pressed",
+                                     kFIRParameterContentType:@"image"
+                                     }];
+    
 }
 
 - (IBAction)restorePurchasesButtonDidPress:(id)sender {
@@ -84,6 +92,14 @@
 }
 
 - (IBAction)shareButtonDidPress:(id)sender {
+    [FIRAnalytics logEventWithName:kFIREventSelectContent
+                        parameters:@{
+                                     kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
+                                     kFIRParameterItemName:@"share-button-pressed",
+                                     kFIRParameterContentType:@"image"
+                                     }];
+    
+    
     NSString *textToShare = @"Check out the iPhone game Snap Scramble!";
     NSURL *myWebsite = [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
     

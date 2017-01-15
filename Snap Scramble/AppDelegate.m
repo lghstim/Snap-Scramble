@@ -15,6 +15,9 @@
 #import "OnboardingViewController.h"
 #import "OnboardingContentViewController.h"
 #import "SignupViewController.h"
+@import Firebase;
+
+
 
 static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
@@ -57,6 +60,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
         configuration.server = @"https://pacific-harbor-61840.herokuapp.com/parse";
      }]];
     
+    [FIRApp configure];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
   
@@ -158,9 +162,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTheTable" object:nil];
     [PFPush handlePush:userInfo];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 

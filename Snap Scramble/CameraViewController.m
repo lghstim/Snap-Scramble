@@ -9,6 +9,10 @@
 #import "CameraViewController.h"
 #import "PreviewPuzzleViewController.h"
 #import "ViewUtils.h"
+#import "JPSVolumeButtonHandler.h"
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 
 @interface CameraViewController ()
 @property (strong, nonatomic) LLSimpleCamera *camera;
@@ -24,6 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
+    [self.view addSubview: volumeView];
     
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -143,6 +150,47 @@
     
     // start the camera
     [self.camera start];
+    
+    // volume button handler
+    self.volumeButtonHandler = [JPSVolumeButtonHandler volumeButtonHandlerWithUpBlock:^{
+        // Volume Up Button Pressed
+        NSLog(@"up volume");
+        __weak typeof(self) weakSelf = self;
+        
+        // capture
+        [self.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
+            if(!error) {
+                self.originalImage = image;
+                self.cameraImage = image;
+                self.cameraImage = [self prepareImageForGame:self.cameraImage]; // resize camera image for game
+                [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
+            }
+            else {
+                NSLog(@"An error has occured: %@", error);
+            }
+        } exactSeenImage:YES];
+
+    } downBlock:^{
+        NSLog(@"down volume");
+        // Volume Down Button Pressed
+        __weak typeof(self) weakSelf = self;
+        
+        // capture
+        [self.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
+            if(!error) {
+                self.originalImage = image;
+                self.cameraImage = image;
+                self.cameraImage = [self prepareImageForGame:self.cameraImage]; // resize camera image for game
+                [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
+            }
+            else {
+                NSLog(@"An error has occured: %@", error);
+            }
+        } exactSeenImage:YES];
+
+    }];
+    
+    [self.volumeButtonHandler startHandler:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -164,6 +212,10 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
 }
+
+
+
+
 
 - (IBAction)backButtonDidPress:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -306,6 +358,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
+        [self.volumeButtonHandler stopHandler];
         PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
             NSLog(@"Game already started: %@", self.createdGame);

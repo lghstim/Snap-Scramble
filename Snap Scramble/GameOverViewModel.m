@@ -97,9 +97,9 @@
     [[PFUser currentUser] saveInBackgroundWithBlock:completion];
 }
 
-- (void)incrementWins {
+- (void)incrementOpponentWins {
     // update the amount of wins the opponent has.
-    [PFCloud callFunctionInBackground:@"incrementWins" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentWins, NSError *error) {
+    [PFCloud callFunctionInBackground:@"incrementOpponentWins" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentWins, NSError *error) {
         if (error) {
             NSLog(@"error incrementing opponent's wins.");
         } else {
@@ -108,13 +108,36 @@
     }];
 }
 
-- (void)incrementLosses {
+- (void)incrementOpponentLosses {
     // update the amount of losses the opponent has.
-    [PFCloud callFunctionInBackground:@"incrementLosses" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentLosses, NSError *error) {
+    [PFCloud callFunctionInBackground:@"incrementOpponentLosses" withParameters:@{@"userId": self.opponent.objectId} block:^(NSNumber *opponentLosses, NSError *error) {
         if (error) {
             NSLog(@"error incrementing opponent's losses.");
         } else {
             NSLog(@"successfully incremented opponent's losses: %@", opponentLosses);
+        }
+    }];
+}
+
+- (void)incrementCurrentUserWins {
+    // update the amount of wins the opponent has.
+    [PFCloud callFunctionInBackground:@"incrementCurrentUserWins" withParameters:@{@"userId": [PFUser currentUser].objectId} block:^(NSNumber *currentUserWins, NSError *error) {
+        if (error) {
+            NSLog(@"error incrementing current user's wins.");
+        } else {
+            NSLog(@"successfully incremented current user's wins: %@", currentUserWins);
+        }
+    }];
+}
+
+- (void)incrementCurrentUserLosses {
+    // update the amount of losses the opponent has.
+
+    [PFCloud callFunctionInBackground:@"incrementCurrentUserLosses" withParameters:@{@"userId": [PFUser currentUser].objectId} block:^(NSNumber *currentUserLosses, NSError *error) {
+        if (error) {
+            NSLog(@"error incrementing current user's losses.");
+        } else {
+            NSLog(@"successfully incremented current user's losses: %@", currentUserLosses);
         }
     }];
 }
