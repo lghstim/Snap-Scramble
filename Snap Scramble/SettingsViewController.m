@@ -47,6 +47,7 @@
 }
 
 - (IBAction)logoutButtonDidPress:(id)sender {
+    [KVNProgress showWithStatus:@"Logging out..."]; // UI
     // this is for resetting the key necessary for push notifications on logout.
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
@@ -54,9 +55,12 @@
         [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"error resetting PFInstallation 'User' key");
+                [KVNProgress dismiss];
             } else {
+                [NSThread sleepForTimeInterval:2];
+                [KVNProgress dismiss];
                 [PFUser logOut]; // log out current user
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:NO];
             }
         }];
     }

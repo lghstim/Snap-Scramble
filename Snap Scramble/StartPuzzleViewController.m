@@ -241,7 +241,7 @@
     }
     
     else if (image.size.width == image.size.height) { // square
-        image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; 
     }
     
     NSLog(@"image after resizing: %@", image);

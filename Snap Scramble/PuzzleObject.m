@@ -30,10 +30,6 @@
     NSLog(@"set puzzle size: %@", self.puzzleSizeString);
     
     // set the number of pieces property
-    if ([self.puzzleSizeString isEqualToString:@"2 x 2"]) {
-        self.numberofPieces = 4;
-    }
-    
     if ([self.puzzleSizeString isEqualToString:@"3 x 3"]) {
         self.numberofPieces = 9;
     }

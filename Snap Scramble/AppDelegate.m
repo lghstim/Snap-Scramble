@@ -125,7 +125,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     
     OnboardingContentViewController *fifthPage = [OnboardingContentViewController contentWithTitle:@"Solve the jigsaw puzzle as fast as possible." body:@"The person with the fastest time wins that round." image:nil buttonText:nil action:nil];
     
-    OnboardingContentViewController *sixthPage = [OnboardingContentViewController contentWithTitle:@"Quick tip:" body:@"Correctly placed pieces lock into place with a blue border around them." image:nil buttonText:@"Get Started" action:^{
+    OnboardingContentViewController *sixthPage = [OnboardingContentViewController contentWithTitle:@"Quick tip:" body:@"Correctly placed pieces lock into place." image:nil buttonText:@"Get Started" action:^{
         [self handleOnboardingCompletion];
     }];
     

@@ -108,7 +108,7 @@
         }
         
         else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
-            self.previewImage = [self resizeImage:tempOriginalImage withMaxDimension:self.view.frame.size.width - 20];
+            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
         }
         
         self.originalImage = tempOriginalImage;

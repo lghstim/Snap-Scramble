@@ -108,30 +108,7 @@
 // this starts an entirely new game, don't be confused.
 - (IBAction)selectUserFromOptions:(id)sender {
     NSLog(@"%u", (self.currentGames.count + self.currentPendingGames.count));
-    if ((self.currentGames.count + self.currentPendingGames.count) >= 10) {
-        // if the user doesn't have the premium in-app purchase of Snap Scramble, push him to the IAPViewController
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        if ([userDefaults boolForKey:@"premiumUser"] != true) {
-            [FIRAnalytics logEventWithName:kFIREventSelectContent
-                                parameters:@{
-                                             kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
-                                             kFIRParameterItemName:@"open-IAP-game-limit",
-                                             kFIRParameterContentType:@"image"
-                                             }];
-            
-            [self performSegueWithIdentifier:@"limitOpenIAP" sender:self];
-        }
-        
-        // else if he has the in-app purchase then let him create a new game.
-        else {
-            [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
-        }
-    }
-    
-    // if the user has less than 10 existing games then let him create more.
-    else if ((self.currentGames.count + self.currentPendingGames.count) <= 10) {
-        [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
-    }
+    [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
 }
 
 #pragma mark - userMatchesTable code

@@ -1014,7 +1014,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 67D5VP8GSS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1029,8 +1029,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "be9a5377-e619-4e17-8495-ff2f323a9bda";
-				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
+				PROVISIONING_PROFILE = "f39d1c4c-6c5d-42ba-acd9-a55bda76bfa8";
+				PROVISIONING_PROFILE_SPECIFIER = "App Store Snap Scramble Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1043,7 +1043,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 67D5VP8GSS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1058,8 +1058,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "be9a5377-e619-4e17-8495-ff2f323a9bda";
-				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
+				PROVISIONING_PROFILE = "f39d1c4c-6c5d-42ba-acd9-a55bda76bfa8";
+				PROVISIONING_PROFILE_SPECIFIER = "App Store Snap Scramble Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

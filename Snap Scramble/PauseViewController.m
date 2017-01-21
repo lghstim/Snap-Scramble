@@ -126,6 +126,10 @@
     
 }
 
+- (IBAction)finishSolvingLaterButtonDidPress:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 /*
 #pragma mark - Navigation
 
