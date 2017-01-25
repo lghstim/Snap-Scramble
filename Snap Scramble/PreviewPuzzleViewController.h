@@ -16,7 +16,6 @@
 @property (nonatomic, strong) PFObject* createdGame;
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) PFUser* opponent;
-@property (weak, nonatomic) IBOutlet UIButton* backButton;
 @property (nonatomic, strong) UIImage* previewImage;
 @property (nonatomic, strong) UIImage* originalImage;
 @property (nonatomic, strong) PFUser* currentUser;

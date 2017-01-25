@@ -170,6 +170,7 @@
 		6A1E77C51CB303C0002688D0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6A1E77CA1CB31487002688D0 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		6A1E77CB1CB31487002688D0 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		6A217C2C1E36DB7800317F5F /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Snap Scramble.entitlements"; sourceTree = "<group>"; };
 		6A2F1DEF1E1E48D300DAAA87 /* IAPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPViewController.h; sourceTree = "<group>"; };
 		6A2F1DF01E1E48D300DAAA87 /* IAPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPViewController.m; sourceTree = "<group>"; };
@@ -406,6 +407,7 @@
 		6A112AAA1B5DFB0D0035A75C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A217C2C1E36DB7800317F5F /* fontawesome-webfont.ttf */,
 				6A8335671E2B6616003EAA56 /* GoogleService-Info.plist */,
 				6A83355A1E2B3D04003EAA56 /* JPSVolumeButtonHandler-master */,
 				6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */,
@@ -1014,7 +1016,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 67D5VP8GSS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1029,8 +1031,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f39d1c4c-6c5d-42ba-acd9-a55bda76bfa8";
-				PROVISIONING_PROFILE_SPECIFIER = "App Store Snap Scramble Provisioning Profile";
+				PROVISIONING_PROFILE = "be9a5377-e619-4e17-8495-ff2f323a9bda";
+				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1043,7 +1045,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 67D5VP8GSS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1058,8 +1060,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f39d1c4c-6c5d-42ba-acd9-a55bda76bfa8";
-				PROVISIONING_PROFILE_SPECIFIER = "App Store Snap Scramble Provisioning Profile";
+				PROVISIONING_PROFILE = "be9a5377-e619-4e17-8495-ff2f323a9bda";
+				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

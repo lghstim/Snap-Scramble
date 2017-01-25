@@ -12,6 +12,9 @@
 #import "JPSVolumeButtonHandler.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <Masonry/Masonry.h>
+
+
 
 
 @interface CameraViewController ()
@@ -29,12 +32,27 @@
 {
     [super viewDidLoad];
     
+    // hide volume HUD
     MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
     [self.view addSubview: volumeView];
+    self.volumeButtonHandler.volumeView = volumeView;
     
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.backButton = [UIButton new];
     [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backButton setImage:[UIImage imageNamed:@"icon-back"] forState:UIControlStateNormal];
+    self.backButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.backButton.titleLabel.minimumScaleFactor = 0.5;
+    [self.view addSubview:self.backButton];
+    [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.and.width.equalTo(@44);
+        make.left.equalTo(self.view).offset(8.f);
+        make.bottom.equalTo(self.view).offset(-28.f);
+    }];
+    self.backButton.adjustsImageWhenHighlighted = YES;
+    [self.view bringSubviewToFront:self.backButton];
+    
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
@@ -169,7 +187,7 @@
                 NSLog(@"An error has occured: %@", error);
             }
         } exactSeenImage:YES];
-
+        
     } downBlock:^{
         NSLog(@"down volume");
         // Volume Down Button Pressed
@@ -187,7 +205,7 @@
                 NSLog(@"An error has occured: %@", error);
             }
         } exactSeenImage:YES];
-
+        
     }];
     
     [self.volumeButtonHandler startHandler:YES];

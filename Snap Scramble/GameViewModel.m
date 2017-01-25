@@ -25,6 +25,10 @@
     [self.createdGame saveInBackgroundWithBlock:completion];
 }
 
+- (void)deleteGame:(PFObject *)gameToDelete completion:(void (^)(BOOL succeeded, NSError *error))completion {
+    [gameToDelete deleteInBackgroundWithBlock:completion];
+}
+
 
 
 

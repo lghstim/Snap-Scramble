@@ -249,7 +249,17 @@
 }
 
 - (IBAction)startGame:(id)sender {
-    [self performSegueWithIdentifier:@"beginGame" sender:self];
+    self.totalSeconds = [NSNumber numberWithInt:0];
+    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pauseForFiveSeconds) userInfo:nil repeats:YES];
+    
+    // first show preview of the image for a few seconds
+    [KVNProgress showWithStatus:[NSString stringWithFormat:@"Here's a preview of %@'s puzzle! Solve it as fast as possible!", self.opponent.username]];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.backgroundColor = [UIColor clearColor];
+    self.imageView.image = self.image;
+    [self.view addSubview:self.imageView];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
@@ -267,6 +277,24 @@
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
+}
+
+- (void)pauseForFiveSeconds {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    if ([self.totalSeconds intValue] > 3) {
+        [KVNProgress dismiss];
+    }
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 5) {
+        // begin game
+        [self performSegueWithIdentifier:@"beginGame" sender:self];
+        [self.timeoutTimer invalidate];
+    }
+    
 }
 
 - (IBAction)cancelButtonDidPress:(id)sender {

@@ -55,6 +55,7 @@
     self.replyLaterButton.userInteractionEnabled = NO;
     [self.replyButton addTarget:self action:@selector(replyButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.replyLaterButton addTarget:self action:@selector(replyLaterButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.deleteButton addTarget:self action:@selector(deleteButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.statsButton addTarget:self action:@selector(statsButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
    [self.mainMenuButton addTarget:self action:@selector(mainMenuButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -146,6 +147,8 @@
     self.replyButton.userInteractionEnabled = NO;
     self.replyLaterButton.hidden = YES;
     self.replyLaterButton.userInteractionEnabled = NO;
+    self.deleteButton.hidden = YES;
+    self.deleteButton.userInteractionEnabled = NO;
 }
 
 - (void)hideMainMenuUI {
@@ -162,12 +165,16 @@
     NSLog(@"executing here to show the reply / reply later button UI");
     self.replyButton.showsTouchWhenHighlighted = YES;
     self.replyLaterButton.showsTouchWhenHighlighted = YES;
+    self.deleteButton.showsTouchWhenHighlighted = YES;
     self.replyButton.hidden = NO;
     self.replyLaterButton.hidden = NO;
     self.replyLaterButton.userInteractionEnabled = YES;
     self.replyButton.userInteractionEnabled = YES;
+    self.deleteButton.hidden = NO;
+    self.deleteButton.userInteractionEnabled = YES;
     [self.view bringSubviewToFront:self.replyButton];
     [self.view bringSubviewToFront:self.replyLaterButton];
+    [self.view bringSubviewToFront:self.deleteButton];
 }
 
  // executes if current user is the sender. This code is executed when the user starts sending his own game to someone else.
@@ -210,6 +217,35 @@
     [self.delegate receiveReplyGameData2:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)deleteButtonDidPress:(id)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"Are you sure you want to end the game?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction: [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.viewModel deleteGame:self.createdGame completion:^(BOOL succeeded, NSError *error) {
+            if (error) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+            
+            else {
+                NSLog(@"game deleted successfully.");
+                [self.navigationController popToRootViewControllerAnimated:YES]; // go to main menu
+            }
+        }];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // cancelled
+    }]];
+    
+    alert.popoverPresentationController.sourceView = self.view;
+    
+    [self presentViewController:alert animated:YES
+                     completion:nil];
+
+}
+
 
 // when the main menu button is pressed, send push at that point.
 - (IBAction)mainMenuButtonDidPress:(id)sender {

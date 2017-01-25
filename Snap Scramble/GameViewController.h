@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *statsButton;
 @property (strong, nonatomic) IBOutlet UIButton *replyButton;
 @property (strong, nonatomic) IBOutlet UIButton *replyLaterButton;
+@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
 @property (strong, nonatomic) IBOutlet UIButton *mainMenuButton;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) PFObject *createdGame;

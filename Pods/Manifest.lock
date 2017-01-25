@@ -14,8 +14,11 @@ PODS:
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
+  - jot (0.1.5):
+    - Masonry (~> 0.6.1)
   - KVNProgress (2.3)
   - LLSimpleCamera (4.2.0)
+  - Masonry (0.6.4)
   - Onboard (2.2.1)
   - RMActionController (1.0.5)
   - RMPickerViewController (2.0.3):
@@ -23,6 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Core
+  - jot
   - KVNProgress
   - LLSimpleCamera (~> 4.1)
   - Onboard
@@ -35,12 +39,14 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
+  jot: 0f5dc333defa6ad805d01adc3834b201c22510a7
   KVNProgress: d0459bfa4dca0379cdba5c038326ea34e9fc2df9
   LLSimpleCamera: ed7813ce4827ff3e34c6af159c99b5b56e54d1c6
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   Onboard: 75731d0b265f5b5bab0b4bceff1778d7f6e839af
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
 
-PODFILE CHECKSUM: 7ceb472cf8564196d27e0bdb1c19eacc8644bfb4
+PODFILE CHECKSUM: 27f2f757f3093bc4deccd116e97defc3609cd333
 
 COCOAPODS: 1.1.1

@@ -16,12 +16,13 @@
 @property (weak, nonatomic) IBOutlet UIButton* reportButton;
 @property (weak, nonatomic) IBOutlet UIButton* resignButton;
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton* solveLaterButton;
 @property (weak, nonatomic) IBOutlet SpringView *pauseView;
 @property (nonatomic, strong) PFObject *createdGame;
 @property (nonatomic, strong) GameObject *game;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) PFRelation *blockedUsersRelation;
 
-
+- (IBAction)finishSolvingLaterButtonDidPress:(id)sender;
 
 @end

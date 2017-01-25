@@ -228,8 +228,8 @@
     NSLog(@"%@", self.totalSeconds);
     
     // if too much time passed in uploading
-    if ([self.totalSeconds intValue] > 20) {
-        NSLog(@"timeout error. took longer than 20 seconds");
+    if ([self.totalSeconds intValue] > 35) {
+        NSLog(@"timeout error. took longer than 35 seconds");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"A server error occurred." message:@"Please play again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
         [KVNProgress dismiss];

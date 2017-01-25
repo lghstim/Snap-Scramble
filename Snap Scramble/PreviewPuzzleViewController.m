@@ -10,9 +10,22 @@
 #import "GameViewController.h"
 #import "ChallengeViewController.h"
 #import "PreviewPuzzleViewModel.h"
+@import AssetsLibrary;
+#import <Masonry/Masonry.h>
+#import <jot/jot.h>
 
-@interface PreviewPuzzleViewController ()
+NSString * const kPencilImageName = @"draw-button";
+NSString * const kTextImageName = @"edit-text-button";
+NSString * const kClearImageName = @"undo-button";
+//NSString * const kSaveImageName = @"";
 
+@interface PreviewPuzzleViewController () <JotViewControllerDelegate>
+
+@property (nonatomic, strong) JotViewController *jotViewController;
+// @property (nonatomic, strong) UIButton *saveButton;
+@property (nonatomic, strong) UIButton *clearButton;
+@property (nonatomic, strong) UIButton *toggleDrawingButton;
+@property (nonatomic, strong) UIButton *backButton;
 @property(nonatomic, strong) PreviewPuzzleViewModel *viewModel;
 
 @end
@@ -25,6 +38,49 @@
     if (self)
     {
         _viewModel = [[PreviewPuzzleViewModel alloc] init];
+        _jotViewController = [JotViewController new];
+        
+        self.jotViewController.delegate = self;
+        self.jotViewController.state = JotViewStateDrawing;
+        self.jotViewController.textColor =  [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
+        self.jotViewController.font = [UIFont boldSystemFontOfSize:64.f];
+        self.jotViewController.fontSize = 64.f;
+        self.jotViewController.textEditingInsets = UIEdgeInsetsMake(12.f, 6.f, 0.f, 6.f);
+        self.jotViewController.initialTextInsets = UIEdgeInsetsMake(6.f, 6.f, 6.f, 6.f);
+        self.jotViewController.fitOriginalFontSizeToViewWidth = YES;
+        self.jotViewController.textAlignment = NSTextAlignmentLeft;
+        self.jotViewController.drawingColor = [UIColor cyanColor];
+        
+        /* _saveButton = [UIButton new];
+        self.saveButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+        [self.saveButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [self.saveButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.saveButton setTitle:kSaveImageName forState:UIControlStateNormal];
+        [self.saveButton addTarget:self
+                            action:@selector(saveButtonAction)
+                  forControlEvents:UIControlEventTouchUpInside]; */
+        
+        _clearButton = [UIButton new];
+        self.clearButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+        [self.clearButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [self.clearButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.clearButton setImage:[UIImage imageNamed:kClearImageName] forState:UIControlStateNormal];
+        [self.clearButton addTarget:self
+                             action:@selector(clearButtonAction)
+                   forControlEvents:UIControlEventTouchUpInside];
+        
+        _toggleDrawingButton = [UIButton new];
+        self.toggleDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+        [self.toggleDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [self.toggleDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.toggleDrawingButton setImage:[UIImage imageNamed:kTextImageName] forState:UIControlStateNormal];
+        [self.toggleDrawingButton addTarget:self
+                                     action:@selector(toggleDrawingButtonAction)
+                           forControlEvents:UIControlEventTouchUpInside];
+        
+        self.backButton = [UIButton new];
+        [self.backButton setImage:[UIImage imageNamed:@"icon-back"] forState:UIControlStateNormal];
+  
     }
     
     return self;
@@ -62,15 +118,58 @@
     self.currentUser = [PFUser currentUser];
     
     if (self.previewImage) { // if the image was just created by the player (sender) and is saved in memory, display it
+        
+        self.view.backgroundColor = [UIColor whiteColor];
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.backgroundColor = [UIColor clearColor];
         self.imageView.image = self.previewImage;
         [self.view addSubview:self.imageView];
+        
+        [self addChildViewController:self.jotViewController];
+        [self.view addSubview:self.jotViewController.view];
+        
+        [self.jotViewController didMoveToParentViewController:self];
+        [self.jotViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+        
+        //[self.view addSubview:self.saveButton];
+        /*[self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.and.width.equalTo(@44);
+            make.right.equalTo(self.view).offset(-4.f);
+            make.top.equalTo(self.view).offset(4.f);
+        }]; */
+        
+        [self.view addSubview:self.clearButton];
+        [self.clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.and.width.equalTo(@44);
+            make.left.equalTo(self.view).offset(8.f);
+            make.top.equalTo(self.view).offset(25.f);
+        }];
+        
+        [self.view addSubview:self.toggleDrawingButton];
+        [self.toggleDrawingButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.and.width.equalTo(@44);
+            make.right.equalTo(self.view).offset(-8.f);
+            make.bottom.equalTo(self.view).offset(-32.f);
+        }];
+        
+        [self.view addSubview:self.backButton];
+        [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.and.width.equalTo(@44);
+            make.left.equalTo(self.view).offset(8.f);
+            make.bottom.equalTo(self.view).offset(-28.f);
+        }];
+
+        
         [self.view bringSubviewToFront:self.sendButton];
         [self.view bringSubviewToFront:self.backButton];
         [self.view bringSubviewToFront:self.selectPuzzleSizeButton];
+        // [self.view bringSubviewToFront:self.saveButton];
+        [self.view bringSubviewToFront:self.clearButton];
+        [self.view bringSubviewToFront:self.toggleDrawingButton];
         [self.sendButton addTarget:self action:@selector(sendGame:) forControlEvents:UIControlEventTouchUpInside];
         [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
         [self.selectPuzzleSizeButton addTarget:self action:@selector(selectPuzzleSizeButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -88,15 +187,19 @@
 {
     [super viewDidAppear:animated];
     
-    // enable swipe back functionality
+    // disable swipe back functionality
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+    
+    if (self.jotViewController.state == JotViewStateText) {
+        self.jotViewController.state = JotViewStateEditingText;
     }
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return YES;
+    return NO;
 }
 
 - (IBAction)selectPuzzleSizeButtonDidPress:(id)sender {
@@ -122,8 +225,7 @@
     }];
     
     
-    RMAction *cancelAction = [RMAction actionWithTitle:@"Go Back" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
-        [self.navigationController popViewControllerAnimated:YES];
+    RMAction *cancelAction = [RMAction actionWithTitle:@"Cancel" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
         NSLog(@"Row selection was canceled");
     }];
 
@@ -232,7 +334,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"createGame"]) {
         GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
-        gameViewController.puzzleImage = self.previewImage;
+        gameViewController.puzzleImage = [self imageWithDrawing]; // get the drawed on image
         gameViewController.opponent = self.opponent;
         NSLog(@"the opponent %@", gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;
@@ -253,5 +355,68 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return [self.puzzleSizes count];
 }
+
+#pragma mark - JotViewController methods
+
+// returns the drawed on image
+- (UIImage *)imageWithDrawing
+{
+    UIImage *myImage = self.imageView.image;
+    return [self.jotViewController drawOnImage:myImage];
+}
+
+
+// actions
+- (void)clearButtonAction
+{
+    [self.jotViewController clearAll];
+}
+
+- (void)saveButtonAction
+{
+    UIImage *drawnImage = [self.jotViewController renderImageWithScale:2.f
+                                                               onColor:self.view.backgroundColor];
+    
+    [self.jotViewController clearAll];
+    
+    ALAssetsLibrary *library = [ALAssetsLibrary new];
+    [library writeImageToSavedPhotosAlbum:[drawnImage CGImage]
+                              orientation:(ALAssetOrientation)[drawnImage imageOrientation]
+                          completionBlock:^(NSURL *assetURL, NSError *error){
+                              if (error) {
+                                  NSLog(@"Error saving photo: %@", error.localizedDescription);
+                              } else {
+                                  NSLog(@"Saved photo to saved photos album.");
+                              }
+                          }];
+}
+
+- (void)toggleDrawingButtonAction
+{
+    if (self.jotViewController.state == JotViewStateDrawing) {
+        [self.toggleDrawingButton setImage:[UIImage imageNamed:kPencilImageName] forState:UIControlStateNormal];
+        
+        if (self.jotViewController.textString.length == 0) {
+            self.jotViewController.state = JotViewStateEditingText;
+        } else {
+            self.jotViewController.state = JotViewStateText;
+        }
+        
+    } else if (self.jotViewController.state == JotViewStateText) {
+        self.jotViewController.state = JotViewStateDrawing;
+        self.jotViewController.drawingColor = [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
+        [self.toggleDrawingButton setImage:[UIImage imageNamed:kTextImageName] forState:UIControlStateNormal];
+    }
+}
+
+// JotViewControllerDelegate
+
+- (void)jotViewController:(JotViewController *)jotViewController isEditingText:(BOOL)isEditing
+{
+    self.clearButton.hidden = isEditing;
+    // self.saveButton.hidden = isEditing;
+    self.toggleDrawingButton.hidden = isEditing;
+}
+
 
 @end

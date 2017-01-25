@@ -45,6 +45,8 @@
     self.reportButton.titleLabel.minimumScaleFactor = 0.5;
     self.resignButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.resignButton.titleLabel.minimumScaleFactor = 0.5;
+    self.solveLaterButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.solveLaterButton.titleLabel.minimumScaleFactor = 0.5;
 }
 
 
@@ -126,7 +128,9 @@
     
 }
 
+
 - (IBAction)finishSolvingLaterButtonDidPress:(id)sender {
+    NSLog(@"hello");
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

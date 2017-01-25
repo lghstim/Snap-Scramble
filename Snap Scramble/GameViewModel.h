@@ -17,6 +17,7 @@
 -(id)initWithOpponent:(PFUser *)opponent andGame:(PFObject *)createdGame;
 - (void)switchTurns;
 - (void)saveCurrentGame:(void (^)(BOOL succeeded, NSError *error))completion;
+- (void)deleteGame:(PFObject *)gameToDelete completion:(void (^)(BOOL succeeded, NSError *error))completion;
 
 
 

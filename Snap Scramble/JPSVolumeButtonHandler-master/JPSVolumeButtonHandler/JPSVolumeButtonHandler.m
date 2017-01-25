@@ -19,7 +19,6 @@ static CGFloat minVolume                    = 0.00001f;
 
 @property (nonatomic, assign) CGFloat          initialVolume;
 @property (nonatomic, strong) AVAudioSession * session;
-@property (nonatomic, strong) MPVolumeView   * volumeView;
 @property (nonatomic, assign) BOOL             appIsActive;
 @property (nonatomic, assign) BOOL             isStarted;
 @property (nonatomic, assign) BOOL             disableSystemVolumeHandler;
@@ -35,9 +34,7 @@ static CGFloat minVolume                    = 0.00001f;
     self = [super init];
     if (self) {
         _appIsActive = YES;
-        _volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-100, -100, 0, 0)];
-        [[UIApplication sharedApplication].windows.firstObject addSubview:_volumeView];
-        _volumeView.hidden = YES;
+       _volumeView.hidden = YES;
     }
     return self;
 }

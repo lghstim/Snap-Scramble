@@ -246,7 +246,7 @@
                 
                 self.currentGames = tempCurrentGames;
                 [self.currentGamesTable reloadData]; // update table view
-                UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
+                UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game ended successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
                 [alert show];
             }
         }];
@@ -272,6 +272,10 @@
             }
         }];
     }
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"End game";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
