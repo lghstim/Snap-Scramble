@@ -194,22 +194,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     if ([self.currentGames count] == 0 && [self.currentPendingGames count] == 0) {
         // set the "no games" background image. change this code later on.
-        self.currentGamesTable.backgroundView = self.backgroundView;
-        self.currentGamesTable.backgroundView.hidden = NO;
+        self.backgroundView.hidden = NO;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.currentGamesTable.scrollEnabled = false; // disable scroll if there're no games
     }
     
+    
     if ([self.currentGames count] != 0 || [self.currentPendingGames count] != 0) {
-        //[self.emptyTableScreen removeFromSuperview];
-        self.currentGamesTable.backgroundView.hidden = YES;
+        self.backgroundView.hidden = YES;
         self.currentGamesTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.currentGamesTable.scrollEnabled = true;
     }
     
+    // Return the number of rows in the section.
     if (section == 0) {
         return [self.currentGames count];
     }

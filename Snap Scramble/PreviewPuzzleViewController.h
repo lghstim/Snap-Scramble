@@ -18,14 +18,18 @@
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) UIImage* previewImage;
 @property (nonatomic, strong) UIImage* originalImage;
+@property (nonatomic, strong) UIImage* gameImage;
 @property (nonatomic, strong) PFUser* currentUser;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectPuzzleSizeButton;
 @property (nonatomic, strong) NSArray *puzzleSizes;
 @property (nonatomic, strong) NSString *puzzleSize;
 @property (nonatomic, strong) NSTimer *timeoutTimer;
+@property (nonatomic, strong) NSTimer *savePhotoTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
+@property (nonatomic, strong) NSNumber* totalSecondsSavePhotoTimer;
 @property (nonatomic, strong) PFObject* roundObject;
+
 
 
 

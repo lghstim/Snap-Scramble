@@ -462,23 +462,6 @@
 }
 
 
-- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
-{
-    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
-    CGFloat width = image.size.width * scale;
-    CGFloat height = image.size.height * scale;
-    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
-                                  (size.height - height)/2.0f,
-                                  width,
-                                  height);
-    
-    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
-    [image drawInRect:imageRect];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
 #pragma mark - helper methods
 
 // create a hex color
@@ -515,6 +498,44 @@
                            green:((float) g / 255.0f)
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
+}
+
+#pragma mark - image methods
+
+-(UIImage*)prepareImageForGame:(UIImage*)image {
+    // for photos from library you need to resize resize the photo
+    if (image.size.height > image.size.width) { // portrait; resizing photo so it fits the entire device screen
+        self.puzzle.puzzleImage = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.superview.frame.size.width, self.superview.frame.size.height - 30)];
+    }
+    
+    else if (image.size.width > image.size.height) { // landscape
+        self.puzzle.puzzleImage = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.superview.frame.size.width, self.superview.frame.size.height - 30)];
+    }
+    
+    else if (image.size.width == image.size.height) { // square
+        self.puzzle.puzzleImage = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.superview.frame.size.width, self.superview.frame.size.height - 30)];
+    }
+    
+    NSLog(@"image after resizing: %@", image);
+    return image;
+}
+
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
+{
+    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
+    CGFloat width = image.size.width * scale;
+    CGFloat height = image.size.height * scale;
+    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
+                                  (size.height - height)/2.0f,
+                                  width,
+                                  height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    [image drawInRect:imageRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end

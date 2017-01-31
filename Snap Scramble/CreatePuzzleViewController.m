@@ -97,22 +97,8 @@
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {   // A photo was taken or selected
         UIImage* tempOriginalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-        
-        // for photos from library you need to resize resize the photo
-        if (tempOriginalImage.size.height > tempOriginalImage.size.width) { // portrait; resizing photo so it fits the entire device screen
-            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-        }
-        
-        else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape
-            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-        }
-        
-        else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
-            self.previewImage = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-        }
-        
         self.originalImage = tempOriginalImage;
-        NSLog(@"preview (resized) image: %@    original image: %@", self.previewImage, self.originalImage);
+        NSLog(@"original image: %@", self.originalImage);
         NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
         [self dismissViewControllerAnimated:YES completion:nil]; // dismiss photo picker
         [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self];
@@ -175,7 +161,6 @@
         }
         
         previewPuzzleViewController.opponent = self.opponent;
-        previewPuzzleViewController.previewImage = self.previewImage; // resized image for preview imageview
         previewPuzzleViewController.originalImage = self.originalImage;
         NSLog(@"Opponent: %@", self.opponent);
     }

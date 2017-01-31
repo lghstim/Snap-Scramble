@@ -37,6 +37,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
     self.navigationItem.hidesBackButton = YES;
     [self.navigationItem.backBarButtonItem setTitle:@""];
     self.usernameField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -73,6 +77,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dismissKeyboard {
+    if ([self.passwordField isFirstResponder]) {
+        [self.passwordField resignFirstResponder];
+    }
+    
+    else if ([self.usernameField isFirstResponder]) {
+        [self.usernameField resignFirstResponder];
+    }
 }
 
 /*

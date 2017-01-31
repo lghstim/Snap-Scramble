@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton* startPuzzleButton;
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
 @property (nonatomic, strong) UIImage* image;
+@property (nonatomic, strong) UIImage* gameImage;
 @property (nonatomic, strong) PFUser* currentUser;
 @property (nonatomic, strong) UIImage* compressedUploadImage;
 @property (weak, nonatomic) IBOutlet SpringView *scoreView;

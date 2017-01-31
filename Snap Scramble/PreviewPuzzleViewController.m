@@ -13,11 +13,14 @@
 @import AssetsLibrary;
 #import <Masonry/Masonry.h>
 #import <jot/jot.h>
+#import "JotViewController.h"
+#import <KVNProgress/KVNProgress.h>
+
 
 NSString * const kPencilImageName = @"draw-button";
 NSString * const kTextImageName = @"edit-text-button";
 NSString * const kClearImageName = @"undo-button";
-//NSString * const kSaveImageName = @"";
+NSString * const kSaveImageName = @"download-button";
 
 @interface PreviewPuzzleViewController () <JotViewControllerDelegate>
 
@@ -26,6 +29,7 @@ NSString * const kClearImageName = @"undo-button";
 @property (nonatomic, strong) UIButton *clearButton;
 @property (nonatomic, strong) UIButton *toggleDrawingButton;
 @property (nonatomic, strong) UIButton *backButton;
+@property (nonatomic, strong) UIButton *saveButton;
 @property(nonatomic, strong) PreviewPuzzleViewModel *viewModel;
 
 @end
@@ -51,14 +55,14 @@ NSString * const kClearImageName = @"undo-button";
         self.jotViewController.textAlignment = NSTextAlignmentLeft;
         self.jotViewController.drawingColor = [UIColor cyanColor];
         
-        /* _saveButton = [UIButton new];
+        _saveButton = [UIButton new];
         self.saveButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
         [self.saveButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [self.saveButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.saveButton setTitle:kSaveImageName forState:UIControlStateNormal];
+        [self.saveButton setImage:[UIImage imageNamed:kSaveImageName] forState:UIControlStateNormal];
         [self.saveButton addTarget:self
                             action:@selector(saveButtonAction)
-                  forControlEvents:UIControlEventTouchUpInside]; */
+                  forControlEvents:UIControlEventTouchUpInside];
         
         _clearButton = [UIButton new];
         self.clearButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
@@ -107,7 +111,6 @@ NSString * const kClearImageName = @"undo-button";
     self.imageView = [UIImageView new];
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.cornerRadius = 5.0f;
-
     self.backButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.backButton.titleLabel.minimumScaleFactor = 0.5;
     self.selectPuzzleSizeButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -117,15 +120,17 @@ NSString * const kClearImageName = @"undo-button";
 
     self.currentUser = [PFUser currentUser];
     
-    if (self.previewImage) { // if the image was just created by the player (sender) and is saved in memory, display it
+    if (self.originalImage) { // if the image was just created by the player (sender) and is saved in memory, display it
         
         self.view.backgroundColor = [UIColor whiteColor];
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.backgroundColor = [UIColor clearColor];
+        self.previewImage = [self prepareImageForPreview:self.originalImage];
         self.imageView.image = self.previewImage;
         [self.view addSubview:self.imageView];
+        self.gameImage = [self prepareImageForGame:self.originalImage]; // now resize image for the game
         
         [self addChildViewController:self.jotViewController];
         [self.view addSubview:self.jotViewController.view];
@@ -135,12 +140,12 @@ NSString * const kClearImageName = @"undo-button";
             make.edges.equalTo(self.view);
         }];
         
-        //[self.view addSubview:self.saveButton];
-        /*[self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.view addSubview:self.saveButton];
+        [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.and.width.equalTo(@44);
-            make.right.equalTo(self.view).offset(-4.f);
-            make.top.equalTo(self.view).offset(4.f);
-        }]; */
+            make.right.equalTo(self.view).offset(-8.f);
+            make.bottom.equalTo(self.view).offset(-32.f);
+        }];
         
         [self.view addSubview:self.clearButton];
         [self.clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -153,7 +158,7 @@ NSString * const kClearImageName = @"undo-button";
         [self.toggleDrawingButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.and.width.equalTo(@44);
             make.right.equalTo(self.view).offset(-8.f);
-            make.bottom.equalTo(self.view).offset(-32.f);
+            make.top.equalTo(self.view).offset(25.f);
         }];
         
         [self.view addSubview:self.backButton];
@@ -167,9 +172,9 @@ NSString * const kClearImageName = @"undo-button";
         [self.view bringSubviewToFront:self.sendButton];
         [self.view bringSubviewToFront:self.backButton];
         [self.view bringSubviewToFront:self.selectPuzzleSizeButton];
-        // [self.view bringSubviewToFront:self.saveButton];
         [self.view bringSubviewToFront:self.clearButton];
         [self.view bringSubviewToFront:self.toggleDrawingButton];
+        [self.view bringSubviewToFront:self.saveButton];
         [self.sendButton addTarget:self action:@selector(sendGame:) forControlEvents:UIControlEventTouchUpInside];
         [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
         [self.selectPuzzleSizeButton addTarget:self action:@selector(selectPuzzleSizeButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -257,14 +262,14 @@ NSString * const kClearImageName = @"undo-button";
     NSString *fileName;
     NSString *fileType;
     
-    if (self.originalImage != nil) { // just make sure that there is no problem and that images were selected
+    if (self.imageView.image != nil) { //  make sure that there is no problem and that image was selected
         if (self.puzzleSize != nil) { // make sure a puzzle size was chosen in memory
-            UIImage* tempOriginalImage = self.originalImage;
-            fileData = UIImageJPEGRepresentation(tempOriginalImage, 0.4); // compress original image
+            UIImage* tempEditedImage = [self imageWithDrawing];
+            fileData = UIImageJPEGRepresentation(tempEditedImage, 0.4); // compress original image
             fileName = @"image.jpg";
             fileType = @"image";
             self.sendButton.userInteractionEnabled = NO;
-            NSLog(@"image before upload: %@", self.originalImage);
+            NSLog(@"image before upload: %@", tempEditedImage);
             // Adds a status below the circle
             [KVNProgress showWithStatus:@"Starting game... Get ready to solve the puzzle as fast as possible."];
             [self setViewModelProperties]; // set view model properties
@@ -326,8 +331,20 @@ NSString * const kClearImageName = @"undo-button";
         [self.timeoutTimer invalidate];
         self.sendButton.userInteractionEnabled = YES;
     }
+}
+
+- (void)incrementSavePhotoTimer {
+    int value = [self.totalSecondsSavePhotoTimer intValue];
+    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:value + 1];
+    
+    // after one second
+    if ([self.totalSecondsSavePhotoTimer intValue] > 1) {
+        [KVNProgress dismiss];
+        [self.savePhotoTimer invalidate];
+    }
     
 }
+
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -361,7 +378,7 @@ NSString * const kClearImageName = @"undo-button";
 // returns the drawed on image
 - (UIImage *)imageWithDrawing
 {
-    UIImage *myImage = self.imageView.image;
+    UIImage *myImage = self.gameImage;
     return [self.jotViewController drawOnImage:myImage];
 }
 
@@ -374,10 +391,10 @@ NSString * const kClearImageName = @"undo-button";
 
 - (void)saveButtonAction
 {
-    UIImage *drawnImage = [self.jotViewController renderImageWithScale:2.f
-                                                               onColor:self.view.backgroundColor];
-    
-    [self.jotViewController clearAll];
+    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:0];
+    self.savePhotoTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementSavePhotoTimer) userInfo:nil repeats:YES];
+    [KVNProgress showWithStatus:@"Saving photo to camera roll..."];
+    UIImage *drawnImage = [self imageWithDrawing];
     
     ALAssetsLibrary *library = [ALAssetsLibrary new];
     [library writeImageToSavedPhotosAlbum:[drawnImage CGImage]
@@ -385,6 +402,7 @@ NSString * const kClearImageName = @"undo-button";
                           completionBlock:^(NSURL *assetURL, NSError *error){
                               if (error) {
                                   NSLog(@"Error saving photo: %@", error.localizedDescription);
+                                  [KVNProgress dismiss];
                               } else {
                                   NSLog(@"Saved photo to saved photos album.");
                               }
@@ -417,6 +435,60 @@ NSString * const kClearImageName = @"undo-button";
     // self.saveButton.hidden = isEditing;
     self.toggleDrawingButton.hidden = isEditing;
 }
+
+# pragma mark - image methods
+
+-(UIImage*)prepareImageForGame:(UIImage*)tempOriginalImage {
+    UIImage *image = [UIImage new];
+    // for photos from library you need to resize resize the photo
+    if (tempOriginalImage.size.height > tempOriginalImage.size.width) { // portrait; resizing photo so it fits the entire device screen
+        image = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+    }
+
+    else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape
+        image = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+    }
+
+    else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
+        image = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+    }
+    return image;
+}
+
+-(UIImage*)prepareImageForPreview:(UIImage*)image {
+    if (image.size.height > image.size.width) { // portrait
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
+    }
+    
+    else if (image.size.width > image.size.height) { // landscape
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+    }
+    
+    else if (image.size.width == image.size.height) { // square
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height )];
+    }
+    
+    NSLog(@"image after resizing: %@", image);
+    return image;
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
+{
+    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
+    CGFloat width = image.size.width * scale;
+    CGFloat height = image.size.height * scale;
+    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
+                                  (size.height - height)/2.0f,
+                                  width,
+                                  height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    [image drawInRect:imageRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 
 
 @end

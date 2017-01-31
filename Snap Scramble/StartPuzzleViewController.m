@@ -45,12 +45,21 @@
     [self.navigationController.navigationBar setHidden:false];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // disable swipe back functionality
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:true];
     NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
-    [self.startPuzzleButton addTarget:self action:@selector(startGame:) forControlEvents:UIControlEventTouchUpInside];
+    [self.startPuzzleButton addTarget:self action:@selector(startGame:) forControlEvents:UIControlEventTouchUpInside]; // start game is when photo resizing happens
     self.startPuzzleButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.startPuzzleButton.titleLabel.minimumScaleFactor = 0.5;
     self.cancelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -67,10 +76,8 @@
         [[self.createdGame objectForKey:@"file"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             if (!error) {
                 UIImage *image = [UIImage imageWithData:data];
-                NSLog(@"downloaded image before resizing: %@", image);
-                // resizing the photo when it's sent from a sender to the receiver. should work for all screen sizes.
-                self.image = [self prepareImageForGame:image];
-                NSLog(@"downloaded image after resizing: %@", self.image);
+                self.image = image;
+                NSLog(@"downloaded image: %@", self.image);
                 self.startPuzzleButton.userInteractionEnabled = true;
                 
                 // update the stats view and then dismiss progress view
@@ -230,24 +237,6 @@
     }
 }
 
-
--(UIImage*)prepareImageForGame:(UIImage*)image {
-    if (image.size.height > image.size.width) { // portrait
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
-    }
-    
-    else if (image.size.width > image.size.height) { // landscape
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; 
-    }
-    
-    else if (image.size.width == image.size.height) { // square
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; 
-    }
-    
-    NSLog(@"image after resizing: %@", image);
-    return image;
-}
-
 - (IBAction)startGame:(id)sender {
     self.totalSeconds = [NSNumber numberWithInt:0];
     self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pauseForFiveSeconds) userInfo:nil repeats:YES];
@@ -258,9 +247,47 @@
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.imageView.backgroundColor = [UIColor clearColor];
-    self.imageView.image = self.image;
+    UIImage* previewImage = [self prepareImageForPreview:self.image];
+    self.imageView.image = previewImage;
     [self.view addSubview:self.imageView];
+    self.gameImage = [self prepareImageForGame:self.image]; // now resize image for the game
 }
+
+-(UIImage*)prepareImageForGame:(UIImage*)image {
+    if (image.size.height > image.size.width) { // portrait
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)]; // portrait; resizing photo so it fits the entire device screen
+    }
+    
+    else if (image.size.width > image.size.height) { // landscape
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+    }
+    
+    else if (image.size.width == image.size.height) { // square
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+    }
+    
+    NSLog(@"image after resizing: %@", image);
+    return image;
+}
+
+
+-(UIImage*)prepareImageForPreview:(UIImage*)image {
+    if (image.size.height > image.size.width) { // portrait
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
+    }
+    
+    else if (image.size.width > image.size.height) { // landscape
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+    }
+    
+    else if (image.size.width == image.size.height) { // square
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height )];
+    }
+    
+    NSLog(@"image after resizing: %@", image);
+    return image;
+}
+
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
@@ -330,7 +357,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"beginGame"]) {
         GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
-        gameViewController.puzzleImage = self.image;
+        gameViewController.puzzleImage = self.gameImage;
         gameViewController.opponent = self.opponent;
         NSLog(@"opponent %@",gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;

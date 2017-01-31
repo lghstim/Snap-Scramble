@@ -180,7 +180,6 @@
             if(!error) {
                 self.originalImage = image;
                 self.cameraImage = image;
-                self.cameraImage = [self prepareImageForGame:self.cameraImage]; // resize camera image for game
                 [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
             }
             else {
@@ -198,7 +197,6 @@
             if(!error) {
                 self.originalImage = image;
                 self.cameraImage = image;
-                self.cameraImage = [self prepareImageForGame:self.cameraImage]; // resize camera image for game
                 [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
             }
             else {
@@ -278,7 +276,6 @@
         if(!error) {
             self.originalImage = image;
             self.cameraImage = image;
-            self.cameraImage = [self prepareImageForGame:self.cameraImage]; // resize camera image for game
             [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
         }
         else {
@@ -317,20 +314,6 @@
 {
     return UIInterfaceOrientationPortrait;
 }
-
--(UIImage*)prepareImageForGame:(UIImage*)image {
-    if (image.size.height > image.size.width) { // portrait
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-    }
-    
-    else if (image.size.width == image.size.height) { // square
-        image = [self resizeImage:image withMaxDimension:self.view.frame.size.width - 20];
-    }
-    
-    NSLog(@"image after resizing: %@", image);
-    return image;
-}
-
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
