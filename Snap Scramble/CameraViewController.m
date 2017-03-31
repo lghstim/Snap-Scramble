@@ -169,7 +169,7 @@
     // start the camera
     [self.camera start];
     
-    // volume button handler
+   /* // volume button handler
     self.volumeButtonHandler = [JPSVolumeButtonHandler volumeButtonHandlerWithUpBlock:^{
         // Volume Up Button Pressed
         NSLog(@"up volume");
@@ -206,7 +206,7 @@
         
     }];
     
-    [self.volumeButtonHandler startHandler:YES];
+    [self.volumeButtonHandler startHandler:YES];*/
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -357,7 +357,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
-        [self.volumeButtonHandler stopHandler];
+        //[self.volumeButtonHandler stopHandler];
         PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
         if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
             NSLog(@"Game already started: %@", self.createdGame);

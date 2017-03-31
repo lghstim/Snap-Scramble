@@ -1031,7 +1031,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "be9a5377-e619-4e17-8495-ff2f323a9bda";
+				PROVISIONING_PROFILE = "ef6c5df4-d97a-4c51-8f00-bae3cc811b29";
 				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1060,7 +1060,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f39d1c4c-6c5d-42ba-acd9-a55bda76bfa8";
+				PROVISIONING_PROFILE = "2d55a9b0-cc81-4174-91c1-9c0a1f0280d3";
 				PROVISIONING_PROFILE_SPECIFIER = "App Store Snap Scramble Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 			};

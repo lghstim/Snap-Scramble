@@ -78,10 +78,10 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
     
     // Use the product identifier from iTunes to register a handler.
-    [PFPurchase addObserverForProduct:@"com.timgorer.SnapScrambleDescrambleFriends.SnapScramblePremiumApp" block:^(SKPaymentTransaction *transaction) {
+    [PFPurchase addObserverForProduct:@"com.timgorer.SnapScrambleDescrambleFriends.SnapScrambleRemoveAds" block:^(SKPaymentTransaction *transaction) {
         // Write business logic that should run once this product is purchased.
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setBool:true forKey:@"premiumUser"];
+        [userDefaults setBool:true forKey:@"removeAds"];
         [userDefaults synchronize];
     }];
 

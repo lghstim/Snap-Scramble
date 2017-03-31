@@ -31,7 +31,6 @@
     if (self)
     {
         _viewModel = [[GameOverViewModel alloc] init];
-        [self createAndLoadInterstitial];
     }
     
     return self;
@@ -57,6 +56,7 @@
     [super viewWillAppear:YES];
     [self.navigationController.navigationBar setHidden:true];
     [self updateStatsView]; // update the stats view since the game is over
+    self.interstitial = [self createAndLoadInterstitial]; // load interstitial ad
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -70,16 +70,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)createAndLoadInterstitial {
-    self.interstitial =
-    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-9099568248089334/6148429408"]; // test ad
-    
-    GADRequest *request = [GADRequest request];
-    // Request test ads on devices you specify. Your test device ID is printed to the console when
-    // an ad request is made.
-    //request.testDevices = @[ kGADSimulatorID, @"117d8d0d0cfc555fabc2f06fb83770b8" ];
-    [self.interstitial loadRequest:request];
+
+- (GADInterstitial *)createAndLoadInterstitial {
+    GADInterstitial *interstitial =
+    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-9099568248089334/6148429408"];
+    interstitial.delegate = self;
+    [interstitial loadRequest:[GADRequest request]];
+    return interstitial;
 }
+
 
 # pragma mark - set view model properties
 
@@ -220,13 +219,13 @@
             
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, now go back to main menu");
-                [self.navigationController popToRootViewControllerAnimated:YES];
                 // show ad
                 if (self.interstitial.isReady) {
                     [self.interstitial presentFromRootViewController:self];
                 } else {
                     NSLog(@"Ad wasn't ready");
                 }
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
             
             [gameViewController deallocGameProperties];
