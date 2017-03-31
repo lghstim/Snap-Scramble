@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "Snap_Scramble-Swift.h"
+#import <StoreKit/StoreKit.h>
 
 
-
-@interface IAPViewController : UIViewController
+@interface IAPViewController : UIViewController <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 @property (weak, nonatomic) IBOutlet SpringView *IAPView;
 @property (weak, nonatomic) IBOutlet UILabel *IAPlabel;
 - (IBAction)goBackButtonDidPress:(id)sender;
-- (IBAction)unlockFullVersionButtonDidPress:(id)sender;
 
 
 @end

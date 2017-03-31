@@ -24,8 +24,6 @@
 @property (nonatomic, strong) NSTimer *timeoutTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
 
-- (IBAction)unlockFullVersionButtonDidPress:(id)sender;
-- (IBAction)restorePurchasesButtonDidPress:(id)sender;
 - (IBAction)shareButtonDidPress:(id)sender;
 
 

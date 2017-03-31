@@ -72,28 +72,77 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (IBAction)unlockFullVersionButtonDidPress:(id)sender {
-    // performs the chooseToBuyIAP segue
-    [FIRAnalytics logEventWithName:kFIREventSelectContent
-                        parameters:@{
-                                     kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
-                                     kFIRParameterItemName:@"open-IAP-button-pressed",
-                                     kFIRParameterContentType:@"image"
-                                     }];
-    
+- (IBAction)restore{
+    //this is called when the user restores purchases, you should hook this up to a button
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
-- (IBAction)restorePurchasesButtonDidPress:(id)sender {
-    [PFPurchase restore];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([userDefaults boolForKey:@"premiumUser"] != true) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No purchases to restore." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-    } else if ([userDefaults boolForKey:@"premiumUser"] == true) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Remove ads purchase restored." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
+- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+{
+    NSLog(@"received restored transactions: %lu", (unsigned long)queue.transactions.count);
+    for(SKPaymentTransaction *transaction in queue.transactions){
+        if(transaction.transactionState == SKPaymentTransactionStateRestored){
+            //called when the user successfully restores a purchase
+            NSLog(@"Transaction state -> Restored");
+            
+            //if you have more than one in-app purchase product,
+            //you restore the correct product for the identifier.
+            //For example, you could use
+            //if(productID == kRemoveAdsProductIdentifier)
+            //to get the product identifier for the
+            //restored purchases, you can use
+            //
+            //NSString *productID = transaction.payment.productIdentifier;
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            break;
+        }
     }
 }
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+    for(SKPaymentTransaction *transaction in transactions){
+        //if you have multiple in app purchases in your app,
+        //you can get the product identifier of this transaction
+        //by using transaction.payment.productIdentifier
+        //
+        //then, check the identifier against the product IDs
+        //that you have defined to check which product the user
+        //just purchased
+        BOOL areAdsRemoved = NO;
+        switch(transaction.transactionState){
+            case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
+                //called when the user is in the process of purchasing, do not add any of your own code here.
+                break;
+            case SKPaymentTransactionStatePurchased:
+                //this is called when the user has successfully purchased the package (Cha-Ching!)
+                areAdsRemoved = YES;
+                [[NSUserDefaults standardUserDefaults] setBool:areAdsRemoved forKey:@"adsRemoved"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                NSLog(@"Transaction state -> Purchased");
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"Transaction state -> Restored");
+                areAdsRemoved = YES;
+                [[NSUserDefaults standardUserDefaults] setBool:areAdsRemoved forKey:@"adsRemoved"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                //called when the transaction does not finish
+                if(transaction.error.code == SKErrorPaymentCancelled){
+                    NSLog(@"Transaction state -> Cancelled");
+                    //the user cancelled the payment ;(
+                }
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+        }
+    }
+}
+
+
+
 
 - (IBAction)shareButtonDidPress:(id)sender {
     [FIRAnalytics logEventWithName:kFIREventSelectContent

@@ -71,12 +71,20 @@
         [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
         [[PFInstallation currentInstallation] saveInBackground];
     }
-    
-    self.bannerView.adUnitID = @"ca-app-pub-9099568248089334/4082940202";
-    self.bannerView.rootViewController = self;
-    GADRequest *request = [GADRequest request];
-    //request.testDevices = @[@"117d8d0d0cfc555fabc2f06fb83770b8"];
-    [self.bannerView loadRequest:request];
+}
+
+- (void)displayAd{
+    BOOL adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    if (adsRemoved != YES) {
+        self.bannerView.adUnitID = @"ca-app-pub-9099568248089334/4082940202";
+        self.bannerView.rootViewController = self;
+        GADRequest *request = [GADRequest request];
+        //request.testDevices = @[@"117d8d0d0cfc555fabc2f06fb83770b8"];
+        [self.bannerView loadRequest:request];
+    } else {
+        NSLog(@"ads are removed for this user.");
+        self.bannerView.hidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,6 +107,8 @@
     else {
         [self performSegueWithIdentifier:@"showSignup" sender:self]; // show sign up screen if user not signed in
     }
+    
+    [self displayAd]; // display ad
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

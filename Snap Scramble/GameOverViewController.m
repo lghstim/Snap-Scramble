@@ -219,12 +219,7 @@
             
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, now go back to main menu");
-                // show ad
-                if (self.interstitial.isReady) {
-                    [self.interstitial presentFromRootViewController:self];
-                } else {
-                    NSLog(@"Ad wasn't ready");
-                }
+                [self displayAd]; // display ads or not
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }
             
@@ -253,8 +248,19 @@
     
 }
 
-
-
+- (void)displayAd{
+    BOOL adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    if (adsRemoved != YES) {
+        // show ad
+        if (self.interstitial.isReady) {
+            [self.interstitial presentFromRootViewController:self];
+        } else {
+            NSLog(@"Ad wasn't ready");
+        }
+    } else {
+        NSLog(@"ads are removed for this user.");
+    }
+}
 
 
 

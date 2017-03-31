@@ -419,8 +419,6 @@
 				6AD633901B71EB4C0038A4EB /* Reachability.m */,
 				6A112AAE1B5DFB0D0035A75C /* AppDelegate.h */,
 				6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */,
-				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
-				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
 				6A8F2FE81D45E0F90031A8A0 /* Utility */,
 				6AD28CE21B5E092E00BCD802 /* Images.xcassets */,
 				6A112AAB1B5DFB0D0035A75C /* Info.plist */,
@@ -563,6 +561,8 @@
 				6AD28CB91B5E071D00BCD802 /* PieceView.m */,
 				6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */,
 				6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */,
+				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
+				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
 			);
 			name = Views;
 			path = "Snap Scramble";
@@ -1013,7 +1013,6 @@
 			baseConfigurationReference = 7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1042,7 +1041,6 @@
 			baseConfigurationReference = 1CDEA9AF7E13E8FD8DEC61D7 /* Pods-Snap Scramble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Snap Scramble/Snap Scramble.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexander Gorer (67D5VP8GSS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
