@@ -55,12 +55,13 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-     configuration.applicationId = @"TIMZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
+     configuration.applicationId = @"43771d657c7a5be226767e90fcc0edd88527df54";
      configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
-        configuration.server = @"https://pacific-harbor-61840.herokuapp.com/parse";
+        configuration.server = @"http://ec2-54-211-239-63.compute-1.amazonaws.com:80/parse";
      }]];
     
     [FIRApp configure];
+    [GADMobileAds configureWithApplicationID:@"ca-app-pub-9099568248089334~3194963006"];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
   

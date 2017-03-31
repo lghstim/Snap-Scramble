@@ -35,7 +35,7 @@
     // hide volume HUD
     MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
     [self.view addSubview: volumeView];
-    self.volumeButtonHandler.volumeView = volumeView;
+    //self.volumeButtonHandler.volumeView = volumeView;
     
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -212,6 +212,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     
     // enable swipe back functionality
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
@@ -228,7 +229,6 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
 }
-
 
 
 - (IBAction)backButtonDidPress:(id)sender {

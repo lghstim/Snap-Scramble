@@ -12,12 +12,12 @@
 #import "GameOverViewModel.h"
 #import "GameViewController.h"
 #import "PuzzleView.h"
+@import GoogleMobileAds;
 
 
 @interface GameOverViewController ()
 
-
-
+@property(nonatomic, strong) GADInterstitial *interstitial;
 @property(nonatomic, strong) GameOverViewModel *viewModel;
 
 @end
@@ -31,6 +31,7 @@
     if (self)
     {
         _viewModel = [[GameOverViewModel alloc] init];
+        [self createAndLoadInterstitial];
     }
     
     return self;
@@ -69,6 +70,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)createAndLoadInterstitial {
+    self.interstitial =
+    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-9099568248089334/6148429408"]; // test ad
+    
+    GADRequest *request = [GADRequest request];
+    // Request test ads on devices you specify. Your test device ID is printed to the console when
+    // an ad request is made.
+    //request.testDevices = @[ kGADSimulatorID, @"117d8d0d0cfc555fabc2f06fb83770b8" ];
+    [self.interstitial loadRequest:request];
+}
 
 # pragma mark - set view model properties
 
@@ -209,8 +220,13 @@
             
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, now go back to main menu");
-                
                 [self.navigationController popToRootViewControllerAnimated:YES];
+                // show ad
+                if (self.interstitial.isReady) {
+                    [self.interstitial presentFromRootViewController:self];
+                } else {
+                    NSLog(@"Ad wasn't ready");
+                }
             }
             
             [gameViewController deallocGameProperties];

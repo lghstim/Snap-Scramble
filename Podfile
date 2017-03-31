@@ -4,6 +4,7 @@ target 'Snap Scramble' do
 	pod 'LLSimpleCamera', '~> 4.1'
 	pod 'Onboard'
 	pod 'Firebase/Core'
+	pod 'Firebase/AdMob'
     pod 'jot'
 
 

@@ -19,6 +19,7 @@ static CGFloat minVolume                    = 0.00001f;
 
 @property (nonatomic, assign) CGFloat          initialVolume;
 @property (nonatomic, strong) AVAudioSession * session;
+@property (nonatomic, strong) MPVolumeView   * volumeView;
 @property (nonatomic, assign) BOOL             appIsActive;
 @property (nonatomic, assign) BOOL             isStarted;
 @property (nonatomic, assign) BOOL             disableSystemVolumeHandler;
@@ -32,31 +33,41 @@ static CGFloat minVolume                    = 0.00001f;
 
 - (id)init {
     self = [super init];
+    
     if (self) {
         _appIsActive = YES;
-       _volumeView.hidden = YES;
+        _sessionCategory = AVAudioSessionCategoryPlayAndRecord;
+
+        _volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(MAXFLOAT, MAXFLOAT, 0, 0)];
+
+        [[UIApplication sharedApplication].windows.firstObject addSubview:_volumeView];
+        
+        _volumeView.hidden = YES;
     }
     return self;
 }
 
 - (void)dealloc {
-    if (_isStarted) {
-        [self stopHandler];
-        [self.volumeView removeFromSuperview];
-    }
+    [self stopHandler];
+    [self.volumeView removeFromSuperview];
 }
 
 - (void)startHandler:(BOOL)disableSystemVolumeHandler {
-    self.isStarted = YES;
     self.volumeView.hidden = NO; // Start visible to prevent changes made during setup from showing default volume
     self.disableSystemVolumeHandler = disableSystemVolumeHandler;
 
     // There is a delay between setting the volume view before the system actually disables the HUD
-    [self performSelector:@selector(setupSession) withObject:nil afterDelay:0];
+    [self performSelector:@selector(setupSession) withObject:nil afterDelay:1];
 }
 
 - (void)stopHandler {
+    if (!self.isStarted) {
+        // Prevent stop process when already stop
+        return;
+    }
+    
     self.isStarted = NO;
+    
     self.volumeView.hidden = YES;
     // https://github.com/jpsim/JPSVolumeButtonHandler/issues/11
     // http://nshipster.com/key-value-observing/#safe-unsubscribe-with-@try-/-@catch
@@ -69,16 +80,20 @@ static CGFloat minVolume                    = 0.00001f;
 }
 
 - (void)setupSession {
-    if (!self.isStarted) {
-        // Has since been stopped, do not actually do the setup.
+    if (self.isStarted){
+        // Prevent setup twice
         return;
     }
+    
+    self.isStarted = YES;
 
     NSError *error = nil;
     self.session = [AVAudioSession sharedInstance];
     // this must be done before calling setCategory or else the initial volume is reset
     [self setInitialVolume];
-    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionMixWithOthers error:&error];
+    [self.session setCategory:_sessionCategory
+                  withOptions:AVAudioSessionCategoryOptionMixWithOthers
+                        error:&error];
     if (error) {
         NSLog(@"%@", error);
         return;

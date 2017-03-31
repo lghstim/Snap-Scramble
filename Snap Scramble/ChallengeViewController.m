@@ -47,6 +47,8 @@
     [self.headerView addSubview:self.usernameLabel];
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
+    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(0, 0, -300, 0)];
+
 
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
@@ -69,6 +71,12 @@
         [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
         [[PFInstallation currentInstallation] saveInBackground];
     }
+    
+    self.bannerView.adUnitID = @"ca-app-pub-9099568248089334/4082940202";
+    self.bannerView.rootViewController = self;
+    GADRequest *request = [GADRequest request];
+    request.testDevices = @[@"117d8d0d0cfc555fabc2f06fb83770b8"];
+    [self.bannerView loadRequest:request];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -38,7 +38,7 @@
                                                         <constraint firstAttribute="height" constant="44" id="JqK-ic-VjK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
-                                                    <state key="normal" title="Contact support">
+                                                    <state key="normal" title="Terms of Service &amp; Privacy Policy">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
@@ -222,6 +222,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8hq-Cg-ZJl">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                 <inset key="scrollIndicatorInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="separatorColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
@@ -337,15 +338,31 @@
                                     <outlet property="delegate" destination="hzw-14-0QE" id="pSL-le-LF8"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBy-VW-ajP" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="686" width="414" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="sgB-Q6-CpQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="adUnitID" value="ca-app-pub-9099568248089334/4082940202"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autoloadEnabled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274509803915" green="0.96470588235294119" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8hq-Cg-ZJl" firstAttribute="top" secondItem="vr6-qI-jMD" secondAttribute="top" id="5C8-fv-Luc"/>
+                            <constraint firstItem="GBy-VW-ajP" firstAttribute="centerX" secondItem="vr6-qI-jMD" secondAttribute="centerX" id="7GR-Xg-aLV"/>
                             <constraint firstItem="8hq-Cg-ZJl" firstAttribute="leading" secondItem="vr6-qI-jMD" secondAttribute="leading" id="8MV-iE-LNz"/>
+                            <constraint firstAttribute="trailing" secondItem="GBy-VW-ajP" secondAttribute="trailing" id="9BE-pY-JRc"/>
+                            <constraint firstItem="GBy-VW-ajP" firstAttribute="leading" secondItem="vr6-qI-jMD" secondAttribute="leading" id="PVb-ts-6CC"/>
+                            <constraint firstItem="zav-uU-KUx" firstAttribute="top" secondItem="GBy-VW-ajP" secondAttribute="bottom" id="S17-bA-8yF"/>
                             <constraint firstAttribute="trailing" secondItem="8hq-Cg-ZJl" secondAttribute="trailing" id="SkG-Be-thq"/>
                             <constraint firstItem="8hq-Cg-ZJl" firstAttribute="bottom" secondItem="zav-uU-KUx" secondAttribute="top" id="wE6-nL-BU1"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Snap Scramble" id="Ehs-ZM-7Ke">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="bWv-pq-tkG">
                             <connections>
@@ -355,6 +372,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundView" destination="utL-Br-HYU" id="EQq-zd-cNT"/>
+                        <outlet property="bannerView" destination="GBy-VW-ajP" id="rlx-3t-WxH"/>
                         <outlet property="challengeButton" destination="JIA-Vv-mwF" id="Av5-Al-cvu"/>
                         <outlet property="currentGamesTable" destination="8hq-Cg-ZJl" id="yis-iP-9GR"/>
                         <outlet property="headerView" destination="r0n-qc-oaI" id="dGi-tl-MW2"/>

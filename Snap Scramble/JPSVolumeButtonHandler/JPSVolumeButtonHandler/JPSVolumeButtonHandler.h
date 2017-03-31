@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AVFoundation/AVFoundation.h>
-#import <MediaPlayer/MediaPlayer.h>
 
 typedef void (^JPSVolumeButtonBlock)();
 
@@ -19,8 +17,9 @@ typedef void (^JPSVolumeButtonBlock)();
 
 // A block to run when the volume down button is pressed
 @property (nonatomic, copy) JPSVolumeButtonBlock downBlock;
-@property (nonatomic, strong) MPVolumeView   *volumeView;
 
+// A shared audio session category
+@property (nonatomic, strong) NSString * sessionCategory;
 
 - (void)startHandler:(BOOL)disableSystemVolumeHandler;
 - (void)stopHandler;

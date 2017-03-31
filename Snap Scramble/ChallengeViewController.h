@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+@import GoogleMobileAds;
 
 
 @protocol ChallengeVCDelegate <NSObject>
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *challengeButton;
 @property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;
+@property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 // background view properties
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 

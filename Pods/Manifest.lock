@@ -1,4 +1,7 @@
 PODS:
+  - Firebase/AdMob (3.4.0):
+    - Firebase/Analytics
+    - Google-Mobile-Ads-SDK (= 7.9.1)
   - Firebase/Analytics (3.4.0):
     - FirebaseAnalytics (~> 3.3)
   - Firebase/Core (3.4.0):
@@ -9,6 +12,7 @@ PODS:
     - GoogleSymbolUtilities (~> 1.1)
     - GoogleUtilities (~> 1.2)
   - FirebaseInstanceID (1.0.8)
+  - Google-Mobile-Ads-SDK (7.9.1)
   - GoogleInterchangeUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleSymbolUtilities (1.1.1)
@@ -25,6 +29,7 @@ PODS:
     - RMActionController (~> 1.0.5)
 
 DEPENDENCIES:
+  - Firebase/AdMob
   - Firebase/Core
   - jot
   - KVNProgress
@@ -36,6 +41,7 @@ SPEC CHECKSUMS:
   Firebase: 754562547af419cc2f4b15247fee419081924bc2
   FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  Google-Mobile-Ads-SDK: 575583d7eae25793bb81ad8673737d1b4ecbedc5
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
@@ -47,6 +53,6 @@ SPEC CHECKSUMS:
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
 
-PODFILE CHECKSUM: 27f2f757f3093bc4deccd116e97defc3609cd333
+PODFILE CHECKSUM: 81850c7117235a936977839f203206f952341373
 
 COCOAPODS: 1.1.1

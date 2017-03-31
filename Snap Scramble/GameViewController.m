@@ -101,6 +101,7 @@
     return YES;
 }
 
+
 # pragma mark - delegate method
 
 // pause the timer and perform the segue - this method is called by this VC's delegate in PuzzleView.m
@@ -251,7 +252,6 @@
 - (IBAction)mainMenuButtonDidPress:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
