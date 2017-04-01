@@ -106,23 +106,14 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 - (OnboardingViewController *)generateStandardOnboardingVC {
     OnboardingContentViewController *firstPage = [OnboardingContentViewController contentWithTitle:@"Welcome to Snap Scramble" body:@"Snap Scramble is an awesome social jigsaw puzzle game for iPhone!" image:nil buttonText:nil action:nil];
     
-    OnboardingContentViewController *secondPage = [OnboardingContentViewController contentWithTitle:@"Create a game" body:@"Choose from your friends list or play with a random opponent." image:nil buttonText:nil action:nil];
-   
-    
-    OnboardingContentViewController *thirdPage = [OnboardingContentViewController contentWithTitle:@"Select a photo" body:@"Snap a picture or choose from your photo library." image:nil buttonText:nil action:nil];
-    
-    OnboardingContentViewController *fourthPage = [OnboardingContentViewController contentWithTitle:@"Choose a puzzle size" body:@"Available sizes: 4 x 4, 5 x 5, or 6 x 6." image:nil buttonText:nil action:nil];
-
-    
-    OnboardingContentViewController *fifthPage = [OnboardingContentViewController contentWithTitle:@"Solve the jigsaw puzzle as fast as possible." body:@"The person with the fastest time wins that round." image:nil buttonText:nil action:nil];
-    
+  
     OnboardingContentViewController *sixthPage = [OnboardingContentViewController contentWithTitle:@"Quick tip:" body:@"Correctly placed pieces lock into place." image:nil buttonText:@"Get Started" action:^{
         [self handleOnboardingCompletion];
     }];
     
     
-    
-    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:[UIImage imageNamed:@"iphone-onboard"] contents:@[firstPage, secondPage, thirdPage, fourthPage, fifthPage, sixthPage]];
+    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:nil contents:@[firstPage, sixthPage]];
+    onboardingVC.shouldBlurBackground = YES;
     onboardingVC.shouldFadeTransitions = YES;
     onboardingVC.fadePageControlOnLastPage = YES;
     onboardingVC.fadeSkipButtonOnLastPage = YES;

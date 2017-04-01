@@ -244,8 +244,6 @@
 
 - (IBAction)startGame:(id)sender {
     self.totalSeconds = [NSNumber numberWithInt:0];
-    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pauseForFiveSeconds) userInfo:nil repeats:YES];
-    
     // first show preview of the image for a few seconds
     [KVNProgress showWithStatus:[NSString stringWithFormat:@"Here's a preview of %@'s puzzle! Solve it as fast as possible!", self.opponent.username]];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -256,6 +254,7 @@
     self.imageView.image = previewImage;
     [self.view addSubview:self.imageView];
     self.gameImage = [self prepareImageForGame:self.image]; // now resize image for the game
+    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pauseForFiveSeconds) userInfo:nil repeats:YES];
 }
 
 -(UIImage*)prepareImageForGame:(UIImage*)image {
@@ -323,8 +322,8 @@
     // if too much time passed in uploading
     if ([self.totalSeconds intValue] > 5) {
         // begin game
-        [self performSegueWithIdentifier:@"beginGame" sender:self];
         [self.timeoutTimer invalidate];
+        [self performSegueWithIdentifier:@"beginGame" sender:self];
     }
     
 }

@@ -17,6 +17,10 @@
 #import "PuzzleObject.h"
 #import "GameViewModel.h"
 #import "PuzzleView.h"
+@import AssetsLibrary;
+#import <Masonry/Masonry.h>
+#import <jot/jot.h>
+#import "JotViewController.h"
 
 @interface GameViewController : UIViewController
 
@@ -33,6 +37,9 @@
 @property (nonatomic, strong) GameViewModel *viewModel;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (nonatomic, strong) PuzzleObject* puzzle;
+@property (nonatomic, strong) UIButton *saveButton;
+@property (nonatomic, strong) NSTimer *savePhotoTimer;
+@property (nonatomic, strong) NSNumber* totalSecondsSavePhotoTimer;
 
 
 

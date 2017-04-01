@@ -32,6 +32,7 @@
 @property (strong,nonatomic) NSMutableArray *targets;
 @property (strong,nonatomic) NSMutableArray *pieces;
 @property (nonatomic, strong) UILabel *timerLabel;
+@property (nonatomic, strong) UIButton *pauseButton;
 
 -(id)initWithGameObject:(GameObject *)gameObject andFrame:(CGRect)frame;
 -(void)createVerticalPuzzleWithGridSize:(NSInteger)size;

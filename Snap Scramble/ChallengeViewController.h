@@ -29,6 +29,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
 @property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *challengeButton;
+@property (weak, nonatomic) IBOutlet UIButton *removeAdsButton;
 @property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;

@@ -13,6 +13,8 @@
 #import "PauseViewController.h"
 #import "PuzzleView.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import <KVNProgress/KVNProgress.h>
+
 
 
 @interface GameViewController () 
@@ -26,6 +28,8 @@
 @end
 
 @implementation GameViewController
+
+NSString * const kSaveImageName2 = @"download-button";
 
 
 - (id)initWithCoder:(NSCoder*)aDecoder
@@ -58,6 +62,23 @@
     [self.deleteButton addTarget:self action:@selector(deleteButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.statsButton addTarget:self action:@selector(statsButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
    [self.mainMenuButton addTarget:self action:@selector(mainMenuButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _saveButton = [UIButton new];
+    self.saveButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.saveButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.saveButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.saveButton setImage:[UIImage imageNamed:kSaveImageName2] forState:UIControlStateNormal];
+    [self.saveButton addTarget:self
+                        action:@selector(saveButtonAction)
+              forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.saveButton];
+    [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.and.width.equalTo(@44);
+        make.right.equalTo(self.view).offset(-14.f);
+        make.top.equalTo(self.view).offset(38.f);
+    }];
+    self.saveButton.hidden = YES;
     
     // GAME & PUZZLE INITIALIZATION code
     self.puzzle = [[PuzzleObject alloc] initWithImage:self.puzzleImage andPuzzleSize:[self.createdGame objectForKey:@"puzzleSize"]];
@@ -114,32 +135,45 @@
 # pragma mark - UI updates
 
 
-- (void)updateToShowStatsButtonUI {
-    // update the UI
-    NSLog(@"executing here to show the stats button UI");
-    self.statsButton.showsTouchWhenHighlighted = YES;
-    self.statsButton.hidden = NO;
-    self.statsButton.userInteractionEnabled = YES;
-    self.statsButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Next-Medium" size:17];
-    self.statsButton.layer.cornerRadius = 5.0;
+
+- (void)saveButtonAction
+{
+    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:0];
+    self.savePhotoTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementSavePhotoTimer) userInfo:nil repeats:YES];
+    [KVNProgress showWithStatus:@"Saving photo to camera roll..."];
     
-    // set the button size
-    CGRect statsButtonFrame = self.statsButton.frame;
-    statsButtonFrame.size = CGSizeMake(295.0, 40.0);
-    self.statsButton.frame = statsButtonFrame;
-    
-    [self.statsButton setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height - 60)];
-    [self.statsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.statsButton setTitle:@"Next" forState:UIControlStateNormal];
-    self.statsButton.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
-    [self.view bringSubviewToFront:self.statsButton];
+    ALAssetsLibrary *library = [ALAssetsLibrary new];
+    [library writeImageToSavedPhotosAlbum:[self.puzzleImage CGImage]
+                              orientation:(ALAssetOrientation)[self.puzzleImage imageOrientation]
+                          completionBlock:^(NSURL *assetURL, NSError *error){
+                              if (error) {
+                                  NSLog(@"Error saving photo: %@", error.localizedDescription);
+                                  [KVNProgress dismiss];
+                              } else {
+                                  NSLog(@"Saved photo to saved photos album.");
+                              }
+                          }];
 }
+
+- (void)incrementSavePhotoTimer {
+    int value = [self.totalSecondsSavePhotoTimer intValue];
+    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:value + 1];
+    
+    // after one second
+    if ([self.totalSecondsSavePhotoTimer intValue] > 1) {
+        [KVNProgress dismiss];
+        [self.savePhotoTimer invalidate];
+    }
+}
+
 
 - (void)hideShowStatsButtonUI {
     // update the UI
     NSLog(@"executing here to hide the stats button UI");
     self.statsButton.hidden = YES;
     self.statsButton.userInteractionEnabled = NO;
+    self.saveButton.hidden = YES;
+    self.saveButton.userInteractionEnabled = NO;
 }
 
 - (void)hideReplyButtonUI {
@@ -156,6 +190,8 @@
     NSLog(@"executing here to hide the main menu button UI");
     self.mainMenuButton.hidden = YES;
     self.mainMenuButton.userInteractionEnabled = NO;
+    self.saveButton.hidden = YES;
+    self.saveButton.userInteractionEnabled = NO;
 }
 
 // executes if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him
@@ -176,6 +212,7 @@
     [self.view bringSubviewToFront:self.replyButton];
     [self.view bringSubviewToFront:self.replyLaterButton];
     [self.view bringSubviewToFront:self.deleteButton];
+    self.pView.pauseButton.hidden = YES;
 }
 
  // executes if current user is the sender. This code is executed when the user starts sending his own game to someone else.
@@ -199,7 +236,33 @@
     [self.mainMenuButton setTitle:@"Main Menu" forState:UIControlStateNormal];
     self.mainMenuButton.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
     [self.view bringSubviewToFront:self.mainMenuButton];
+    self.pView.pauseButton.hidden = YES;
 }
+
+- (void)updateToShowStatsButtonUI {
+    // update the UI
+    NSLog(@"executing here to show the stats button UI");
+    self.statsButton.showsTouchWhenHighlighted = YES;
+    self.statsButton.hidden = NO;
+    self.statsButton.userInteractionEnabled = YES;
+    self.statsButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Next-Medium" size:17];
+    self.statsButton.layer.cornerRadius = 5.0;
+    
+    // set the button size
+    CGRect statsButtonFrame = self.statsButton.frame;
+    statsButtonFrame.size = CGSizeMake(295.0, 40.0);
+    self.statsButton.frame = statsButtonFrame;
+    
+    [self.statsButton setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height - 60)];
+    [self.statsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.statsButton setTitle:@"Next" forState:UIControlStateNormal];
+    self.statsButton.backgroundColor = [self colorWithHexString:@"71C7F0"]; // blue
+    [self.view bringSubviewToFront:self.statsButton];
+    self.saveButton.hidden = NO;
+    [self.view bringSubviewToFront:self.saveButton];
+    self.pView.pauseButton.hidden = YES;
+}
+
 
 #pragma mark - Navigation
 

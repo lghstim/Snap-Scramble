@@ -9,10 +9,13 @@
 #import "PauseViewController.h"
 #import "GameViewController.h"
 #import "PauseViewModel.h"
+@import GoogleMobileAds;
+
 
 @interface PauseViewController ()
 
 @property(nonatomic, strong) PauseViewModel *viewModel;
+@property(nonatomic, strong) GADInterstitial *interstitial;
 
 @end
 
@@ -47,6 +50,15 @@
     self.resignButton.titleLabel.minimumScaleFactor = 0.5;
     self.solveLaterButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.solveLaterButton.titleLabel.minimumScaleFactor = 0.5;
+    self.interstitial = [self createAndLoadInterstitial]; // load interstitial ad
+}
+
+- (GADInterstitial *)createAndLoadInterstitial {
+    GADInterstitial *interstitial =
+    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-9099568248089334/6148429408"];
+    interstitial.delegate = self;
+    [interstitial loadRequest:[GADRequest request]];
+    return interstitial;
 }
 
 
@@ -76,6 +88,7 @@
             
             else {
                 NSLog(@"game deleted successfully.");
+                [self displayAd];
                 [self.navigationController popToRootViewControllerAnimated:YES]; // go to main menu
             }
         }];
@@ -131,7 +144,25 @@
 
 - (IBAction)finishSolvingLaterButtonDidPress:(id)sender {
     NSLog(@"hello");
+    [self displayAd];
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+- (void)displayAd{
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
+        // show ad
+        if (self.interstitial.isReady) {
+            [self.interstitial presentFromRootViewController:self];
+        } else {
+            NSLog(@"Ad wasn't ready");
+        }
+    } else {
+        NSLog(@"ads are removed for this user.");
+    }
 }
 
 /*

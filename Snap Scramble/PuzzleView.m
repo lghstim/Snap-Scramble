@@ -155,17 +155,17 @@
             x = x + sideLengthX; // add a target view's X length each time the column loop is traversed
             
             if (j == (col - 1) && i == 0) { // if the last column of the first row is being created, put a pause button there
-                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                [button addTarget:self
+                self.pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                [self.pauseButton addTarget:self
                            action:@selector(pauseButtonDidPress:)
                  forControlEvents:UIControlEventTouchUpInside];
-                [button setTitle:@"Pause" forState:UIControlStateNormal];
+                [self.pauseButton setImage:[UIImage imageNamed:@"pause-button"] forState:UIControlStateNormal];
                 UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
-                button.titleLabel.font = myFont;
-                [button setTitleColor:[self colorWithHexString:@"71C7F0"] forState:UIControlStateNormal];
-                button.frame = CGRectMake(self.frame.size.width - 100, 10, 60.0, 21.0);
-                button.adjustsImageWhenHighlighted = YES;
-                [self addSubview:button];
+                self.pauseButton.titleLabel.font = myFont;
+                [self.pauseButton setTitleColor:[self colorWithHexString:@"71C7F0"] forState:UIControlStateNormal];
+                self.pauseButton.frame = CGRectMake(self.frame.size.width - 100, 5, 25.0, 25.0);
+                self.pauseButton.adjustsImageWhenHighlighted = YES;
+                [self addSubview:self.pauseButton];
             }
         }
         // NSLog(@"x : %f    y : %f", x, y);
@@ -246,10 +246,10 @@
                 [button addTarget:self
                            action:@selector(pauseButtonDidPress:)
                  forControlEvents:UIControlEventTouchUpInside];
-                [button setTitle:@"Pause" forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"pause-button"] forState:UIControlStateNormal];
                 UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
                 button.titleLabel.font = myFont;
-                button.frame = CGRectMake(0, 0, 60.0, 21.0);
+                button.frame = CGRectMake(0, -5, 50.0, 50.0);
                 button.center = target.center;
                 button.adjustsImageWhenHighlighted = YES;
                 [self addSubview:button];

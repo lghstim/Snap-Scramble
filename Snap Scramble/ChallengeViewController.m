@@ -73,22 +73,6 @@
     }
 }
 
-- (void)displayAd{
-    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"%id", [adsRemoved boolValue]);
-    if ([adsRemoved boolValue] != TRUE) {
-        self.bannerView.adUnitID = @"ca-app-pub-9099568248089334/4082940202";
-        self.bannerView.rootViewController = self;
-        GADRequest *request = [GADRequest request];
-        //request.testDevices = @[@"117d8d0d0cfc555fabc2f06fb83770b8"];
-        [self.bannerView loadRequest:request];
-    } else {
-        NSLog(@"ads are removed for this user.");
-        self.bannerView.hidden = YES;
-    }
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -110,7 +94,9 @@
         [self performSegueWithIdentifier:@"showSignup" sender:self]; // show sign up screen if user not signed in
     }
     
-    [self displayAd]; // display ad
+    [self displayAd]; // display ad, or not if user paid
+    [self displayAdsButton]; // display ads button, or not if user paid
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -130,6 +116,37 @@
     NSLog(@"%u", (self.currentGames.count + self.currentPendingGames.count));
     [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
 }
+
+- (void)displayAd{
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
+        self.bannerView.adUnitID = @"ca-app-pub-9099568248089334/4082940202";
+        self.bannerView.rootViewController = self;
+        GADRequest *request = [GADRequest request];
+        //request.testDevices = @[@"117d8d0d0cfc555fabc2f06fb83770b8"];
+        [self.bannerView loadRequest:request];
+    } else {
+        NSLog(@"ads are removed for this user.");
+        self.bannerView.hidden = YES;
+    }
+}
+
+- (void)displayAdsButton {
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
+        self.removeAdsButton.hidden = FALSE;
+        self.removeAdsButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        self.removeAdsButton.contentScaleFactor = 0.5;
+    } else {
+        self.removeAdsButton.hidden = TRUE;
+    }
+}
+
+
 
 #pragma mark - userMatchesTable code
 
@@ -183,6 +200,8 @@
 }
 
 - (void)updateScoreLabel {
+    self.scoreLabel.adjustsFontSizeToFitWidth = YES;
+    self.scoreLabel.contentScaleFactor = 1.0;
     [self.viewModel getCurrentUser:^(PFObject *currentUser, NSError *error) {
         if (error) {
             NSLog(@"error...");
