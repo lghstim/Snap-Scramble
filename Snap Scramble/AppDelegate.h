@@ -12,7 +12,7 @@
 
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate,SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 @property (strong, nonatomic) UIWindow *window;
 

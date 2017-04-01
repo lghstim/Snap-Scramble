@@ -249,8 +249,10 @@
 }
 
 - (void)displayAd{
-    BOOL adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    if (adsRemoved != YES) {
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
         // show ad
         if (self.interstitial.isReady) {
             [self.interstitial presentFromRootViewController:self];

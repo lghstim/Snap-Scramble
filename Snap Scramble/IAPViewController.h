@@ -12,7 +12,7 @@
 #import <StoreKit/StoreKit.h>
 
 
-@interface IAPViewController : UIViewController <SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface IAPViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet SpringView *IAPView;
 @property (weak, nonatomic) IBOutlet UILabel *IAPlabel;

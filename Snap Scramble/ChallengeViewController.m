@@ -74,8 +74,10 @@
 }
 
 - (void)displayAd{
-    BOOL adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    if (adsRemoved != YES) {
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
         self.bannerView.adUnitID = @"ca-app-pub-9099568248089334/4082940202";
         self.bannerView.rootViewController = self;
         GADRequest *request = [GADRequest request];

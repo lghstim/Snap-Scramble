@@ -76,16 +76,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
         [application registerForRemoteNotifications];
     }
 
-    
-    // Use the product identifier from iTunes to register a handler.
-    [PFPurchase addObserverForProduct:@"com.timgorer.SnapScrambleDescrambleFriends.SnapScrambleRemoveAds" block:^(SKPaymentTransaction *transaction) {
-        // Write business logic that should run once this product is purchased.
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setBool:true forKey:@"removeAds"];
-        [userDefaults synchronize];
-    }];
-
-    
     [self.window makeKeyAndVisible];
     
     return YES;

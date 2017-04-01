@@ -17,7 +17,8 @@
 #import <KVNProgress/KVNProgress.h>
 
 
-NSString * const kPencilImageName = @"draw-button";
+NSString * const kDrawModeActiveImageName = @"draw-button-active";
+NSString * const kDrawModeInactiveImageName = @"draw-button-inactive";
 NSString * const kTextImageName = @"edit-text-button";
 NSString * const kClearImageName = @"undo-button";
 NSString * const kSaveImageName = @"download-button";
@@ -27,7 +28,9 @@ NSString * const kSaveImageName = @"download-button";
 @property (nonatomic, strong) JotViewController *jotViewController;
 // @property (nonatomic, strong) UIButton *saveButton;
 @property (nonatomic, strong) UIButton *clearButton;
-@property (nonatomic, strong) UIButton *toggleDrawingButton;
+@property (nonatomic, strong) UIButton *toggledDrawingButton;
+@property (nonatomic, strong) UIButton *untoggledDrawingButton;
+@property (nonatomic, strong) UIButton *textButton;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *saveButton;
 @property(nonatomic, strong) PreviewPuzzleViewModel *viewModel;
@@ -45,7 +48,6 @@ NSString * const kSaveImageName = @"download-button";
         _jotViewController = [JotViewController new];
         
         self.jotViewController.delegate = self;
-        self.jotViewController.state = JotViewStateDrawing;
         self.jotViewController.textColor =  [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
         self.jotViewController.font = [UIFont boldSystemFontOfSize:64.f];
         self.jotViewController.fontSize = 64.f;
@@ -73,14 +75,35 @@ NSString * const kSaveImageName = @"download-button";
                              action:@selector(clearButtonAction)
                    forControlEvents:UIControlEventTouchUpInside];
         
-        _toggleDrawingButton = [UIButton new];
-        self.toggleDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.toggleDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.toggleDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.toggleDrawingButton setImage:[UIImage imageNamed:kTextImageName] forState:UIControlStateNormal];
-        [self.toggleDrawingButton addTarget:self
+        _toggledDrawingButton = [UIButton new];
+        self.toggledDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+        [self.toggledDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [self.toggledDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.toggledDrawingButton setImage:[UIImage imageNamed:kDrawModeActiveImageName] forState:UIControlStateNormal];
+        [self.toggledDrawingButton addTarget:self
+                                     action:@selector(untoggleDrawingButtonAction)
+                           forControlEvents:UIControlEventTouchUpInside];
+        
+        _untoggledDrawingButton = [UIButton new];
+        self.untoggledDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+        [self.untoggledDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [self.untoggledDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.untoggledDrawingButton setImage:[UIImage imageNamed:kDrawModeInactiveImageName] forState:UIControlStateNormal];
+        [self.untoggledDrawingButton addTarget:self
                                      action:@selector(toggleDrawingButtonAction)
                            forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
+        _textButton = [UIButton new];
+        self.textButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+        [self.textButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [self.textButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.textButton setImage:[UIImage imageNamed:kTextImageName] forState:UIControlStateNormal];
+        [self.textButton addTarget:self
+                                     action:@selector(toggleTextButtonAction)
+                           forControlEvents:UIControlEventTouchUpInside];
+        
         
         self.backButton = [UIButton new];
         [self.backButton setImage:[UIImage imageNamed:@"icon-back"] forState:UIControlStateNormal];
@@ -153,11 +176,27 @@ NSString * const kSaveImageName = @"download-button";
             make.left.equalTo(self.view).offset(8.f);
             make.top.equalTo(self.view).offset(25.f);
         }];
-        
-        [self.view addSubview:self.toggleDrawingButton];
-        [self.toggleDrawingButton mas_makeConstraints:^(MASConstraintMaker *make) {
+   
+        [self.view addSubview:self.toggledDrawingButton];
+        [self.toggledDrawingButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.and.width.equalTo(@44);
             make.right.equalTo(self.view).offset(-8.f);
+            make.top.equalTo(self.view).offset(25.f);
+        }];
+        self.toggledDrawingButton.hidden = YES; // hide the toggled button at first
+        
+        [self.view addSubview:self.untoggledDrawingButton];
+        [self.untoggledDrawingButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.and.width.equalTo(@44);
+            make.right.equalTo(self.view).offset(-8.f);
+            make.top.equalTo(self.view).offset(25.f);
+        }];
+        
+        
+        [self.view addSubview:self.textButton];
+        [self.textButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.and.width.equalTo(@44);
+            make.right.equalTo(self.view).offset(-65.f);
             make.top.equalTo(self.view).offset(25.f);
         }];
         
@@ -173,7 +212,7 @@ NSString * const kSaveImageName = @"download-button";
         [self.view bringSubviewToFront:self.backButton];
         [self.view bringSubviewToFront:self.selectPuzzleSizeButton];
         [self.view bringSubviewToFront:self.clearButton];
-        [self.view bringSubviewToFront:self.toggleDrawingButton];
+        [self.view bringSubviewToFront:self.toggledDrawingButton];
         [self.view bringSubviewToFront:self.saveButton];
         [self.sendButton addTarget:self action:@selector(sendGame:) forControlEvents:UIControlEventTouchUpInside];
         [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -196,10 +235,6 @@ NSString * const kSaveImageName = @"download-button";
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    }
-    
-    if (self.jotViewController.state == JotViewStateText) {
-        self.jotViewController.state = JotViewStateEditingText;
     }
 }
 
@@ -411,29 +446,33 @@ NSString * const kSaveImageName = @"download-button";
 
 - (void)toggleDrawingButtonAction
 {
-    if (self.jotViewController.state == JotViewStateDrawing) {
-        [self.toggleDrawingButton setImage:[UIImage imageNamed:kPencilImageName] forState:UIControlStateNormal];
-        
-        if (self.jotViewController.textString.length == 0) {
-            self.jotViewController.state = JotViewStateEditingText;
-        } else {
-            self.jotViewController.state = JotViewStateText;
-        }
-        
-    } else if (self.jotViewController.state == JotViewStateText) {
-        self.jotViewController.state = JotViewStateDrawing;
-        self.jotViewController.drawingColor = [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
-        [self.toggleDrawingButton setImage:[UIImage imageNamed:kTextImageName] forState:UIControlStateNormal];
-    }
+    self.jotViewController.state = JotViewStateDrawing;
+    [self.toggledDrawingButton setImage:[UIImage imageNamed:kDrawModeActiveImageName] forState:UIControlStateNormal]; // change image to active
+    self.untoggledDrawingButton.hidden = YES; // hide untoggled button
+    self.toggledDrawingButton.hidden = NO ; // unhide toggled button
 }
+
+- (void)untoggleDrawingButtonAction
+{
+    self.jotViewController.state = nil; // no draw state anymore
+    [self.untoggledDrawingButton setImage:[UIImage imageNamed:kDrawModeInactiveImageName] forState:UIControlStateNormal]; // change image to active
+    self.toggledDrawingButton.hidden = YES; // hide toggled
+    self.untoggledDrawingButton.hidden = NO; // unhide untoggled
+}
+
+
+- (void)toggleTextButtonAction
+{
+    self.jotViewController.state = JotViewStateEditingText;
+    self.jotViewController.drawingColor = [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
+}
+
 
 // JotViewControllerDelegate
 
 - (void)jotViewController:(JotViewController *)jotViewController isEditingText:(BOOL)isEditing
 {
     self.clearButton.hidden = isEditing;
-    // self.saveButton.hidden = isEditing;
-    self.toggleDrawingButton.hidden = isEditing;
 }
 
 # pragma mark - image methods

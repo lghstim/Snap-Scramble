@@ -14,7 +14,7 @@
 #import <KVNProgress/KVNProgress.h>
 
 
-@interface SettingsViewController : UIViewController
+@interface SettingsViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UIButton *termsAndConditionsButton;

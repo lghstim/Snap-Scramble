@@ -5,7 +5,5 @@ target 'Snap Scramble' do
 	pod 'Onboard'
 	pod 'Firebase/Core'
 	pod 'Firebase/AdMob'
-    pod 'jot'
-
-
+        pod 'jot'
 end
