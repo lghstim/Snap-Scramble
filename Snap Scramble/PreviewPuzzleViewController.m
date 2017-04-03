@@ -57,7 +57,7 @@ NSString * const kSaveImageName = @"download-button";
         self.jotViewController.initialTextInsets = UIEdgeInsetsMake(6.f, 6.f, 6.f, 6.f);
         self.jotViewController.fitOriginalFontSizeToViewWidth = YES;
         self.jotViewController.textAlignment = NSTextAlignmentLeft;
-        self.jotViewController.drawingColor = [UIColor cyanColor];
+        self.jotViewController.drawingColor = [self colorWithHexString:@"71C7F0"]; // blue
         
         
         _saveButton = [UIButton new];
@@ -498,7 +498,6 @@ NSString * const kSaveImageName = @"download-button";
 - (void)toggleTextButtonAction
 {
     self.jotViewController.state = JotViewStateEditingText;
-    self.jotViewController.drawingColor = [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
     self.untoggledTextButton.hidden = YES;
     self.toggledTextButton.hidden = NO;
 }
@@ -506,7 +505,6 @@ NSString * const kSaveImageName = @"download-button";
 - (void)untoggleTextButtonAction
 {
     self.jotViewController.state = nil;
-    self.jotViewController.drawingColor = [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
     self.untoggledTextButton.hidden = NO;
     self.toggledTextButton.hidden = YES;
 }
@@ -516,7 +514,10 @@ NSString * const kSaveImageName = @"download-button";
 
 - (void)jotViewController:(JotViewController *)jotViewController isEditingText:(BOOL)isEditing
 {
-    
+    if (isEditing == TRUE) {
+        self.untoggledTextButton.hidden = YES;
+        self.toggledTextButton.hidden = NO;
+    }
 }
 
 # pragma mark - image methods
@@ -570,6 +571,42 @@ NSString * const kSaveImageName = @"download-button";
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
+}
+
+// create a hex color
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
 

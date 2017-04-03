@@ -254,6 +254,7 @@
     self.imageView.image = previewImage;
     [self.view addSubview:self.imageView];
     self.gameImage = [self prepareImageForGame:self.image]; // now resize image for the game
+    self.view.userInteractionEnabled = FALSE;
     self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pauseForFiveSeconds) userInfo:nil repeats:YES];
 }
 
@@ -319,10 +320,11 @@
         [KVNProgress dismiss];
     }
     
-    // if too much time passed in uploading
+    // if 5 seconds passed in uploading
     if ([self.totalSeconds intValue] > 5) {
         // begin game
         [self.timeoutTimer invalidate];
+        self.view.userInteractionEnabled = TRUE;
         [self performSegueWithIdentifier:@"beginGame" sender:self];
     }
     
