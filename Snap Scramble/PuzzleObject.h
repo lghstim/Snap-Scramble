@@ -28,6 +28,7 @@
 -(NSInteger)getNumberOfPieces;
 - (void)deletePuzzle;
 - (BOOL)puzzleSolved;
+- (void)completePuzzle;
 
 
 

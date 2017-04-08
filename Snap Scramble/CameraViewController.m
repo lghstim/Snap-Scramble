@@ -13,6 +13,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <Masonry/Masonry.h>
+#import "ChallengeViewController.h"
+#import "SettingsViewController.h"
+@import SwipeNavigationController;
 
 
 
@@ -27,6 +30,18 @@
 @end
 
 @implementation CameraViewController
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+      
+    }
+    
+    return self;
+}
+
 
 - (void)viewDidLoad
 {

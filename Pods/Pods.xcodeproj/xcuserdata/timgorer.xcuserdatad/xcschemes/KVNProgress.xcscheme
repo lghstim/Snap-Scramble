@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '2A39584C26CC601021B9B20A763AB4E2'
+               BlueprintIdentifier = 'EDF7BD6E9A2B7E7CCF2E1AC03F1E254D'
                BlueprintName = 'KVNProgress'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libKVNProgress.a'>
+               BuildableName = 'KVNProgress.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -54,6 +54,21 @@
             NSLog(@"executing here because the puzzle was solved. next step is to update the UI.");
             [self.gameUIDelegate updateToShowStatsButtonUI]; // update to show the stats button
         }
+        /* else if ([self.totalSeconds intValue] >= 60  && [self.puzzle.puzzleSizeString  isEqual: @"4 x 4"]) {
+            [self.gameTimer invalidate];
+             [self.gameUIDelegate updateToShowStatsButtonUI]; // update to show the stats button
+            [self.puzzle completePuzzle];
+        }
+        else if ([self.totalSeconds intValue] >= 120  && [self.puzzle.puzzleSizeString  isEqual: @"5 x 5"]) {
+            [self.gameTimer invalidate];
+            [self.gameUIDelegate updateToShowStatsButtonUI]; // update to show the stats button
+            [self.puzzle completePuzzle];
+        }
+        else if ([self.totalSeconds intValue] >= 210  && [self.puzzle.puzzleSizeString  isEqual: @"6 x 6"]) {
+            [self.gameTimer invalidate];
+            [self.gameUIDelegate updateToShowStatsButtonUI]; // update to show the stats button
+            [self.puzzle completePuzzle];
+        } */
     }
 }
 

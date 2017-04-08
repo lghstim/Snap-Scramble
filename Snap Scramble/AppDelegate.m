@@ -17,6 +17,7 @@
 #import "SignupViewController.h"
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 @import Firebase;
+@import SwipeNavigationController;
 
 
 
@@ -80,6 +81,8 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
     [self.window makeKeyAndVisible];
     
+    
+    
     return YES;
 }
 
@@ -94,12 +97,37 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     UINavigationController *controller = (UINavigationController*)[mainStoryboard
                                                                    instantiateViewControllerWithIdentifier: @"navSnap"];
     self.window.rootViewController = controller;
+    
+   /* UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    
+    UINavigationController *controller = (UINavigationController*)[mainStoryboard
+                                                                   instantiateViewControllerWithIdentifier: @"navSnap"];
+    
+    CameraViewController *cameraVC = (CameraViewController*)[mainStoryboard
+                                                             instantiateViewControllerWithIdentifier: @"camera"];
+    SettingsViewController *settingsVC = (SettingsViewController*)[mainStoryboard
+                                                                   instantiateViewControllerWithIdentifier: @"settings"];
+    ChallengeViewController *challengeVC = (ChallengeViewController*)[mainStoryboard
+                                                                      instantiateViewControllerWithIdentifier: @"challenge"];
+    
+    
+    //self.window.rootViewController = controller;
+    // set up swipe VC's
+    SwipeNavigationController *navController = [[SwipeNavigationController alloc] initWithCenterViewController:cameraVC];
+    [navController.navigationController.navigationBar setHidden:NO];
+    self.window.rootViewController = controller;
+    [navController setLeftViewController:challengeVC];
+    [navController setRightViewController:settingsVC];
+    [controller addChildViewController:navController]; */
 }
 
 - (void)handleOnboardingCompletion {
-    // set that we have completed onboarding so we only do it once... for demo
-
    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserHasOnboardedKey];
+    
+    // PFInstall save
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    [installation saveInBackground];
     
     // transition to the main application
     [self setupNormalRootViewController];
@@ -121,8 +149,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     onboardingVC.shouldFadeTransitions = YES;
     onboardingVC.fadePageControlOnLastPage = YES;
     onboardingVC.fadeSkipButtonOnLastPage = YES;
-    
-    
     return onboardingVC;
 }
 
@@ -175,6 +201,10 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     if (currentInstallation.badge != 0) {
         currentInstallation.badge = 0;
         [currentInstallation saveInBackground];
+    }
+   
+    if ([PFUser currentUser] != nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTheTable" object:nil];
     }
 }
 

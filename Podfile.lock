@@ -47,6 +47,7 @@ PODS:
   - RMActionController (1.0.5)
   - RMPickerViewController (2.0.3):
     - RMActionController (~> 1.0.5)
+  - SwipeNavigationController (2.0.2)
 
 DEPENDENCIES:
   - FBSDKShareKit
@@ -58,6 +59,7 @@ DEPENDENCIES:
   - Onboard
   - ParseFacebookUtilsV4
   - RMPickerViewController (~> 2.0.3)
+  - SwipeNavigationController (~> 2.0.0)
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -80,7 +82,8 @@ SPEC CHECKSUMS:
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
+  SwipeNavigationController: 592681599a3105a44484e5b7af9055cee7a0d7b9
 
-PODFILE CHECKSUM: 45442ae33bc221d31f2c1327612f89a929792fec
+PODFILE CHECKSUM: ff0b76c37ecd8bf1778294879b2435c123bb478a
 
 COCOAPODS: 1.1.1

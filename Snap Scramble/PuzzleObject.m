@@ -104,4 +104,21 @@
     }
 }
 
+- (void)completePuzzle {
+    for(PieceView* pv in self.pieces) {
+        NSInteger pieceID = pv.pieceId;
+        TargetView *tv = [self.targets objectAtIndex:pieceID];
+        pv.targetView = tv;
+        pv.center = pv.targetView.center;
+        pv.userInteractionEnabled = NO;
+        pv.layer.masksToBounds = NO;
+        pv.layer.borderWidth = 0.0f;
+        pv.layer.borderColor = nil;
+    }
+    
+    for(TargetView* tv in self.targets) {
+        tv.hidden = YES;
+    }
+}
+
 @end

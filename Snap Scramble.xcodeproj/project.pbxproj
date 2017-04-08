@@ -109,8 +109,7 @@
 		6AEEF5EE1E9880B60092010D /* SnapScrambleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEEF5ED1E9880B60092010D /* SnapScrambleCell.m */; };
 		6AF197CF1E1E1F56004840FC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */; };
 		6AF197D11E1E1F73004840FC /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF197CE1E1E1F56004840FC /* libz.1.dylib */; };
-		8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
-		DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */; };
+		D3BB3B812C451A79C6AE80D6 /* Pods_Snap_Scramble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0180AB489195C150A190ECDE /* Pods_Snap_Scramble.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +135,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0180AB489195C150A190ECDE /* Pods_Snap_Scramble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snap_Scramble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CDEA9AF7E13E8FD8DEC61D7 /* Pods-Snap Scramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.release.xcconfig"; sourceTree = "<group>"; };
 		6A112AA71B5DFB0D0035A75C /* Snap Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snap Scramble.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A112AAB1B5DFB0D0035A75C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -286,7 +286,6 @@
 		6AF197CD1E1E1F56004840FC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
 		6AF197CE1E1E1F56004840FC /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		7354A1AD24F487464C975C31 /* Pods-Snap Scramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snap Scramble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snap Scramble/Pods-Snap Scramble.debug.xcconfig"; sourceTree = "<group>"; };
-		FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snap Scramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,8 +307,7 @@
 				6AD28CC01B5E07C500BCD802 /* StoreKit.framework in Frameworks */,
 				6AD28CBE1B5E07BF00BCD802 /* SystemConfiguration.framework in Frameworks */,
 				6AD28CBC1B5E07B800BCD802 /* ExternalAccessory.framework in Frameworks */,
-				8DED33568B16184D61BD1E6F /* libPods-Snap Scramble.a in Frameworks */,
-				DE84C7710CB99F87E48A5CF0 /* libPods-Snap Scramble.a in Frameworks */,
+				D3BB3B812C451A79C6AE80D6 /* Pods_Snap_Scramble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +604,7 @@
 				6AD28CBF1B5E07C500BCD802 /* StoreKit.framework */,
 				6AD28CBD1B5E07BF00BCD802 /* SystemConfiguration.framework */,
 				6AD28CBB1B5E07B800BCD802 /* ExternalAccessory.framework */,
-				FC83DFA58A457951A20602BC /* libPods-Snap Scramble.a */,
+				0180AB489195C150A190ECDE /* Pods_Snap_Scramble.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="y4E-7b-yDr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--Settings View Controller-->
         <scene sceneID="SBt-za-bM9">
             <objects>
-                <viewController id="81A-Q2-0De" customClass="SettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="81A-Q2-0De" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="h2G-ms-Zm0"/>
                         <viewControllerLayoutGuide type="bottom" id="9u3-VL-kds"/>
@@ -257,7 +257,7 @@
         <!--Snap Scramble-->
         <scene sceneID="vFI-LU-C9F">
             <objects>
-                <viewController id="hzw-14-0QE" customClass="ChallengeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="challenge" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hzw-14-0QE" customClass="ChallengeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aah-xA-2xK"/>
                         <viewControllerLayoutGuide type="bottom" id="zav-uU-KUx"/>
@@ -430,7 +430,7 @@
         <!--Camera View Controller-->
         <scene sceneID="dCd-ZE-fIU">
             <objects>
-                <viewController id="nTf-aQ-qxg" customClass="CameraViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="camera" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nTf-aQ-qxg" customClass="CameraViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fQw-ZM-6nq"/>
                         <viewControllerLayoutGuide type="bottom" id="dot-OV-Qgl"/>
@@ -588,7 +588,7 @@
                 <navigationController storyboardIdentifier="navSnap" automaticallyAdjustsScrollViewInsets="NO" id="y4E-7b-yDr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rRg-yL-0NA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rRg-yL-0NA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3036,10 +3036,10 @@
         <image name="resume-button" width="354" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2L4-gE-vSk"/>
         <segue reference="Y9K-37-I81"/>
-        <segue reference="Doe-q4-f3M"/>
+        <segue reference="2L4-gE-vSk"/>
         <segue reference="odM-ze-1MK"/>
-        <segue reference="u0U-4m-TET"/>
+        <segue reference="ASb-Oy-YdI"/>
+        <segue reference="Doe-q4-f3M"/>
     </inferredMetricsTieBreakers>
 </document>

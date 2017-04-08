@@ -28,6 +28,10 @@
     return self;
 }
 
+- (void)dealloc {
+    self.timeoutTimer = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -302,6 +306,7 @@
                 }
             }];
         } else {
+            [self.timeoutTimer invalidate];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"This username is already taken." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
         }

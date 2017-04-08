@@ -69,6 +69,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwipeNavigationController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>jot.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -77,72 +82,77 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0D1C2F53730DA7D7BC55391497EAE126</key>
+		<key>06E2463E18860775710BDED29E5FDFA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>142A4E3433931B52785DB533E169CE35</key>
+		<key>0CD2CB1AD668DA3A9859D5AB9AED304A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2A39584C26CC601021B9B20A763AB4E2</key>
+		<key>235390E1D6873C0CE77F797E00B02E06</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3C7B23B3FE0CE1A6131C7E09B3F47DA3</key>
+		<key>256838457B196E1BD59E79A5D5F274E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5DC7D7B380A5FEAE815A0DDD986A0174</key>
+		<key>2A52779AA0BD86BA0CEB8753126ED2FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8001A4C66DB95D61BD1127759ADDD0B6</key>
+		<key>44CAD6CE523055ED339E87154473A254</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE541E750B694BC0EF0E44F5371678CD</key>
+		<key>51CB0AF616C6306147B99C320EB6D3ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C09C220DC21D0AD68051D1E02021B62F</key>
+		<key>5D07AB59FE7802251A2F897A7E137C74</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C667C2207FDDF3F5AF875FD61BBF6153</key>
+		<key>7C7A40CA796EF7EEEA54CB14A7AC804F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CB1D04212B0EEB605C706F0F8D228A1E</key>
+		<key>8F5682E0AC126B1910FC04BA8A16F382</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CB314B7D4350FB58815250D0033989AA</key>
+		<key>BC5000D645EEAF961C85907CDC796FE1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F58CF3B268C937FF221EC44C97C18A9F</key>
+		<key>BE8C90589225FCC3A6672520B3A83618</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FB06743FD599C11559E52D2D552AEE80</key>
+		<key>BEF7E6E85DB5CDE5D7A18F4F2EB8494B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FB5B79D96267F95CF320EF940938DDA4</key>
+		<key>E396A93E4C79B22B7816E9F02F62ECED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EDF7BD6E9A2B7E7CCF2E1AC03F1E254D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

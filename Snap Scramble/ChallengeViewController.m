@@ -13,7 +13,10 @@
 #import "IAPViewController.h"
 #import "Snap_Scramble-Swift.h"
 #import "SnapScrambleCell.h"
+#import "SettingsViewController.h"
+#import "CameraViewController.h"
 @import Firebase;
+@import SwipeNavigationController;
 
 
 
@@ -31,7 +34,6 @@
     if (self)
     {
         _viewModel = [[ChallengeViewModel alloc] init];
-        
     }
     
     return self;
@@ -39,6 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
     self.currentGamesTable.delegate = self;
     self.currentGamesTable.dataSource = self;
@@ -59,7 +62,6 @@
     [self.challengeButton addTarget:self action:@selector(selectUserFromOptions:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
     self.challengeButton.adjustsImageWhenHighlighted = NO;
     
-    
     // check for internet connection, send a friendly message.
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -67,13 +69,6 @@
     if (networkStatus == NotReachable) { // if there's no internet
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
-    }
-    
-    // this is for push notifications.
-    PFUser *currentUser = [PFUser currentUser];
-    if (currentUser) {
-        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
-        [[PFInstallation currentInstallation] saveInBackground];
     }
 }
 
@@ -90,7 +85,7 @@
         NSString* usernameText = @"Username: ";
         usernameText = [usernameText stringByAppendingString:currentUser.username];
         [self.usernameLabel setText:usernameText];
-        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"]; // questionable
+        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"];
         [[PFInstallation currentInstallation] saveInBackground];
     }
     
