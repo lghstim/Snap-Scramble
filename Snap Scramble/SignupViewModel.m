@@ -18,6 +18,11 @@
     [newUser signUpInBackgroundWithBlock:completion];
 }
 
+- (void)saveCurrentUser:(void (^)(BOOL succeeded, NSError *error))completion {
+    [[PFUser currentUser] saveInBackgroundWithBlock:completion];
+}
+
+
 
 @end
 

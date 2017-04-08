@@ -553,8 +553,6 @@
 				6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */,
 				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
 				6AEEF5E71E9880140092010D /* SnapScrambleCell.xib */,
-				6AEEF5EC1E9880B60092010D /* SnapScrambleCell.h */,
-				6AEEF5ED1E9880B60092010D /* SnapScrambleCell.m */,
 				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
 			);
 			name = Views;
@@ -582,6 +580,8 @@
 				6AD6439E1D516C2300121E98 /* PauseViewModel.m */,
 				6AA59AFD1E1622B400D2F4CF /* GameOverViewModel.h */,
 				6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */,
+				6AEEF5EC1E9880B60092010D /* SnapScrambleCell.h */,
+				6AEEF5ED1E9880B60092010D /* SnapScrambleCell.m */,
 			);
 			name = "View Models";
 			path = "Snap Scramble";

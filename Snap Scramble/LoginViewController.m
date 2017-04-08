@@ -10,6 +10,7 @@
 #import "LoginViewModel.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import "SignupViewController.h"
 
 
 
@@ -105,7 +106,15 @@
  */
 
 - (IBAction)signupScreenButtonDidPress:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    int index = 0;
+    //This for loop iterates through all the view controllers in navigation stack.
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SignupViewController class]] ) {
+            SignupViewController *VC = [self.navigationController.viewControllers objectAtIndex:index];
+            [self.navigationController popToViewController:VC animated:NO];
+        }
+        index += 1;
+    }
 }
 
 

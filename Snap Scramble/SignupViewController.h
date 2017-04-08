@@ -23,10 +23,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *legalButton;
 @property (nonatomic, strong) NSTimer *timeoutTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
+@property (weak, nonatomic) IBOutlet DesignableTextField *createUsernameField;
 
 
 - (IBAction)signupButtonDidPress:(id)sender;
 - (IBAction)signupWithFacebookButtonDidPress:(id)sender;
-
+- (IBAction)finishButtonDidPress:(id)sender;
+- (BOOL)usernameTaken:(NSString *)username;
 
 @end

@@ -12,5 +12,7 @@
 @interface SignupViewModel : NSObject
 
 - (void)signUpUser:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(BOOL succeeded, NSError *error))completion;
+- (void)saveCurrentUser:(void (^)(BOOL succeeded, NSError *error))completion;
+
 
 @end
