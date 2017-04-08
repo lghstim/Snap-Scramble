@@ -1,4 +1,16 @@
 PODS:
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - FBSDKCoreKit (4.20.2):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.20.2):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.20.2):
+    - FBSDKCoreKit
   - Firebase/AdMob (3.4.0):
     - Firebase/Analytics
     - Google-Mobile-Ads-SDK (= 7.9.1)
@@ -24,20 +36,34 @@ PODS:
   - LLSimpleCamera (4.2.0)
   - Masonry (0.6.4)
   - Onboard (2.2.1)
+  - Parse (1.14.2):
+    - Bolts/Tasks (~> 1.8)
+  - ParseFacebookUtilsV4 (1.11.1):
+    - Bolts/Tasks (>= 1.6)
+    - FBSDKCoreKit (~> 4.10)
+    - FBSDKLoginKit (~> 4.10)
+    - FBSDKTVOSKit (~> 4.10)
+    - Parse (~> 1.12)
   - RMActionController (1.0.5)
   - RMPickerViewController (2.0.3):
     - RMActionController (~> 1.0.5)
 
 DEPENDENCIES:
+  - FBSDKShareKit
   - Firebase/AdMob
   - Firebase/Core
   - jot
   - KVNProgress
   - LLSimpleCamera (~> 4.1)
   - Onboard
+  - ParseFacebookUtilsV4
   - RMPickerViewController (~> 2.0.3)
 
 SPEC CHECKSUMS:
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  FBSDKCoreKit: 82eac696eb6157da5f4266c3a241f00e9bd72471
+  FBSDKLoginKit: 2211bede07c83391349eacc1fd86cf6d9289ce38
+  FBSDKShareKit: ca9b22264ea49a896dafb2467c1a4f72aa41996f
   Firebase: 754562547af419cc2f4b15247fee419081924bc2
   FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
@@ -50,9 +76,11 @@ SPEC CHECKSUMS:
   LLSimpleCamera: ed7813ce4827ff3e34c6af159c99b5b56e54d1c6
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   Onboard: 75731d0b265f5b5bab0b4bceff1778d7f6e839af
+  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
+  ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   RMActionController: b83653e7452ed51492094d65dc82151c36443c03
   RMPickerViewController: f774dbdfddfe819bbaf211d5719deebcbf1a55ed
 
-PODFILE CHECKSUM: 81850c7117235a936977839f203206f952341373
+PODFILE CHECKSUM: 45442ae33bc221d31f2c1327612f89a929792fec
 
 COCOAPODS: 1.1.1

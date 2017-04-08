@@ -69,36 +69,18 @@
             self.friends = objects;
             self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
             [self.tableView reloadData];
-            
-            [self.viewModel getFounder:^(PFObject* founderUser, NSError* error) {
-                if(!error) {
-                    // if the founder is not on the user's friendslist, add him
-                    if (![self.viewModel isFriend:founderUser friendsList:self.mutableFriendsList]) {
-                        [self.mutableFriendsList addObject:founderUser];
-                        [self.friendsRelation addObject:founderUser];
-                        [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
-                            if (error) {
-                                NSLog(@"Error %@ %@", error, [error userInfo]);
-                            }
-                            
-                            else {
-                                NSLog(@"friends list: %@", self.mutableFriendsList);
-                                [self.timeoutTimer invalidate];
-                                [KVNProgress dismiss];
-                                [self.tableView reloadData];
-                            }
-                        }];
-                    }
-                    
-                    else {
-                        [KVNProgress dismiss];
-                        [self.timeoutTimer invalidate];
-                        NSLog(@"Good. Founder is already a friend.");
-                    }
-                } else { // error
-                    NSLog(@"error");
+            [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
+                if (error) {
+                    NSLog(@"Error %@ %@", error, [error userInfo]);
                 }
-            }]; // dismiss progressview if first error or after last save. invalidate timer if first error or after last save or if founder is a friend. go back a VC if error.
+                
+                else {
+                    NSLog(@"friends list: %@", self.mutableFriendsList);
+                    [self.timeoutTimer invalidate];
+                    [KVNProgress dismiss];
+                    [self.tableView reloadData];
+                }
+            }];
         }
     }];
 }
@@ -237,7 +219,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+
 
     if(cell == nil)
     {

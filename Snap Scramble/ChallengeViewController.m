@@ -12,6 +12,7 @@
 #import "ChallengeViewModel.h"
 #import "IAPViewController.h"
 #import "Snap_Scramble-Swift.h"
+#import "SnapScrambleCell.h"
 @import Firebase;
 
 
@@ -30,6 +31,7 @@
     if (self)
     {
         _viewModel = [[ChallengeViewModel alloc] init];
+        
     }
     
     return self;
@@ -48,6 +50,8 @@
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
     [self.currentGamesTable setContentInset:UIEdgeInsetsMake(0, 0, -300, 0)];
+    UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
+    [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
 
 
     // initialize a view for displaying the empty table screen if a user has no games.
@@ -105,6 +109,11 @@
     if (currentUser) {
         [self retrieveUserMatches];
     }
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
 }
 
 - (void)reloadTable:(NSNotification *)notification {
@@ -317,12 +326,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    SnapScrambleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if(cell == nil)
     {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     }
     
     // styling the cell
@@ -331,26 +340,42 @@
     cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.minimumScaleFactor = 0.5;
     
+    
     if (indexPath.section == 0) { // current games section
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         PFObject *aCurrentGame = [self.currentGames objectAtIndex:indexPath.row];
-        
+        NSDate *updated = [aCurrentGame updatedAt];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEE, MMM d, h:mm a"];
+
+       
         // if current user is the receiver for the round
         if ([[aCurrentGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
             NSString *senderName = [aCurrentGame objectForKey:@"senderName"];
-            cell.textLabel.text = [NSString stringWithFormat:@"Your turn vs. %@", senderName];
+            cell.gameLabel.text = [NSString stringWithFormat:@"Your turn vs. %@", senderName];
             
             // check if it is the receiver's (the current user in this case) turn to reply or to play for the round
             if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
-                cell.detailTextLabel.text = @"Your turn to reply";
+                //cell.detailTextLabel.text = @"Your turn to reply";
+                cell.timeLabel.text = @"Your turn to reply";
+                cell.statusImage.image = [UIImage imageNamed:@"current-user-opened"];
+
             }
             else if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
-                cell.detailTextLabel.text = @"Your turn to play";
+                //cell.detailTextLabel.text = @"Your turn to play";
+                cell.timeLabel.text = [NSString stringWithFormat:@"Received on %@", [dateFormat stringFromDate:updated]];
+                cell.statusImage.image = [UIImage imageNamed:@"current-user-received"];
             }
         }
     }
     
     if (indexPath.section == 1) { // pending games section
         PFObject *aCurrentPendingGame = [self.currentPendingGames objectAtIndex:indexPath.row];
+        NSDate *updated = [aCurrentPendingGame updatedAt];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEE, MMM d, h:mm a"];
+        
+        
         
         // if current user is the sender for the round
         if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) {
@@ -373,14 +398,19 @@
             // otherwise proceed
             else {
                 NSString *opponentName = [aCurrentPendingGame objectForKey:@"receiverName"];
-                cell.textLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
+                cell.gameLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
                 
                 // check if it is the receiver's (not the current user in this case) turn to reply or to play for the round
                 if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
-                    cell.detailTextLabel.text = @"Opponent's turn to reply";
+                    //cell.detailTextLabel.text = @"Opponent's turn to reply";
+                    cell.timeLabel.text = [NSString stringWithFormat:@"Opponent played on %@", [dateFormat stringFromDate:updated]];
+                    cell.statusImage.image = [UIImage imageNamed:@"opponent-opened"];
                 }
                 else if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
-                    cell.detailTextLabel.text = @"Opponent's turn to play";
+                    //cell.detailTextLabel.text = @"Opponent's turn to play";
+                    cell.timeLabel.text = [NSString stringWithFormat:@"Delivered on %@", [dateFormat stringFromDate:updated]];
+                    cell.statusImage.image = [UIImage imageNamed:@"opponent-received"];
+
                 }
             }
         }

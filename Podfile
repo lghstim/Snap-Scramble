@@ -6,4 +6,8 @@ target 'Snap Scramble' do
 	pod 'Firebase/Core'
 	pod 'Firebase/AdMob'
         pod 'jot'
+        pod 'ParseFacebookUtilsV4'
+        pod 'FBSDKShareKit'
+
+       
 end

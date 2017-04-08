@@ -15,6 +15,7 @@
 #import "OnboardingViewController.h"
 #import "OnboardingContentViewController.h"
 #import "SignupViewController.h"
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 @import Firebase;
 
 
@@ -64,6 +65,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     [GADMobileAds configureWithApplicationID:@"ca-app-pub-9099568248089334~3194963006"];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
+     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
   
     // Register for Push Notitications, if running iOS 8
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {

@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 #import "Snap_Scramble-Swift.h"
 #import <KVNProgress/KVNProgress.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+
 
 @interface SignupViewController : UIViewController <UITextFieldDelegate>
 
@@ -24,6 +26,7 @@
 
 
 - (IBAction)signupButtonDidPress:(id)sender;
+- (IBAction)signupWithFacebookButtonDidPress:(id)sender;
 
 
 @end

@@ -83,6 +83,11 @@
     return YES;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -209,6 +214,21 @@
         }];
     }
 }
+
+- (IBAction)signupWithFacebookButtonDidPress:(id)sender {
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:@[@"email", @"user_friends"] block:^(PFUser *user, NSError *error) {
+        if (!user) {
+            NSLog(@"Uh oh. The user cancelled the Facebook login.");
+        } else if (user.isNew) {
+            NSLog(@"User signed up and logged in through Facebook!");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } else {
+            NSLog(@"User logged in through Facebook!");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }];
+}
+
 
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];

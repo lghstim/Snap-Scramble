@@ -4,6 +4,26 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKShareKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KVNProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -20,6 +40,16 @@
 			<false/>
 		</dict>
 		<key>Onboard.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ParseFacebookUtilsV4.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,6 +77,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0D1C2F53730DA7D7BC55391497EAE126</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>142A4E3433931B52785DB533E169CE35</key>
 		<dict>
 			<key>primary</key>
@@ -57,17 +92,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4054F6C3B562AE4BEAFC642C2576F618</key>
+		<key>3C7B23B3FE0CE1A6131C7E09B3F47DA3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4B436B12D0D16C91BD84C61F55726783</key>
+		<key>5DC7D7B380A5FEAE815A0DDD986A0174</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8001A4C66DB95D61BD1127759ADDD0B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AE541E750B694BC0EF0E44F5371678CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,7 +122,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F93247DC0B7CFA16D431E3DA25C71D7B</key>
+		<key>CB1D04212B0EEB605C706F0F8D228A1E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB314B7D4350FB58815250D0033989AA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F58CF3B268C937FF221EC44C97C18A9F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB06743FD599C11559E52D2D552AEE80</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB5B79D96267F95CF320EF940938DDA4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

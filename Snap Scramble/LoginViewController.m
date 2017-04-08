@@ -61,6 +61,11 @@
     [self.navigationController.navigationBar setHidden:false];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     if (theTextField == self.usernameField) {
         [self.usernameField resignFirstResponder];
