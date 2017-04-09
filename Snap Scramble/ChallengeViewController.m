@@ -46,21 +46,25 @@
     self.currentGamesTable.delegate = self;
     self.currentGamesTable.dataSource = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil]; // reload the table if the user receives a notification?
+    [self setNavigationBar];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
     [self.headerView addSubview:self.usernameLabel];
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
-    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(0, 0, -300, 0)];
+    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(64, 0, -300, 0)];
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
+
+    
 
 
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
     [self.challengeButton addTarget:self action:@selector(selectUserFromOptions:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
     self.challengeButton.adjustsImageWhenHighlighted = NO;
+    [self setUpLongPressCell];
     
     // check for internet connection, send a friendly message.
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -72,10 +76,18 @@
     }
 }
 
+- (void)setUpLongPressCell {
+    // attach long press gesture to collectionView
+    UILongPressGestureRecognizer *lpgr
+    = [[UILongPressGestureRecognizer alloc]
+       initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.delegate = self;
+    lpgr.delaysTouchesBegan = YES;
+    [self.currentGamesTable addGestureRecognizer:lpgr];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setHidden:false];
     
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
@@ -95,6 +107,16 @@
     
     [self displayAd]; // display ad, or not if user paid
     [self displayAdsButton]; // display ads button, or not if user paid
+
+}
+
+- (void)setNavigationBar {
+    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    navbar.backgroundColor = [self colorWithHexString:@"71C7F0"];
+    navbar.barTintColor = [self colorWithHexString:@"71C7F0"];
+    UINavigationItem* navItem = [[UINavigationItem alloc] initWithTitle:@"Snap Scramble"];
+    [navbar setItems:@[navItem]];
+    [self.view addSubview:navbar];
 
 }
 
@@ -267,53 +289,67 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return YES - we will be able to delet rows
-    return YES;
+    return NO;
 }
 
 // deletion functionality
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) { // current games section
-        PFObject *gameToDelete = [self.currentGames objectAtIndex:indexPath.row];
-        NSMutableArray* tempCurrentGames = [NSMutableArray arrayWithArray:self.currentGames];
-        
-        [self.viewModel deleteGame:gameToDelete completion:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                for (PFObject *object in self.currentGames) {
-                    if ([object.objectId isEqualToString:gameToDelete.objectId]) {
-                        [tempCurrentGames removeObject:object];
-                        break;
+- (void)deleteGame:(NSIndexPath *)indexPath {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete game" message:@"Are you sure you want to delete this game?" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction: [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if (indexPath.section == 0) { // current games section
+            PFObject *gameToDelete = [self.currentGames objectAtIndex:indexPath.row];
+            NSMutableArray* tempCurrentGames = [NSMutableArray arrayWithArray:self.currentGames];
+            
+            [self.viewModel deleteGame:gameToDelete completion:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    for (PFObject *object in self.currentGames) {
+                        if ([object.objectId isEqualToString:gameToDelete.objectId]) {
+                            [tempCurrentGames removeObject:object];
+                            break;
+                        }
                     }
+                    
+                    self.currentGames = tempCurrentGames;
+                    [self.currentGamesTable reloadData]; // update table view
+                    UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game ended successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
+                    [alert show];
                 }
-                
-                self.currentGames = tempCurrentGames;
-                [self.currentGamesTable reloadData]; // update table view
-                UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game ended successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
-                [alert show];
-            }
-        }];
-    }
+            }];
+        }
+        
+        else if (indexPath.section == 1) { // current pending games section
+            PFObject *gameToDelete = [self.currentPendingGames objectAtIndex:indexPath.row];
+            NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
+            
+            [self.viewModel deleteGame:gameToDelete completion:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    for (PFObject *object in self.currentPendingGames) {
+                        if ([object.objectId isEqualToString:gameToDelete.objectId]) {
+                            [tempCurrentPendingGames removeObject:object];
+                            break;
+                        }
+                    }
+                    
+                    self.currentPendingGames = tempCurrentPendingGames;
+                    [self.currentGamesTable reloadData]; // update table view
+                    UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
+                    [alert show];
+                }
+            }];
+        }
+    }]];
     
-    else if (indexPath.section == 1) { // current pending games section
-        PFObject *gameToDelete = [self.currentPendingGames objectAtIndex:indexPath.row];
-        NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
-        
-        [self.viewModel deleteGame:gameToDelete completion:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                for (PFObject *object in self.currentPendingGames) {
-                    if ([object.objectId isEqualToString:gameToDelete.objectId]) {
-                        [tempCurrentPendingGames removeObject:object];
-                        break;
-                    }
-                }
-                
-                self.currentPendingGames = tempCurrentPendingGames;
-                [self.currentGamesTable reloadData]; // update table view
-                UIAlertView *alert = [[UIAlertView alloc]  initWithTitle:@"Game deleted successfully." message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil,  nil];
-                [alert show];
-            }
-        }];
-    }
+    [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // cancelled
+        UITableViewCell* cell = [self.currentGamesTable cellForRowAtIndexPath:indexPath];
+        cell.selected = NO;
+    }]];
+    
+    alert.popoverPresentationController.sourceView = self.view;
+    
+    [self presentViewController:alert animated:YES
+                     completion:nil];
+
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -322,7 +358,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SnapScrambleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if(cell == nil)
     {
@@ -365,6 +400,7 @@
     }
     
     if (indexPath.section == 1) { // pending games section
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         PFObject *aCurrentPendingGame = [self.currentPendingGames objectAtIndex:indexPath.row];
         NSDate *updated = [aCurrentPendingGame updatedAt];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -412,6 +448,24 @@
     }
     
     return cell;
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:self.currentGamesTable];
+    NSIndexPath *indexPath = [self.currentGamesTable indexPathForRowAtPoint:p];
+    UITableViewCell* cell = [self.currentGamesTable cellForRowAtIndexPath:indexPath];
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        // get the cell at indexPath (the one you long pressed)
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.selected = YES;
+        if (indexPath == nil){
+            NSLog(@"couldn't find index path");
+        } else {
+            
+            [self deleteGame:indexPath];
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -478,7 +532,41 @@
 }
 
 
-
+// create a hex color
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
 
 #pragma mark - delegate methods
 

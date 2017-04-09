@@ -44,6 +44,7 @@
 		6A7C81771D49F77A00F36C43 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C816F1D49F77A00F36C43 /* cancel.png */; };
 		6A7C81781D49F77A00F36C43 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C81701D49F77A00F36C43 /* cancel@2x.png */; };
 		6A7C81791D49F77A00F36C43 /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C81711D49F77A00F36C43 /* cancel@3x.png */; };
+		6A7CA5131E995BEC00A6A422 /* SwipeUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A7CA5121E995BEC00A6A422 /* SwipeUI.storyboard */; };
 		6A8B195F1E1259DA009CD77D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6A8B193C1E1259DA009CD77D /* .gitignore */; };
 		6A8B19601E1259DA009CD77D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6A8B193D1E1259DA009CD77D /* LICENSE */; };
 		6A8B19611E1259DA009CD77D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6A8B193E1E1259DA009CD77D /* README.md */; };
@@ -203,6 +204,7 @@
 		6A7C816F1D49F77A00F36C43 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		6A7C81701D49F77A00F36C43 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		6A7C81711D49F77A00F36C43 /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
+		6A7CA5121E995BEC00A6A422 /* SwipeUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SwipeUI.storyboard; sourceTree = "<group>"; };
 		6A8B193C1E1259DA009CD77D /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6A8B193D1E1259DA009CD77D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6A8B193E1E1259DA009CD77D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 				6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */,
 				6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */,
 				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
+				6A7CA5121E995BEC00A6A422 /* SwipeUI.storyboard */,
 				6AEEF5E71E9880140092010D /* SnapScrambleCell.xib */,
 				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
 			);
@@ -708,6 +711,7 @@
 				6A7C81741D49F77A00F36C43 /* camera-flash@2x.png in Resources */,
 				6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */,
 				6A8B197F1E1259DA009CD77D /* Spring.podspec in Resources */,
+				6A7CA5131E995BEC00A6A422 /* SwipeUI.storyboard in Resources */,
 				6A6B7B821E8DE5F2009C0CD2 /* LICENSE.txt in Resources */,
 				6A6B7B7F1E8DE5F2009C0CD2 /* .gitignore in Resources */,
 				6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */,

@@ -16,6 +16,9 @@
 #import "OnboardingContentViewController.h"
 #import "SignupViewController.h"
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import "CameraViewController.h"
+#import "SettingsViewController.h"
+#import "CreatePuzzleViewController.h"
 @import Firebase;
 @import SwipeNavigationController;
 
@@ -80,8 +83,8 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     }
 
     [self.window makeKeyAndVisible];
-    
-    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName: @"Avenir Next" size: 23 ], NSFontAttributeName, nil];
+    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     
     return YES;
 }
@@ -91,35 +94,32 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     // create whatever your root view controller is going to be, in this case just a simple view controller
     // wrapped in a navigation controller
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+    /*UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
     
     UINavigationController *controller = (UINavigationController*)[mainStoryboard
                                                                    instantiateViewControllerWithIdentifier: @"navSnap"];
-    self.window.rootViewController = controller;
+    self.window.rootViewController = controller;*/
     
-   /* UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"SwipeUI"
                                                              bundle: nil];
     
-    UINavigationController *controller = (UINavigationController*)[mainStoryboard
-                                                                   instantiateViewControllerWithIdentifier: @"navSnap"];
-    
+
     CameraViewController *cameraVC = (CameraViewController*)[mainStoryboard
                                                              instantiateViewControllerWithIdentifier: @"camera"];
     SettingsViewController *settingsVC = (SettingsViewController*)[mainStoryboard
                                                                    instantiateViewControllerWithIdentifier: @"settings"];
     ChallengeViewController *challengeVC = (ChallengeViewController*)[mainStoryboard
                                                                       instantiateViewControllerWithIdentifier: @"challenge"];
+    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)[mainStoryboard
+                                                                      instantiateViewControllerWithIdentifier: @"pick-photo"];
     
     
-    //self.window.rootViewController = controller;
-    // set up swipe VC's
     SwipeNavigationController *navController = [[SwipeNavigationController alloc] initWithCenterViewController:cameraVC];
-    [navController.navigationController.navigationBar setHidden:NO];
-    self.window.rootViewController = controller;
     [navController setLeftViewController:challengeVC];
     [navController setRightViewController:settingsVC];
-    [controller addChildViewController:navController]; */
+    [navController setBottomViewController:createPuzzleVC];
+    self.window.rootViewController = navController;
 }
 
 - (void)handleOnboardingCompletion {
