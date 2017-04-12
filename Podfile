@@ -9,5 +9,8 @@ target 'Snap Scramble' do
         pod 'jot'
         pod 'ParseFacebookUtilsV4'
         pod 'FBSDKShareKit'
-        pod 'SwipeNavigationController', '~> 2.0.0'
+        pod'SwipeNavigationController', '~> 2.0.0'
+        
+
+
 end

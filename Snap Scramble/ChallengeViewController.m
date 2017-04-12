@@ -15,8 +15,8 @@
 #import "SnapScrambleCell.h"
 #import "SettingsViewController.h"
 #import "CameraViewController.h"
+#import "AppDelegate.h"
 @import Firebase;
-@import SwipeNavigationController;
 
 
 
@@ -41,19 +41,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     // Do any additional setup after loading the view.
     self.currentGamesTable.delegate = self;
     self.currentGamesTable.dataSource = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil]; // reload the table if the user receives a notification?
-    [self setNavigationBar];
+    //[self setNavigationBar];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
     [self.headerView addSubview:self.usernameLabel];
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
-    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(64, 0, -300, 0)];
+    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(0, 0, -300, 0)];
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
 
@@ -62,7 +61,7 @@
 
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
-    [self.challengeButton addTarget:self action:@selector(selectUserFromOptions:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
+    [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
     self.challengeButton.adjustsImageWhenHighlighted = NO;
     [self setUpLongPressCell];
     
@@ -159,6 +158,16 @@
     }
 }
 
+- (IBAction)playButtonDidPress:(id)sender {
+    [self moveToCameraVC];
+}
+
+- (void) moveToCameraVC {
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeSnapScrambleUI" bundle:nil];
+    CameraViewController *cameraVC = [board instantiateViewControllerWithIdentifier:@"camera"];
+    [self.view.window.rootViewController.navigationController pushViewController:cameraVC animated:YES];
+}
+
 - (void)displayAdsButton {
     NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -237,16 +246,16 @@
             int winsInt = [wins intValue];
             int lossesInt = [losses intValue];
             if (winsInt > 0 && lossesInt > 0) {
-                NSLog(@"Wins: %@ | Losses: %@", wins, losses);
+                // NSLog(@"Wins: %@ | Losses: %@", wins, losses);
                 self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: %@", wins, losses];
             } else if (winsInt > 0 && lossesInt == 0) {
-                NSLog(@"Wins: %@ | Losses: 0", wins);
+                // NSLog(@"Wins: %@ | Losses: 0", wins);
                 self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: 0", wins];
             } else if (lossesInt > 0 && winsInt == 0) {
-                NSLog(@"Wins: 0 | Losses: %@", losses);
+                // NSLog(@"Wins: 0 | Losses: %@", losses);
                 self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: %@", losses];
             } else if (lossesInt == 0 && winsInt == 0) {
-                NSLog(@"Wins: 0 | Losses: 0");
+                // NSLog(@"Wins: 0 | Losses: 0");
                 self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];
             }
         }
@@ -522,12 +531,14 @@
         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
     }
     
-    else if ([segue.identifier isEqualToString:@"createPuzzle"]) {
-        CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
+    else if ([segue.identifier isEqualToString:@"showCamera"]) {
+        //CameraViewController *cameraVC = (CameraViewController *)segue.destinationViewController;
+        //cameraVC.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+        /* CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
         createPuzzleViewController.opponent = self.opponent;
         createPuzzleViewController.createdGame = self.selectedGame;
         NSLog(@"create puzzle screen opening... the current user has yet to start a new round by playing and sending back.");
-        NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
+        NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame); */
     }
 }
 

@@ -33,6 +33,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
+
 // background view properties
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 

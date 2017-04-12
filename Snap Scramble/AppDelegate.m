@@ -23,7 +23,6 @@
 @import SwipeNavigationController;
 
 
-
 static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 
@@ -82,7 +81,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
         [application registerForRemoteNotifications];
     }
 
-    [self.window makeKeyAndVisible];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName: @"Avenir Next" size: 23 ], NSFontAttributeName, nil];
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     
@@ -91,35 +89,11 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 
 - (void)setupNormalRootViewController {
-    // create whatever your root view controller is going to be, in this case just a simple view controller
-    // wrapped in a navigation controller
-    
-    /*UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                             bundle: nil];
-    
-    UINavigationController *controller = (UINavigationController*)[mainStoryboard
-                                                                   instantiateViewControllerWithIdentifier: @"navSnap"];
-    self.window.rootViewController = controller;*/
-    
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"SwipeUI"
-                                                             bundle: nil];
-    
-
-    CameraViewController *cameraVC = (CameraViewController*)[mainStoryboard
-                                                             instantiateViewControllerWithIdentifier: @"camera"];
-    SettingsViewController *settingsVC = (SettingsViewController*)[mainStoryboard
-                                                                   instantiateViewControllerWithIdentifier: @"settings"];
-    ChallengeViewController *challengeVC = (ChallengeViewController*)[mainStoryboard
-                                                                      instantiateViewControllerWithIdentifier: @"challenge"];
-    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)[mainStoryboard
-                                                                      instantiateViewControllerWithIdentifier: @"pick-photo"];
-    
-    
-    SwipeNavigationController *navController = [[SwipeNavigationController alloc] initWithCenterViewController:cameraVC];
-    [navController setLeftViewController:challengeVC];
-    [navController setRightViewController:settingsVC];
-    [navController setBottomViewController:createPuzzleVC];
-    self.window.rootViewController = navController;
+ 
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeSnapScrambleUI" bundle:nil];
+    UINavigationController *navVC = [board instantiateViewControllerWithIdentifier:@"root"];
+    self.window.rootViewController = navVC;
+    [self.window makeKeyAndVisible];
 }
 
 - (void)handleOnboardingCompletion {
@@ -214,7 +188,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     if ([shortcutItem.type isEqualToString:@"com.timgorer.SnapScrambleDescrambleFriends.addFriends"]) {
-        NSLog(@"%@", shortcutItem.type);
+        // NSLog(@"%@", shortcutItem.type);
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         FriendsTableViewController *friendsVC = (FriendsTableViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"FriendsVC"];
