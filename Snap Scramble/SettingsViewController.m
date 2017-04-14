@@ -10,6 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "IAPViewController.h"
+#import "Snap_Scramble-Swift.h"
 @import Firebase;
 
 @interface SettingsViewController () <SKProductsRequestDelegate, SKPaymentTransactionObserver>
@@ -24,6 +25,8 @@
     [self.logoutButton addTarget:self action:@selector(logoutButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.goBackButton addTarget:self action:@selector(goBackButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.goBackButton.adjustsImageWhenHighlighted = YES;
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

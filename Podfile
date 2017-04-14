@@ -7,10 +7,11 @@ target 'Snap Scramble' do
 	pod 'Firebase/Core'
 	pod 'Firebase/AdMob'
         pod 'jot'
-        pod 'ParseFacebookUtilsV4'
         pod 'FBSDKShareKit'
-        pod'SwipeNavigationController', '~> 2.0.0'
+        pod 'ParseFacebookUtilsV4'
+        pod 'SwipeNavigationController', '~> 2.0.0'
+
+
         
-
-
+      
 end

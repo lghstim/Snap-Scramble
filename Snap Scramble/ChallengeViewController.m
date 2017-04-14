@@ -159,14 +159,9 @@
 }
 
 - (IBAction)playButtonDidPress:(id)sender {
-    [self moveToCameraVC];
 }
 
-- (void) moveToCameraVC {
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeSnapScrambleUI" bundle:nil];
-    CameraViewController *cameraVC = [board instantiateViewControllerWithIdentifier:@"camera"];
-    [self.view.window.rootViewController.navigationController pushViewController:cameraVC animated:YES];
-}
+
 
 - (void)displayAdsButton {
     NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];

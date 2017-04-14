@@ -101,11 +101,11 @@
         NSLog(@"original image: %@", self.originalImage);
         NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
         [self dismissViewControllerAnimated:YES completion:nil]; // dismiss photo picker
-        [self moveToPreviewPuzzleVC];
+        //[self moveToPreviewPuzzleVC];
     }
 }
 
-- (void)moveToPreviewPuzzleVC {
+/* - (void)moveToPreviewPuzzleVC {
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeSnapScrambleUI" bundle:nil];
     PreviewPuzzleViewController *previewPuzzleViewController = [board instantiateViewControllerWithIdentifier:@"previewPuzzleVC"];
     if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
@@ -123,8 +123,7 @@
     previewPuzzleViewController.originalImage = self.originalImage;
     NSLog(@"Opponent: %@", self.opponent);
     [self.navigationController pushViewController:previewPuzzleViewController animated:YES];
-}
-
+} */
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {

@@ -13,7 +13,7 @@
         <!--Camera View Controller-->
         <scene sceneID="3o2-Ui-R7Z">
             <objects>
-                <viewController storyboardIdentifier="camera" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gMg-ry-Hll" customClass="CameraViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="middle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gMg-ry-Hll" customClass="CameraViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wIO-KR-gmP"/>
                         <viewControllerLayoutGuide type="bottom" id="06r-cR-hts"/>
@@ -32,12 +32,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emp-Zb-iFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="-752"/>
+            <point key="canvasLocation" x="4335.1999999999998" y="-752.47376311844084"/>
         </scene>
         <!--Create Puzzle View Controller-->
         <scene sceneID="5Gz-21-6nO">
             <objects>
-                <viewController storyboardIdentifier="pick-photo" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PAZ-o5-zML" customClass="CreatePuzzleViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="bottom" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PAZ-o5-zML" customClass="CreatePuzzleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yuC-dg-QhT"/>
                         <viewControllerLayoutGuide type="bottom" id="YIp-P1-c5N"/>
@@ -188,7 +188,7 @@
         <!--Settings View Controller-->
         <scene sceneID="m0E-eF-2LT">
             <objects>
-                <viewController storyboardIdentifier="settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Oet-Fu-08l" customClass="SettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="top" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Oet-Fu-08l" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K4E-2o-SJU"/>
                         <viewControllerLayoutGuide type="bottom" id="PF9-Kv-01B"/>
@@ -439,7 +439,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUB-gn-SeW" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="70" width="300" height="252"/>
+                                <rect key="frame" x="38" y="114" width="300" height="252"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PU-yc-dnT">
                                         <rect key="frame" x="95" y="30" width="111" height="28"/>
@@ -582,7 +582,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GXa-W3-nms" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="70" width="300" height="211"/>
+                                <rect key="frame" x="38" y="114" width="300" height="211"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" background="input-outline" translatesAutoresizingMaskIntoConstraints="NO" id="y8u-Ec-FCN" customClass="DesignableTextField" customModule="Snap_Scramble" customModuleProvider="target">
                                         <rect key="frame" x="25" y="78" width="250" height="44"/>
@@ -685,7 +685,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIJ-dL-MoN" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="70" width="300" height="400"/>
+                                <rect key="frame" x="38" y="114" width="300" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxI-Xj-MrZ">
                                         <rect key="frame" x="95" y="30" width="111" height="28"/>
@@ -898,7 +898,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2tT-qi-N8Q" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="70" width="300" height="300"/>
+                                <rect key="frame" x="38" y="114" width="300" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BvN-is-OJD">
                                         <rect key="frame" x="95" y="30" width="111" height="28"/>
@@ -1076,10 +1076,10 @@
             </objects>
             <point key="canvasLocation" x="1729" y="773"/>
         </scene>
-        <!--Challenge View Controller-->
+        <!--Snap Scramble-->
         <scene sceneID="pfT-HW-XN2">
             <objects>
-                <viewController storyboardIdentifier="challenge" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MKq-DV-x3T" customClass="ChallengeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="left" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MKq-DV-x3T" customClass="ChallengeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MHD-Bt-0JD"/>
                         <viewControllerLayoutGuide type="bottom" id="hOd-Ht-Hx1"/>
@@ -1220,7 +1220,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" title="Snap Scramble" id="FlD-IH-R3R"/>
                     <connections>
                         <outlet property="backgroundView" destination="2bE-fY-buq" id="K4H-xf-4aH"/>
                         <outlet property="bannerView" destination="3iH-lZ-mhm" id="eKg-Xj-0MG"/>
@@ -1236,7 +1236,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fXi-4N-RDc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1501.5999999999999" y="-752.47376311844084"/>
+            <point key="canvasLocation" x="2647.1999999999998" y="-752.47376311844084"/>
         </scene>
         <!--User Selection View Controller-->
         <scene sceneID="IEH-k2-sV1">
@@ -1409,7 +1409,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKQ-gV-Gh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3518" y="-752"/>
+            <point key="canvasLocation" x="5396" y="-752.47376311844084"/>
         </scene>
         <!--Friends List-->
         <scene sceneID="WOc-fX-A2f">
@@ -1468,7 +1468,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="au1-ty-bl0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4374" y="-752"/>
+            <point key="canvasLocation" x="6252" y="-752.47376311844084"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Trg-hs-FOe">
@@ -2609,6 +2609,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8j4-sS-3jh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3518" y="-2997"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lcr-tk-XZq">
+            <objects>
+                <navigationController storyboardIdentifier="root" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iZT-Y8-OI3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="boo-vu-YYm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MKq-DV-x3T" kind="relationship" relationship="rootViewController" id="w8f-26-yCn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5wY-Kh-hi2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1708" y="-752.47376311844084"/>
         </scene>
     </scenes>
     <resources>

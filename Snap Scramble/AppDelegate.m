@@ -19,8 +19,11 @@
 #import "CameraViewController.h"
 #import "SettingsViewController.h"
 #import "CreatePuzzleViewController.h"
+#import "Snap_Scramble-Swift.h"
+#import <SwipeNavigationController/SwipeNavigationController.h>
 @import Firebase;
 @import SwipeNavigationController;
+
 
 
 static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
@@ -38,8 +41,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
     // determine if the user has onboarded yet or not
@@ -50,7 +52,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     if (userHasOnboarded) {
         [self setupNormalRootViewController];
     }
-    
     // otherwise set the root view controller to the onboarding view controller
     else {
         self.window.rootViewController = [self generateStandardOnboardingVC];
@@ -89,10 +90,19 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 
 - (void)setupNormalRootViewController {
- 
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeSnapScrambleUI" bundle:nil];
+
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeUI" bundle:nil];
+    ChallengeViewController *leftVC = [board instantiateViewControllerWithIdentifier:@"left"];
+    CameraViewController *middleVC = [board instantiateViewControllerWithIdentifier:@"middle"];
+    SettingsViewController *topVC = [board instantiateViewControllerWithIdentifier:@"top"];
+    CreatePuzzleViewController *bottomVC = [board instantiateViewControllerWithIdentifier:@"bottom"];
+    SwipeNavigationController *swipeVC = [[SwipeNavigationController alloc] initWithCenterViewController:middleVC];
+    [swipeVC setLeftViewController:leftVC];
+    [swipeVC setTopViewController:topVC];
+    [swipeVC setBottomViewController:bottomVC];
     UINavigationController *navVC = [board instantiateViewControllerWithIdentifier:@"root"];
     self.window.rootViewController = navVC;
+    [navVC addChildViewController:swipeVC];
     [self.window makeKeyAndVisible];
 }
 
@@ -100,8 +110,8 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserHasOnboardedKey];
     
     // PFInstall save
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    [installation saveInBackground];
+    self.installation = [PFInstallation currentInstallation];
+    [self.installation saveInBackground];
     
     // transition to the main application
     [self setupNormalRootViewController];
@@ -129,10 +139,10 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    [installation setDeviceTokenFromData:deviceToken];
-    installation.channels = @[ @"global" ];
-    [installation saveInBackground];
+    self.installation = [PFInstallation currentInstallation];
+    [self.installation setDeviceTokenFromData:deviceToken];
+    self.installation.channels = @[ @"global" ];
+    [self.installation saveInBackground];
 }
 
 - (BOOL)application:(UIApplication *)application

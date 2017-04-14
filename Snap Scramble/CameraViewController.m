@@ -16,7 +16,6 @@
 #import "ChallengeViewController.h"
 #import "SettingsViewController.h"
 #import "AppDelegate.h"
-@import SwipeNavigationController;
 
 
 
@@ -248,15 +247,7 @@
 
 
 - (IBAction)backButtonDidPress:(id)sender {
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.3;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush;
-    transition.subtype = kCATransitionFromLeft;
-    [self.view.window.layer addAnimation:transition forKey:nil];
-    [self dismissViewControllerAnimated:NO completion:^{
-        
-    }];
+ 
 }
 
 

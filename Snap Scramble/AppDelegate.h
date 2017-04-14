@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import <UserNotifications/UserNotifications.h>
+#import "Snap_Scramble-Swift.h"
+
 
 
 
@@ -16,6 +18,8 @@
 
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) PFInstallation *installation;
+
 
 
 @end
