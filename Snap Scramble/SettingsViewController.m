@@ -12,6 +12,7 @@
 #import "IAPViewController.h"
 #import "Snap_Scramble-Swift.h"
 @import Firebase;
+@import SwipeNavigationController;
 
 @interface SettingsViewController () <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
@@ -71,9 +72,7 @@
 }
 
 - (IBAction)goBackButtonDidPress:(id)sender {
-    self.settingsView.animation = @"fall";
-    [self.settingsView animate];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+     [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
 - (IBAction)restore{

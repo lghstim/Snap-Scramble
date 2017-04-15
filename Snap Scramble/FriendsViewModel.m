@@ -23,6 +23,7 @@
 - (void)retrieveFriends:(void (^)(NSArray *objects, NSError *error))completion {
     // load all of the friends on user's friends list
     PFQuery *friendsQuery = [self.friendsRelation query];
+    [friendsQuery orderByAscending:@"username"];
     [friendsQuery findObjectsInBackgroundWithBlock:completion];
 }
 

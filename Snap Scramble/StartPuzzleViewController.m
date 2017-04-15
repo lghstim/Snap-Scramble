@@ -336,7 +336,7 @@
     [self.scoreView animate];
     for (UIViewController* viewController in self.navigationController.viewControllers) {
         if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
-            SwipeNavigationController *VC = viewController;
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
             [self.navigationController popToViewController:VC animated:YES];
         }
     }
