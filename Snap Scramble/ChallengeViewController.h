@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 @import GoogleMobileAds;
 @class SwipeNavigationController;
+@import SwipeNavigationController;
+
 
 
 @protocol ChallengeVCDelegate <NSObject>

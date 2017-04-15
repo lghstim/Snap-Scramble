@@ -17,7 +17,6 @@
 #import "AppDelegate.h"
 #import "Snap_Scramble-Swift.h"
 #import <SwipeNavigationController/SwipeNavigationController.h>
-@class SwipeNavigationController;
 
 @import Firebase;
 @import SwipeNavigationController;
@@ -166,10 +165,7 @@
 }
 
 - (IBAction)playButtonDidPress:(id)sender {
-    NSLog(@"lol.");
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    SwipeNavigationController *swipeVC = appDelegate.swipeVC;
-    // [self.container]
+   [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
 

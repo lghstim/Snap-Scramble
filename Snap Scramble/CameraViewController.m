@@ -208,6 +208,7 @@
 
 
 - (IBAction)backButtonDidPress:(id)sender {
+    [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
 
