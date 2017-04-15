@@ -50,7 +50,7 @@ NSString * const kSaveImageName = @"download-button";
         _jotViewController = [JotViewController new];
         
         self.jotViewController.delegate = self;
-        self.jotViewController.textColor =  [UIColor colorWithRed:((double)arc4random()/UINT32_MAX) green:((double)arc4random()/UINT32_MAX) blue:((double)arc4random()/UINT32_MAX) alpha:1.0];
+        self.jotViewController.textColor =  [UIColor whiteColor];
         self.jotViewController.font = [UIFont boldSystemFontOfSize:64.f];
         self.jotViewController.fontSize = 64.f;
         self.jotViewController.textEditingInsets = UIEdgeInsetsMake(12.f, 6.f, 0.f, 6.f);

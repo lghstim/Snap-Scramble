@@ -47,10 +47,7 @@
 {
     [super viewDidLoad];
     
-    // hide volume HUD
-    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
-    [self.view addSubview: volumeView];
-    //self.volumeButtonHandler.volumeView = volumeView;
+
     
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -137,7 +134,7 @@
     // ----- camera buttons -------- //
     
     // snap button to capture image
-    self.snapButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.snapButton = [[UIButton alloc] init];
     self.snapButton.frame = CGRectMake(0, 0, 70.0f, 70.0f);
     self.snapButton.clipsToBounds = YES;
     self.snapButton.layer.cornerRadius = self.snapButton.frame.size.width / 2.0f;
@@ -147,6 +144,7 @@
     self.snapButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
     self.snapButton.layer.shouldRasterize = YES;
     [self.snapButton addTarget:self action:@selector(snapButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.snapButton setImage:[UIImage imageNamed:@"take-photo"] forState:UIControlStateNormal];
     [self.view addSubview:self.snapButton];
     [self.view addSubview:self.backButton]; // back button
 
@@ -180,48 +178,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
     
     // start the camera
     [self.camera start];
-    
-   /* // volume button handler
-    self.volumeButtonHandler = [JPSVolumeButtonHandler volumeButtonHandlerWithUpBlock:^{
-        // Volume Up Button Pressed
-        NSLog(@"up volume");
-        __weak typeof(self) weakSelf = self;
-        
-        // capture
-        [self.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
-            if(!error) {
-                self.originalImage = image;
-                self.cameraImage = image;
-                [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
-            }
-            else {
-                NSLog(@"An error has occured: %@", error);
-            }
-        } exactSeenImage:YES];
-        
-    } downBlock:^{
-        NSLog(@"down volume");
-        // Volume Down Button Pressed
-        __weak typeof(self) weakSelf = self;
-        
-        // capture
-        [self.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
-            if(!error) {
-                self.originalImage = image;
-                self.cameraImage = image;
-                [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
-            }
-            else {
-                NSLog(@"An error has occured: %@", error);
-            }
-        } exactSeenImage:YES];
-        
-    }];
-    
-    [self.volumeButtonHandler startHandler:YES];*/
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -238,7 +200,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -247,7 +208,6 @@
 
 
 - (IBAction)backButtonDidPress:(id)sender {
- 
 }
 
 

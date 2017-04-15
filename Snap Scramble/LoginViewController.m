@@ -11,7 +11,9 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "SignupViewController.h"
-
+#import "Snap_Scramble-Swift.h"
+#import <SwipeNavigationController/SwipeNavigationController.h>
+@import SwipeNavigationController;
 
 
 
@@ -147,7 +149,12 @@
             }
             else {
                 [self.timeoutTimer invalidate];
-                [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
+                for (UIViewController* viewController in self.navigationController.viewControllers) {
+                    if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+                        SwipeNavigationController *VC = viewController;
+                        [self.navigationController popToViewController:VC animated:NO];
+                    }
+                }
                 NSLog(@"User %@ logged in.", user);
                 [KVNProgress dismiss];
                 self.loginView.animation = @"fall";

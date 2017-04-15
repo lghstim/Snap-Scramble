@@ -11,12 +11,17 @@
 #import "Reachability.h"
 #import "ChallengeViewModel.h"
 #import "IAPViewController.h"
-#import "Snap_Scramble-Swift.h"
 #import "SnapScrambleCell.h"
 #import "SettingsViewController.h"
 #import "CameraViewController.h"
 #import "AppDelegate.h"
+#import "Snap_Scramble-Swift.h"
+#import <SwipeNavigationController/SwipeNavigationController.h>
+@class SwipeNavigationController;
+
 @import Firebase;
+@import SwipeNavigationController;
+
 
 
 
@@ -42,17 +47,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.clipsToBounds = TRUE;
     self.currentGamesTable.delegate = self;
     self.currentGamesTable.dataSource = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil]; // reload the table if the user receives a notification?
-    //[self setNavigationBar];
+    [self setNavigationBar];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
     [self.headerView addSubview:self.usernameLabel];
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
-    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(0, 0, -300, 0)];
+    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(43, 0, -300, 0)];
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
 
@@ -114,9 +120,10 @@
     navbar.backgroundColor = [self colorWithHexString:@"71C7F0"];
     navbar.barTintColor = [self colorWithHexString:@"71C7F0"];
     UINavigationItem* navItem = [[UINavigationItem alloc] initWithTitle:@"Snap Scramble"];
+    [navItem.titleView setFrame:CGRectMake(navItem.titleView.frame.origin.x, navItem.titleView.frame.origin.y + 30, navItem.titleView.frame.size.width, navItem.titleView.frame.size.height)];
     [navbar setItems:@[navItem]];
     [self.view addSubview:navbar];
-
+    [self.view bringSubviewToFront:navbar];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -129,7 +136,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return NO;
+    return YES;
 }
 
 - (void)reloadTable:(NSNotification *)notification {
@@ -159,6 +166,10 @@
 }
 
 - (IBAction)playButtonDidPress:(id)sender {
+    NSLog(@"lol.");
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    SwipeNavigationController *swipeVC = appDelegate.swipeVC;
+    // [self.container]
 }
 
 
@@ -175,6 +186,8 @@
         self.removeAdsButton.hidden = TRUE;
     }
 }
+
+
 
 
 

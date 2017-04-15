@@ -10,6 +10,7 @@
 #import "GameViewController.h"
 #import "Snap_Scramble-Swift.h"
 #import "StartPuzzleViewModel.h"
+@import SwipeNavigationController;
 
 @interface StartPuzzleViewController ()
 
@@ -333,7 +334,12 @@
 - (IBAction)cancelButtonDidPress:(id)sender {
     self.scoreView.animation = @"fall";
     [self.scoreView animate];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = viewController;
+            [self.navigationController popToViewController:VC animated:YES];
+        }
+    }
 }
 
 - (UIImage *)resizeImage:(UIImage *)image withMaxDimension:(CGFloat)maxDimension {

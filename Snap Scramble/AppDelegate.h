@@ -10,6 +10,9 @@
 #import <Parse/Parse.h>
 #import <UserNotifications/UserNotifications.h>
 #import "Snap_Scramble-Swift.h"
+#import <SwipeNavigationController/SwipeNavigationController.h>
+@import SwipeNavigationController;
+
 
 
 
@@ -19,6 +22,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) PFInstallation *installation;
+@property (strong, nonatomic) SwipeNavigationController *swipeVC;
+
 
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iZT-Y8-OI3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,16 +23,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="PAZ-o5-zML" kind="show" id="y3o-GV-0Uo"/>
                         <segue destination="Oet-Fu-08l" kind="show" id="0e9-10-Cpl"/>
                         <segue destination="AAQ-sr-tPE" kind="show" id="Y6E-GJ-r1I"/>
+                        <segue destination="SMT-8i-UA8" kind="show" identifier="previewPuzzleSender" id="LL5-Ym-Iem"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emp-Zb-iFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4335.1999999999998" y="-752.47376311844084"/>
+            <point key="canvasLocation" x="3719" y="-752"/>
         </scene>
         <!--Create Puzzle View Controller-->
         <scene sceneID="5Gz-21-6nO">
@@ -439,7 +441,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUB-gn-SeW" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="114" width="300" height="252"/>
+                                <rect key="frame" x="38" y="70" width="300" height="252"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PU-yc-dnT">
                                         <rect key="frame" x="95" y="30" width="111" height="28"/>
@@ -561,6 +563,7 @@
                             <constraint firstItem="eUB-gn-SeW" firstAttribute="top" secondItem="95o-nZ-gpW" secondAttribute="bottom" constant="50" id="VKy-gZ-PJQ"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="u11-in-h6t" kind="show" identifier="createUsername" id="YxU-4L-PFi"/>
                     </connections>
@@ -582,7 +585,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GXa-W3-nms" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="114" width="300" height="211"/>
+                                <rect key="frame" x="38" y="70" width="300" height="211"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" background="input-outline" translatesAutoresizingMaskIntoConstraints="NO" id="y8u-Ec-FCN" customClass="DesignableTextField" customModule="Snap_Scramble" customModuleProvider="target">
                                         <rect key="frame" x="25" y="78" width="250" height="44"/>
@@ -685,7 +688,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIJ-dL-MoN" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="114" width="300" height="400"/>
+                                <rect key="frame" x="38" y="70" width="300" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxI-Xj-MrZ">
                                         <rect key="frame" x="95" y="30" width="111" height="28"/>
@@ -872,6 +875,7 @@
                             <constraint firstItem="f59-n7-PMn" firstAttribute="leading" secondItem="x5K-xd-fb2" secondAttribute="leadingMargin" constant="-13" id="vXz-vN-klu"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="emailField" destination="Efj-fz-7BH" id="1rP-0q-bh6"/>
                         <outlet property="legalButton" destination="f59-n7-PMn" id="YQN-Mj-jDK"/>
@@ -898,7 +902,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2tT-qi-N8Q" customClass="SpringView" customModule="Snap_Scramble">
-                                <rect key="frame" x="38" y="114" width="300" height="300"/>
+                                <rect key="frame" x="38" y="70" width="300" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BvN-is-OJD">
                                         <rect key="frame" x="95" y="30" width="111" height="28"/>
@@ -1221,6 +1225,8 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Snap Scramble" id="FlD-IH-R3R"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="backgroundView" destination="2bE-fY-buq" id="K4H-xf-4aH"/>
                         <outlet property="bannerView" destination="3iH-lZ-mhm" id="eKg-Xj-0MG"/>
@@ -1232,6 +1238,7 @@
                         <outlet property="usernameLabel" destination="gvN-BH-yT5" id="HJ1-2k-xCX"/>
                         <segue destination="AJT-K3-k6D" kind="show" identifier="showSignup" id="Vpe-Rk-o6q"/>
                         <segue destination="1CK-Op-Bxb" kind="show" identifier="startPuzzleScreen" id="iQb-b4-hDA"/>
+                        <segue destination="gMg-ry-Hll" kind="show" id="WaK-iT-IHg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fXi-4N-RDc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1743,6 +1750,7 @@
                             <constraint firstItem="Gpq-ui-Bfk" firstAttribute="centerY" secondItem="qUu-N0-Jbo" secondAttribute="centerY" constant="25" id="ypi-0S-fMg"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="cancelButton" destination="jQ7-la-Dgi" id="5MH-xp-gOD"/>
                         <outlet property="currentUserTimeLabel" destination="4b7-Gx-U0I" id="9MG-Vi-cz6"/>
@@ -1838,6 +1846,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1ib-vO-iHJ"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="deleteButton" destination="bXq-HX-LOU" id="Aek-8o-wej"/>
                         <outlet property="replyButton" destination="SCF-GV-7iE" id="8fM-Fo-udp"/>
@@ -2613,11 +2622,14 @@
         <!--Navigation Controller-->
         <scene sceneID="lcr-tk-XZq">
             <objects>
-                <navigationController storyboardIdentifier="root" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iZT-Y8-OI3" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="root" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="iZT-Y8-OI3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="boo-vu-YYm">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="boo-vu-YYm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2636,6 +2648,7 @@
         <image name="resume-button" width="236" height="80"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cSC-KM-09h"/>
+        <segue reference="LL5-Ym-Iem"/>
+        <segue reference="nIo-2z-vBE"/>
     </inferredMetricsTieBreakers>
 </document>

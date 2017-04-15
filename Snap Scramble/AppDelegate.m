@@ -57,7 +57,8 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
         self.window.rootViewController = [self generateStandardOnboardingVC];
     }
     
-    application.statusBarStyle = UIStatusBarStyleLightContent;
+    // application.statusBarStyle = UIStatusBarStyleLightContent;
+    [application setStatusBarHidden:YES];
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
      configuration.applicationId = @"43771d657c7a5be226767e90fcc0edd88527df54";
@@ -101,6 +102,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     [swipeVC setTopViewController:topVC];
     [swipeVC setBottomViewController:bottomVC];
     UINavigationController *navVC = [board instantiateViewControllerWithIdentifier:@"root"];
+    [navVC.navigationBar setHidden:YES];
     self.window.rootViewController = navVC;
     [navVC addChildViewController:swipeVC];
     [self.window makeKeyAndVisible];
