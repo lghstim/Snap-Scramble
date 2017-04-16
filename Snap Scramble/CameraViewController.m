@@ -46,9 +46,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-
-    
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.backButton = [UIButton new];
@@ -153,7 +150,7 @@
     self.flashButton = [UIButton buttonWithType:UIButtonTypeSystem];
     self.flashButton.frame = CGRectMake(0, 0, 16.0f + 20.0f, 24.0f + 20.0f);
     self.flashButton.tintColor = [UIColor whiteColor];
-    [self.flashButton setImage:[UIImage imageNamed:@"camera-flash.png"] forState:UIControlStateNormal];
+    [self.flashButton setImage:[UIImage imageNamed:@"camera-flash"] forState:UIControlStateNormal];
     self.flashButton.imageEdgeInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
     [self.flashButton addTarget:self action:@selector(flashButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.flashButton];
@@ -163,7 +160,7 @@
         self.switchButton = [UIButton buttonWithType:UIButtonTypeSystem];
         self.switchButton.frame = CGRectMake(0, 0, 29.0f + 20.0f, 22.0f + 20.0f);
         self.switchButton.tintColor = [UIColor whiteColor];
-        [self.switchButton setImage:[UIImage imageNamed:@"camera-switch.png"] forState:UIControlStateNormal];
+        [self.switchButton setImage:[UIImage imageNamed:@"camera-switch"] forState:UIControlStateNormal];
         self.switchButton.imageEdgeInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
         [self.switchButton addTarget:self action:@selector(switchButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.switchButton];
@@ -178,9 +175,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.snapButton.userInteractionEnabled = TRUE;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 
-    
     // start the camera
     [self.camera start];
 
@@ -211,6 +208,9 @@
     [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
+- (void)showLeftVC {
+    [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
+}
 
 
 /* camera button methods */
@@ -245,6 +245,7 @@
 
 - (void)snapButtonPressed:(UIButton *)button
 {
+    self.snapButton.userInteractionEnabled = FALSE;
     __weak typeof(self) weakSelf = self;
     
     // capture

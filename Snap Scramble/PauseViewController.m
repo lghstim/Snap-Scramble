@@ -9,6 +9,7 @@
 #import "PauseViewController.h"
 #import "GameViewController.h"
 #import "PauseViewModel.h"
+#import "CameraViewController.h"
 @import GoogleMobileAds;
 
 
@@ -143,10 +144,16 @@
 
 
 - (IBAction)finishSolvingLaterButtonDidPress:(id)sender {
-    NSLog(@"hello");
     [self displayAd];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
+
+        }
+    }}
 
 
 - (void)displayAd{

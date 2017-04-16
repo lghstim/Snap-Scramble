@@ -17,15 +17,20 @@
 
 @interface UserSelectionViewController : UIViewController <FirstVCDelegate>
 
-// @property (nonatomic, strong) PFUser *opponent;
 @property (weak, nonatomic) IBOutlet UIButton *friendsListButton;
 @property (weak, nonatomic) IBOutlet UIButton *randomUserButton;
+@property (strong, nonatomic) IBOutlet UIButton *startGameButton;
 @property (weak, nonatomic) IBOutlet UIButton* cancelButton;
 @property (weak, nonatomic) IBOutlet SpringView *scoreView;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) IBOutlet UILabel *opponentSelectionLabel;
 @property (nonatomic, strong) NSTimer *timeoutTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
+@property (nonatomic, strong) UIImage *puzzleImage;
+@property (nonatomic, strong) PFObject* createdGame;
+@property (nonatomic, strong) NSString *puzzleSize;
+
+
 
 
 

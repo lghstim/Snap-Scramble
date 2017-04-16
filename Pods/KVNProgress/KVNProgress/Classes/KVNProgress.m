@@ -574,11 +574,10 @@ static KVNProgressConfiguration *configuration;
 	UIColor *backgroundColor;
 	switch (self.backgroundType) {
 		case KVNProgressBackgroundTypeBlurred: {
-			backgroundColor = self.configuration.backgroundTintColor;
-			break;
+            backgroundColor = [self colorWithHexString:@"71C7F0"];
 		}
 		case KVNProgressBackgroundTypeSolid: {
-			backgroundColor = self.configuration.backgroundFillColor;
+            backgroundColor = [self colorWithHexString:@"71C7F0"];
 			break;
 		}
 	}
@@ -642,7 +641,7 @@ static KVNProgressConfiguration *configuration;
 	// Circle shape
 	self.circleProgressView.layer.cornerRadius = (self.configuration.circleSize / 2.0f);
 	self.circleProgressView.layer.masksToBounds = YES;
-	self.circleProgressView.backgroundColor = [UIColor clearColor];
+    self.circleProgressView.backgroundColor = [UIColor clearColor];
 	
 	// Remove all previous added layers
 	[self removeAllSubLayersOfLayer:self.circleProgressView.layer];
@@ -973,8 +972,8 @@ static KVNProgressConfiguration *configuration;
 		self.contentView.layer.cornerRadius = (self.status) ? KVNContentViewCornerRadius : KVNContentViewWithoutStatusCornerRadius;
 		self.contentView.layer.masksToBounds = YES;
 		self.contentView.contentMode = UIViewContentModeCenter;
-		self.contentView.backgroundColor = self.configuration.backgroundFillColor;
-		
+        self.contentView.backgroundColor = [self colorWithHexString:@"71C7F0"];
+        
 		self.contentView.image = backgroundImage;
 	}
 }
@@ -1367,5 +1366,42 @@ static KVNProgressConfiguration *configuration;
 		return (CGRectContainsPoint(self.frame, point)) ? self : nil;
 	}
 }
+
+// create a hex color
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
 
 @end

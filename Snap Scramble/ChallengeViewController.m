@@ -67,7 +67,7 @@
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
     [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
-    self.challengeButton.adjustsImageWhenHighlighted = NO;
+    self.challengeButton.adjustsImageWhenHighlighted = YES;
     [self setUpLongPressCell];
     
     // check for internet connection, send a friendly message.

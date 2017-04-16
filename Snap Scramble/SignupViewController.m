@@ -326,6 +326,8 @@
 }
 
 
+# pragma mark - timer method
+
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];
     self.totalSeconds = [NSNumber numberWithInt:value + 1];

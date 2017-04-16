@@ -15,6 +15,7 @@
 #import <jot/jot.h>
 #import "JotViewController.h"
 #import <KVNProgress/KVNProgress.h>
+#import "UserSelectionViewController.h"
 
 
 NSString * const kDrawModeActiveImageName = @"draw-button-active";
@@ -115,6 +116,14 @@ NSString * const kSaveImageName = @"download-button";
         [self.toggledTextButton addTarget:self
                                      action:@selector(untoggleTextButtonAction)
                            forControlEvents:UIControlEventTouchUpInside];
+        
+        _selectPuzzleSizeButton = [UIButton new];
+        self.selectPuzzleSizeButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+        [self.selectPuzzleSizeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.selectPuzzleSizeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.selectPuzzleSizeButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
+        self.selectPuzzleSizeButton.layer.cornerRadius = 5.0f;
+        [self.selectPuzzleSizeButton setTitle:@"Select Puzzle Size" forState:UIControlStateNormal];
         
         
         self.backButton = [UIButton new];
@@ -229,6 +238,14 @@ NSString * const kSaveImageName = @"download-button";
             make.left.equalTo(self.view).offset(8.f);
             make.bottom.equalTo(self.view).offset(-28.f);
         }];
+        
+        [self.view addSubview:self.selectPuzzleSizeButton];
+        [self.selectPuzzleSizeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@40);
+            make.width.equalTo(@200);
+            make.centerX.equalTo(self.view);
+            make.bottom.equalTo(self.view).offset(-28.f);
+        }];
 
         
         [self.view bringSubviewToFront:self.sendButton];
@@ -265,9 +282,9 @@ NSString * const kSaveImageName = @"download-button";
     return NO;
 }
 
-- (IBAction)selectPuzzleSizeButtonDidPress:(id)sender {
+- (void)selectPuzzleSizeButtonDidPress:(id)sender {
     //Create select action
-    RMAction *selectAction = [RMAction actionWithTitle:@"Start Game" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+    RMAction *selectAction = [RMAction actionWithTitle:@"Choose Opponent" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
         controller.disableBlurEffectsForBackgroundView = YES;
         controller.disableBlurEffects = YES;
         controller.disableBlurEffectsForContentView = YES;
@@ -282,7 +299,8 @@ NSString * const kSaveImageName = @"download-button";
         }
         
         NSLog(@"puzzle size selected: %@", self.puzzleSize);
-        [self sendGame:self]; // start game
+        // [self sendGame:self]; // start game
+        [self performSegueWithIdentifier:@"chooseOpponent" sender:self];
     
         self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
     }];
@@ -355,7 +373,7 @@ NSString * const kSaveImageName = @"download-button";
                             self.sendButton.userInteractionEnabled = YES;
                             [NSThread sleepForTimeInterval:2];
                             [KVNProgress dismiss];
-                            [self performSegueWithIdentifier:@"createGame" sender:self];
+                            [self performSegueWithIdentifier:@"startGame" sender:self];
                         }
                     }];
                 } // dismiss progressview if first error or after last save. invalidate timer if first error or after last save. go back a VC if error.
@@ -407,12 +425,20 @@ NSString * const kSaveImageName = @"download-button";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"createGame"]) {
+    /* if ([segue.identifier isEqualToString:@"createGame"]) {
         GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
         gameViewController.puzzleImage = [self imageWithDrawing]; // get the drawed on image
         gameViewController.opponent = self.opponent;
         NSLog(@"the opponent %@", gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;
+    } */
+    
+    if ([segue.identifier isEqualToString:@"chooseOpponent"]) {
+         UserSelectionViewController *userSelectVC = (UserSelectionViewController *)segue.destinationViewController;
+         userSelectVC.puzzleImage = [self imageWithDrawing]; // get the drawed on image
+         userSelectVC.opponent = self.opponent;
+         userSelectVC.createdGame = self.createdGame;
+         userSelectVC.puzzleSize = self.puzzleSize;
     }
 }
 

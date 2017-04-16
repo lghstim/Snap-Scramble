@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [self colorWithHexString:@"71C7F0"];
     
 }
 
@@ -98,7 +99,7 @@
         NSLog(@"original image: %@", self.originalImage);
         NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
         [self dismissViewControllerAnimated:YES completion:nil]; // dismiss photo picker
-        //[self moveToPreviewPuzzleVC];
+        [self passDataToCameraVC];
     }
 }
 
@@ -142,6 +143,28 @@
     return newImage;
 }
 
+- (void)passDataToCameraVC {
+    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController]; // CameraVC
+    CameraViewController *cameraVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
+  
+    
+    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
+        NSLog(@"Game already started: %@", self.createdGame);
+        cameraVC.createdGame = self.createdGame;
+        cameraVC.roundObject = self.roundObject;
+    }
+    
+    else if (self.createdGame == nil) { // entirely new game
+        NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+        
+    }
+    
+    cameraVC.opponent = self.opponent;
+    cameraVC.originalImage = self.originalImage;
+    NSLog(@"Opponent: %@", self.opponent);
+    [cameraVC performSegueWithIdentifier:@"previewPuzzleSender" sender:cameraVC];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
         PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
@@ -177,6 +200,43 @@
         NSLog(@"Opponent: %@", self.opponent);
         cameraViewController.opponent = self.opponent;
     }
+}
+
+
+// create a hex color
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
 

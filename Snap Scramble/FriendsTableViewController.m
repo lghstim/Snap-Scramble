@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavigationBar];
+    //[self setNavigationBar];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,6 +78,10 @@
             }];
         }
     }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController.navigationBar setHidden:true];
 }
 
 - (void)setNavigationBar {
@@ -261,7 +265,7 @@
     
     // delegate allows us to transfer opponent's data back to previous view controller for creating puzzle game
     [self.delegate receiveFriendUserData:self.opponent];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

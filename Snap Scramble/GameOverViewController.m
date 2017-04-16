@@ -12,6 +12,7 @@
 #import "GameOverViewModel.h"
 #import "GameViewController.h"
 #import "PuzzleView.h"
+#import "CameraViewController.h"
 @import GoogleMobileAds;
 
 
@@ -215,19 +216,24 @@
                 NSLog(@"current user is the receiver, show reply button UI");
                 gameViewController.roundObject = self.viewModel.roundObject;
                 [gameViewController updateToReplyButtonUI];
-                
+                [gameViewController deallocGameProperties];
+                self.statsView.animation = @"fall";
+                [self.statsView animate];
+                [self.navigationController popToViewController:gameViewController animated:YES];
             }
             
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, now go back to main menu");
                 [self displayAd]; // display ads or not
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                for (UIViewController* viewController in self.navigationController.viewControllers) {
+                    if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+                        SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+                        [self.navigationController popToViewController:VC animated:NO];
+                        CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+                        [centerVC showLeftVC];
+                    }
+                }
             }
-            
-            [gameViewController deallocGameProperties];
-            self.statsView.animation = @"fall";
-            [self.statsView animate];
-            [self.navigationController popToViewController:gameViewController animated:YES];
             break;
         }
     }

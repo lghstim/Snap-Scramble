@@ -17,7 +17,6 @@
         NSNumber *currentRoundNumber = [self.createdGame objectForKey:@"roundNumber"];          // get the current round number
 
         [self getRoundObject:^(PFObject *round, NSError *error) { // get current round object with matching round number
-            NSLog(@"hello");
             if (error) {
                 NSLog(@"error");
             } else {

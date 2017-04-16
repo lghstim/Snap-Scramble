@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UIImage* gameImage;
 @property (nonatomic, strong) PFUser* currentUser;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
-@property (weak, nonatomic) IBOutlet UIButton *selectPuzzleSizeButton;
+@property (strong, nonatomic) UIButton *selectPuzzleSizeButton;
 @property (nonatomic, strong) NSArray *puzzleSizes;
 @property (nonatomic, strong) NSString *puzzleSize;
 @property (nonatomic, strong) NSTimer *timeoutTimer;

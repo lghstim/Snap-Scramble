@@ -125,7 +125,6 @@
             }
             
             [self.viewModel getRoundObject:^(PFObject *round, NSError *error) { // get previous round object
-                NSLog(@"hello");
                 if (error) {
                     NSLog(@"error");
                 } else {

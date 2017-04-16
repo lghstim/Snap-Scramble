@@ -22,6 +22,7 @@
 @property (nonatomic, strong) PFObject* roundObject;
 @property (nonatomic, strong) JPSVolumeButtonHandler* volumeButtonHandler;
 
+- (void)showLeftVC;
 
 
 
