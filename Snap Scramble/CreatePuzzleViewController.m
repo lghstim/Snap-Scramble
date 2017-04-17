@@ -159,10 +159,16 @@
         
     }
     
-    cameraVC.opponent = self.opponent;
-    cameraVC.originalImage = self.originalImage;
-    NSLog(@"Opponent: %@", self.opponent);
-    [cameraVC performSegueWithIdentifier:@"previewPuzzleSender" sender:cameraVC];
+    PFQuery* query = [PFUser query];
+    [query whereKey:@"username" equalTo:@"mickey"];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        cameraVC.opponent = self.opponent;
+        cameraVC.originalImage = self.originalImage;
+        cameraVC.createdGame = self.createdGame;
+        NSLog(@"Opponent: %@", self.opponent);
+        [cameraVC performSegueWithIdentifier:@"previewPuzzleSender" sender:cameraVC];
+    }];
+
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

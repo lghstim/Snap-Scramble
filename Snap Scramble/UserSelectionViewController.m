@@ -112,7 +112,7 @@
     _startGameButton = [UIButton new];
     self.startGameButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
     [self.startGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.startGameButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.startGameButton setShowsTouchWhenHighlighted:YES];
     [self.startGameButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
     self.startGameButton.layer.cornerRadius = 5.0f;
     [self.startGameButton setTitle:@"Start Game" forState:UIControlStateNormal];

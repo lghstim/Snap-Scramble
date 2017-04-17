@@ -155,7 +155,9 @@
                                     [self.timeoutTimer invalidate];
                                     [KVNProgress dismiss];
                                     NSLog(@"new friends list: %@", self.mutableFriendsList);
+                                    self.mutableFriendsList = [self sortFriendsList];
                                     [self.tableView reloadData];
+                                    
                                 } else {
                                     NSLog(@"error");
                                 }
@@ -196,6 +198,14 @@
     alert.popoverPresentationController.sourceView = self.view;
     [self presentViewController:alert animated:YES
                      completion:nil];
+}
+
+- (NSMutableArray*)sortFriendsList {
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor
+                                        sortDescriptorWithKey:@"username"
+                                        ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    return [NSMutableArray arrayWithArray:[self.mutableFriendsList sortedArrayUsingDescriptors:sortDescriptors]];
 }
 
 - (void)incrementTime {
@@ -274,6 +284,11 @@
         createPuzzleViewController.opponent = self.opponent;
     }
 }
+
+- (IBAction)goBackButtonDidPress:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 // create a hex color

@@ -104,6 +104,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     UINavigationController *navVC = [board instantiateViewControllerWithIdentifier:@"root"];
     self.window.rootViewController = navVC;
     [navVC addChildViewController:swipeVC];
+    [navVC setNavigationBarHidden:YES];
     [self.window makeKeyAndVisible];
 }
 

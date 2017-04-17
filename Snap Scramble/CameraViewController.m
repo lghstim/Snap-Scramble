@@ -16,6 +16,7 @@
 #import "ChallengeViewController.h"
 #import "SettingsViewController.h"
 #import "AppDelegate.h"
+#import "CreatePuzzleViewController.h"
 
 
 
@@ -36,7 +37,7 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-      
+  
     }
     
     return self;
@@ -46,6 +47,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"%@", self.opponent);
+    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)self.containerSwipeNavigationController.bottomViewController;
+    createPuzzleVC.opponent = self.opponent;
+    createPuzzleVC.createdGame = self.createdGame;
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.backButton = [UIButton new];

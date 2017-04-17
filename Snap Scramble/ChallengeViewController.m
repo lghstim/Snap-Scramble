@@ -67,7 +67,7 @@
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
     [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
-    self.challengeButton.adjustsImageWhenHighlighted = YES;
+    [self.challengeButton setShowsTouchWhenHighlighted:YES];
     [self setUpLongPressCell];
     
     // check for internet connection, send a friendly message.
@@ -166,8 +166,16 @@
 
 - (IBAction)playButtonDidPress:(id)sender {
    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
+    CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
+    camVC.opponent = self.opponent;
+    camVC.createdGame = self.selectedGame;
 }
 
+- (IBAction)goToIAPVC:(id)sender {
+    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
+    SettingsViewController *settingsVC = (SettingsViewController*)self.containerSwipeNavigationController.topViewController;
+    [settingsVC performSegueWithIdentifier:@"openRemoveAds" sender:settingsVC];
+}
 
 
 - (void)displayAdsButton {
@@ -178,6 +186,8 @@
         self.removeAdsButton.hidden = FALSE;
         self.removeAdsButton.titleLabel.adjustsFontSizeToFitWidth = YES;
         self.removeAdsButton.contentScaleFactor = 0.5;
+        [self.removeAdsButton addTarget:self action:@selector(goToIAPVC:) forControlEvents:UIControlEventTouchUpInside];
+        [self.removeAdsButton setShowsTouchWhenHighlighted:YES];
     } else {
         self.removeAdsButton.hidden = TRUE;
     }
@@ -500,7 +510,11 @@
                 self.opponent = [self.selectedGame objectForKey:@"sender"];
                 
                 if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { //  this is the condition if the game already exists but the receiver has yet to send back. he's already played.
-                    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let you create another puzzle, play it, and send it
+                    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
+                    CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
+                    camVC.opponent = self.opponent;
+                    NSLog(@"%@", camVC.opponent);
+                    camVC.createdGame = self.selectedGame;
                 }
                 
                 else if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) { // if receiver (you) didn't play yet
@@ -591,7 +605,7 @@
     self.roundObject = roundObject;
     
     NSLog(@"delegate success. replying... opponent: %@    game: %@", self.opponent, self.selectedGame);
-    [self performSegueWithIdentifier:@"createPuzzle" sender:self]; // if receiver (you) played, let him create another puzzle + send it from CreatePuzzleVC
+    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController]; // if receiver (you) played, let him create another puzzle + send it from CreatePuzzleVC
 }
   
 

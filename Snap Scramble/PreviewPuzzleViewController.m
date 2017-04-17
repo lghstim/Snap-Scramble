@@ -120,7 +120,7 @@ NSString * const kSaveImageName = @"download-button";
         _selectPuzzleSizeButton = [UIButton new];
         self.selectPuzzleSizeButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
         [self.selectPuzzleSizeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.selectPuzzleSizeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.selectPuzzleSizeButton setShowsTouchWhenHighlighted:YES];
         [self.selectPuzzleSizeButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
         self.selectPuzzleSizeButton.layer.cornerRadius = 5.0f;
         [self.selectPuzzleSizeButton setTitle:@"Select Puzzle Size" forState:UIControlStateNormal];
@@ -284,26 +284,49 @@ NSString * const kSaveImageName = @"download-button";
 
 - (void)selectPuzzleSizeButtonDidPress:(id)sender {
     //Create select action
-    RMAction *selectAction = [RMAction actionWithTitle:@"Choose Opponent" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
-        controller.disableBlurEffectsForBackgroundView = YES;
-        controller.disableBlurEffects = YES;
-        controller.disableBlurEffectsForContentView = YES;
+    RMAction *selectAction;
+    if (self.opponent == nil) {
+        selectAction = [RMAction actionWithTitle:@"Choose Opponent" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+            controller.disableBlurEffectsForBackgroundView = YES;
+            controller.disableBlurEffects = YES;
+            controller.disableBlurEffectsForContentView = YES;
 
-        UIPickerView *picker = ((RMPickerViewController *)controller).picker;
+            UIPickerView *picker = ((RMPickerViewController *)controller).picker;
+            
+            NSString *puzzleSizeText;
+            for(NSInteger i=0 ; i<[picker numberOfComponents] ; i++) {
+                self.puzzleSize = [self.puzzleSizes objectAtIndex:[picker selectedRowInComponent:i]];
+               // NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
+                puzzleSizeText = [NSString stringWithFormat:@"%@%@", @"          ", self.puzzleSize];
+            }
+            
+            NSLog(@"puzzle size selected: %@", self.puzzleSize);
+            [self performSegueWithIdentifier:@"chooseOpponent" sender:self];
         
-        NSString *puzzleSizeText;
-        for(NSInteger i=0 ; i<[picker numberOfComponents] ; i++) {
-            self.puzzleSize = [self.puzzleSizes objectAtIndex:[picker selectedRowInComponent:i]];
-           // NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
-            puzzleSizeText = [NSString stringWithFormat:@"%@%@", @"          ", self.puzzleSize];
-        }
-        
-        NSLog(@"puzzle size selected: %@", self.puzzleSize);
-        // [self sendGame:self]; // start game
-        [self performSegueWithIdentifier:@"chooseOpponent" sender:self];
+            self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
+        }];
+    }
     
-        self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
-    }];
+    else if (self.opponent != nil) {
+        selectAction = [RMAction actionWithTitle:@"Start Game" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+            controller.disableBlurEffectsForBackgroundView = YES;
+            controller.disableBlurEffects = YES;
+            controller.disableBlurEffectsForContentView = YES;
+            
+            UIPickerView *picker = ((RMPickerViewController *)controller).picker;
+            
+            NSString *puzzleSizeText;
+            for(NSInteger i=0 ; i<[picker numberOfComponents] ; i++) {
+                self.puzzleSize = [self.puzzleSizes objectAtIndex:[picker selectedRowInComponent:i]];
+                // NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
+                puzzleSizeText = [NSString stringWithFormat:@"%@%@", @"          ", self.puzzleSize];
+            }
+            
+            NSLog(@"puzzle size selected: %@", self.puzzleSize);
+            [self sendGame:self]; // start game
+            self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
+        }];
+    }
     
     
     RMAction *cancelAction = [RMAction actionWithTitle:@"Cancel" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
@@ -425,13 +448,13 @@ NSString * const kSaveImageName = @"download-button";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    /* if ([segue.identifier isEqualToString:@"createGame"]) {
+    if ([segue.identifier isEqualToString:@"startGameGame"]) {
         GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
         gameViewController.puzzleImage = [self imageWithDrawing]; // get the drawed on image
         gameViewController.opponent = self.opponent;
         NSLog(@"the opponent %@", gameViewController.opponent);
         gameViewController.createdGame = self.createdGame;
-    } */
+    }
     
     if ([segue.identifier isEqualToString:@"chooseOpponent"]) {
          UserSelectionViewController *userSelectVC = (UserSelectionViewController *)segue.destinationViewController;
