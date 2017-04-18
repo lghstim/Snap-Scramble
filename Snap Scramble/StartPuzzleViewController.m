@@ -32,33 +32,14 @@
     return self;
 }
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.cancelButton.adjustsImageWhenHighlighted = YES;
     [self setViewModelProperties];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setHidden:false];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    // disable swipe back functionality
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    }
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    return NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,8 +51,8 @@
     self.startPuzzleButton.titleLabel.minimumScaleFactor = 0.5;
     self.cancelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.cancelButton.titleLabel.minimumScaleFactor = 0.5;
- 
-
+    
+    
     if (!self.image) { // if the image is being retrieved from the server by the receiving player
         // Adds a status below the circle
         self.totalSeconds = [NSNumber numberWithInt:0];
@@ -99,8 +80,25 @@
     }
 }
 
-- (void)setViewModelProperties {
-    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setHidden:false];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // disable swipe back functionality
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
 - (void)updateStatsView {
@@ -134,7 +132,7 @@
                     // display the data from the previous round object
                     self.previousRoundObject = round;
                     
-                
+                    
                     NSString *opponentName = @""; // placeholder
                     
                     // figure out who is who
@@ -150,7 +148,7 @@
                     }
                     
                     NSLog(@"opponent: %@   opponent time: %@    current user time: %@", opponentName, self.opponentTotalSeconds, self.currentUserTotalSeconds);
-                  
+                    
                     
                     // format the current user's time
                     int intValueTotalSeconds = [self.currentUserTotalSeconds intValue];
@@ -216,10 +214,10 @@
                         else if (seconds >= 10) {
                             self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:%d", opponentName, minutes, seconds];
                         }
-
+                        
                         self.headerStatsLabel.text = [NSString stringWithFormat:@"Try to solve the puzzle faster!"];
                         self.currentUserTimeLabel.text = [NSString stringWithFormat:@"You haven't played yet."];
-
+                        
                     }
                 }
             } whereRoundNumberIs:previousRoundNumber];
@@ -227,20 +225,20 @@
     }];
 }
 
-- (void)incrementTime {
-    int value = [self.totalSeconds intValue];
-    self.totalSeconds = [NSNumber numberWithInt:value + 1];
-    NSLog(@"%@", self.totalSeconds);
-    
-    // if too much time passed in uploading
-    if ([self.totalSeconds intValue] > 20) {
-        NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        [KVNProgress dismiss];
-        [self.timeoutTimer invalidate];
+# pragma mark - navigation
+
+- (IBAction)cancelButtonDidPress:(id)sender {
+    self.scoreView.animation = @"fall";
+    [self.scoreView animate];
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:YES];
+        }
     }
 }
+
+# pragma mark - game methods logic
 
 - (IBAction)startGame:(id)sender {
     self.totalSeconds = [NSNumber numberWithInt:0];
@@ -257,6 +255,22 @@
     self.view.userInteractionEnabled = FALSE;
     self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pauseForFiveSeconds) userInfo:nil repeats:YES];
 }
+
+# pragma mark - pass data methods
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"beginGame"]) {
+        GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
+        gameViewController.puzzleImage = self.gameImage;
+        gameViewController.opponent = self.opponent;
+        NSLog(@"opponent %@",gameViewController.opponent);
+        gameViewController.createdGame = self.createdGame;
+        gameViewController.delegate = self;
+    }
+}
+
+# pragma mark - image editing methods
 
 -(UIImage*)prepareImageForGame:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
@@ -275,7 +289,6 @@
     return image;
 }
 
-
 -(UIImage*)prepareImageForPreview:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
         image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
@@ -293,7 +306,6 @@
     return image;
 }
 
-
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
     CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
@@ -309,36 +321,6 @@
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
-}
-
-- (void)pauseForFiveSeconds {
-    int value = [self.totalSeconds intValue];
-    self.totalSeconds = [NSNumber numberWithInt:value + 1];
-    NSLog(@"%@", self.totalSeconds);
-    
-    if ([self.totalSeconds intValue] > 3) {
-        [KVNProgress dismiss];
-    }
-    
-    // if 5 seconds passed in uploading
-    if ([self.totalSeconds intValue] > 5) {
-        // begin game
-        [self.timeoutTimer invalidate];
-        self.view.userInteractionEnabled = TRUE;
-        [self performSegueWithIdentifier:@"beginGame" sender:self];
-    }
-    
-}
-
-- (IBAction)cancelButtonDidPress:(id)sender {
-    self.scoreView.animation = @"fall";
-    [self.scoreView animate];
-    for (UIViewController* viewController in self.navigationController.viewControllers) {
-        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
-            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
-            [self.navigationController popToViewController:VC animated:YES];
-        }
-    }
 }
 
 - (UIImage *)resizeImage:(UIImage *)image withMaxDimension:(CGFloat)maxDimension {
@@ -364,21 +346,45 @@
     return newImage;
 }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"beginGame"]) {
-        GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
-        gameViewController.puzzleImage = self.gameImage;
-        gameViewController.opponent = self.opponent;
-        NSLog(@"opponent %@",gameViewController.opponent);
-        gameViewController.createdGame = self.createdGame;
-        gameViewController.delegate = self;
+# pragma mark - timer methods
+
+- (void)pauseForFiveSeconds {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    if ([self.totalSeconds intValue] > 3) {
+        [KVNProgress dismiss];
+    }
+    
+    // if 5 seconds passed in uploading
+    if ([self.totalSeconds intValue] > 5) {
+        // begin game
+        [self.timeoutTimer invalidate];
+        self.view.userInteractionEnabled = TRUE;
+        [self performSegueWithIdentifier:@"beginGame" sender:self];
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [KVNProgress dismiss];
+        [self.timeoutTimer invalidate];
+    }
+}
+
+# pragma mark - set view model method
+
+- (void)setViewModelProperties {
+    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
 }
 
 #pragma mark - delegate methods

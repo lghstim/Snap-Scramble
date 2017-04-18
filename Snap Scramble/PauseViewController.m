@@ -33,6 +33,8 @@
     return self;
 }
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -62,11 +64,23 @@
     return interstitial;
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)displayAd{
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
+        // show ad
+        if (self.interstitial.isReady) {
+            [self.interstitial presentFromRootViewController:self];
+        } else {
+            NSLog(@"Ad wasn't ready");
+        }
+    } else {
+        NSLog(@"ads are removed for this user.");
+    }
 }
+
+# pragma mark - navigation
 
 - (IBAction)cancelButtonDidPress:(id)sender {
     self.pauseView.animation = @"fall";
@@ -103,7 +117,6 @@
     
     [self presentViewController:alert animated:YES
                      completion:nil];
- 
 }
 
 - (IBAction)reportButtonDidPress:(id)sender {
@@ -139,9 +152,7 @@
     
     [self presentViewController:alert animated:YES
                      completion:nil];
-    
 }
-
 
 - (IBAction)finishSolvingLaterButtonDidPress:(id)sender {
     [self displayAd];
@@ -154,32 +165,5 @@
 
         }
     }}
-
-
-- (void)displayAd{
-    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"%id", [adsRemoved boolValue]);
-    if ([adsRemoved boolValue] != TRUE) {
-        // show ad
-        if (self.interstitial.isReady) {
-            [self.interstitial presentFromRootViewController:self];
-        } else {
-            NSLog(@"Ad wasn't ready");
-        }
-    } else {
-        NSLog(@"ads are removed for this user.");
-    }
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

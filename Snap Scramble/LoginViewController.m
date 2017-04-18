@@ -69,30 +69,6 @@
     return YES;
 }
 
-# pragma mark - keyboard methods logic
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    if (theTextField == self.usernameField) {
-        [self.usernameField resignFirstResponder];
-        [self.passwordField becomeFirstResponder];
-    }
-    
-    else if (theTextField == self.passwordField) {
-        [self.passwordField resignFirstResponder];
-    }
-    
-    return YES;
-}
-
--(void)dismissKeyboard {
-    if ([self.passwordField isFirstResponder]) {
-        [self.passwordField resignFirstResponder];
-    }
-    
-    else if ([self.usernameField isFirstResponder]) {
-        [self.usernameField resignFirstResponder];
-    }
-}
-
 # pragma mark - navigation
 
 - (IBAction)signupScreenButtonDidPress:(id)sender {
@@ -158,7 +134,7 @@
     }
 }
 
-# pragma mark - timer methods
+# pragma mark - timer methods logic
 
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];
@@ -175,6 +151,32 @@
     }
     
 }
+
+# pragma mark - keyboard methods logic
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == self.usernameField) {
+        [self.usernameField resignFirstResponder];
+        [self.passwordField becomeFirstResponder];
+    }
+    
+    else if (theTextField == self.passwordField) {
+        [self.passwordField resignFirstResponder];
+    }
+    
+    return YES;
+}
+
+-(void)dismissKeyboard {
+    if ([self.passwordField isFirstResponder]) {
+        [self.passwordField resignFirstResponder];
+    }
+    
+    else if ([self.usernameField isFirstResponder]) {
+        [self.usernameField resignFirstResponder];
+    }
+}
+
 
 
 @end

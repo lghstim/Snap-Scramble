@@ -48,101 +48,13 @@ NSString * const kSaveImageName = @"download-button";
     if (self)
     {
         _viewModel = [[PreviewPuzzleViewModel alloc] init];
-        _jotViewController = [JotViewController new];
-        
-        self.jotViewController.delegate = self;
-        self.jotViewController.textColor =  [UIColor whiteColor];
-        self.jotViewController.font = [UIFont boldSystemFontOfSize:64.f];
-        self.jotViewController.fontSize = 64.f;
-        self.jotViewController.textEditingInsets = UIEdgeInsetsMake(12.f, 6.f, 0.f, 6.f);
-        self.jotViewController.initialTextInsets = UIEdgeInsetsMake(6.f, 6.f, 6.f, 6.f);
-        self.jotViewController.fitOriginalFontSizeToViewWidth = YES;
-        self.jotViewController.textAlignment = NSTextAlignmentLeft;
-        self.jotViewController.drawingColor = [self colorWithHexString:@"71C7F0"]; // blue
-        
-        
-        _saveButton = [UIButton new];
-        self.saveButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.saveButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.saveButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.saveButton setImage:[UIImage imageNamed:kSaveImageName] forState:UIControlStateNormal];
-        [self.saveButton addTarget:self
-                            action:@selector(saveButtonAction)
-                  forControlEvents:UIControlEventTouchUpInside];
-        
-        _clearButton = [UIButton new];
-        self.clearButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.clearButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.clearButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.clearButton setImage:[UIImage imageNamed:kClearImageName] forState:UIControlStateNormal];
-        [self.clearButton addTarget:self
-                             action:@selector(clearButtonAction)
-                   forControlEvents:UIControlEventTouchUpInside];
-        
-        _toggledDrawingButton = [UIButton new];
-        self.toggledDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.toggledDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.toggledDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.toggledDrawingButton setImage:[UIImage imageNamed:kDrawModeActiveImageName] forState:UIControlStateNormal];
-        [self.toggledDrawingButton addTarget:self
-                                     action:@selector(untoggleDrawingButtonAction)
-                           forControlEvents:UIControlEventTouchUpInside];
-        
-        _untoggledDrawingButton = [UIButton new];
-        self.untoggledDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.untoggledDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.untoggledDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.untoggledDrawingButton setImage:[UIImage imageNamed:kDrawModeInactiveImageName] forState:UIControlStateNormal];
-        [self.untoggledDrawingButton addTarget:self
-                                     action:@selector(toggleDrawingButtonAction)
-                           forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        
-        _untoggledTextButton = [UIButton new];
-        self.untoggledTextButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.untoggledTextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.untoggledTextButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.untoggledTextButton setImage:[UIImage imageNamed:kTextModeInactiveName] forState:UIControlStateNormal];
-        [self.untoggledTextButton addTarget:self
-                                     action:@selector(toggleTextButtonAction)
-                           forControlEvents:UIControlEventTouchUpInside];
-        
-        _toggledTextButton = [UIButton new];
-        self.toggledTextButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.toggledTextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.toggledTextButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-        [self.toggledTextButton setImage:[UIImage imageNamed:kTextModeActiveName] forState:UIControlStateNormal];
-        [self.toggledTextButton addTarget:self
-                                     action:@selector(untoggleTextButtonAction)
-                           forControlEvents:UIControlEventTouchUpInside];
-        
-        _selectPuzzleSizeButton = [UIButton new];
-        self.selectPuzzleSizeButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-        [self.selectPuzzleSizeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.selectPuzzleSizeButton setShowsTouchWhenHighlighted:YES];
-        [self.selectPuzzleSizeButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
-        self.selectPuzzleSizeButton.layer.cornerRadius = 5.0f;
-        [self.selectPuzzleSizeButton setTitle:@"Select Puzzle Size" forState:UIControlStateNormal];
-        
-        
-        self.backButton = [UIButton new];
-        [self.backButton setImage:[UIImage imageNamed:@"icon-back"] forState:UIControlStateNormal];
-  
+        [self setButtonUI];
     }
     
     return self;
 }
 
-#pragma mark - set view model properties
-
-- (void)setViewModelProperties {
-    _viewModel.opponent = self.opponent;
-    _viewModel.createdGame = self.createdGame;
-    _viewModel.puzzleSize = self.puzzleSize;
-}
-
-#pragma mark - view controller methods
+# pragma mark - view methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -282,6 +194,90 @@ NSString * const kSaveImageName = @"download-button";
     return NO;
 }
 
+- (void)setButtonUI {
+    _jotViewController = [JotViewController new];
+    self.jotViewController.delegate = self;
+    self.jotViewController.textColor =  [UIColor whiteColor];
+    self.jotViewController.font = [UIFont boldSystemFontOfSize:64.f];
+    self.jotViewController.fontSize = 64.f;
+    self.jotViewController.textEditingInsets = UIEdgeInsetsMake(12.f, 6.f, 0.f, 6.f);
+    self.jotViewController.initialTextInsets = UIEdgeInsetsMake(6.f, 6.f, 6.f, 6.f);
+    self.jotViewController.fitOriginalFontSizeToViewWidth = YES;
+    self.jotViewController.textAlignment = NSTextAlignmentLeft;
+    self.jotViewController.drawingColor = [self colorWithHexString:@"71C7F0"]; // blue
+    
+    _saveButton = [UIButton new];
+    self.saveButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.saveButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.saveButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.saveButton setImage:[UIImage imageNamed:kSaveImageName] forState:UIControlStateNormal];
+    [self.saveButton addTarget:self
+                        action:@selector(saveButtonAction)
+              forControlEvents:UIControlEventTouchUpInside];
+    
+    _clearButton = [UIButton new];
+    self.clearButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.clearButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.clearButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.clearButton setImage:[UIImage imageNamed:kClearImageName] forState:UIControlStateNormal];
+    [self.clearButton addTarget:self
+                         action:@selector(clearButtonAction)
+               forControlEvents:UIControlEventTouchUpInside];
+    
+    _toggledDrawingButton = [UIButton new];
+    self.toggledDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.toggledDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.toggledDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.toggledDrawingButton setImage:[UIImage imageNamed:kDrawModeActiveImageName] forState:UIControlStateNormal];
+    [self.toggledDrawingButton addTarget:self
+                                  action:@selector(untoggleDrawingButtonAction)
+                        forControlEvents:UIControlEventTouchUpInside];
+    
+    _untoggledDrawingButton = [UIButton new];
+    self.untoggledDrawingButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.untoggledDrawingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.untoggledDrawingButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.untoggledDrawingButton setImage:[UIImage imageNamed:kDrawModeInactiveImageName] forState:UIControlStateNormal];
+    [self.untoggledDrawingButton addTarget:self
+                                    action:@selector(toggleDrawingButtonAction)
+                          forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    _untoggledTextButton = [UIButton new];
+    self.untoggledTextButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.untoggledTextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.untoggledTextButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.untoggledTextButton setImage:[UIImage imageNamed:kTextModeInactiveName] forState:UIControlStateNormal];
+    [self.untoggledTextButton addTarget:self
+                                 action:@selector(toggleTextButtonAction)
+                       forControlEvents:UIControlEventTouchUpInside];
+    
+    _toggledTextButton = [UIButton new];
+    self.toggledTextButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.toggledTextButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.toggledTextButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.toggledTextButton setImage:[UIImage imageNamed:kTextModeActiveName] forState:UIControlStateNormal];
+    [self.toggledTextButton addTarget:self
+                               action:@selector(untoggleTextButtonAction)
+                     forControlEvents:UIControlEventTouchUpInside];
+    
+    _selectPuzzleSizeButton = [UIButton new];
+    self.selectPuzzleSizeButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.selectPuzzleSizeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.selectPuzzleSizeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.selectPuzzleSizeButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
+    self.selectPuzzleSizeButton.layer.cornerRadius = 5.0f;
+    [self.selectPuzzleSizeButton setTitle:@"Select Puzzle Size" forState:UIControlStateNormal];
+    [self.selectPuzzleSizeButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:.4] forState:UIControlStateHighlighted];
+    
+    
+    self.backButton = [UIButton new];
+    [self.backButton setImage:[UIImage imageNamed:@"icon-back"] forState:UIControlStateNormal];
+}
+
+# pragma mark - navigation
+
 - (void)selectPuzzleSizeButtonDidPress:(id)sender {
     //Create select action
     RMAction *selectAction;
@@ -346,12 +342,7 @@ NSString * const kSaveImageName = @"download-button";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-# pragma mark - upload game methods
+# pragma mark - upload game methods logic
 
 - (IBAction)sendGame:(id)sender { // after creating game, upload it
     // initiate timer for timeout
@@ -415,6 +406,7 @@ NSString * const kSaveImageName = @"download-button";
     }
 }
 
+# pragma mark - timer methods logic
 
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];
@@ -444,28 +436,7 @@ NSString * const kSaveImageName = @"download-button";
     
 }
 
-
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"startGameGame"]) {
-        GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
-        gameViewController.puzzleImage = [self imageWithDrawing]; // get the drawed on image
-        gameViewController.opponent = self.opponent;
-        NSLog(@"the opponent %@", gameViewController.opponent);
-        gameViewController.createdGame = self.createdGame;
-    }
-    
-    if ([segue.identifier isEqualToString:@"chooseOpponent"]) {
-         UserSelectionViewController *userSelectVC = (UserSelectionViewController *)segue.destinationViewController;
-         userSelectVC.puzzleImage = [self imageWithDrawing]; // get the drawed on image
-         userSelectVC.opponent = self.opponent;
-         userSelectVC.createdGame = self.createdGame;
-         userSelectVC.puzzleSize = self.puzzleSize;
-    }
-}
-
-#pragma mark - UIPickerView code
+#pragma mark - UIPickerView methods logic
 
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
@@ -480,7 +451,7 @@ NSString * const kSaveImageName = @"download-button";
     return [self.puzzleSizes count];
 }
 
-#pragma mark - JotViewController methods
+#pragma mark - JotViewController methods logic
 
 // returns the drawed on image
 - (UIImage *)imageWithDrawing
@@ -569,6 +540,38 @@ NSString * const kSaveImageName = @"download-button";
     }
 }
 
+# pragma mark - pass data methods
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"startGame"]) {
+        GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
+        NSLog(@"image!!! %@", [self imageWithDrawing]);
+        gameViewController.puzzleImage = [self imageWithDrawing]; // get the drawed on image
+        gameViewController.opponent = self.opponent;
+        NSLog(@"the opponent %@", gameViewController.opponent);
+        gameViewController.createdGame = self.createdGame;
+
+    }
+    
+    if ([segue.identifier isEqualToString:@"chooseOpponent"]) {
+         UserSelectionViewController *userSelectVC = (UserSelectionViewController *)segue.destinationViewController;
+         userSelectVC.puzzleImage = [self imageWithDrawing]; // get the drawed on image
+         userSelectVC.opponent = self.opponent;
+         userSelectVC.createdGame = self.createdGame;
+         userSelectVC.puzzleSize = self.puzzleSize;
+    }
+}
+
+
+# pragma mark - set view model method
+
+- (void)setViewModelProperties {
+    _viewModel.opponent = self.opponent;
+    _viewModel.createdGame = self.createdGame;
+    _viewModel.puzzleSize = self.puzzleSize;
+}
+
 # pragma mark - image methods
 
 -(UIImage*)prepareImageForGame:(UIImage*)tempOriginalImage {
@@ -621,6 +624,8 @@ NSString * const kSaveImageName = @"download-button";
     UIGraphicsEndImageContext();
     return newImage;
 }
+
+# pragma mark - other methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {

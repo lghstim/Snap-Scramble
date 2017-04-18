@@ -37,7 +37,7 @@
     return self;
 }
 
-# pragma mark - views methods
+# pragma mark - view methods
 
 // create a target view
 -(void)createVerticalTargetViewInRect:(CGRect)targetRect WithImage:(UIImage *)image num:(NSInteger)pieceNum sideLenX:(CGFloat)sideLengthX sideLenY:(CGFloat)sideLengthY {

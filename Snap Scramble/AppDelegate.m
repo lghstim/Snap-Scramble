@@ -29,7 +29,6 @@
 static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 
-
 @interface AppDelegate ()
 
 @end
@@ -101,6 +100,9 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     [swipeVC setLeftViewController:leftVC];
     [swipeVC setTopViewController:topVC];
     [swipeVC setBottomViewController:bottomVC];
+    self.centerVC = middleVC;
+    self.leftVC = leftVC;
+    self.bottomVC = bottomVC;
     UINavigationController *navVC = [board instantiateViewControllerWithIdentifier:@"root"];
     self.window.rootViewController = navVC;
     [navVC addChildViewController:swipeVC];
@@ -166,7 +168,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    //[self stopRandomUserSearch]; // stop user from being searched for if he closes the app.
 }
 
 
@@ -206,6 +207,8 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
         [navigationController pushViewController:friendsVC animated:YES];
     }
 }
+
+# pragma mark - other methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {

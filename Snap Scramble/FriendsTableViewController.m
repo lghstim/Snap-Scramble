@@ -31,6 +31,8 @@
     return self;
 }
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //[self setNavigationBar];
@@ -40,7 +42,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -95,7 +96,18 @@
     [self.view bringSubviewToFront:navbar];
 }
 
-- (IBAction)addFriend:(id)sender {
+# pragma mark - navigation
+- (IBAction)addFriendButtonDidPress:(id)sender {
+    [self addFriend];
+}
+
+- (IBAction)goBackButtonDidPress:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+# pragma mark - game logic
+
+- (void)addFriend {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search for a user." message:@"Enter the person's username." preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:nil];
     
@@ -208,23 +220,7 @@
     return [NSMutableArray arrayWithArray:[self.mutableFriendsList sortedArrayUsingDescriptors:sortDescriptors]];
 }
 
-- (void)incrementTime {
-    int value = [self.totalSeconds intValue];
-    self.totalSeconds = [NSNumber numberWithInt:value + 1];
-    NSLog(@"%@", self.totalSeconds);
-    
-    // if too much time passed in uploading
-    if ([self.totalSeconds intValue] > 20) {
-        NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        [self.timeoutTimer invalidate];
-    }
-}
-
-
-
-#pragma mark - Table view data source
+# pragma mark - UITableView methods logic
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -242,8 +238,8 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-
-
+    
+    
     if(cell == nil)
     {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
@@ -278,6 +274,24 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
+# pragma mark - timer method logic
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [self.timeoutTimer invalidate];
+    }
+}
+
+# pragma mark - pass data methods
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"createPuzzle"]) {
         CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
@@ -285,11 +299,7 @@
     }
 }
 
-- (IBAction)goBackButtonDidPress:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
+# pragma mark - other methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {

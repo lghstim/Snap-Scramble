@@ -14,7 +14,6 @@
 @import SwipeNavigationController;
 
 
-
 @protocol ChallengeVCDelegate <NSObject>
 - (void)receiveReplyGameData:(PFObject *)selectedGame andOpponent:(PFUser *)opponent andRound:(PFObject *)roundObject;
 @end
@@ -32,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
 @property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
-@property (strong, nonatomic) IBOutlet DesignableButton *challengeButton;
+@property (strong, nonatomic) DesignableButton *challengeButton;
 @property (weak, nonatomic) IBOutlet UIButton *removeAdsButton;
 @property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;

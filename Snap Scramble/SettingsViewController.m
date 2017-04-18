@@ -111,7 +111,7 @@
     [self presentViewController:activityVC animated:YES completion:nil];
 }
 
-# pragma mark - in add purchases methods
+# pragma mark - remove ads (in-app purchase) methods
 
 - (IBAction)restore{
     //this is called when the user restores purchases, you should hook this up to a button
@@ -154,7 +154,7 @@
     [alertView show];
 }
 
-# pragma mark - helper methods
+# pragma mark - other methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {

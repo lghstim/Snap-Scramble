@@ -43,14 +43,11 @@
     return self;
 }
 
+# pragma mark - view methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%@", self.opponent);
-    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)self.containerSwipeNavigationController.bottomViewController;
-    createPuzzleVC.opponent = self.opponent;
-    createPuzzleVC.createdGame = self.createdGame;
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.backButton = [UIButton new];
@@ -202,12 +199,53 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidAppear:animated];
+    NSLog(@"CamVC opp: %@", self.opponent);
+    
+    // PASS DATA METHOD
+    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).bottomVC;
+
+    createPuzzleVC.opponent = self.opponent;
+    createPuzzleVC.createdGame = self.createdGame;
+
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
 }
 
+
+/* other lifecycle methods */
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    self.camera.view.frame = self.view.contentBounds;
+    
+    self.snapButton.center = self.view.contentCenter;
+    self.snapButton.bottom = self.view.height - 15.0f;
+    
+    self.flashButton.center = self.view.contentCenter;
+    self.flashButton.top = 5.0f;
+    
+    self.switchButton.top = 5.0f;
+    self.switchButton.right = self.view.width - 5.0f;
+    
+    self.segmentedControl.left = 12.0f;
+    self.segmentedControl.bottom = self.view.height - 35.0f;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+# pragma mark - navigation
 
 - (IBAction)backButtonDidPress:(id)sender {
     [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
@@ -217,6 +255,7 @@
     [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
+# pragma mark - camera methods logic
 
 /* camera button methods */
 
@@ -266,36 +305,39 @@
     } exactSeenImage:YES];
 }
 
-/* other lifecycle methods */
+# pragma mark - pass data methods
 
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    self.camera.view.frame = self.view.contentBounds;
-    
-    self.snapButton.center = self.view.contentCenter;
-    self.snapButton.bottom = self.view.height - 15.0f;
-    
-    self.flashButton.center = self.view.contentCenter;
-    self.flashButton.top = 5.0f;
-    
-    self.switchButton.top = 5.0f;
-    self.switchButton.right = self.view.width - 5.0f;
-    
-    self.segmentedControl.left = 12.0f;
-    self.segmentedControl.bottom = self.view.height - 35.0f;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
+        //[self.volumeButtonHandler stopHandler];
+        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
+        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
+            NSLog(@"Game already started: %@", self.createdGame);
+            previewPuzzleViewController.createdGame = self.createdGame;
+            previewPuzzleViewController.roundObject = self.roundObject;
+        }
+        
+        else if (self.createdGame == nil) {
+            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+        }
+        
+        NSLog(@"imageeee: %@", self.originalImage);
+        previewPuzzleViewController.originalImage = self.originalImage;
+        previewPuzzleViewController.previewImage = self.cameraImage; // pass the original image for preview since it doesn't need to be resized
+        previewPuzzleViewController.opponent = self.opponent;
+        NSLog(@"Opponent: %@", self.opponent);
+    }
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+    self.originalImage = nil;
+    self.cameraImage = nil;
 }
 
-- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
-}
+# pragma mark - photo editing methods
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
@@ -337,31 +379,7 @@
     return newImage;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
-        //[self.volumeButtonHandler stopHandler];
-        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
-            NSLog(@"Game already started: %@", self.createdGame);
-            previewPuzzleViewController.createdGame = self.createdGame;
-            previewPuzzleViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) {
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-        }
-        
-        previewPuzzleViewController.originalImage = self.originalImage;
-        previewPuzzleViewController.previewImage = self.cameraImage; // pass the original image for preview since it doesn't need to be resized
-        previewPuzzleViewController.opponent = self.opponent;
-        NSLog(@"Opponent: %@", self.opponent);
-    }
-}
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 @end

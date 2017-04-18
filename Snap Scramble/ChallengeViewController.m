@@ -60,7 +60,6 @@
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
 
-
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
 
@@ -72,6 +71,27 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     }
+    
+    // challenge button UI
+    _challengeButton = [DesignableButton new];
+    self.challengeButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [self.challengeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.challengeButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
+    self.challengeButton.layer.cornerRadius = 5.0f;
+    [self.challengeButton setTitle:@"Play now" forState:UIControlStateNormal];
+  
+    [self.headerView addSubview:self.challengeButton];
+    [self.challengeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@40);
+        make.width.equalTo(@230);
+        make.centerX.equalTo(self.view);
+        make.top.lessThanOrEqualTo(@115);
+    }];
+    [self.view bringSubviewToFront:self.challengeButton];
+    self.challengeButton.adjustsImageWhenHighlighted = YES;
+    [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.challengeButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown];
+    [self.challengeButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:.3]  forState:UIControlStateHighlighted];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,13 +113,10 @@
         [self performSegueWithIdentifier:@"showSignup" sender:self]; // show sign up screen if user not signed in
     }
     
+    [self setUpLongPressCell];
     [self displayAd]; // display ad, or not if user paid
     [self displayAdsButton]; // display ads button, or not if user paid
-    [self.removeAdsButton setShowsTouchWhenHighlighted:YES];
-    [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    [self.challengeButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown]; // starts an entirely new game if pressed. don't be confused
-    [self setUpLongPressCell];
-    [self.challengeButton setAdjustsImageWhenHighlighted:YES];
+    [self.removeAdsButton setAdjustsImageWhenHighlighted:YES];
 }
 
 
@@ -122,30 +139,9 @@
     [self.view bringSubviewToFront:navbar];
 }
 
-- (void)setUpLongPressCell {
-    // attach long press gesture to collectionView
-    UILongPressGestureRecognizer *lpgr
-    = [[UILongPressGestureRecognizer alloc]
-       initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.delegate = self;
-    lpgr.delaysTouchesBegan = YES;
-    [self.currentGamesTable addGestureRecognizer:lpgr];
-}
-
-
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
-}
-
-- (void)reloadTable:(NSNotification *)notification {
-    [self retrieveUserMatches];
-}
-
-// this starts an entirely new game, don't be confused.
-- (IBAction)selectUserFromOptions:(id)sender {
-    NSLog(@"%u", (self.currentGames.count + self.currentPendingGames.count));
-    [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
 }
 
 - (void)displayAd{
@@ -164,17 +160,52 @@
     }
 }
 
-- (IBAction)playButtonDidPress:(id)sender {
+- (void)updateScoreLabel {
+    self.scoreLabel.adjustsFontSizeToFitWidth = YES;
+    self.scoreLabel.contentScaleFactor = 1.0;
+    [self.viewModel getCurrentUser:^(PFObject *currentUser, NSError *error) {
+        if (error) {
+            NSLog(@"error...");
+        } else {
+            NSNumber *wins = [currentUser objectForKey:@"wins"];
+            NSNumber *losses = [currentUser objectForKey:@"losses"];
+            int winsInt = [wins intValue];
+            int lossesInt = [losses intValue];
+            if (winsInt > 0 && lossesInt > 0) {
+                // NSLog(@"Wins: %@ | Losses: %@", wins, losses);
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: %@", wins, losses];
+            } else if (winsInt > 0 && lossesInt == 0) {
+                // NSLog(@"Wins: %@ | Losses: 0", wins);
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: 0", wins];
+            } else if (lossesInt > 0 && winsInt == 0) {
+                // NSLog(@"Wins: 0 | Losses: %@", losses);
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: %@", losses];
+            } else if (lossesInt == 0 && winsInt == 0) {
+                // NSLog(@"Wins: 0 | Losses: 0");
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];
+            }
+        }
+    }];
+}
+
+# pragma mark - navigation
+
+// this starts an entirely new game, don't be confused.
+- (IBAction)selectUserFromOptions:(id)sender {
+    NSLog(@"%u", (self.currentGames.count + self.currentPendingGames.count));
+    [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
+}
+
+- (void)playButtonDidPress:(id)sender {
    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
     CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
     camVC.opponent = self.opponent;
     camVC.createdGame = self.selectedGame;
-
 }
 
-- (IBAction)animatePlayButton:(id)sender {
-    self.challengeButton.animation = @"squeeze";
-    self.challengeButton.autostart = NO;
+- (void)animatePlayButton:(id)sender {
+    NSLog(@"hi");
+    self.challengeButton.animation = @"pop";
     [self.challengeButton animate];
 }
 
@@ -183,7 +214,6 @@
     SettingsViewController *settingsVC = (SettingsViewController*)self.containerSwipeNavigationController.topViewController;
     [settingsVC performSegueWithIdentifier:@"openRemoveAds" sender:settingsVC];
 }
-
 
 - (void)displayAdsButton {
     NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
@@ -199,11 +229,11 @@
     }
 }
 
+- (void)showSignupScreen {
+    [self performSegueWithIdentifier:@"showSignup" sender:self];
+}
 
-
-
-
-#pragma mark - userMatchesTable code
+#pragma mark - currentGamesTable (UITableView) methods logic
 
 - (void)retrieveUserMatches {
     // retrieve current matches
@@ -254,34 +284,6 @@
     [self updateScoreLabel];
 }
 
-- (void)updateScoreLabel {
-    self.scoreLabel.adjustsFontSizeToFitWidth = YES;
-    self.scoreLabel.contentScaleFactor = 1.0;
-    [self.viewModel getCurrentUser:^(PFObject *currentUser, NSError *error) {
-        if (error) {
-            NSLog(@"error...");
-        } else {
-            NSNumber *wins = [currentUser objectForKey:@"wins"];
-            NSNumber *losses = [currentUser objectForKey:@"losses"];
-            int winsInt = [wins intValue];
-            int lossesInt = [losses intValue];
-            if (winsInt > 0 && lossesInt > 0) {
-                // NSLog(@"Wins: %@ | Losses: %@", wins, losses);
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: %@", wins, losses];
-            } else if (winsInt > 0 && lossesInt == 0) {
-                // NSLog(@"Wins: %@ | Losses: 0", wins);
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: 0", wins];
-            } else if (lossesInt > 0 && winsInt == 0) {
-                // NSLog(@"Wins: 0 | Losses: %@", losses);
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: %@", losses];
-            } else if (lossesInt == 0 && winsInt == 0) {
-                // NSLog(@"Wins: 0 | Losses: 0");
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];
-            }
-        }
-    }];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 2;
@@ -319,6 +321,153 @@
 {
     // Return YES - we will be able to delet rows
     return NO;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"End game";
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SnapScrambleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    if(cell == nil)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    }
+    
+    // styling the cell
+    UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
+    cell.textLabel.font = myFont;
+    cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
+    cell.detailTextLabel.minimumScaleFactor = 0.5;
+    
+    
+    if (indexPath.section == 0) { // current games section
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        PFObject *aCurrentGame = [self.currentGames objectAtIndex:indexPath.row];
+        NSDate *updated = [aCurrentGame updatedAt];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEE, MMM d, h:mm a"];
+        
+        
+        // if current user is the receiver for the round
+        if ([[aCurrentGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
+            NSString *senderName = [aCurrentGame objectForKey:@"senderName"];
+            cell.gameLabel.text = [NSString stringWithFormat:@"Your turn vs. %@", senderName];
+            
+            // check if it is the receiver's (the current user in this case) turn to reply or to play for the round
+            if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
+                //cell.detailTextLabel.text = @"Your turn to reply";
+                cell.timeLabel.text = @"Your turn to reply";
+                cell.statusImage.image = [UIImage imageNamed:@"current-user-opened"];
+                
+            }
+            else if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
+                //cell.detailTextLabel.text = @"Your turn to play";
+                cell.timeLabel.text = [NSString stringWithFormat:@"Received on %@", [dateFormat stringFromDate:updated]];
+                cell.statusImage.image = [UIImage imageNamed:@"current-user-received"];
+            }
+        }
+    }
+    
+    if (indexPath.section == 1) { // pending games section
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        PFObject *aCurrentPendingGame = [self.currentPendingGames objectAtIndex:indexPath.row];
+        NSDate *updated = [aCurrentPendingGame updatedAt];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEE, MMM d, h:mm a"];
+        
+        
+        
+        // if current user is the sender for the round
+        if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) {
+            // delete if game had an error with assigning receiver
+            if ([[aCurrentPendingGame objectForKey:@"receiverName"] isEqualToString:@""]) {
+                NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
+                [self.viewModel deleteGame:aCurrentPendingGame completion:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        NSLog(@"deleted game");
+                        [tempCurrentPendingGames removeObject:aCurrentPendingGame];
+                        self.currentPendingGames = tempCurrentPendingGames;
+                        [tableView reloadData];
+                    }
+                    else {
+                        NSLog(@"game failed to delete.");
+                    }
+                }];
+            }
+            
+            // otherwise proceed
+            else {
+                NSString *opponentName = [aCurrentPendingGame objectForKey:@"receiverName"];
+                cell.gameLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
+                
+                // check if it is the receiver's (not the current user in this case) turn to reply or to play for the round
+                if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
+                    //cell.detailTextLabel.text = @"Opponent's turn to reply";
+                    cell.timeLabel.text = [NSString stringWithFormat:@"Opponent played on %@", [dateFormat stringFromDate:updated]];
+                    cell.statusImage.image = [UIImage imageNamed:@"opponent-opened"];
+                }
+                else if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
+                    //cell.detailTextLabel.text = @"Opponent's turn to play";
+                    cell.timeLabel.text = [NSString stringWithFormat:@"Delivered on %@", [dateFormat stringFromDate:updated]];
+                    cell.statusImage.image = [UIImage imageNamed:@"opponent-received"];
+                    
+                }
+            }
+        }
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    
+    // all of the current user's current games (current user is receiver here)
+    if (indexPath.section == 0) {
+        if (networkStatus == NotReachable) { // if there's no internet
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+        
+        else {
+            self.selectedGame = [self.currentGames objectAtIndex:indexPath.row];
+            
+            // if current user is the receiver for the round (just a safety check if statement)
+            if ([[self.selectedGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
+                self.opponent = [self.selectedGame objectForKey:@"sender"];
+                
+                if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { //  this is the condition if the game already exists but the receiver has yet to send back. he's already played.
+                    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
+                    CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
+                    camVC.opponent = self.opponent;
+                    NSLog(@"%@", camVC.opponent);
+                    camVC.createdGame = self.selectedGame;
+                    // CHANGE. BETTER WRITE.
+                }
+                
+                else if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) { // if receiver (you) didn't play yet
+                    [self performSegueWithIdentifier:@"startPuzzleScreen" sender:self];
+                } //  we are going to have to get rid of this last part for new version.
+            }
+        }
+    }
+    
+    // all of the user's pending games (user is sender here)
+    else if (indexPath.section == 1) {
+        if (networkStatus == NotReachable) {
+            NSLog(@"There IS NO internet connection");
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+        
+        else {
+            self.selectedGame = [self.currentPendingGames objectAtIndex:indexPath.row];
+            // do nothing currently, but in a next version display stats.
+        }
+    }
 }
 
 // deletion functionality
@@ -378,105 +527,16 @@
     
     [self presentViewController:alert animated:YES
                      completion:nil];
-
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"End game";
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SnapScrambleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    if(cell == nil)
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    }
-    
-    // styling the cell
-    UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
-    cell.textLabel.font = myFont;
-    cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
-    cell.detailTextLabel.minimumScaleFactor = 0.5;
-    
-    
-    if (indexPath.section == 0) { // current games section
-        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        PFObject *aCurrentGame = [self.currentGames objectAtIndex:indexPath.row];
-        NSDate *updated = [aCurrentGame updatedAt];
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"EEE, MMM d, h:mm a"];
-
-       
-        // if current user is the receiver for the round
-        if ([[aCurrentGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
-            NSString *senderName = [aCurrentGame objectForKey:@"senderName"];
-            cell.gameLabel.text = [NSString stringWithFormat:@"Your turn vs. %@", senderName];
-            
-            // check if it is the receiver's (the current user in this case) turn to reply or to play for the round
-            if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
-                //cell.detailTextLabel.text = @"Your turn to reply";
-                cell.timeLabel.text = @"Your turn to reply";
-                cell.statusImage.image = [UIImage imageNamed:@"current-user-opened"];
-
-            }
-            else if ([aCurrentGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
-                //cell.detailTextLabel.text = @"Your turn to play";
-                cell.timeLabel.text = [NSString stringWithFormat:@"Received on %@", [dateFormat stringFromDate:updated]];
-                cell.statusImage.image = [UIImage imageNamed:@"current-user-received"];
-            }
-        }
-    }
-    
-    if (indexPath.section == 1) { // pending games section
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        PFObject *aCurrentPendingGame = [self.currentPendingGames objectAtIndex:indexPath.row];
-        NSDate *updated = [aCurrentPendingGame updatedAt];
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"EEE, MMM d, h:mm a"];
-        
-        
-        
-        // if current user is the sender for the round
-        if ([[aCurrentPendingGame objectForKey:@"senderName"]  isEqualToString:[PFUser currentUser].username]) {
-            // delete if game had an error with assigning receiver
-            if ([[aCurrentPendingGame objectForKey:@"receiverName"] isEqualToString:@""]) {
-                NSMutableArray* tempCurrentPendingGames = [NSMutableArray arrayWithArray:self.currentPendingGames];
-                [self.viewModel deleteGame:aCurrentPendingGame completion:^(BOOL succeeded, NSError *error) {
-                    if (!error) {
-                        NSLog(@"deleted game");
-                        [tempCurrentPendingGames removeObject:aCurrentPendingGame];
-                        self.currentPendingGames = tempCurrentPendingGames;
-                        [tableView reloadData];
-                    }
-                    else {
-                        NSLog(@"game failed to delete.");
-                    }
-                }];
-            }
-            
-            // otherwise proceed
-            else {
-                NSString *opponentName = [aCurrentPendingGame objectForKey:@"receiverName"];
-                cell.gameLabel.text = [NSString stringWithFormat:@"%@'s turn vs. You", opponentName];
-                
-                // check if it is the receiver's (not the current user in this case) turn to reply or to play for the round
-                if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) {
-                    //cell.detailTextLabel.text = @"Opponent's turn to reply";
-                    cell.timeLabel.text = [NSString stringWithFormat:@"Opponent played on %@", [dateFormat stringFromDate:updated]];
-                    cell.statusImage.image = [UIImage imageNamed:@"opponent-opened"];
-                }
-                else if ([aCurrentPendingGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) {
-                    //cell.detailTextLabel.text = @"Opponent's turn to play";
-                    cell.timeLabel.text = [NSString stringWithFormat:@"Delivered on %@", [dateFormat stringFromDate:updated]];
-                    cell.statusImage.image = [UIImage imageNamed:@"opponent-received"];
-
-                }
-            }
-        }
-    }
-    
-    return cell;
+- (void)setUpLongPressCell {
+    // attach long press gesture to collectionView
+    UILongPressGestureRecognizer *lpgr
+    = [[UILongPressGestureRecognizer alloc]
+       initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.delegate = self;
+    lpgr.delaysTouchesBegan = YES;
+    [self.currentGamesTable addGestureRecognizer:lpgr];
 }
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
@@ -491,59 +551,16 @@
         if (indexPath == nil){
             NSLog(@"couldn't find index path");
         } else {
-            
             [self deleteGame:indexPath];
         }
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-    
-    // all of the current user's current games (current user is receiver here)
-    if (indexPath.section == 0) {
-        if (networkStatus == NotReachable) { // if there's no internet
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-        
-        else {
-            self.selectedGame = [self.currentGames objectAtIndex:indexPath.row];
-            
-            // if current user is the receiver for the round (just a safety check if statement)
-            if ([[self.selectedGame objectForKey:@"receiverName"]  isEqualToString:[PFUser currentUser].username]) {
-                self.opponent = [self.selectedGame objectForKey:@"sender"];
-                
-                if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { //  this is the condition if the game already exists but the receiver has yet to send back. he's already played.
-                    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
-                    CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
-                    camVC.opponent = self.opponent;
-                    NSLog(@"%@", camVC.opponent);
-                    camVC.createdGame = self.selectedGame;
-                }
-                
-                else if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) { // if receiver (you) didn't play yet
-                    [self performSegueWithIdentifier:@"startPuzzleScreen" sender:self];
-                } //  we are going to have to get rid of this last part for new version.
-            }
-        }
-    }
-    
-    // all of the user's pending games (user is sender here)
-    else if (indexPath.section == 1) {
-        if (networkStatus == NotReachable) {
-            NSLog(@"There IS NO internet connection");
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-        
-        else {
-            self.selectedGame = [self.currentPendingGames objectAtIndex:indexPath.row];
-            // do nothing currently, but in a next version display stats.
-        }
-    }
+- (void)reloadTable:(NSNotification *)notification {
+    [self retrieveUserMatches];
 }
+
+# pragma mark - pass data methods
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"startPuzzleScreen"]) {
@@ -559,13 +576,14 @@
         //CameraViewController *cameraVC = (CameraViewController *)segue.destinationViewController;
         //cameraVC.modalTransitionStyle = UIModalTransitionStylePartialCurl;
         /* CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
-        createPuzzleViewController.opponent = self.opponent;
-        createPuzzleViewController.createdGame = self.selectedGame;
-        NSLog(@"create puzzle screen opening... the current user has yet to start a new round by playing and sending back.");
-        NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame); */
+         createPuzzleViewController.opponent = self.opponent;
+         createPuzzleViewController.createdGame = self.selectedGame;
+         NSLog(@"create puzzle screen opening... the current user has yet to start a new round by playing and sending back.");
+         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame); */
     }
 }
 
+# pragma mark - other methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {
@@ -615,8 +633,5 @@
 }
   
 
-- (void)showSignupScreen {
-    [self performSegueWithIdentifier:@"showSignup" sender:self];
-}
 
 @end

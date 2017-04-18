@@ -232,8 +232,7 @@
     }
 }
 
-
-# pragma mark - timer methods
+# pragma mark - timer methods logic
 
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];

@@ -305,7 +305,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <segue destination="18g-ql-ZGL" kind="show" identifier="openRemoveAds" id="l7H-q6-8Uf"/>
+                                                        <segue destination="18g-ql-ZGL" kind="show" identifier="openRemoveAds" animates="NO" id="l7H-q6-8Uf"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXr-nH-x7N">
@@ -427,7 +427,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7o8-0B-4bw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="-1550"/>
+            <point key="canvasLocation" x="2354" y="-1550"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="cZD-Mc-9ve">
@@ -1123,19 +1123,6 @@
                                             <color key="textColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUl-7C-ipu" customClass="DesignableButton" customModule="Snap_Scramble" customModuleProvider="target">
-                                            <rect key="frame" x="62" y="113" width="260" height="36"/>
-                                            <color key="backgroundColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                                            <state key="normal" title="Play now">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WM4-0H-39d">
                                             <rect key="frame" x="50" y="32" width="275" height="25"/>
                                             <constraints>
@@ -1148,18 +1135,15 @@
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.94605457780000002" green="0.95496565099999997" blue="0.98012119529999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="rVn-JT-Zrv" secondAttribute="bottom" constant="36" id="1SI-3m-WUb"/>
-                                        <constraint firstItem="LUl-7C-ipu" firstAttribute="centerX" secondItem="gvN-BH-yT5" secondAttribute="centerX" constant="4.5" id="3Pf-6P-QSz"/>
-                                        <constraint firstItem="rVn-JT-Zrv" firstAttribute="leading" secondItem="LUl-7C-ipu" secondAttribute="leading" constant="20" id="9py-wJ-X5U"/>
                                         <constraint firstItem="rVn-JT-Zrv" firstAttribute="leading" secondItem="fJ8-7E-OB9" secondAttribute="leading" constant="82" id="FLe-YY-R1i"/>
                                         <constraint firstItem="WM4-0H-39d" firstAttribute="top" secondItem="fJ8-7E-OB9" secondAttribute="top" constant="32" id="Nul-la-xdJ"/>
                                         <constraint firstItem="WM4-0H-39d" firstAttribute="centerX" secondItem="fJ8-7E-OB9" secondAttribute="centerX" id="Wwb-vN-cVr"/>
                                         <constraint firstAttribute="trailing" secondItem="rVn-JT-Zrv" secondAttribute="trailing" constant="75" id="b8P-ud-ZZO"/>
                                         <constraint firstItem="gvN-BH-yT5" firstAttribute="centerX" secondItem="fJ8-7E-OB9" secondAttribute="centerX" id="hRk-5v-PZs"/>
                                         <constraint firstItem="WM4-0H-39d" firstAttribute="leading" secondItem="fJ8-7E-OB9" secondAttribute="leading" constant="50" id="r98-2I-rCF"/>
-                                        <constraint firstItem="rVn-JT-Zrv" firstAttribute="top" secondItem="LUl-7C-ipu" secondAttribute="bottom" constant="18" id="vyB-7e-kMl"/>
-                                        <constraint firstItem="LUl-7C-ipu" firstAttribute="top" secondItem="gvN-BH-yT5" secondAttribute="bottom" constant="18" id="xnz-6I-TYf"/>
                                         <constraint firstItem="gvN-BH-yT5" firstAttribute="top" secondItem="WM4-0H-39d" secondAttribute="bottom" constant="17" id="zp3-02-j2w"/>
                                     </constraints>
                                 </view>
@@ -1230,7 +1214,6 @@
                     <connections>
                         <outlet property="backgroundView" destination="2bE-fY-buq" id="K4H-xf-4aH"/>
                         <outlet property="bannerView" destination="3iH-lZ-mhm" id="eKg-Xj-0MG"/>
-                        <outlet property="challengeButton" destination="LUl-7C-ipu" id="5L6-03-eZb"/>
                         <outlet property="currentGamesTable" destination="tFk-Wy-3c6" id="H9x-RV-kCO"/>
                         <outlet property="headerView" destination="fJ8-7E-OB9" id="eUE-dg-xoZ"/>
                         <outlet property="removeAdsButton" destination="WM4-0H-39d" id="w8p-Af-TJL"/>
@@ -1275,7 +1258,7 @@
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
                                                     <state key="normal" title="Choose from friends list">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleShadowColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1449,7 +1432,7 @@
                                     <barButtonItem key="rightBarButtonItem" title="Add friend" id="wV6-Gw-ua8">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="addFriend:" destination="Uye-VS-GxK" id="9cI-QJ-UvF"/>
+                                            <action selector="addFriendButtonDidPress:" destination="Uye-VS-GxK" id="GvW-h8-5JR"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -2654,6 +2637,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="nIo-2z-vBE"/>
         <segue reference="39a-cZ-Hsb"/>
-        <segue reference="ksc-EQ-FM8"/>
+        <segue reference="EMl-zD-OR4"/>
     </inferredMetricsTieBreakers>
 </document>

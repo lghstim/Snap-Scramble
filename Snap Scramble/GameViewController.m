@@ -43,6 +43,8 @@ NSString * const kSaveImageName2 = @"download-button";
     return self;
 }
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.statsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -122,50 +124,7 @@ NSString * const kSaveImageName2 = @"download-button";
     return YES;
 }
 
-
-# pragma mark - delegate method
-
-// pause the timer and perform the segue - this method is called by this VC's delegate in PuzzleView.m
-- (void)pause {
-    [self.game pause];
-    NSLog(@"game is paused");
-    [self performSegueWithIdentifier:@"pauseMenu" sender:self];
-}
-
-# pragma mark - UI updates
-
-
-
-- (void)saveButtonAction
-{
-    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:0];
-    self.savePhotoTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementSavePhotoTimer) userInfo:nil repeats:YES];
-    [KVNProgress showWithStatus:@"Saving photo to camera roll..."];
-    
-    ALAssetsLibrary *library = [ALAssetsLibrary new];
-    [library writeImageToSavedPhotosAlbum:[self.puzzleImage CGImage]
-                              orientation:(ALAssetOrientation)[self.puzzleImage imageOrientation]
-                          completionBlock:^(NSURL *assetURL, NSError *error){
-                              if (error) {
-                                  NSLog(@"Error saving photo: %@", error.localizedDescription);
-                                  [KVNProgress dismiss];
-                              } else {
-                                  NSLog(@"Saved photo to saved photos album.");
-                              }
-                          }];
-}
-
-- (void)incrementSavePhotoTimer {
-    int value = [self.totalSecondsSavePhotoTimer intValue];
-    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:value + 1];
-    
-    // after one second
-    if ([self.totalSecondsSavePhotoTimer intValue] > 1) {
-        [KVNProgress dismiss];
-        [self.savePhotoTimer invalidate];
-    }
-}
-
+// **** UI update methods **** //
 
 - (void)hideShowStatsButtonUI {
     // update the UI
@@ -215,7 +174,7 @@ NSString * const kSaveImageName2 = @"download-button";
     self.pView.pauseButton.hidden = YES;
 }
 
- // executes if current user is the sender. This code is executed when the user starts sending his own game to someone else.
+// executes if current user is the sender. This code is executed when the user starts sending his own game to someone else.
 - (void)updateToMainMenuButtonUI {
     [self hideShowStatsButtonUI];
     [self hideReplyButtonUI];
@@ -263,8 +222,7 @@ NSString * const kSaveImageName2 = @"download-button";
     self.pView.pauseButton.hidden = YES;
 }
 
-
-#pragma mark - Navigation
+#pragma mark - navigation
 
 - (IBAction)statsButtonDidPress:(id)sender {
     // in the GameOverVC, show stats menu and then change turns
@@ -307,15 +265,50 @@ NSString * const kSaveImageName2 = @"download-button";
     
     [self presentViewController:alert animated:YES
                      completion:nil];
-
 }
-
 
 // when the main menu button is pressed, send push at that point.
 - (IBAction)mainMenuButtonDidPress:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+
+# pragma mark - game methods logic
+
+// pause the timer and perform the segue - this method is called by this VC's delegate in PuzzleView.m
+- (void)pause {
+    [self.game pause];
+    NSLog(@"game is paused");
+    [self performSegueWithIdentifier:@"pauseMenu" sender:self];
+}
+
+- (void)saveButtonAction
+{
+    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:0];
+    self.savePhotoTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementSavePhotoTimer) userInfo:nil repeats:YES];
+    [KVNProgress showWithStatus:@"Saving photo to camera roll..."];
+    
+    ALAssetsLibrary *library = [ALAssetsLibrary new];
+    [library writeImageToSavedPhotosAlbum:[self.puzzleImage CGImage]
+                              orientation:(ALAssetOrientation)[self.puzzleImage imageOrientation]
+                          completionBlock:^(NSURL *assetURL, NSError *error){
+                              if (error) {
+                                  NSLog(@"Error saving photo: %@", error.localizedDescription);
+                                  [KVNProgress dismiss];
+                              } else {
+                                  NSLog(@"Saved photo to saved photos album.");
+                              }
+                          }];
+}
+
+- (void)deallocGameProperties {
+    self.puzzle = nil;
+    self.game = nil;
+    self.pView = nil;
+    self.puzzleImage = nil;
+}
+
+# pragma mark - pass data methods
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -336,7 +329,20 @@ NSString * const kSaveImageName2 = @"download-button";
     }
 }
 
-# pragma mark - color method
+# pragma mark - timer methods
+
+- (void)incrementSavePhotoTimer {
+    int value = [self.totalSecondsSavePhotoTimer intValue];
+    self.totalSecondsSavePhotoTimer = [NSNumber numberWithInt:value + 1];
+    
+    // after one second
+    if ([self.totalSecondsSavePhotoTimer intValue] > 1) {
+        [KVNProgress dismiss];
+        [self.savePhotoTimer invalidate];
+    }
+}
+
+# pragma mark - other methods
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
@@ -371,13 +377,6 @@ NSString * const kSaveImageName2 = @"download-button";
                            green:((float) g / 255.0f)
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
-}
-
-- (void)deallocGameProperties {
-    self.puzzle = nil;
-    self.game = nil;
-    self.pView = nil;
-    self.puzzleImage = nil;
 }
 
 

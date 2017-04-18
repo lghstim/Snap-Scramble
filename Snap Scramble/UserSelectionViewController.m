@@ -32,11 +32,13 @@
     return self;
 }
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.friendsListButton addTarget:self action:@selector(openFriendsList:) forControlEvents:UIControlEventTouchUpInside];
-   [self.randomUserButton addTarget:self action:@selector(findRandomUser:) forControlEvents:UIControlEventTouchUpInside];
+   [self.randomUserButton addTarget:self action:@selector(randomOpponentButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.cancelButton.adjustsImageWhenHighlighted = YES;
 }
@@ -56,56 +58,6 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setHidden:false];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)openFriendsList:(id)sender {
-    [self performSegueWithIdentifier:@"selectFriend" sender:self];
-}
-
-- (IBAction)findRandomUser:(id)sender {
-    self.totalSeconds = [NSNumber numberWithInt:0];
-    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
-    
-    // cloud code call to get a random user from a list of 500 users
-    [KVNProgress showWithStatus:@"Searching for random opponent..."];
-    [PFCloud callFunctionInBackground:@"getRandomOpponent" withParameters:@{} block:^(id opponent, NSError *error) {
-        if (!error) {
-            [NSThread sleepForTimeInterval:2];
-            [KVNProgress dismiss];
-            NSLog(@"No error, the random opponent that was found was: %@", opponent);
-            self.opponent = (PFUser *)opponent[0]; // get the first opponent in the list
-            [self.timeoutTimer invalidate];
-            [self performSegueWithIdentifier:@"createPuzzle" sender:self];
-        }
-    }];
-}
-
-- (void)incrementTime {
-    int value = [self.totalSeconds intValue];
-    self.totalSeconds = [NSNumber numberWithInt:value + 1];
-    NSLog(@"%@", self.totalSeconds);
-    
-    // if too much time passed
-    if ([self.totalSeconds intValue] > 15) {
-        [KVNProgress dismiss];
-        NSLog(@"timeout error. took longer than 15 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Unfortunately an error occurred in finding an opponent. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        [KVNProgress dismiss];
-        [self.timeoutTimer invalidate];
-    }
-
-}
-
-- (IBAction)cancelButtonDidPress:(id)sender {
-    self.scoreView.animation = @"fall";
-    [self.scoreView animate];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)updatetoStartGameUI {
@@ -130,77 +82,39 @@
     self.startGameButton.hidden = NO;
 }
 
-// create a hex color
--(UIColor*)colorWithHexString:(NSString*)hex {
-    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
-    
-    // String should be 6 or 8 characters
-    if ([cString length] < 6) return [UIColor grayColor];
-    
-    // strip 0X if it appears
-    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
-    
-    if ([cString length] != 6) return  [UIColor grayColor];
-    
-    // Separate into r, g, b substrings
-    NSRange range;
-    range.location = 0;
-    range.length = 2;
-    NSString *rString = [cString substringWithRange:range];
-    
-    range.location = 2;
-    NSString *gString = [cString substringWithRange:range];
-    
-    range.location = 4;
-    NSString *bString = [cString substringWithRange:range];
-    
-    // Scan values
-    unsigned int r, g, b;
-    [[NSScanner scannerWithString:rString] scanHexInt:&r];
-    [[NSScanner scannerWithString:gString] scanHexInt:&g];
-    [[NSScanner scannerWithString:bString] scanHexInt:&b];
-    
-    return [UIColor colorWithRed:((float) r / 255.0f)
-                           green:((float) g / 255.0f)
-                            blue:((float) b / 255.0f)
-                           alpha:1.0f];
+# pragma mark - navigation
+
+- (IBAction)openFriendsList:(id)sender {
+    [self performSegueWithIdentifier:@"selectFriend" sender:self];
 }
 
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
- 
-    if ([segue.identifier isEqualToString:@"selectFriend"]) {
-        FriendsTableViewController *friendsTableViewController = (FriendsTableViewController *)segue.destinationViewController;
-        friendsTableViewController.delegate = self;
-    }
-    
-    // only called when the delegate receives the random user. Then we can create the game.
-    else if ([segue.identifier isEqualToString:@"createPuzzle"]) {
-        CreatePuzzleViewController  *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
-        createPuzzleViewController.opponent = self.opponent; // random user that was selected
-    }
-    
-    // only called when the delegate receives the random user. Then we can create the game.
-    else if ([segue.identifier isEqualToString:@"startGame"]) {
-        GameViewController  *gameVC = (GameViewController *)segue.destinationViewController;
-        gameVC.opponent = self.opponent; // random user that was selected
-        gameVC.puzzleImage = self.puzzleImage; // get the drawed on image
-        gameVC.createdGame = self.createdGame;
-    }
+- (IBAction)randomOpponentButtonDidPress:(id)sender {
+    [self findRandomOpponent];
 }
 
-#pragma mark - set view model properties
+- (IBAction)cancelButtonDidPress:(id)sender {
+    self.scoreView.animation = @"fall";
+    [self.scoreView animate];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
-- (void)setViewModelProperties {
-    _viewModel.opponent = self.opponent;
-    _viewModel.createdGame = self.createdGame;
-    _viewModel.puzzleSize = self.puzzleSize;
+# pragma mark - game logic
+
+- (void)findRandomOpponent {
+    self.totalSeconds = [NSNumber numberWithInt:0];
+    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+    
+    // cloud code call to get a random user from a list of 500 users
+    [KVNProgress showWithStatus:@"Searching for random opponent..."];
+    [PFCloud callFunctionInBackground:@"getRandomOpponent" withParameters:@{} block:^(id opponent, NSError *error) {
+        if (!error) {
+            [NSThread sleepForTimeInterval:2];
+            [KVNProgress dismiss];
+            NSLog(@"No error, the random opponent that was found was: %@", opponent);
+            self.opponent = (PFUser *)opponent[0]; // get the first opponent in the list
+            [self.timeoutTimer invalidate];
+        }
+    }];
 }
 
 - (IBAction)sendGame:(id)sender { // after creating game, upload it
@@ -265,9 +179,97 @@
     }
 }
 
+# pragma mark - timer method logic
+
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed
+    if ([self.totalSeconds intValue] > 15) {
+        [KVNProgress dismiss];
+        NSLog(@"timeout error. took longer than 15 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Unfortunately an error occurred in finding an opponent. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [KVNProgress dismiss];
+        [self.timeoutTimer invalidate];
+    }
+}
 
 
+#pragma mark - pass data methods
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+ 
+    if ([segue.identifier isEqualToString:@"selectFriend"]) {
+        FriendsTableViewController *friendsTableViewController = (FriendsTableViewController *)segue.destinationViewController;
+        friendsTableViewController.delegate = self;
+    }
+    
+    // only called when the delegate receives the random user. Then we can create the game.
+    else if ([segue.identifier isEqualToString:@"createPuzzle"]) {
+        CreatePuzzleViewController  *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
+        createPuzzleViewController.opponent = self.opponent; // random user that was selected
+    }
+    
+    // only called when the delegate receives the random user. Then we can create the game.
+    else if ([segue.identifier isEqualToString:@"startGame"]) {
+        GameViewController  *gameVC = (GameViewController *)segue.destinationViewController;
+        gameVC.opponent = self.opponent; // random user that was selected
+        gameVC.puzzleImage = self.puzzleImage; // get the drawed on image
+        gameVC.createdGame = self.createdGame;
+    }
+}
+
+#pragma mark - view model setter method
+
+- (void)setViewModelProperties {
+    _viewModel.opponent = self.opponent;
+    _viewModel.createdGame = self.createdGame;
+    _viewModel.puzzleSize = self.puzzleSize;
+}
+
+# pragma mark - other methods
+
+// create a hex color
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
 
 #pragma mark - delegate methods
 

@@ -12,6 +12,9 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "ChallengeViewController.h"
 #import "CameraViewController.h"
+#import "AppDelegate.h"
+@import SwipeNavigationController;
+
 
 @interface CreatePuzzleViewController ()
 
@@ -19,10 +22,11 @@
 
 @implementation CreatePuzzleViewController
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [self colorWithHexString:@"71C7F0"];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,6 +53,8 @@
     self.opponentLabel.text = [NSString stringWithFormat:@"Opponent: %@", self.opponent.username];
 }
 
+# pragma mark - navigation
+
 - (IBAction)takePhoto:(id)sender {
     // takes the user to the next view controller so he can take the photo (CameraViewController)
     [self performSegueWithIdentifier:@"openCamera" sender:self];
@@ -69,7 +75,7 @@
     [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
-#pragma mark - Image Picker Controller delegate
+#pragma mark - image picker controller delegate logic
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -88,6 +94,77 @@
         }
     }
 }
+
+# pragma mark - pass data methods
+
+- (void)passDataToCameraVC {
+
+    CameraViewController *cameraVC = (CameraViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
+    NSLog(@"cam vc: %@", cameraVC);
+    
+    NSLog(@"Opponent: %@", self.opponent);
+    cameraVC.opponent = self.opponent;
+    cameraVC.createdGame = self.createdGame;
+
+    
+    
+    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
+        NSLog(@"Game already started: %@", self.createdGame);
+        cameraVC.createdGame = self.createdGame;
+        cameraVC.roundObject = self.roundObject;
+    }
+    
+    else if (self.createdGame == nil) { // entirely new game
+        NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+        
+    }
+    
+    NSLog(@"image CPVC: %@", self.originalImage);
+    cameraVC.opponent = self.opponent;
+    cameraVC.originalImage = self.originalImage;
+    cameraVC.createdGame = self.createdGame;
+    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController]; // CameraVC
+    [cameraVC performSegueWithIdentifier:@"previewPuzzleSender" sender:cameraVC];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
+        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
+        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
+            NSLog(@"Game already started: %@", self.createdGame);
+            previewPuzzleViewController.createdGame = self.createdGame;
+            previewPuzzleViewController.roundObject = self.roundObject;
+        }
+        
+        else if (self.createdGame == nil) { // entirely new game
+            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+            
+        }
+        
+        previewPuzzleViewController.opponent = self.opponent;
+        previewPuzzleViewController.originalImage = self.originalImage;
+        NSLog(@"Opponent: %@", self.opponent);
+    }
+    
+    else if ([segue.identifier isEqualToString:@"openCamera"]) {
+        CameraViewController *cameraViewController = (CameraViewController *)segue.destinationViewController;
+        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
+            NSLog(@"Game already started: %@", self.createdGame);
+            cameraViewController.createdGame = self.createdGame;
+            cameraViewController.roundObject = self.roundObject;
+        }
+        
+        else if (self.createdGame == nil) { // entirely new game
+            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+            
+        }
+        
+        NSLog(@"Opponent: %@", self.opponent);
+        cameraViewController.opponent = self.opponent;
+    }
+}
+
+# pragma mark - photo editing methods
 
 // this is for resizing an image that is selected from the photo library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -143,71 +220,7 @@
     return newImage;
 }
 
-- (void)passDataToCameraVC {
-    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController]; // CameraVC
-    CameraViewController *cameraVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
-  
-    
-    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
-        NSLog(@"Game already started: %@", self.createdGame);
-        cameraVC.createdGame = self.createdGame;
-        cameraVC.roundObject = self.roundObject;
-    }
-    
-    else if (self.createdGame == nil) { // entirely new game
-        NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-        
-    }
-    
-    PFQuery* query = [PFUser query];
-    [query whereKey:@"username" equalTo:@"mickey"];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        cameraVC.opponent = self.opponent;
-        cameraVC.originalImage = self.originalImage;
-        cameraVC.createdGame = self.createdGame;
-        NSLog(@"Opponent: %@", self.opponent);
-        [cameraVC performSegueWithIdentifier:@"previewPuzzleSender" sender:cameraVC];
-    }];
-
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
-        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
-            NSLog(@"Game already started: %@", self.createdGame);
-            previewPuzzleViewController.createdGame = self.createdGame;
-            previewPuzzleViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) { // entirely new game
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-            
-        }
-        
-        previewPuzzleViewController.opponent = self.opponent;
-        previewPuzzleViewController.originalImage = self.originalImage;
-        NSLog(@"Opponent: %@", self.opponent);
-    }
-    
-    else if ([segue.identifier isEqualToString:@"openCamera"]) {
-        CameraViewController *cameraViewController = (CameraViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
-            NSLog(@"Game already started: %@", self.createdGame);
-            cameraViewController.createdGame = self.createdGame;
-            cameraViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) { // entirely new game
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-            
-        }
-        
-        NSLog(@"Opponent: %@", self.opponent);
-        cameraViewController.opponent = self.opponent;
-    }
-}
-
+# pragma mark - other methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {
