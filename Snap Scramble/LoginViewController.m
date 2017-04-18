@@ -36,7 +36,7 @@
     return self;
 }
 
-
+# pragma mark - view methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -69,6 +69,7 @@
     return YES;
 }
 
+# pragma mark - keyboard methods logic
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     if (theTextField == self.usernameField) {
         [self.usernameField resignFirstResponder];
@@ -82,11 +83,6 @@
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 -(void)dismissKeyboard {
     if ([self.passwordField isFirstResponder]) {
         [self.passwordField resignFirstResponder];
@@ -97,15 +93,7 @@
     }
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+# pragma mark - navigation
 
 - (IBAction)signupScreenButtonDidPress:(id)sender {
     int index = 0;
@@ -119,8 +107,13 @@
     }
 }
 
-
 - (IBAction)loginButtonDidPress:(id)sender {
+    [self loginUser];
+}
+
+# pragma mark - login methods logic
+
+- (void)loginUser {
     NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     username = [username lowercaseString]; // make all strings lowercase
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -164,6 +157,8 @@
         }];
     }
 }
+
+# pragma mark - timer methods
 
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];

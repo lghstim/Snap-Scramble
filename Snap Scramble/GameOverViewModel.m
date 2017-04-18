@@ -10,6 +10,7 @@
 
 @implementation GameOverViewModel
 
+// function to update game once a round is over
 - (void)updateGame:(void (^)(BOOL succeeded, NSError *error))completion {
     if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him.
         [self.createdGame setObject:[NSNumber numberWithBool:true] forKey:@"receiverPlayed"]; // receiver played, set true
@@ -41,7 +42,6 @@
         
     }
     
-
     if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
         
         [self.createdGame setObject:[NSNumber numberWithBool:false] forKey:@"receiverPlayed"]; // set that the receiver has not played. i did this already in PreviewPuzzleVC, but I'm doing it again here to stop any confusion.
@@ -71,7 +71,6 @@
             }
         }];
     }
-    
 }
 
 - (void)getRoundObject:(void (^)(PFObject *round, NSError *error))completion whereRoundNumberIs:(NSNumber *)roundNumber {
@@ -140,7 +139,6 @@
         }
     }];
 }
-
 
 - (void)sendPushToOpponent {
     [PFCloud callFunctionInBackground:@"sendPushToOpponent" withParameters:@{@"userId": self.opponent.objectId} block:^(PFUser *opponent, NSError *error) {

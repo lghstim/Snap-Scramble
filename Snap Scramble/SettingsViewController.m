@@ -20,6 +20,8 @@
 
 @implementation SettingsViewController
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -45,10 +47,7 @@
     [self.navigationController.navigationBar setHidden:false];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+# pragma mark - navigation methods
 
 - (IBAction)logoutButtonDidPress:(id)sender {
     [KVNProgress showWithStatus:@"Logging out..."]; // UI
@@ -73,6 +72,46 @@
 - (IBAction)goBackButtonDidPress:(id)sender {
      [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
 }
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"chooseToBuyIAP"]) {
+        IAPViewController *viewController = (IAPViewController *)segue.destinationViewController;
+        viewController.IAPlabel.text = @"The full version doesn't have the 10 game limit that the free version has.";
+    }
+}
+
+- (IBAction)shareButtonDidPress:(id)sender {
+    [FIRAnalytics logEventWithName:kFIREventSelectContent
+                        parameters:@{
+                                     kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
+                                     kFIRParameterItemName:@"share-button-pressed",
+                                     kFIRParameterContentType:@"image"
+                                     }];
+    
+    
+    NSString *textToShare = @"Check out the iPhone game Snap Scramble!";
+    NSURL *myWebsite = [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
+    
+    NSArray *objectsToShare = @[textToShare, myWebsite];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    activityVC.excludedActivityTypes = excludeActivities;
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
+# pragma mark - in add purchases methods
 
 - (IBAction)restore{
     //this is called when the user restores purchases, you should hook this up to a button
@@ -110,56 +149,12 @@
     }
 }
 
-
 - (void)displayTransactionRestored {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"We restored your purchase." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alertView show];
 }
 
-
-
-- (IBAction)shareButtonDidPress:(id)sender {
-    [FIRAnalytics logEventWithName:kFIREventSelectContent
-                        parameters:@{
-                                     kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
-                                     kFIRParameterItemName:@"share-button-pressed",
-                                     kFIRParameterContentType:@"image"
-                                     }];
-    
-    
-    NSString *textToShare = @"Check out the iPhone game Snap Scramble!";
-    NSURL *myWebsite = [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
-    
-    NSArray *objectsToShare = @[textToShare, myWebsite];
-    
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-    
-    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
-                                   UIActivityTypePrint,
-                                   UIActivityTypeAssignToContact,
-                                   UIActivityTypeSaveToCameraRoll,
-                                   UIActivityTypeAddToReadingList,
-                                   UIActivityTypePostToFlickr,
-                                   UIActivityTypePostToVimeo];
-    
-    activityVC.excludedActivityTypes = excludeActivities;
-    [self presentViewController:activityVC animated:YES completion:nil];
-}
-
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"chooseToBuyIAP"]) {
-        IAPViewController *viewController = (IAPViewController *)segue.destinationViewController;
-        viewController.IAPlabel.text = @"The full version doesn't have the 10 game limit that the free version has.";
-    }
-}
-
+# pragma mark - helper methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {

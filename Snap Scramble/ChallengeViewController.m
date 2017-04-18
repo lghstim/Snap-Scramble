@@ -21,9 +21,6 @@
 @import Firebase;
 @import SwipeNavigationController;
 
-
-
-
 @interface ChallengeViewController ()
 
 @property(nonatomic, strong) ChallengeViewModel *viewModel;
@@ -43,6 +40,8 @@
     return self;
 }
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -61,15 +60,10 @@
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
 
-    
-
 
     // initialize a view for displaying the empty table screen if a user has no games.
     self.emptyTableScreen = [[UIImageView alloc] init];
-    [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside]; // starts an entirely new game if pressed. don't be confused
-    [self.challengeButton setShowsTouchWhenHighlighted:YES];
-    [self setUpLongPressCell];
-    
+
     // check for internet connection, send a friendly message.
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -78,16 +72,6 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"Your device appears to not have an internet connection. Unfortunately Snap Scramble requires internet to play." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     }
-}
-
-- (void)setUpLongPressCell {
-    // attach long press gesture to collectionView
-    UILongPressGestureRecognizer *lpgr
-    = [[UILongPressGestureRecognizer alloc]
-       initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.delegate = self;
-    lpgr.delaysTouchesBegan = YES;
-    [self.currentGamesTable addGestureRecognizer:lpgr];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -111,7 +95,20 @@
     
     [self displayAd]; // display ad, or not if user paid
     [self displayAdsButton]; // display ads button, or not if user paid
+    [self.removeAdsButton setShowsTouchWhenHighlighted:YES];
+    [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.challengeButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown]; // starts an entirely new game if pressed. don't be confused
+    [self setUpLongPressCell];
+    [self.challengeButton setAdjustsImageWhenHighlighted:YES];
+}
 
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.currentGamesTable reloadData];
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        [self retrieveUserMatches];
+    }
 }
 
 - (void)setNavigationBar {
@@ -125,13 +122,16 @@
     [self.view bringSubviewToFront:navbar];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [self.currentGamesTable reloadData];
-    PFUser *currentUser = [PFUser currentUser];
-    if (currentUser) {
-        [self retrieveUserMatches];
-    }
+- (void)setUpLongPressCell {
+    // attach long press gesture to collectionView
+    UILongPressGestureRecognizer *lpgr
+    = [[UILongPressGestureRecognizer alloc]
+       initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.delegate = self;
+    lpgr.delaysTouchesBegan = YES;
+    [self.currentGamesTable addGestureRecognizer:lpgr];
 }
+
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -169,6 +169,13 @@
     CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
     camVC.opponent = self.opponent;
     camVC.createdGame = self.selectedGame;
+
+}
+
+- (IBAction)animatePlayButton:(id)sender {
+    self.challengeButton.animation = @"squeeze";
+    self.challengeButton.autostart = NO;
+    [self.challengeButton animate];
 }
 
 - (IBAction)goToIAPVC:(id)sender {
@@ -187,7 +194,6 @@
         self.removeAdsButton.titleLabel.adjustsFontSizeToFitWidth = YES;
         self.removeAdsButton.contentScaleFactor = 0.5;
         [self.removeAdsButton addTarget:self action:@selector(goToIAPVC:) forControlEvents:UIControlEventTouchUpInside];
-        [self.removeAdsButton setShowsTouchWhenHighlighted:YES];
     } else {
         self.removeAdsButton.hidden = TRUE;
     }

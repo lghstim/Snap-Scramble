@@ -32,7 +32,6 @@
 
 @property (strong,nonatomic) TargetView* targetView;
 
-
 // protocol
 @property (weak,nonatomic) id<PieceDragDelegateProtocol> dragDelegate;
 
