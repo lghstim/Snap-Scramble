@@ -11,6 +11,8 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "IAPViewController.h"
 #import "Snap_Scramble-Swift.h"
+#import "LoginViewController.h"
+#import "ChallengeViewController.h"
 @import Firebase;
 @import SwipeNavigationController;
 
@@ -27,7 +29,6 @@
     // Do any additional setup after loading the view.
     self.view.clipsToBounds = TRUE;
     [self.logoutButton addTarget:self action:@selector(logoutButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    [self.goBackButton addTarget:self action:@selector(goBackButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.goBackButton.adjustsImageWhenHighlighted = YES;
     self.view.backgroundColor = [self colorWithHexString:@"71C7F0"];
 }
@@ -62,25 +63,22 @@
             } else {
                 [NSThread sleepForTimeInterval:2];
                 [KVNProgress dismiss];
+                [self showLoginVC];
                 [PFUser logOut]; // log out current user
-                [self.navigationController popToRootViewControllerAnimated:NO];
+            
             }
         }];
     }
 }
 
-- (IBAction)goBackButtonDidPress:(id)sender {
+- (IBAction)goBackButtonDidPress {
      [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"chooseToBuyIAP"]) {
-        IAPViewController *viewController = (IAPViewController *)segue.destinationViewController;
-        viewController.IAPlabel.text = @"The full version doesn't have the 10 game limit that the free version has.";
-    }
+- (void)showLoginVC {
+    [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
+    ChallengeViewController *challengeVC = (ChallengeViewController*)self.containerSwipeNavigationController.leftViewController;
+    [challengeVC performSegueWithIdentifier:@"showSignup" sender:challengeVC];
 }
 
 - (IBAction)shareButtonDidPress:(id)sender {

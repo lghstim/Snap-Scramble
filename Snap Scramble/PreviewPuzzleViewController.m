@@ -532,6 +532,8 @@ NSString * const kSaveImageName = @"download-button";
 
 // JotViewControllerDelegate
 
+
+
 - (void)jotViewController:(JotViewController *)jotViewController isEditingText:(BOOL)isEditing
 {
     if (isEditing == TRUE) {
@@ -574,20 +576,20 @@ NSString * const kSaveImageName = @"download-button";
 
 # pragma mark - image methods
 
--(UIImage*)prepareImageForGame:(UIImage*)tempOriginalImage {
-    UIImage *image = [UIImage new];
-    // for photos from library you need to resize resize the photo
-    if (tempOriginalImage.size.height > tempOriginalImage.size.width) { // portrait; resizing photo so it fits the entire device screen
-        image = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+-(UIImage*)prepareImageForGame:(UIImage*)image {
+    if (image.size.height > image.size.width) { // portrait
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 60)]; // portrait; resizing photo so it fits the entire device screen
     }
-
-    else if (tempOriginalImage.size.width > tempOriginalImage.size.height) { // landscape
-        image = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+    
+    else if (image.size.width > image.size.height) { // landscape
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 60)];
     }
-
-    else if (tempOriginalImage.size.width == tempOriginalImage.size.height) { // square
-        image = [self imageWithImage:tempOriginalImage scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+    
+    else if (image.size.width == image.size.height) { // square
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 60)];
     }
+    
+    NSLog(@"image after resizing: %@", image);
     return image;
 }
 

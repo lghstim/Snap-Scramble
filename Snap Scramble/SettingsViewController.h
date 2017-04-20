@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSNumber* totalSeconds;
 
 - (IBAction)shareButtonDidPress:(id)sender;
-
+- (void)goBackButtonDidPress;
 
 @end
 

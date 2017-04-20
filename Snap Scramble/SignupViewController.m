@@ -153,7 +153,7 @@
             [self performSegueWithIdentifier:@"createUsername" sender:self];
         } else { // user isn't new, take him to root vc
             NSLog(@"User logged in through Facebook!");
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:NO];
         }
     }];
 }

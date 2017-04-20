@@ -272,6 +272,7 @@
 
 # pragma mark - image editing methods
 
+
 -(UIImage*)prepareImageForGame:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
         image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)]; // portrait; resizing photo so it fits the entire device screen
@@ -396,7 +397,14 @@
     
     // delegate allows us to transfer user's data back to ChallengeViewController for creating puzzle game, which then sends data to CreatePuzzleVC
     [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.scoreView.animation = @"fall";
+    [self.scoreView animate];
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:YES];
+        }
+    }
 }
 
 

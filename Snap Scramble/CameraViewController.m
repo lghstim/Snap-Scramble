@@ -199,14 +199,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"CamVC opp: %@", self.opponent);
-    
-    // PASS DATA METHOD
-    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).bottomVC;
-
-    createPuzzleVC.opponent = self.opponent;
-    createPuzzleVC.createdGame = self.createdGame;
-
+    // change?
+    [self passDataToCreatePuzzleVC];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -255,6 +249,10 @@
     [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
+- (void)showPreviewPuzzleVC {
+    [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
+}
+
 # pragma mark - camera methods logic
 
 /* camera button methods */
@@ -297,7 +295,7 @@
         if(!error) {
             self.originalImage = image;
             self.cameraImage = image;
-            [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
+            [self showPreviewPuzzleVC];
         }
         else {
             NSLog(@"An error has occured: %@", error);
@@ -307,6 +305,7 @@
 
 # pragma mark - pass data methods
 
+// pass data to PreviewPuzzleVC
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
         //[self.volumeButtonHandler stopHandler];
@@ -327,6 +326,12 @@
         previewPuzzleViewController.opponent = self.opponent;
         NSLog(@"Opponent: %@", self.opponent);
     }
+}
+
+- (void)passDataToCreatePuzzleVC {
+    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).bottomVC;
+    createPuzzleVC.opponent = self.opponent;
+    createPuzzleVC.createdGame = self.createdGame;
 }
 
 - (void)dealloc {

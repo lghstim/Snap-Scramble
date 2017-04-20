@@ -87,11 +87,46 @@
         make.centerX.equalTo(self.view);
         make.top.lessThanOrEqualTo(@115);
     }];
+    
     [self.view bringSubviewToFront:self.challengeButton];
     self.challengeButton.adjustsImageWhenHighlighted = YES;
     [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.challengeButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown];
     [self.challengeButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:.3]  forState:UIControlStateHighlighted];
+    
+
+    PFUser *currentUser = [PFUser currentUser];
+    NSLog(@"current user %@", currentUser);
+    if (currentUser) {
+        NSLog(@"Current user: %@", currentUser.username);
+        [self.currentGamesTable reloadData]; // reload the table view
+        [self retrieveUserMatches]; // retrieve all games, both pending and current
+        NSString* usernameText = @"Username: ";
+        usernameText = [usernameText stringByAppendingString:currentUser.username];
+        [self.usernameLabel setText:usernameText];
+        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"];
+        [[PFInstallation currentInstallation] saveInBackground];
+    }
+    
+    else {
+        [self showSignupScreen]; // show sign up screen if user not signed in
+    }
+    
+    // bottom buttons UI
+    /* UIButton *leftVCButton = [UIButton new];
+    leftVCButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
+    [leftVCButton setImage:[UIImage imageNamed:@"view-challenges"] forState:UIControlStateNormal];
+    [leftVCButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
+    leftVCButton.layer.cornerRadius = 5.0f;
+    [leftVCButton setTitle:@"Play now" forState:UIControlStateNormal];
+    
+    [self.view addSubview:leftVCButton];
+    [leftVCButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@29);
+        make.width.equalTo(@31);
+        make.leftMargin.equalTo(@97);
+        make.bottomMargin.equalTo(@-22);
+    }]; */
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -110,7 +145,7 @@
     }
     
     else {
-        [self performSegueWithIdentifier:@"showSignup" sender:self]; // show sign up screen if user not signed in
+        [self showSignupScreen]; // show sign up screen if user not signed in
     }
     
     [self setUpLongPressCell];
@@ -126,6 +161,7 @@
     if (currentUser) {
         [self retrieveUserMatches];
     }
+    
 }
 
 - (void)setNavigationBar {
@@ -190,17 +226,9 @@
 
 # pragma mark - navigation
 
-// this starts an entirely new game, don't be confused.
-- (IBAction)selectUserFromOptions:(id)sender {
-    NSLog(@"%u", (self.currentGames.count + self.currentPendingGames.count));
-    [self performSegueWithIdentifier:@"selectUserOptionsScreen" sender:self];
-}
-
 - (void)playButtonDidPress:(id)sender {
    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
-    CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
-    camVC.opponent = self.opponent;
-    camVC.createdGame = self.selectedGame;
+    [self passNewGameDataToCameraVC];
 }
 
 - (void)animatePlayButton:(id)sender {
@@ -213,6 +241,15 @@
     [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
     SettingsViewController *settingsVC = (SettingsViewController*)self.containerSwipeNavigationController.topViewController;
     [settingsVC performSegueWithIdentifier:@"openRemoveAds" sender:settingsVC];
+}
+
+- (void)goToCameraVC {
+    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
+    [self passSelectedGameDataToCameraVC];
+}
+
+- (void)goToStartPuzzleVC {
+    [self performSegueWithIdentifier:@"startPuzzleScreen" sender:self];
 }
 
 - (void)displayAdsButton {
@@ -440,16 +477,11 @@
                 self.opponent = [self.selectedGame objectForKey:@"sender"];
                 
                 if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { //  this is the condition if the game already exists but the receiver has yet to send back. he's already played.
-                    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
-                    CameraViewController *camVC = (CameraViewController*)self.containerSwipeNavigationController.centerViewController;
-                    camVC.opponent = self.opponent;
-                    NSLog(@"%@", camVC.opponent);
-                    camVC.createdGame = self.selectedGame;
-                    // CHANGE. BETTER WRITE.
+                    [self goToCameraVC];
                 }
                 
                 else if ([self.selectedGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:false]) { // if receiver (you) didn't play yet
-                    [self performSegueWithIdentifier:@"startPuzzleScreen" sender:self];
+                    [self goToStartPuzzleVC];
                 } //  we are going to have to get rid of this last part for new version.
             }
         }
@@ -562,6 +594,7 @@
 
 # pragma mark - pass data methods
 
+// pass data to StartPuzzleVC
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"startPuzzleScreen"]) {
         StartPuzzleViewController *startPuzzleViewController = (StartPuzzleViewController *)segue.destinationViewController;
@@ -571,16 +604,25 @@
         NSLog(@"Start puzzle screen opening...");
         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame);
     }
-    
-    else if ([segue.identifier isEqualToString:@"showCamera"]) {
-        //CameraViewController *cameraVC = (CameraViewController *)segue.destinationViewController;
-        //cameraVC.modalTransitionStyle = UIModalTransitionStylePartialCurl;
-        /* CreatePuzzleViewController *createPuzzleViewController = (CreatePuzzleViewController *)segue.destinationViewController;
-         createPuzzleViewController.opponent = self.opponent;
-         createPuzzleViewController.createdGame = self.selectedGame;
-         NSLog(@"create puzzle screen opening... the current user has yet to start a new round by playing and sending back.");
-         NSLog(@"opponent: %@   current user selected this game: %@", self.opponent, self.selectedGame); */
-    }
+}
+
+- (void)passSelectedGameDataToCameraVC {
+    CameraViewController *cameraVC = ((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
+    cameraVC.opponent = self.opponent;
+    NSLog(@"%@", cameraVC.opponent);
+    cameraVC.createdGame = self.selectedGame;
+}
+
+- (void)passNewGameDataToCameraVC {
+    CameraViewController *cameraVC = ((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
+    cameraVC.opponent = nil;
+    cameraVC.createdGame = nil;
+}
+
+
+- (void)dealloc {
+    self.opponent = nil;
+    self.selectedGame = nil;
 }
 
 # pragma mark - other methods

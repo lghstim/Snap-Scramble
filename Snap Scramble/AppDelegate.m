@@ -90,7 +90,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 
 - (void)setupNormalRootViewController {
-
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeUI" bundle:nil];
     ChallengeViewController *leftVC = [board instantiateViewControllerWithIdentifier:@"left"];
     CameraViewController *middleVC = [board instantiateViewControllerWithIdentifier:@"middle"];
@@ -106,6 +105,10 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     UINavigationController *navVC = [board instantiateViewControllerWithIdentifier:@"root"];
     self.window.rootViewController = navVC;
     [navVC addChildViewController:swipeVC];
+    
+   
+    
+    self.swipeVC = swipeVC;
     [navVC setNavigationBarHidden:YES];
     [self.window makeKeyAndVisible];
 }

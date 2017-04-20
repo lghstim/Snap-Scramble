@@ -113,6 +113,7 @@
             NSLog(@"No error, the random opponent that was found was: %@", opponent);
             self.opponent = (PFUser *)opponent[0]; // get the first opponent in the list
             [self.timeoutTimer invalidate];
+            [self updatetoStartGameUI];
         }
     }];
 }

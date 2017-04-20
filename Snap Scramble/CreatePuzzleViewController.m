@@ -33,6 +33,9 @@
     [super viewWillAppear:animated];
     self.view.clipsToBounds = TRUE;
     self.imagePicker = [[UIImagePickerController alloc] init];
+    self.imagePicker.navigationBar.tintColor = [self colorWithHexString:@"FFFFFF"];
+    self.imagePicker.navigationBar.backgroundColor = [self colorWithHexString:@"71C7F0"];
+    self.imagePicker.navigationBar.barTintColor = [self colorWithHexString:@"71C7F0"];
     self.imagePicker.delegate = self;
     self.imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
     
@@ -98,7 +101,6 @@
 # pragma mark - pass data methods
 
 - (void)passDataToCameraVC {
-
     CameraViewController *cameraVC = (CameraViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
     NSLog(@"cam vc: %@", cameraVC);
     
@@ -106,21 +108,17 @@
     cameraVC.opponent = self.opponent;
     cameraVC.createdGame = self.createdGame;
 
-    
-    
     if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
         NSLog(@"Game already started: %@", self.createdGame);
-        cameraVC.createdGame = self.createdGame;
         cameraVC.roundObject = self.roundObject;
+        cameraVC.opponent = self.opponent;
     }
     
     else if (self.createdGame == nil) { // entirely new game
         NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-        
     }
     
     NSLog(@"image CPVC: %@", self.originalImage);
-    cameraVC.opponent = self.opponent;
     cameraVC.originalImage = self.originalImage;
     cameraVC.createdGame = self.createdGame;
     [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController]; // CameraVC
@@ -128,40 +126,12 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
-        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
-            NSLog(@"Game already started: %@", self.createdGame);
-            previewPuzzleViewController.createdGame = self.createdGame;
-            previewPuzzleViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) { // entirely new game
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-            
-        }
-        
-        previewPuzzleViewController.opponent = self.opponent;
-        previewPuzzleViewController.originalImage = self.originalImage;
-        NSLog(@"Opponent: %@", self.opponent);
-    }
-    
-    else if ([segue.identifier isEqualToString:@"openCamera"]) {
-        CameraViewController *cameraViewController = (CameraViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
-            NSLog(@"Game already started: %@", self.createdGame);
-            cameraViewController.createdGame = self.createdGame;
-            cameraViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) { // entirely new game
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-            
-        }
-        
-        NSLog(@"Opponent: %@", self.opponent);
-        cameraViewController.opponent = self.opponent;
-    }
+}
+
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
 }
 
 # pragma mark - photo editing methods

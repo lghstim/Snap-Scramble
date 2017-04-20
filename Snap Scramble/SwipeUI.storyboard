@@ -287,6 +287,9 @@
                                                         <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="goBackButtonDidPress" destination="Oet-Fu-08l" eventType="touchUpInside" id="hKW-Da-3Ww"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ik8-CK-bYb">
                                                     <rect key="frame" x="25" y="48" width="250" height="44"/>
@@ -418,7 +421,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="goBackButton" destination="RE3-MF-qHE" id="dqH-DG-v0G"/>
+                        <outlet property="goBackButton" destination="RE3-MF-qHE" id="Snw-bn-lsL"/>
                         <outlet property="logoutButton" destination="dtk-go-fJ2" id="BQA-rm-KeE"/>
                         <outlet property="settingsView" destination="eM3-Sl-Yes" id="0dq-YM-gh8"/>
                         <outlet property="shareButton" destination="V0I-TT-26v" id="2od-kF-2dS"/>
@@ -432,7 +435,7 @@
         <!--Signup View Controller-->
         <scene sceneID="cZD-Mc-9ve">
             <objects>
-                <viewController id="AJT-K3-k6D" customClass="SignupViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AJT-K3-k6D" customClass="SignupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="95o-nZ-gpW"/>
                         <viewControllerLayoutGuide type="bottom" id="GkL-lT-vSC"/>
@@ -507,7 +510,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <segue destination="eQe-wk-p5b" kind="show" identifier="showSignup" id="YVo-79-QRw"/>
+                                            <segue destination="eQe-wk-p5b" kind="show" identifier="showSignup" animates="NO" id="YVo-79-QRw"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0md-lD-kVv">
@@ -520,7 +523,7 @@
                                             <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="lSU-RU-Feu" kind="show" identifier="showLogin" id="cSC-KM-09h"/>
+                                            <segue destination="lSU-RU-Feu" kind="show" identifier="showLogin" animates="NO" id="cSC-KM-09h"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -679,7 +682,7 @@
         <!--Signup View Controller-->
         <scene sceneID="Emu-Gm-WIE">
             <objects>
-                <viewController storyboardIdentifier="signup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eQe-wk-p5b" customClass="SignupViewController" sceneMemberID="viewController">
+                <viewController id="eQe-wk-p5b" customClass="SignupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Amf-mp-Jky"/>
                         <viewControllerLayoutGuide type="bottom" id="chc-le-jnv"/>
@@ -800,7 +803,7 @@
                                             <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="lSU-RU-Feu" kind="show" identifier="showLogin" id="nIo-2z-vBE"/>
+                                            <segue destination="lSU-RU-Feu" kind="show" identifier="showLogin" animates="NO" id="nIo-2z-vBE"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1219,7 +1222,7 @@
                         <outlet property="removeAdsButton" destination="WM4-0H-39d" id="w8p-Af-TJL"/>
                         <outlet property="scoreLabel" destination="rVn-JT-Zrv" id="FUL-YU-50s"/>
                         <outlet property="usernameLabel" destination="gvN-BH-yT5" id="HJ1-2k-xCX"/>
-                        <segue destination="AJT-K3-k6D" kind="show" identifier="showSignup" id="Vpe-Rk-o6q"/>
+                        <segue destination="AJT-K3-k6D" kind="show" identifier="showSignup" animates="NO" id="Vpe-Rk-o6q"/>
                         <segue destination="1CK-Op-Bxb" kind="show" identifier="startPuzzleScreen" id="iQb-b4-hDA"/>
                         <segue destination="gMg-ry-Hll" kind="show" id="WaK-iT-IHg"/>
                     </connections>
@@ -2635,7 +2638,7 @@
         <image name="resume-button" width="236" height="80"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nIo-2z-vBE"/>
+        <segue reference="cSC-KM-09h"/>
         <segue reference="39a-cZ-Hsb"/>
         <segue reference="EMl-zD-OR4"/>
     </inferredMetricsTieBreakers>

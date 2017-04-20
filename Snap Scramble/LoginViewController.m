@@ -13,6 +13,8 @@
 #import "SignupViewController.h"
 #import "Snap_Scramble-Swift.h"
 #import <SwipeNavigationController/SwipeNavigationController.h>
+#import "AppDelegate.h"
+#import "SettingsViewController.h"
 @import SwipeNavigationController;
 
 
@@ -118,12 +120,7 @@
             }
             else {
                 [self.timeoutTimer invalidate];
-                for (UIViewController* viewController in self.navigationController.viewControllers) {
-                    if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
-                        SwipeNavigationController *VC = viewController;
-                        [self.navigationController popToViewController:VC animated:NO];
-                    }
-                }
+                [self goToChallengeVC];
                 NSLog(@"User %@ logged in.", user);
                 [KVNProgress dismiss];
                 self.loginView.animation = @"fall";
@@ -132,6 +129,11 @@
             }
         }];
     }
+}
+
+- (void)goToChallengeVC {
+    SwipeNavigationController *swipeVC = [[self.navigationController childViewControllers] objectAtIndex:1];
+    [self.navigationController popToViewController:swipeVC animated:NO];
 }
 
 # pragma mark - timer methods logic
@@ -149,7 +151,6 @@
         [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
     }
-    
 }
 
 # pragma mark - keyboard methods logic

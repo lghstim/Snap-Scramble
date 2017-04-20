@@ -30,7 +30,6 @@
 @property (nonatomic, strong) PFObject* roundObject;
 
 
-- (void)uploadGame;
 - (UIImage *)resizeImage:(UIImage *)image withMaxDimension:(CGFloat)maxDimension;
 
 

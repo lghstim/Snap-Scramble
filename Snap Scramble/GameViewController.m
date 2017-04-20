@@ -14,6 +14,7 @@
 #import "PuzzleView.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <KVNProgress/KVNProgress.h>
+#import "CameraViewController.h"
 
 
 
@@ -230,9 +231,15 @@ NSString * const kSaveImageName2 = @"download-button";
 }
 
 - (IBAction)replyLaterButtonDidPress:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
+        }
+    }
 }
-
 
 - (IBAction)replyButtonDidPress:(id)sender {
     // delegate allows us to transfer user's data back to StartPuzzleVC for creating puzzle game
