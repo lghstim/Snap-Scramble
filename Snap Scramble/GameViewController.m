@@ -160,9 +160,6 @@ NSString * const kSaveImageName2 = @"download-button";
     [self hideShowStatsButtonUI];
     [self hideMainMenuUI];
     NSLog(@"executing here to show the reply / reply later button UI");
-    self.replyButton.showsTouchWhenHighlighted = YES;
-    self.replyLaterButton.showsTouchWhenHighlighted = YES;
-    self.deleteButton.showsTouchWhenHighlighted = YES;
     self.replyButton.hidden = NO;
     self.replyLaterButton.hidden = NO;
     self.replyLaterButton.userInteractionEnabled = YES;
@@ -180,7 +177,6 @@ NSString * const kSaveImageName2 = @"download-button";
     [self hideShowStatsButtonUI];
     [self hideReplyButtonUI];
     NSLog(@"executing here to show the main menu button UI");
-    self.mainMenuButton.showsTouchWhenHighlighted = YES;
     self.mainMenuButton.hidden = NO;
     self.mainMenuButton.userInteractionEnabled = YES;
     self.mainMenuButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Next-Medium" size:17];
@@ -202,7 +198,6 @@ NSString * const kSaveImageName2 = @"download-button";
 - (void)updateToShowStatsButtonUI {
     // update the UI
     NSLog(@"executing here to show the stats button UI");
-    self.statsButton.showsTouchWhenHighlighted = YES;
     self.statsButton.hidden = NO;
     self.statsButton.userInteractionEnabled = YES;
     self.statsButton.titleLabel.font = [UIFont fontWithName:@"Avenir-Next-Medium" size:17];

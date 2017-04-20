@@ -89,7 +89,6 @@
     }];
     
     [self.view bringSubviewToFront:self.challengeButton];
-    self.challengeButton.adjustsImageWhenHighlighted = YES;
     [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.challengeButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown];
     [self.challengeButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:.3]  forState:UIControlStateHighlighted];
@@ -151,7 +150,6 @@
     [self setUpLongPressCell];
     [self displayAd]; // display ad, or not if user paid
     [self displayAdsButton]; // display ads button, or not if user paid
-    [self.removeAdsButton setAdjustsImageWhenHighlighted:YES];
 }
 
 

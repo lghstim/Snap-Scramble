@@ -20,6 +20,7 @@
         // timer creation and start
         self.timerLabel = [UILabel new];
         self.timerLabel.frame = CGRectMake(self.frame.size.width / 2 - 10, 1, 160.0, 40.0);
+        self.timerLabel.textColor = [self colorWithHexString:@"71C7F0"];
         [self addSubview:self.timerLabel];
         
         // create the actual puzzle that the user interacts with

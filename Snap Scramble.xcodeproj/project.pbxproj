@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6A112AAD1B5DFB0D0035A75C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AAC1B5DFB0D0035A75C /* main.m */; };
 		6A112AB01B5DFB0D0035A75C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */; };
-		6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A112AB41B5DFB0D0035A75C /* Main.storyboard */; };
 		6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */; };
 		6A112AC71B5DFB0D0035A75C /* Snap_ScrambleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AC61B5DFB0D0035A75C /* Snap_ScrambleTests.m */; };
 		6A112AD81B5E02450035A75C /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112AD71B5E02450035A75C /* SignupViewController.m */; };
@@ -137,7 +136,6 @@
 		6A112AAC1B5DFB0D0035A75C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6A112AAE1B5DFB0D0035A75C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6A112AB51B5DFB0D0035A75C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A112ABA1B5DFB0D0035A75C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6A112AC01B5DFB0D0035A75C /* Snap ScrambleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snap ScrambleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A112AC51B5DFB0D0035A75C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -526,7 +524,6 @@
 				6AD28CB91B5E071D00BCD802 /* PieceView.m */,
 				6A4AC5031D2E2E2200FA7797 /* PuzzleView.h */,
 				6A4AC5041D2E2E2200FA7797 /* PuzzleView.m */,
-				6A112AB41B5DFB0D0035A75C /* Main.storyboard */,
 				6A7CA5121E995BEC00A6A422 /* SwipeUI.storyboard */,
 				6AEEF5E71E9880140092010D /* SnapScrambleCell.xib */,
 				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
@@ -683,7 +680,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A4B652D1EA3474200B95420 /* Spring.podspec in Resources */,
-				6A112AB61B5DFB0D0035A75C /* Main.storyboard in Resources */,
 				6A7CA5131E995BEC00A6A422 /* SwipeUI.storyboard in Resources */,
 				6A6B7B821E8DE5F2009C0CD2 /* LICENSE.txt in Resources */,
 				6A6B7B7F1E8DE5F2009C0CD2 /* .gitignore in Resources */,
@@ -866,14 +862,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6A112AB41B5DFB0D0035A75C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6A112AB51B5DFB0D0035A75C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

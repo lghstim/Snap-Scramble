@@ -71,8 +71,6 @@ NSString * const kSaveImageName = @"download-button";
     self.backButton.titleLabel.minimumScaleFactor = 0.5;
     self.selectPuzzleSizeButton.titleLabel.adjustsFontSizeToFitWidth = YES;
    self.selectPuzzleSizeButton.titleLabel.minimumScaleFactor = 0.5;
-    self.sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.sendButton.titleLabel.minimumScaleFactor = 0.5;
 
     self.currentUser = [PFUser currentUser];
     
@@ -160,17 +158,13 @@ NSString * const kSaveImageName = @"download-button";
         }];
 
         
-        [self.view bringSubviewToFront:self.sendButton];
         [self.view bringSubviewToFront:self.backButton];
         [self.view bringSubviewToFront:self.selectPuzzleSizeButton];
         [self.view bringSubviewToFront:self.clearButton];
         [self.view bringSubviewToFront:self.toggledDrawingButton];
         [self.view bringSubviewToFront:self.saveButton];
-        [self.sendButton addTarget:self action:@selector(sendGame:) forControlEvents:UIControlEventTouchUpInside];
         [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
         [self.selectPuzzleSizeButton addTarget:self action:@selector(selectPuzzleSizeButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-        self.selectPuzzleSizeButton.adjustsImageWhenHighlighted = YES;
-        self.sendButton.adjustsImageWhenHighlighted = YES;
         self.backButton.adjustsImageWhenHighlighted = YES;
     }
     
@@ -358,7 +352,6 @@ NSString * const kSaveImageName = @"download-button";
             fileData = UIImageJPEGRepresentation(tempEditedImage, 0.4); // compress original image
             fileName = @"image.jpg";
             fileType = @"image";
-            self.sendButton.userInteractionEnabled = NO;
             NSLog(@"image before upload: %@", tempEditedImage);
             // Adds a status below the circle
             [KVNProgress showWithStatus:@"Starting game... Get ready to solve the puzzle as fast as possible."];
@@ -384,7 +377,6 @@ NSString * const kSaveImageName = @"download-button";
                         else {
                             [self.timeoutTimer invalidate];
                             NSLog(@"this was the uploaded game cloud object: %@", self.createdGame);
-                            self.sendButton.userInteractionEnabled = YES;
                             [NSThread sleepForTimeInterval:2];
                             [KVNProgress dismiss];
                             [self performSegueWithIdentifier:@"startGame" sender:self];
@@ -420,7 +412,6 @@ NSString * const kSaveImageName = @"download-button";
         [alertView show];
         [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
-        self.sendButton.userInteractionEnabled = YES;
     }
 }
 

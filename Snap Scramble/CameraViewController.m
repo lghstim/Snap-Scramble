@@ -182,7 +182,15 @@
 
     // start the camera
     [self.camera start];
-
+    
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        NSLog(@"Current user: %@", currentUser.username);
+    }
+    
+    else {
+        [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

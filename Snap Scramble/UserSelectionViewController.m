@@ -75,6 +75,7 @@
         make.centerX.equalTo(self.view);
         make.centerY.equalTo(self.view);
     }];
+    self.startGameButton.showsTouchWhenHighlighted = NO;
     [self.startGameButton addTarget:self action:@selector(sendGame:) forControlEvents:UIControlEventTouchUpInside];
     [self.view bringSubviewToFront:self.startGameButton];
     self.friendsListButton.hidden = YES;
