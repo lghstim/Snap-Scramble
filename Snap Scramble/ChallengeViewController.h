@@ -30,10 +30,12 @@
 @property(strong, nonatomic) NSMutableArray *images;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
-@property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
+@property (nonatomic, strong)  DesignableLabel *usernameLabel;
 @property (strong, nonatomic) DesignableButton *challengeButton;
-@property (weak, nonatomic) IBOutlet UIButton *removeAdsButton;
-@property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
+@property (strong, nonatomic) DesignableButton *cameraButton;
+@property (strong, nonatomic) UIImage *cameraImage;
+@property (strong, nonatomic)  DesignableButton *removeAdsButton;
+@property (nonatomic, strong)  DesignableLabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 

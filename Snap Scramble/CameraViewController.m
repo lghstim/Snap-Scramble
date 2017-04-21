@@ -167,6 +167,8 @@
         [self.switchButton addTarget:self action:@selector(switchButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.switchButton];
     }
+    
+    [self setTopAndBottomButtons];
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)control
@@ -247,6 +249,48 @@
     return UIInterfaceOrientationPortrait;
 }
 
+- (void)setTopAndBottomButtons {
+    // bottom button
+    _bottomButton = [DesignableButton new];
+    self.downArrow = [UIImage imageNamed:@"up-arrow"];
+    [self.bottomButton setImage:self.downArrow forState:UIControlStateNormal];
+    [self.view addSubview:self.bottomButton];
+    [self.bottomButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(0);
+        CGFloat newWidth = self.downArrow.size.width / 3;
+        CGFloat newHeight = self.downArrow.size.height / 3;
+        float newWidthInt = (float)newWidth;
+        float newHeightInt = (float)newHeight;
+        NSNumber *width = [NSNumber numberWithFloat:newWidthInt];
+        NSNumber *height = [NSNumber numberWithFloat:newHeightInt];
+        make.width.equalTo(width);
+        make.height.equalTo(height);
+    }];
+    [self.view bringSubviewToFront:self.bottomButton];
+    [self.bottomButton setImage:[self imageByApplyingAlpha:0.6 andImage:self.downArrow] forState:UIControlStateHighlighted];
+    
+    // top button
+    _topButton = [DesignableButton new];
+    self.topArrow = [UIImage imageNamed:@"down-arrow"];
+    [self.topButton setImage:self.topArrow forState:UIControlStateNormal];
+    [self.view addSubview:self.topButton];
+    [self.topButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.view).offset(0);
+        CGFloat newWidth = self.topArrow.size.width / 3;
+        CGFloat newHeight = self.topArrow.size.height / 3;
+        float newWidthInt = (float)newWidth;
+        float newHeightInt = (float)newHeight;
+        NSNumber *width = [NSNumber numberWithFloat:newWidthInt];
+        NSNumber *height = [NSNumber numberWithFloat:newHeightInt];
+        make.width.equalTo(width);
+        make.height.equalTo(height);
+    }];
+    [self.view bringSubviewToFront:self.topButton];
+    [self.topButton setImage:[self imageByApplyingAlpha:0.6 andImage:self.topArrow] forState:UIControlStateHighlighted];
+}
+
 # pragma mark - navigation
 
 - (IBAction)backButtonDidPress:(id)sender {
@@ -259,6 +303,14 @@
 
 - (void)showPreviewPuzzleVC {
     [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
+}
+
+- (void)showBottomVC {
+    
+}
+
+- (void)showTopVC {
+    
 }
 
 # pragma mark - camera methods logic
@@ -392,6 +444,64 @@
     return newImage;
 }
 
+# pragma mark - other methods
+
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
+- (UIImage *)imageByApplyingAlpha:(CGFloat) alpha andImage:(UIImage*)image {
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    
+    CGContextSetAlpha(ctx, alpha);
+    
+    CGContextDrawImage(ctx, area, [image CGImage]);
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 
 
 

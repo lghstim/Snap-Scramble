@@ -1107,54 +1107,14 @@
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="fJ8-7E-OB9">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="228"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvN-BH-yT5">
-                                            <rect key="frame" x="166" y="74" width="43" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="VcH-MZ-8zf"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                                            <color key="textColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wins: 0 | Losses: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVn-JT-Zrv">
-                                            <rect key="frame" x="82" y="167" width="218" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="YDT-rQ-tIU"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
-                                            <color key="textColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WM4-0H-39d">
-                                            <rect key="frame" x="50" y="32" width="275" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="L1C-Mz-e1g"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                            <state key="normal" title="Press here to remove ads for $1.99">
-                                                <color key="titleColor" red="0.4431372549" green="0.78039215689999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
                                     <color key="backgroundColor" red="0.94605457780000002" green="0.95496565099999997" blue="0.98012119529999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <gestureRecognizers/>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="rVn-JT-Zrv" secondAttribute="bottom" constant="36" id="1SI-3m-WUb"/>
-                                        <constraint firstItem="rVn-JT-Zrv" firstAttribute="leading" secondItem="fJ8-7E-OB9" secondAttribute="leading" constant="82" id="FLe-YY-R1i"/>
-                                        <constraint firstItem="WM4-0H-39d" firstAttribute="top" secondItem="fJ8-7E-OB9" secondAttribute="top" constant="32" id="Nul-la-xdJ"/>
-                                        <constraint firstItem="WM4-0H-39d" firstAttribute="centerX" secondItem="fJ8-7E-OB9" secondAttribute="centerX" id="Wwb-vN-cVr"/>
-                                        <constraint firstAttribute="trailing" secondItem="rVn-JT-Zrv" secondAttribute="trailing" constant="75" id="b8P-ud-ZZO"/>
-                                        <constraint firstItem="gvN-BH-yT5" firstAttribute="centerX" secondItem="fJ8-7E-OB9" secondAttribute="centerX" id="hRk-5v-PZs"/>
-                                        <constraint firstItem="WM4-0H-39d" firstAttribute="leading" secondItem="fJ8-7E-OB9" secondAttribute="leading" constant="50" id="r98-2I-rCF"/>
-                                        <constraint firstItem="gvN-BH-yT5" firstAttribute="top" secondItem="WM4-0H-39d" secondAttribute="bottom" constant="17" id="zp3-02-j2w"/>
-                                    </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="2bE-fY-buq">
                                     <rect key="frame" x="0.0" y="310" width="375" height="363"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No games yet. Press the &quot;play now&quot; button!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="WRa-P5-XWc">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No games yet. Press the camera button below!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="WRa-P5-XWc">
                                             <rect key="frame" x="90" y="80" width="195" height="83"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="83" id="TFo-6c-9wy"/>
@@ -1219,9 +1179,6 @@
                         <outlet property="bannerView" destination="3iH-lZ-mhm" id="eKg-Xj-0MG"/>
                         <outlet property="currentGamesTable" destination="tFk-Wy-3c6" id="H9x-RV-kCO"/>
                         <outlet property="headerView" destination="fJ8-7E-OB9" id="eUE-dg-xoZ"/>
-                        <outlet property="removeAdsButton" destination="WM4-0H-39d" id="w8p-Af-TJL"/>
-                        <outlet property="scoreLabel" destination="rVn-JT-Zrv" id="FUL-YU-50s"/>
-                        <outlet property="usernameLabel" destination="gvN-BH-yT5" id="HJ1-2k-xCX"/>
                         <segue destination="AJT-K3-k6D" kind="show" identifier="showSignup" animates="NO" id="Vpe-Rk-o6q"/>
                         <segue destination="1CK-Op-Bxb" kind="show" identifier="startPuzzleScreen" id="iQb-b4-hDA"/>
                         <segue destination="gMg-ry-Hll" kind="show" id="WaK-iT-IHg"/>

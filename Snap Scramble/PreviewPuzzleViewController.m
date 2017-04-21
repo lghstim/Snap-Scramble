@@ -445,7 +445,6 @@ NSString * const kSaveImageName = @"download-button";
     return self.gameImage;
 }
 
-
 // actions
 - (void)clearButtonAction
 {

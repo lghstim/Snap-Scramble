@@ -53,7 +53,6 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
     [self.currentGamesTable addSubview:self.refreshControl];
-    [self.headerView addSubview:self.usernameLabel];
     self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
     [self.currentGamesTable setContentInset:UIEdgeInsetsMake(43, 0, -300, 0)];
@@ -79,20 +78,24 @@
     [self.challengeButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
     self.challengeButton.layer.cornerRadius = 5.0f;
     [self.challengeButton setTitle:@"Play now" forState:UIControlStateNormal];
-  
-    [self.headerView addSubview:self.challengeButton];
-    [self.challengeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@40);
-        make.width.equalTo(@230);
+
+    // camera button UI
+    _cameraButton = [DesignableButton new];
+    self.cameraImage = [UIImage imageNamed:@"take-photo"];
+    [self.cameraButton setImage:self.cameraImage forState:UIControlStateNormal];
+    
+    [self.view addSubview:self.cameraButton];
+    [self.cameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.lessThanOrEqualTo(@115);
+        make.bottom.equalTo(self.view).offset(-55.f);
     }];
     
-    [self.view bringSubviewToFront:self.challengeButton];
-    [self.challengeButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    [self.challengeButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown];
-    [self.challengeButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:.3]  forState:UIControlStateHighlighted];
-    
+    [self.view bringSubviewToFront:self.cameraButton];
+    [self.cameraButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.cameraButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown];
+    [self.cameraButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
+   
+    [self setUIButtonsAndLabels];
 
     PFUser *currentUser = [PFUser currentUser];
     NSLog(@"current user %@", currentUser);
@@ -110,22 +113,6 @@
     else {
         [self showSignupScreen]; // show sign up screen if user not signed in
     }
-    
-    // bottom buttons UI
-    /* UIButton *leftVCButton = [UIButton new];
-    leftVCButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-    [leftVCButton setImage:[UIImage imageNamed:@"view-challenges"] forState:UIControlStateNormal];
-    [leftVCButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
-    leftVCButton.layer.cornerRadius = 5.0f;
-    [leftVCButton setTitle:@"Play now" forState:UIControlStateNormal];
-    
-    [self.view addSubview:leftVCButton];
-    [leftVCButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@29);
-        make.width.equalTo(@31);
-        make.leftMargin.equalTo(@97);
-        make.bottomMargin.equalTo(@-22);
-    }]; */
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -159,7 +146,31 @@
     if (currentUser) {
         [self retrieveUserMatches];
     }
+}
+
+- (void)setUIButtonsAndLabels {
+    // username label
+    _usernameLabel = [DesignableLabel new];
+    self.usernameLabel.text = [NSString stringWithFormat:@"Current user: %@",  [PFUser currentUser].username];
+    self.usernameLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
+    [self.usernameLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
+    [self.headerView addSubview:self.usernameLabel];
+    [self.usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@200);
+        make.centerX.greaterThanOrEqualTo(self.headerView);
+        make.top.greaterThanOrEqualTo(self.headerView).offset(120.f);
+    }];
+    [self.headerView bringSubviewToFront:self.usernameLabel];
     
+    // score label
+    _scoreLabel = [DesignableLabel new];
+    self.scoreLabel.text =  [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];    [self.headerView addSubview:self.scoreLabel];
+    [self.scoreLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
+    [self.headerView addSubview:self.scoreLabel];
+    [self.scoreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        ////DO
+    }];
+    [self.headerView bringSubviewToFront:self.scoreLabel];
 }
 
 - (void)setNavigationBar {
@@ -222,6 +233,27 @@
     }];
 }
 
+- (void)displayAdsButton {
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
+        _removeAdsButton = [DesignableButton new];
+        [self.removeAdsButton setTitle:@"Press here to remove ads for $1.99" forState:UIControlStateNormal];
+        [self.removeAdsButton setTitleColor:[self colorWithHexString:@"71C7F0"] forState:UIControlStateNormal];
+        [self.headerView addSubview:self.removeAdsButton];
+        [self.removeAdsButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            ////DO
+        }];
+        [self.headerView bringSubviewToFront:self.removeAdsButton];
+        [self.removeAdsButton addTarget:self action:@selector(goToIAPVC:) forControlEvents:UIControlEventTouchUpInside];
+        [self.removeAdsButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
+    } else {
+        self.removeAdsButton.hidden = TRUE;
+    }
+}
+
+
 # pragma mark - navigation
 
 - (void)playButtonDidPress:(id)sender {
@@ -248,20 +280,6 @@
 
 - (void)goToStartPuzzleVC {
     [self performSegueWithIdentifier:@"startPuzzleScreen" sender:self];
-}
-
-- (void)displayAdsButton {
-    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"%id", [adsRemoved boolValue]);
-    if ([adsRemoved boolValue] != TRUE) {
-        self.removeAdsButton.hidden = FALSE;
-        self.removeAdsButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-        self.removeAdsButton.contentScaleFactor = 0.5;
-        [self.removeAdsButton addTarget:self action:@selector(goToIAPVC:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        self.removeAdsButton.hidden = TRUE;
-    }
 }
 
 - (void)showSignupScreen {
@@ -659,6 +677,28 @@
                            green:((float) g / 255.0f)
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
+}
+
+- (UIImage *)imageByApplyingAlpha:(CGFloat) alpha {
+    UIGraphicsBeginImageContextWithOptions(self.cameraImage.size, NO, 0.0f);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, self.cameraImage.size.width, self.cameraImage.size.height);
+    
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    
+    CGContextSetAlpha(ctx, alpha);
+    
+    CGContextDrawImage(ctx, area, [self.cameraImage CGImage]);
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 #pragma mark - delegate methods
