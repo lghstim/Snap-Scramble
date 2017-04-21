@@ -84,10 +84,10 @@
 
 - (IBAction)cancelButtonDidPress:(id)sender {
     self.pauseView.animation = @"fall";
-    self.pauseView.delay = 5.0;
+    self.pauseView.autostart = YES;
     [self.pauseView animate];
     [self.game resume]; // resume the timer
-    [self.navigationController popViewControllerAnimated:YES]; // pop like this
+    [self.navigationController popViewControllerAnimated:NO]; // pop like this
 }
 
 // delete the game if pressed

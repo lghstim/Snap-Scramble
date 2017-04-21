@@ -23,4 +23,8 @@
     [self.legalWebView loadRequest:[[NSURLRequest alloc] initWithURL:legalUrl]];
 }
 
+- (IBAction)goBackButtonDidPress:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end

@@ -64,11 +64,21 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setHidden:false];
+    // disable swipe back functionality
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
 }
 
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
+}
+
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
 # pragma mark - navigation

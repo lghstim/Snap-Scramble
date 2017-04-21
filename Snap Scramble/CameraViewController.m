@@ -168,6 +168,7 @@
         [self.view addSubview:self.switchButton];
     }
     
+    [self setupDoubleTap]; // for camera
     [self setTopAndBottomButtons];
 }
 
@@ -209,7 +210,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidAppear:animated];
-    // change?
     [self passDataToCreatePuzzleVC];
 }
 
@@ -227,7 +227,7 @@
     self.camera.view.frame = self.view.contentBounds;
     
     self.snapButton.center = self.view.contentCenter;
-    self.snapButton.bottom = self.view.height - 15.0f;
+    self.snapButton.bottom = self.view.height - 55.0f;
     
     self.flashButton.center = self.view.contentCenter;
     self.flashButton.top = 5.0f;
@@ -269,6 +269,7 @@
     }];
     [self.view bringSubviewToFront:self.bottomButton];
     [self.bottomButton setImage:[self imageByApplyingAlpha:0.6 andImage:self.downArrow] forState:UIControlStateHighlighted];
+    [self.bottomButton addTarget:self action:@selector(showBottomVC) forControlEvents:UIControlEventTouchUpInside];
     
     // top button
     _topButton = [DesignableButton new];
@@ -289,6 +290,7 @@
     }];
     [self.view bringSubviewToFront:self.topButton];
     [self.topButton setImage:[self imageByApplyingAlpha:0.6 andImage:self.topArrow] forState:UIControlStateHighlighted];
+    [self.topButton addTarget:self action:@selector(showTopVC) forControlEvents:UIControlEventTouchUpInside];
 }
 
 # pragma mark - navigation
@@ -306,16 +308,27 @@
 }
 
 - (void)showBottomVC {
-    
+    [self.containerSwipeNavigationController showBottomVCWithSwipeVC:self.containerSwipeNavigationController];
+    [self passDataToCreatePuzzleVC];
 }
 
 - (void)showTopVC {
-    
+    [self.containerSwipeNavigationController showTopVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
 # pragma mark - camera methods logic
 
 /* camera button methods */
+
+- (void)setupDoubleTap {
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(flipCamera)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:doubleTap];
+}
+
+- (void)flipCamera{
+    [self.camera togglePosition];
+}
 
 - (void)switchButtonPressed:(UIButton *)button
 {

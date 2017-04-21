@@ -115,6 +115,7 @@ NSString * const kSaveImageName2 = @"download-button";
 
 }
 
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return NO;

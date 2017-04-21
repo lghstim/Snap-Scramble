@@ -35,7 +35,7 @@
 @property (strong, nonatomic) DesignableButton *cameraButton;
 @property (strong, nonatomic) UIImage *cameraImage;
 @property (strong, nonatomic)  DesignableButton *removeAdsButton;
-@property (nonatomic, strong)  DesignableLabel *scoreLabel;
+@property (nonatomic, strong)  UILabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 

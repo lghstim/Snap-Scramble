@@ -11,6 +11,7 @@
 #import "CreatePuzzleViewController.h"
 #import "FriendsViewModel.h"
 #import "FriendsTableViewCell.h"
+@class FriendsTableViewCell;
 
 
 @interface FriendsTableViewController ()
@@ -253,13 +254,14 @@
     cell.detailTextLabel.minimumScaleFactor = 0.5;
     PFUser* friend = [self.mutableFriendsList objectAtIndex:indexPath.row];
     cell.usernameLabel.text = friend.username;
-    cell.selectionImage.image = [UIImage imageNamed:@"checkbox-empty"];
+    //cell.selectionImage.image = [UIImage imageNamed:@"checkbox-empty"];
+    cell.usernameLabel.textColor = [self colorWithHexString:@"71C7F0"];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendsTableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.selectionImage.image = [UIImage imageNamed:@"checkbox-filled"];
+    //cell.selectionImage.image = [UIImage imageNamed:@"checkbox-filled"];
     // set this friend as the opponent.
     self.opponent = [self.mutableFriendsList objectAtIndex:indexPath.row];
     NSLog(@"opponent: %@", self.opponent);

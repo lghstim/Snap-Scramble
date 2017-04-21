@@ -45,6 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.bannerView.rootViewController = self;
     self.view.clipsToBounds = TRUE;
     self.currentGamesTable.delegate = self;
     self.currentGamesTable.dataSource = self;
@@ -71,14 +72,6 @@
         [alertView show];
     }
     
-    // challenge button UI
-    _challengeButton = [DesignableButton new];
-    self.challengeButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
-    [self.challengeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.challengeButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
-    self.challengeButton.layer.cornerRadius = 5.0f;
-    [self.challengeButton setTitle:@"Play now" forState:UIControlStateNormal];
-
     // camera button UI
     _cameraButton = [DesignableButton new];
     self.cameraImage = [UIImage imageNamed:@"take-photo"];
@@ -96,6 +89,7 @@
     [self.cameraButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
    
     [self setUIButtonsAndLabels];
+    [self displayAdsButton]; // display ads button, or not if user paid
 
     PFUser *currentUser = [PFUser currentUser];
     NSLog(@"current user %@", currentUser);
@@ -128,6 +122,7 @@
         [self.usernameLabel setText:usernameText];
         [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"];
         [[PFInstallation currentInstallation] saveInBackground];
+       // [self askToRemoveAds];
     }
     
     else {
@@ -136,7 +131,6 @@
     
     [self setUpLongPressCell];
     [self displayAd]; // display ad, or not if user paid
-    [self displayAdsButton]; // display ads button, or not if user paid
 }
 
 
@@ -153,24 +147,64 @@
     _usernameLabel = [DesignableLabel new];
     self.usernameLabel.text = [NSString stringWithFormat:@"Current user: %@",  [PFUser currentUser].username];
     self.usernameLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
+    self.usernameLabel.textAlignment = NSTextAlignmentCenter;
     [self.usernameLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
     [self.headerView addSubview:self.usernameLabel];
     [self.usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@200);
-        make.centerX.greaterThanOrEqualTo(self.headerView);
-        make.top.greaterThanOrEqualTo(self.headerView).offset(120.f);
+        make.centerX.equalTo(self.headerView);
+        make.top.equalTo(self.headerView).offset(50);
     }];
+    self.usernameLabel.adjustsFontSizeToFitWidth = YES;
+    self.usernameLabel.contentScaleFactor = 1.0;
+    [self.usernameLabel setFrame:CGRectIntegral(self.usernameLabel.frame)];
+    [self.usernameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.headerView bringSubviewToFront:self.usernameLabel];
     
     // score label
-    _scoreLabel = [DesignableLabel new];
+    _scoreLabel = [UILabel new];
     self.scoreLabel.text =  [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];    [self.headerView addSubview:self.scoreLabel];
+    self.scoreLabel.font = [UIFont fontWithName:@"AvenirNext" size:19];
+    self.scoreLabel.textAlignment = NSTextAlignmentCenter;
     [self.scoreLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
     [self.headerView addSubview:self.scoreLabel];
     [self.scoreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        ////DO
+        make.centerX.equalTo(self.headerView);
+        make.top.equalTo(self.headerView).offset(30);
     }];
+    [self.scoreLabel setFrame:CGRectIntegral(self.scoreLabel.frame)];
+    [self.scoreLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.headerView bringSubviewToFront:self.scoreLabel];
+}
+
+- (void)askToRemoveAds {
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    NSNumber *wantsToRemoveAds = [[NSUserDefaults standardUserDefaults] objectForKey:@"wantsToRemoveAds"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    NSInteger countOne = [self.currentGames count];
+    NSInteger countTwo = [self.currentPendingGames count];
+    NSNumber *gameCount = [NSNumber numberWithInteger:countOne + countTwo];
+    int gameCountInt = [gameCount intValue];
+    NSLog(@"game count: %d", gameCountInt);
+    if ([adsRemoved boolValue] != TRUE && gameCountInt >= 10 && [wantsToRemoveAds  boolValue] != FALSE) {
+        NSLog(@"hiiiii");
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove ads?" message:@"You seem to be enjoying Snap Scramble. Would you like to remove ads for $1.99?" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction: [UIAlertAction actionWithTitle:@"Yes!" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self goToIAPVC:self];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            // cancelled
+            NSLog(@"wtf");
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:FALSE] forKey:@"wantsToRemoveAds"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }]];
+        alert.popoverPresentationController.sourceView = self.view;
+        [self presentViewController:alert animated:YES
+                         completion:nil];
+    } else {
+        // user already has ads removed
+    }
 }
 
 - (void)setNavigationBar {
@@ -186,7 +220,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (void)displayAd{
@@ -195,7 +229,6 @@
     NSLog(@"%id", [adsRemoved boolValue]);
     if ([adsRemoved boolValue] != TRUE) {
         self.bannerView.adUnitID = @"ca-app-pub-9099568248089334/4082940202";
-        self.bannerView.rootViewController = self;
         GADRequest *request = [GADRequest request];
         //request.testDevices = @[@"117d8d0d0cfc555fabc2f06fb83770b8"];
         [self.bannerView loadRequest:request];
@@ -238,16 +271,21 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"%id", [adsRemoved boolValue]);
     if ([adsRemoved boolValue] != TRUE) {
-        _removeAdsButton = [DesignableButton new];
+        /* _removeAdsButton = [DesignableButton new];
         [self.removeAdsButton setTitle:@"Press here to remove ads for $1.99" forState:UIControlStateNormal];
         [self.removeAdsButton setTitleColor:[self colorWithHexString:@"71C7F0"] forState:UIControlStateNormal];
+        self.removeAdsButton.titleLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
+        self.removeAdsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.headerView addSubview:self.removeAdsButton];
         [self.removeAdsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            ////DO
+            make.centerX.equalTo(self.headerView);
+            make.topMargin.equalTo(@5);
         }];
+        self.removeAdsButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        self.removeAdsButton.titleLabel.contentScaleFactor = 1.0;
         [self.headerView bringSubviewToFront:self.removeAdsButton];
         [self.removeAdsButton addTarget:self action:@selector(goToIAPVC:) forControlEvents:UIControlEventTouchUpInside];
-        [self.removeAdsButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
+        [self.removeAdsButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted]; */
     } else {
         self.removeAdsButton.hidden = TRUE;
     }

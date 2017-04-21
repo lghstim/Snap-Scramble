@@ -64,9 +64,22 @@
     [self.navigationController.navigationBar setHidden:false];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    // disable swipe back functionality
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
 # pragma mark - navigation
@@ -80,7 +93,7 @@
 }
 
 - (IBAction)finishButtonDidPress:(id)sender {
-    [self signUpUser];
+    [self signUpFacebookUser];
 }
 
 - (void)goToChallengeVC {
@@ -164,42 +177,43 @@
     }];
 }
 
-- (void)signUpUser {
+-(void)signUpFacebookUser {
     NSString *username = [self.createUsernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@"username: %@",username);
     username = [username lowercaseString]; // make all strings lowercase
     // white space check variable
     NSRange whiteSpaceRange = [username rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
-    
+
     // check if username has only alphanumeric characters
-    NSCharacterSet *alphaSet = [NSCharacterSet alphanumericCharacterSet];
-    BOOL alphaNumericValid = [[username stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
-    
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"];
+    s = [s invertedSet];
+    NSRange r = [username rangeOfCharacterFromSet:s];
     
     // checks for if the sign up information is valid start here
     if ([username length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
     }
-    
-    // alphanumeric check
-    else if (alphaNumericValid == false) {
+
+    // alphanumeric and underscore check
+  
+    if (r.location != NSNotFound) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Password must contain only letters and numbers." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+
+    else if ([username length] > 15) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too long. Please keep it below 15 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
-    
-    else if ([username length] > 10) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too long. Please keep it below 10 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [alertView show];
-    }
-    
+
     else if ([username length] < 3) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too short. Please keep it between 3 and 10 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too short. Please keep it between 3 and 15 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         
         [alertView show];
     }
-    
+
     // check for whitespaces
     else if (whiteSpaceRange.location != NSNotFound) {
         NSLog(@"Found whitespace");
@@ -207,7 +221,7 @@
         
         [alertView show];
     }
-    
+
     else { // good
         // initiate timer for timeout
         self.totalSeconds = [NSNumber numberWithInt:0];
@@ -237,6 +251,100 @@
         }
     }
 }
+
+- (void)signUpUser {
+        NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        username = [username lowercaseString]; // make all strings lowercase
+        NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *reenteredPassword = [self.reenterPasswordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *email = [self.emailField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        // white space check variable
+        NSRange whiteSpaceRange = [username rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        
+        // convert string to lowercase
+        NSString *lowercaseString = [username lowercaseString]; // get the lowercase username
+        
+        // check if username has only alphanumeric characters
+        NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"];
+        s = [s invertedSet];
+        NSRange r = [username rangeOfCharacterFromSet:s];
+    
+        
+        // checks for if the sign up information is valid start here
+        if ([username length] == 0 || [password length] == 0) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid username and password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            
+            [alertView show];
+        }
+        
+        // alphanumeric check
+        if (r.location != NSNotFound) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Password must contain only letters and numbers." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+
+        else if ([username length] > 15) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too long. Please keep it below 15 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            
+            [alertView show];
+        }
+        
+        else if ([username length] < 3) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username is too short. Please keep it between 3 and 15 characters." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            
+            [alertView show];
+        }
+        
+        // check for whitespaces
+        else if (whiteSpaceRange.location != NSNotFound) {
+            NSLog(@"Found whitespace");
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Username has a space in it." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            
+            [alertView show];
+        }
+        
+        
+        else if (![reenteredPassword isEqualToString:password]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Make sure your you enter your password correctly both times." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            
+            [alertView show];
+        }
+        
+        else if (![email containsString:@"@"]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            
+            [alertView show];
+        }
+        
+        else {
+            // initiate timer for timeout
+            self.totalSeconds = [NSNumber numberWithInt:0];
+            self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+            
+            
+            [KVNProgress showWithStatus:@"Signing up..."]; // UI
+            [self.viewModel signUpUser:username password:password email:email completion:^(BOOL succeeded, NSError *error) {
+                if (error) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alertView show];
+                    [self.timeoutTimer invalidate];
+                    [KVNProgress dismiss];
+                }
+                
+                else {
+                    [self.timeoutTimer invalidate];
+                    [self goToChallengeVC];
+                    NSLog(@"User %@ signed up.", [PFUser currentUser]);
+                    [KVNProgress dismiss];
+                    self.signupView.animation = @"fall";
+                    [self.signupView animate];
+                }
+            }];
+        }
+}
+
 
 # pragma mark - timer methods logic
 
