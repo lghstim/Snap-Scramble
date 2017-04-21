@@ -8,6 +8,7 @@
 
 #import "SignupViewController.h"
 #import "SignupViewModel.h"
+@import SwipeNavigationController;
 
 @interface SignupViewController ()
 
@@ -82,6 +83,11 @@
     [self signUpUser];
 }
 
+- (void)goToChallengeVC {
+    SwipeNavigationController *swipeVC = [[self.navigationController childViewControllers] objectAtIndex:1];
+    [self.navigationController popToViewController:swipeVC animated:NO];
+}
+
 # pragma mark - keyboard methods logic
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -153,7 +159,7 @@
             [self performSegueWithIdentifier:@"createUsername" sender:self];
         } else { // user isn't new, take him to root vc
             NSLog(@"User logged in through Facebook!");
-            [self.navigationController popToRootViewControllerAnimated:NO];
+            [self goToChallengeVC];
         }
     }];
 }
@@ -219,7 +225,7 @@
                 }
                 
                 else {
-                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    [self goToChallengeVC];
                     [self.timeoutTimer invalidate];
                     [KVNProgress dismiss];
                 }

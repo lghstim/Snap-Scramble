@@ -11,11 +11,11 @@
 #import "Snap_Scramble-Swift.h"
 #import <KVNProgress/KVNProgress.h>
 
-@protocol FirstVCDelegate <NSObject>
+@protocol UserSelectVCDelegate <NSObject>
 - (void)receiveFriendUserData:(PFUser *)opponent;
 @end
 
-@interface UserSelectionViewController : UIViewController <FirstVCDelegate>
+@interface UserSelectionViewController : UIViewController <UserSelectVCDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *friendsListButton;
 @property (weak, nonatomic) IBOutlet UIButton *randomUserButton;

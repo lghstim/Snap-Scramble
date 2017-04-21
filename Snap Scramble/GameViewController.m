@@ -254,7 +254,7 @@ NSString * const kSaveImageName2 = @"download-button";
             
             else {
                 NSLog(@"game deleted successfully.");
-                [self.navigationController popToRootViewControllerAnimated:YES]; // go to main menu
+                [self openChallengeVC]; // go to main menu
             }
         }];
     }]];
@@ -271,9 +271,19 @@ NSString * const kSaveImageName2 = @"download-button";
 
 // when the main menu button is pressed, send push at that point.
 - (IBAction)mainMenuButtonDidPress:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self openChallengeVC];
 }
 
+- (void)openChallengeVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
+        }
+    }
+}
 
 # pragma mark - game methods logic
 

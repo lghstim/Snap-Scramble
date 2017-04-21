@@ -54,8 +54,7 @@
     self.opponentSelectionLabel.minimumScaleFactor = 0.5;
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setHidden:false];
 }
@@ -64,7 +63,7 @@
     _startGameButton = [UIButton new];
     self.startGameButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
     [self.startGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.startGameButton setShowsTouchWhenHighlighted:YES];
+    [self.startGameButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:.3]  forState:UIControlStateHighlighted];
     [self.startGameButton setBackgroundColor:[self colorWithHexString:@"71C7F0"]];
     self.startGameButton.layer.cornerRadius = 5.0f;
     [self.startGameButton setTitle:@"Start Game" forState:UIControlStateNormal];
@@ -81,6 +80,7 @@
     self.friendsListButton.hidden = YES;
     self.randomUserButton.hidden = YES;
     self.startGameButton.hidden = NO;
+    self.opponentSelectionLabel.text = [NSString stringWithFormat:@"Opponent: %@", self.opponent.username];
 }
 
 # pragma mark - navigation
@@ -226,6 +226,10 @@
         gameVC.createdGame = self.createdGame;
     }
 }
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+}
 
 #pragma mark - view model setter method
 
@@ -277,7 +281,6 @@
 
 - (void)receiveFriendUserData:(PFUser *)opponent {
     self.opponent = opponent;
-    self.opponentSelectionLabel.text = [NSString stringWithFormat:@"Opponent: %@", self.opponent.username];
     [self updatetoStartGameUI];
     NSLog(@"delegate success. (friend) opponent selected: %@", self.opponent);
 }

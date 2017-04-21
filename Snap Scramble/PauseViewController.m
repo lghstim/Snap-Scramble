@@ -104,7 +104,7 @@
             else {
                 NSLog(@"game deleted successfully.");
                 [self displayAd];
-                [self.navigationController popToRootViewControllerAnimated:YES]; // go to main menu
+                [self openChallengeVC];
             }
         }];
     }]];
@@ -141,7 +141,7 @@
         NSString *blockedText = [@"Successfully blocked: " stringByAppendingString:self.opponent.username];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Blocked" message:blockedText delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self openChallengeVC];
     }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -156,14 +156,18 @@
 
 - (IBAction)finishSolvingLaterButtonDidPress:(id)sender {
     [self displayAd];
+    [self openChallengeVC];
+}
+
+- (void)openChallengeVC {
     for (UIViewController* viewController in self.navigationController.viewControllers) {
         if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
             SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
             [self.navigationController popToViewController:VC animated:NO];
             CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
             [centerVC showLeftVC];
-
         }
-    }}
+    }
+}
 
 @end

@@ -68,6 +68,8 @@
 		6A6B7B821E8DE5F2009C0CD2 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6A6B7B7D1E8DE5F2009C0CD2 /* LICENSE.txt */; };
 		6A6B7B831E8DE5F2009C0CD2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B7B7E1E8DE5F2009C0CD2 /* README.md */; };
 		6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */; };
+		6A7501031EA97FB10022C7E1 /* FriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7501021EA97FB10022C7E1 /* FriendsTableViewCell.xib */; };
+		6A7501061EA990CC0022C7E1 /* FriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7501051EA990CC0022C7E1 /* FriendsTableViewCell.m */; };
 		6A77C0EC1E8BB6F800FE23D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A77C0EB1E8BB6F800FE23D8 /* GoogleService-Info.plist */; };
 		6A77DF7D1D44978E00ECD9BC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */; };
 		6A7C81671D49EC3F00F36C43 /* SignupViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C81661D49EC3F00F36C43 /* SignupViewModel.m */; };
@@ -221,6 +223,9 @@
 		6A6B7B7E1E8DE5F2009C0CD2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6A6FB6341D508FB700EFA6C3 /* GameViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewModel.h; sourceTree = "<group>"; };
 		6A6FB6351D508FB700EFA6C3 /* GameViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewModel.m; sourceTree = "<group>"; };
+		6A7501021EA97FB10022C7E1 /* FriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsTableViewCell.xib; sourceTree = "<group>"; };
+		6A7501041EA990CC0022C7E1 /* FriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewCell.h; sourceTree = "<group>"; };
+		6A7501051EA990CC0022C7E1 /* FriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewCell.m; sourceTree = "<group>"; };
 		6A77C0EB1E8BB6F800FE23D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A77DF7B1D44978E00ECD9BC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		6A77DF7C1D44978E00ECD9BC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
@@ -527,6 +532,7 @@
 				6A7CA5121E995BEC00A6A422 /* SwipeUI.storyboard */,
 				6AEEF5E71E9880140092010D /* SnapScrambleCell.xib */,
 				6A112AB91B5DFB0D0035A75C /* LaunchScreen.xib */,
+				6A7501021EA97FB10022C7E1 /* FriendsTableViewCell.xib */,
 			);
 			name = Views;
 			path = "Snap Scramble";
@@ -555,6 +561,8 @@
 				6AA59AFE1E1622B400D2F4CF /* GameOverViewModel.m */,
 				6AEEF5EC1E9880B60092010D /* SnapScrambleCell.h */,
 				6AEEF5ED1E9880B60092010D /* SnapScrambleCell.m */,
+				6A7501041EA990CC0022C7E1 /* FriendsTableViewCell.h */,
+				6A7501051EA990CC0022C7E1 /* FriendsTableViewCell.m */,
 			);
 			name = "View Models";
 			path = "Snap Scramble";
@@ -685,6 +693,7 @@
 				6A6B7B7F1E8DE5F2009C0CD2 /* .gitignore in Resources */,
 				6AD28CE31B5E092E00BCD802 /* Images.xcassets in Resources */,
 				6A112ABB1B5DFB0D0035A75C /* LaunchScreen.xib in Resources */,
+				6A7501031EA97FB10022C7E1 /* FriendsTableViewCell.xib in Resources */,
 				6A4B651C1EA3474200B95420 /* Info.plist in Resources */,
 				6A4B651F1EA3474200B95420 /* LoadingView.xib in Resources */,
 				6A77C0EC1E8BB6F800FE23D8 /* GoogleService-Info.plist in Resources */,
@@ -822,6 +831,7 @@
 				6A6FB6361D508FB700EFA6C3 /* GameViewModel.m in Sources */,
 				6A4B65131EA3474200B95420 /* BlurView.swift in Sources */,
 				6A4B65141EA3474200B95420 /* DesignableButton.swift in Sources */,
+				6A7501061EA990CC0022C7E1 /* FriendsTableViewCell.m in Sources */,
 				6A6B7B831E8DE5F2009C0CD2 /* README.md in Sources */,
 				6A4B65271EA3474200B95420 /* SpringTextField.swift in Sources */,
 				6A4B651D1EA3474200B95420 /* KeyboardLayoutConstraint.swift in Sources */,

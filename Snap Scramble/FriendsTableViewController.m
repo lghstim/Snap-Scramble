@@ -10,6 +10,7 @@
 #import "Reachability.h"
 #import "CreatePuzzleViewController.h"
 #import "FriendsViewModel.h"
+#import "FriendsTableViewCell.h"
 
 
 @interface FriendsTableViewController ()
@@ -36,6 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //[self setNavigationBar];
+    UINib *nib = [UINib nibWithNibName:@"FriendsTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"Cell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -236,13 +239,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    FriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    
     
     if(cell == nil)
     {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     }
     
     UIFont *myFont = [UIFont fontWithName: @"Avenir Next" size: 18.0 ];
@@ -250,21 +252,14 @@
     cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.minimumScaleFactor = 0.5;
     PFUser* friend = [self.mutableFriendsList objectAtIndex:indexPath.row];
-    cell.textLabel.text = friend.username;
-    
-    if ([friend.username isEqualToString:@"tim"]) {
-        cell.detailTextLabel.text = @"Snap Scramble founder";
-        cell.detailTextLabel.textColor = [UIColor colorWithRed:252.0/255.0 green:194.0/255.0 blue:0 alpha:1.0];
-    }
-    
-    else {
-        cell.detailTextLabel.text = @"";
-    }
-    
+    cell.usernameLabel.text = friend.username;
+    cell.selectionImage.image = [UIImage imageNamed:@"checkbox-empty"];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    FriendsTableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionImage.image = [UIImage imageNamed:@"checkbox-filled"];
     // set this friend as the opponent.
     self.opponent = [self.mutableFriendsList objectAtIndex:indexPath.row];
     NSLog(@"opponent: %@", self.opponent);

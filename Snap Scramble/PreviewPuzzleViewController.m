@@ -84,16 +84,12 @@ NSString * const kSaveImageName = @"download-button";
         self.previewImage = [self prepareImageForPreview:self.originalImage];
         self.imageView.image = self.previewImage;
         [self.view addSubview:self.imageView];
-        self.gameImage = [self prepareImageForGame:self.originalImage]; // now resize image for the game
-        
         [self addChildViewController:self.jotViewController];
         [self.view addSubview:self.jotViewController.view];
-        
         [self.jotViewController didMoveToParentViewController:self];
         [self.jotViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-        
         
         [self.view addSubview:self.saveButton];
         [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -140,7 +136,6 @@ NSString * const kSaveImageName = @"download-button";
             make.top.equalTo(self.view).offset(25.f);
         }];
         self.toggledTextButton.hidden = YES;
-        
         
         [self.view addSubview:self.backButton];
         [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -235,8 +230,6 @@ NSString * const kSaveImageName = @"download-button";
     [self.untoggledDrawingButton addTarget:self
                                     action:@selector(toggleDrawingButtonAction)
                           forControlEvents:UIControlEventTouchUpInside];
-    
-    
     
     _untoggledTextButton = [UIButton new];
     self.untoggledTextButton.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:24.f];
@@ -447,8 +440,9 @@ NSString * const kSaveImageName = @"download-button";
 // returns the drawed on image
 - (UIImage *)imageWithDrawing
 {
-    UIImage *myImage = self.gameImage;
-    return [self.jotViewController drawOnImage:myImage];
+    UIImage *tempGameImage = [self.jotViewController drawOnImage:self.originalImage];
+    self.gameImage = [self prepareImageForGame:tempGameImage];
+    return self.gameImage;
 }
 
 
@@ -556,6 +550,14 @@ NSString * const kSaveImageName = @"download-button";
     }
 }
 
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+    self.previewImage = nil;
+    self.gameImage = nil;
+    self.originalImage = nil;
+}
 
 # pragma mark - set view model method
 
@@ -569,15 +571,15 @@ NSString * const kSaveImageName = @"download-button";
 
 -(UIImage*)prepareImageForGame:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 60)]; // portrait; resizing photo so it fits the entire device screen
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)]; // portrait; resizing photo so it fits the entire device screen
     }
     
     else if (image.size.width > image.size.height) { // landscape
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 60)];
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
     }
     
     else if (image.size.width == image.size.height) { // square
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 60)];
+        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
     }
     
     NSLog(@"image after resizing: %@", image);

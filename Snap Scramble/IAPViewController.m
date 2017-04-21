@@ -33,7 +33,7 @@
 - (IBAction)goBackButtonDidPress:(id)sender {
     self.IAPView.animation = @"fall";
     [self.IAPView animate];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 

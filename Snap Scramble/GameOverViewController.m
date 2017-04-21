@@ -124,7 +124,7 @@
             [KVNProgress dismiss];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try playing again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self openChallengeVC];
         } else {
             [self.timeoutTimer invalidate];
             [KVNProgress dismiss];
@@ -219,24 +219,37 @@
                 [gameViewController deallocGameProperties];
                 self.statsView.animation = @"fall";
                 [self.statsView animate];
-                [self.navigationController popToViewController:gameViewController animated:YES];
+                [self.navigationController popToViewController:gameViewController animated:NO];
             }
             
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, now go back to main menu");
                 [self displayAd]; // display ads or not
-                for (UIViewController* viewController in self.navigationController.viewControllers) {
-                    if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
-                        SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
-                        [self.navigationController popToViewController:VC animated:NO];
-                        CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
-                        [centerVC showLeftVC];
-                    }
-                }
+                [self openChallengeVC];
             }
             break;
         }
     }
+}
+
+- (void)openChallengeVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
+        }
+    }
+}
+
+# pragma mark - pass data methods
+
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+    self.game = nil;
 }
 
 # pragma mark - timer methods

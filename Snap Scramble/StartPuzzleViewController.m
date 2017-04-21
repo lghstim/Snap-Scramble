@@ -10,6 +10,8 @@
 #import "GameViewController.h"
 #import "Snap_Scramble-Swift.h"
 #import "StartPuzzleViewModel.h"
+#import "CameraViewController.h"
+#import "AppDelegate.h"
 @import SwipeNavigationController;
 
 @interface StartPuzzleViewController ()
@@ -71,7 +73,7 @@
                 [self updateStatsView];
             } else { // if error
                 [KVNProgress dismiss];
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self openChallengeVC];
                 [self.timeoutTimer invalidate];
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alertView show];
@@ -238,6 +240,27 @@
     }
 }
 
+- (void)openCameraVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:YES];
+            [self passDataToCameraVC];
+        }
+    }
+}
+
+- (void)openChallengeVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
+        }
+    }
+}
+
 # pragma mark - game methods logic
 
 - (IBAction)startGame:(id)sender {
@@ -270,8 +293,20 @@
     }
 }
 
-# pragma mark - image editing methods
+- (void)passDataToCameraVC {
+    CameraViewController *cameraVC = (CameraViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
+    cameraVC.createdGame = self.createdGame;
+    cameraVC.opponent = self.opponent;
+    cameraVC.roundObject = self.roundObject;
+}
 
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+}
+
+# pragma mark - image editing methods
 
 -(UIImage*)prepareImageForGame:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
@@ -399,12 +434,8 @@
     [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
     self.scoreView.animation = @"fall";
     [self.scoreView animate];
-    for (UIViewController* viewController in self.navigationController.viewControllers) {
-        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
-            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
-            [self.navigationController popToViewController:VC animated:YES];
-        }
-    }
+    [self openCameraVC];
+   
 }
 
 

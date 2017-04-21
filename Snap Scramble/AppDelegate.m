@@ -205,7 +205,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     if ([shortcutItem.type isEqualToString:@"com.timgorer.SnapScrambleDescrambleFriends.addFriends"]) {
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"SwipeUI" bundle: nil];
         FriendsTableViewController *friendsVC = (FriendsTableViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"FriendsVC"];
         [navigationController pushViewController:friendsVC animated:YES];
     }

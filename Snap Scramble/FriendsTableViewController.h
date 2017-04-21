@@ -15,7 +15,7 @@
 
 @interface FriendsTableViewController : UITableViewController
 
-@property (weak, nonatomic) id<FirstVCDelegate> delegate;
+@property (weak, nonatomic) id<UserSelectVCDelegate> delegate;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) PFRelation *friendsRelation;
 @property (nonatomic, strong) NSArray *friends;
