@@ -31,6 +31,7 @@
 
 
 - (UIImage *)resizeImage:(UIImage *)image withMaxDimension:(CGFloat)maxDimension;
+- (void)deallocate;
 
 
 @end

@@ -649,7 +649,7 @@
 					6A112AA61B5DFB0D0035A75C = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 67D5VP8GSS;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -659,7 +659,7 @@
 					};
 					6A112ABF1B5DFB0D0035A75C = {
 						CreatedOnToolsVersion = 6.3.2;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -988,7 +988,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.timgorer.SnapScrambleDescrambleFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ef6c5df4-d97a-4c51-8f00-bae3cc811b29";
+				PROVISIONING_PROFILE = "6218242f-87de-43e4-976f-dfa8e0e04916";
 				PROVISIONING_PROFILE_SPECIFIER = "Snap Scramble Development Provisioning Profile";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;

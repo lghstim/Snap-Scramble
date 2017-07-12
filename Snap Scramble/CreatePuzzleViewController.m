@@ -39,7 +39,6 @@
     self.imagePicker.delegate = self;
     self.imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
     
-    [self.takePhotoButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.choosePhotoButton addTarget:self action:@selector(choosePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.backButton.adjustsImageWhenHighlighted = YES;
@@ -57,11 +56,6 @@
 }
 
 # pragma mark - navigation
-
-- (IBAction)takePhoto:(id)sender {
-    // takes the user to the next view controller so he can take the photo (CameraViewController)
-    [self performSegueWithIdentifier:@"openCamera" sender:self];
-}
 
 - (IBAction)choosePhoto:(id)sender {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
@@ -128,7 +122,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 }
 
-- (void)dealloc {
+- (void)deallocate{
     self.opponent = nil;
     self.createdGame = nil;
     self.roundObject = nil;

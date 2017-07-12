@@ -29,7 +29,7 @@
     return self;
 }
 
-# pragma mark - views
+# pragma mark - view methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];

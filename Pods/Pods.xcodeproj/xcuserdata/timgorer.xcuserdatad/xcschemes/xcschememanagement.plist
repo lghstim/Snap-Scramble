@@ -69,6 +69,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SSPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwipeNavigationController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,17 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0CD2CB1AD668DA3A9859D5AB9AED304A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>235390E1D6873C0CE77F797E00B02E06</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>256838457B196E1BD59E79A5D5F274E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,17 +112,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D07AB59FE7802251A2F897A7E137C74</key>
+		<key>6E420B26CA7E17215281A52BB387650A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7C7A40CA796EF7EEEA54CB14A7AC804F</key>
+		<key>79417E6E7FFC6FC3F6CD26EF38568101</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88D72FD60227269ECBF09A9A36B30E77</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8F5682E0AC126B1910FC04BA8A16F382</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E0A15F0F0DAFA31742453F872C219BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -143,6 +148,11 @@
 			<true/>
 		</dict>
 		<key>BEF7E6E85DB5CDE5D7A18F4F2EB8494B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DF07AD03591490F0F951CF124731B559</key>
 		<dict>
 			<key>primary</key>
 			<true/>

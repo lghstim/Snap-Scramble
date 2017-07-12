@@ -51,12 +51,11 @@
     self.currentGamesTable.dataSource = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil]; // reload the table if the user receives a notification?
     [self setNavigationBar];
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(retrieveUserMatches) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = [[SSPullToRefreshView alloc] initWithScrollView:self.currentGamesTable delegate:self];
     [self.currentGamesTable addSubview:self.refreshControl];
-    self.currentGamesTable.tableHeaderView = self.headerView;
     self.currentGamesTable.delaysContentTouches = NO;
-    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(43, 0, -300, 0)];
+    self.currentGamesTable.frame = self.view.bounds;
+    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(43, 0, 50, 0)];
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
 
@@ -84,17 +83,15 @@
     }];
     
     [self.view bringSubviewToFront:self.cameraButton];
-    [self.cameraButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.cameraButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchDown];
     [self.cameraButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown];
     [self.cameraButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
-   
-    [self setUIButtonsAndLabels];
-    [self displayAdsButton]; // display ads button, or not if user paid
+   // [self setUIButtonsAndLabels];
 
     PFUser *currentUser = [PFUser currentUser];
     NSLog(@"current user %@", currentUser);
     if (currentUser) {
-        NSLog(@"Current user: %@", currentUser.username);
+        NSLog(@"Current userrr: %@", currentUser.username);
         [self.currentGamesTable reloadData]; // reload the table view
         [self retrieveUserMatches]; // retrieve all games, both pending and current
         NSString* usernameText = @"Username: ";
@@ -109,12 +106,17 @@
     }
 }
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    self.refreshControl = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [self reallocateVars];
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
-        NSLog(@"Current user: %@", currentUser.username);
+        NSLog(@"Current userr: %@", currentUser.username);
         [self.currentGamesTable reloadData]; // reload the table view
         [self retrieveUserMatches]; // retrieve all games, both pending and current
         NSString* usernameText = @"Username: ";
@@ -122,7 +124,6 @@
         [self.usernameLabel setText:usernameText];
         [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"User"];
         [[PFInstallation currentInstallation] saveInBackground];
-       // [self askToRemoveAds];
     }
     
     else {
@@ -131,6 +132,8 @@
     
     [self setUpLongPressCell];
     [self displayAd]; // display ad, or not if user paid
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
 }
 
 
@@ -141,15 +144,25 @@
         [self retrieveUserMatches];
     }
 }
+    
+- (void)reallocateVars{
+    self.opponent = nil;
+    self.selectedGame = nil;
+    self.roundObject = nil;
+    self.cameraImage = nil;
+     CameraViewController *cameraVC = ((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
+    [cameraVC deallocate];
+    CreatePuzzleViewController *createVC = ((AppDelegate *)[UIApplication sharedApplication].delegate).bottomVC;
+    [createVC deallocate];
+}
 
-- (void)setUIButtonsAndLabels {
+/* - (void)setUIButtonsAndLabels {
     // username label
     _usernameLabel = [DesignableLabel new];
     self.usernameLabel.text = [NSString stringWithFormat:@"Current user: %@",  [PFUser currentUser].username];
     self.usernameLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
     self.usernameLabel.textAlignment = NSTextAlignmentCenter;
     [self.usernameLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
-    [self.headerView addSubview:self.usernameLabel];
     [self.usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@200);
         make.centerX.equalTo(self.headerView);
@@ -157,9 +170,8 @@
     }];
     self.usernameLabel.adjustsFontSizeToFitWidth = YES;
     self.usernameLabel.contentScaleFactor = 1.0;
-    [self.usernameLabel setFrame:CGRectIntegral(self.usernameLabel.frame)];
-    [self.usernameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.headerView bringSubviewToFront:self.usernameLabel];
+    [self.usernameLabel setFrame:CGRectIntegral(self.usernameLabel.frame)];
     
     // score label
     _scoreLabel = [UILabel new];
@@ -172,10 +184,9 @@
         make.centerX.equalTo(self.headerView);
         make.top.equalTo(self.headerView).offset(30);
     }];
-    [self.scoreLabel setFrame:CGRectIntegral(self.scoreLabel.frame)];
-    [self.scoreLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.headerView bringSubviewToFront:self.scoreLabel];
-}
+    [self.scoreLabel setFrame:CGRectIntegral(self.scoreLabel.frame)];
+} */
 
 - (void)askToRemoveAds {
     NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
@@ -208,9 +219,11 @@
 }
 
 - (void)setNavigationBar {
-    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 65)];
     navbar.backgroundColor = [self colorWithHexString:@"71C7F0"];
     navbar.barTintColor = [self colorWithHexString:@"71C7F0"];
+    navbar.layer.cornerRadius = 5;
+    navbar.layer.masksToBounds = YES;
     UINavigationItem* navItem = [[UINavigationItem alloc] initWithTitle:@"Snap Scramble"];
     [navItem.titleView setFrame:CGRectMake(navItem.titleView.frame.origin.x, navItem.titleView.frame.origin.y + 30, navItem.titleView.frame.size.width, navItem.titleView.frame.size.height)];
     [navbar setItems:@[navItem]];
@@ -266,29 +279,33 @@
     }];
 }
 
-- (void)displayAdsButton {
+/* - (void)displayAdsButton {
     NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"%id", [adsRemoved boolValue]);
     if ([adsRemoved boolValue] != TRUE) {
-        /* _removeAdsButton = [DesignableButton new];
+        _removeAdsButton = [DesignableButton new];
         [self.removeAdsButton setTitle:@"Press here to remove ads for $1.99" forState:UIControlStateNormal];
         [self.removeAdsButton setTitleColor:[self colorWithHexString:@"71C7F0"] forState:UIControlStateNormal];
         self.removeAdsButton.titleLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
         self.removeAdsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.headerView addSubview:self.removeAdsButton];
         [self.removeAdsButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.headerView);
             make.topMargin.equalTo(@5);
         }];
         self.removeAdsButton.titleLabel.adjustsFontSizeToFitWidth = YES;
         self.removeAdsButton.titleLabel.contentScaleFactor = 1.0;
-        [self.headerView bringSubviewToFront:self.removeAdsButton];
         [self.removeAdsButton addTarget:self action:@selector(goToIAPVC:) forControlEvents:UIControlEventTouchUpInside];
-        [self.removeAdsButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted]; */
+        [self.removeAdsButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
     } else {
         self.removeAdsButton.hidden = TRUE;
     }
+} */
+
+# pragma mark - pull to refresh methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view {
+    [self retrieveUserMatches];
 }
 
 
@@ -300,7 +317,6 @@
 }
 
 - (void)animatePlayButton:(id)sender {
-    NSLog(@"hi");
     self.challengeButton.animation = @"pop";
     [self.challengeButton animate];
 }
@@ -328,16 +344,13 @@
 
 - (void)retrieveUserMatches {
     // retrieve current matches
+    [self.refreshControl startLoading];
     [self.viewModel retrieveCurrentMatches:^(NSArray *matches, NSError *error) {
         if (error) {
             NSLog(@"Error %@ %@", error, [error userInfo]);
         }
         
         else {
-            if ([self.refreshControl isRefreshing]) {
-                [self.refreshControl endRefreshing];
-            }
-            
             self.currentGames = matches;
             [self.currentGamesTable reloadData];
             
@@ -348,10 +361,7 @@
                 }
                 
                 else {
-                    if ([self.refreshControl isRefreshing]) {
-                        [self.refreshControl endRefreshing];
-                    }
-                    
+                    [self.refreshControl finishLoading];
                     self.currentPendingGames = matches;
                     [self.currentGamesTable reloadData];
                     

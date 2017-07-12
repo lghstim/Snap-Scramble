@@ -150,7 +150,7 @@
     
     // button to toggle flash
     self.flashButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.flashButton.frame = CGRectMake(0, 0, 16.0f + 20.0f, 24.0f + 20.0f);
+    self.flashButton.frame = CGRectMake(0, 0, 16.0f + 20.0f, 24.0f + 50.0f);
     self.flashButton.tintColor = [UIColor whiteColor];
     [self.flashButton setImage:[UIImage imageNamed:@"camera-flash"] forState:UIControlStateNormal];
     self.flashButton.imageEdgeInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
@@ -160,7 +160,7 @@
     if([LLSimpleCamera isFrontCameraAvailable] && [LLSimpleCamera isRearCameraAvailable]) {
         // button to toggle camera positions
         self.switchButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.switchButton.frame = CGRectMake(0, 0, 29.0f + 20.0f, 22.0f + 20.0f);
+        self.switchButton.frame = CGRectMake(0, 0, 29.0f + 20.0f, 22.0f + 50.0f);
         self.switchButton.tintColor = [UIColor whiteColor];
         [self.switchButton setImage:[UIImage imageNamed:@"camera-switch"] forState:UIControlStateNormal];
         self.switchButton.imageEdgeInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
@@ -278,7 +278,7 @@
     [self.view addSubview:self.topButton];
     [self.topButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(0);
+        make.top.equalTo(self.view).offset(15);
         CGFloat newWidth = self.topArrow.size.width / 3;
         CGFloat newHeight = self.topArrow.size.height / 3;
         float newWidthInt = (float)newWidth;
@@ -407,7 +407,7 @@
     createPuzzleVC.createdGame = self.createdGame;
 }
 
-- (void)dealloc {
+- (void)deallocate {
     self.opponent = nil;
     self.createdGame = nil;
     self.roundObject = nil;

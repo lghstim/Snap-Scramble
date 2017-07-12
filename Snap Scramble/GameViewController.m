@@ -48,6 +48,8 @@ NSString * const kSaveImageName2 = @"download-button";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
     self.statsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.statsButton.hidden = YES;
     self.statsButton.userInteractionEnabled = NO;

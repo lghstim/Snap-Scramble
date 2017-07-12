@@ -96,6 +96,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ParseFacebookUtilsV4/ParseFacebookUtilsV4.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RMActionController/RMActionController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RMPickerViewController/RMPickerViewController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SSPullToRefresh/SSPullToRefresh.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwipeNavigationController/SwipeNavigationController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/jot/jot.framework"
 fi
@@ -112,6 +113,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ParseFacebookUtilsV4/ParseFacebookUtilsV4.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RMActionController/RMActionController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RMPickerViewController/RMPickerViewController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SSPullToRefresh/SSPullToRefresh.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwipeNavigationController/SwipeNavigationController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/jot/jot.framework"
 fi

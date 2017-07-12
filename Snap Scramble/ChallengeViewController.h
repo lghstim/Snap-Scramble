@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "SSPullToRefresh.h"
 #import "Snap_Scramble-Swift.h"
 @import GoogleMobileAds;
 @class SwipeNavigationController;
@@ -23,12 +24,11 @@
 @property (nonatomic, strong) NSArray *currentGames;
 @property (nonatomic, strong) NSArray *currentPendingGames;
 @property (nonatomic, strong) PFObject *selectedGame;
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) SSPullToRefreshView *refreshControl;
 @property (nonatomic, strong) IBOutlet UITableView *currentGamesTable;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) NSMutableArray *usernames;
 @property(strong, nonatomic) NSMutableArray *images;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
 @property (nonatomic, strong)  DesignableLabel *usernameLabel;
 @property (strong, nonatomic) DesignableButton *challengeButton;

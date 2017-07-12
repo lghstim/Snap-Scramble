@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NSTimer *timeoutTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
 @property (weak, nonatomic) IBOutlet UILabel *headerStatsLabel;
+@property (weak, nonatomic)  UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet DesignableTextField *currentUserTimeLabel; // the current user's time label
 @property (weak, nonatomic) IBOutlet DesignableTextField *opponentTimeLabel; // the opponent's time label
 @property (nonatomic, strong) NSNumber* currentUserTotalSeconds;

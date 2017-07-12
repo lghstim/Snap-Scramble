@@ -28,6 +28,7 @@
 @property (nonatomic, strong) JPSVolumeButtonHandler* volumeButtonHandler;
 
 - (void)showLeftVC;
+- (void)deallocate;
 
 
 

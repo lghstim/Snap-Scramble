@@ -59,6 +59,10 @@
         // Adds a status below the circle
         self.totalSeconds = [NSNumber numberWithInt:0];
         self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+        self.timerLabel = [UILabel new];
+        [self.timerLabel setCenter:CGPointMake(self.view.frame.size.width, self.view.frame.size.height)];
+        self.timerLabel.text = @"HELLO";
+        [self.view addSubview:self.timerLabel];
         [KVNProgress showWithStatus:@"Downloading..."];
         self.startPuzzleButton.userInteractionEnabled = false;
         [self.startPuzzleButton setTitle:@"Start Puzzle" forState:UIControlStateNormal];
@@ -266,7 +270,8 @@
 - (IBAction)startGame:(id)sender {
     self.totalSeconds = [NSNumber numberWithInt:0];
     // first show preview of the image for a few seconds
-    [KVNProgress showWithStatus:[NSString stringWithFormat:@"Here's a preview of %@'s puzzle! Solve it as fast as possible!", self.opponent.username]];
+    [KVNProgress showProgress:0.0f status:[NSString stringWithFormat:@"Here's a preview of %@'s puzzle! Solve it as fast as possible!", self.opponent.username]];
+    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -389,13 +394,32 @@
     self.totalSeconds = [NSNumber numberWithInt:value + 1];
     NSLog(@"%@", self.totalSeconds);
     
-    if ([self.totalSeconds intValue] > 3) {
-        [KVNProgress dismiss];
+    if ([self.totalSeconds intValue] == 1) {
+        [KVNProgress updateProgress:0.25f
+                           animated:YES];
+    }
+    
+    if ([self.totalSeconds intValue] == 2) {
+        [KVNProgress updateProgress:0.5f
+                           animated:YES];
+    }
+    
+    
+    if ([self.totalSeconds intValue] == 3) {
+        [KVNProgress updateProgress:0.75f
+                           animated:YES];
+    }
+    
+    if ([self.totalSeconds intValue] == 4) {
+        [KVNProgress updateProgress:0.85f
+                           animated:YES];
     }
     
     // if 5 seconds passed in uploading
-    if ([self.totalSeconds intValue] > 5) {
+    if ([self.totalSeconds intValue] >= 5) {
         // begin game
+        [KVNProgress updateProgress:1.0f animated:YES];
+        [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
         self.view.userInteractionEnabled = TRUE;
         [self performSegueWithIdentifier:@"beginGame" sender:self];

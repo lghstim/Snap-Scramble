@@ -612,7 +612,7 @@ NSString * const kSaveImageName = @"download-button";
                                   width,
                                   height);
     
-    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     [image drawInRect:imageRect];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
