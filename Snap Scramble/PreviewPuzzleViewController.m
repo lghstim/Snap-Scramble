@@ -398,8 +398,9 @@ NSString * const kSaveImageName = @"download-button";
     self.totalSeconds = [NSNumber numberWithInt:value + 1];
     NSLog(@"%@", self.totalSeconds);
     
+
     // if too much time passed in uploading
-    if ([self.totalSeconds intValue] > 30) {
+    if ([self.totalSeconds intValue] > 22) {
         NSLog(@"timeout error. took longer than 20 seconds");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
