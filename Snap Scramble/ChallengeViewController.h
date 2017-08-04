@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "SSPullToRefresh.h"
 #import "Snap_Scramble-Swift.h"
+#import "SCLAlertView.h"
 @import GoogleMobileAds;
 @class SwipeNavigationController;
 @import SwipeNavigationController;

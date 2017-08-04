@@ -18,14 +18,27 @@
 #import "Snap_Scramble-Swift.h"
 #import <SwipeNavigationController/SwipeNavigationController.h>
 
+
 @import Firebase;
 @import SwipeNavigationController;
 
 @interface ChallengeViewController ()
 
 @property(nonatomic, strong) ChallengeViewModel *viewModel;
+@property (nonatomic, strong) UIButton *statsButton;
+
+
 
 @end
+
+NSString *kButtonTitle = @"Done";
+NSString *kSubtitle = @"You've just displayed this awesome Pop Up View";
+NSString *kInfoTitle = @"Info";
+NSString *kAttributeTitle = @"Attributed string operation successfully completed.";
+
+
+
+
 
 @implementation ChallengeViewController
 
@@ -45,6 +58,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // score label
+    _scoreLabel = [UILabel new];
+    self.scoreLabel.text =  [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];
+    self.scoreLabel.font = [UIFont fontWithName:@"AvenirNext" size:19];
+    self.scoreLabel.textAlignment = NSTextAlignmentCenter;
+    [self.scoreLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
+    self.scoreLabel.userInteractionEnabled = NO;
+    
     self.bannerView.rootViewController = self;
     self.view.clipsToBounds = TRUE;
     self.currentGamesTable.delegate = self;
@@ -227,6 +249,9 @@
     navbar.layer.masksToBounds = YES;
     UINavigationItem* navItem = [[UINavigationItem alloc] initWithTitle:@"Snap Scramble"];
     [navItem.titleView setFrame:CGRectMake(navItem.titleView.frame.origin.x, navItem.titleView.frame.origin.y + 30, navItem.titleView.frame.size.width, navItem.titleView.frame.size.height)];
+    
+    navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-hamburger"] style:UIBarButtonItemStyleDone target:self action:@selector(displayStats)];
+    navbar.tintColor = [UIColor whiteColor];
     [navbar setItems:@[navItem]];
     [self.view addSubview:navbar];
 }
@@ -234,6 +259,13 @@
 - (BOOL)prefersStatusBarHidden
 {
     return NO;
+}
+
+- (void)displayStats {
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    [alert showCustom:self image:nil color:[self colorWithHexString:@"71C7F0"] title:@"Your Puzzle Stats" subTitle:self.scoreLabel.text closeButtonTitle:@"OK" duration:0.0f]; // Custom
+    alert.shouldDismissOnTapOutside = YES;
+    self.scoreLabel.userInteractionEnabled = NO;
 }
 
 - (void)displayAd{
@@ -254,6 +286,7 @@
 - (void)updateScoreLabel {
     self.scoreLabel.adjustsFontSizeToFitWidth = YES;
     self.scoreLabel.contentScaleFactor = 1.0;
+    
     [self.viewModel getCurrentUser:^(PFObject *currentUser, NSError *error) {
         if (error) {
             NSLog(@"error...");

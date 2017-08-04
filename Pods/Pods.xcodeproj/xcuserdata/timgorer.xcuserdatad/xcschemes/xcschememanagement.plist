@@ -69,6 +69,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SCLAlertView-Objective-C.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SSPullToRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,7 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>07B7D38D080F263EB87DB693E935A907</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>235390E1D6873C0CE77F797E00B02E06</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>26EB31F642DFA8B95CCED42D72CAA02F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,27 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6E420B26CA7E17215281A52BB387650A</key>
+		<key>5C5D08E3DFA1728A1D496E092B5DDCED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79417E6E7FFC6FC3F6CD26EF38568101</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>88D72FD60227269ECBF09A9A36B30E77</key>
+		<key>5CDA8A8CB71ACF38F597CDDA0739EA98</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8F5682E0AC126B1910FC04BA8A16F382</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9E0A15F0F0DAFA31742453F872C219BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,12 +157,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DF07AD03591490F0F951CF124731B559</key>
+		<key>DDE1FF01683E893E7C2AD0A6CF31DE0B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E396A93E4C79B22B7816E9F02F62ECED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5B6F8C67B379E93735F7624E16CEC06</key>
 		<dict>
 			<key>primary</key>
 			<true/>
