@@ -61,7 +61,7 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
     
     // score label
     _scoreLabel = [UILabel new];
-    self.scoreLabel.text =  [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];
+    self.scoreLabel.text =  [NSString stringWithFormat:@"Wins: 0 | Losses: 0 \n Username: %@", [PFUser currentUser].username];
     self.scoreLabel.font = [UIFont fontWithName:@"AvenirNext" size:19];
     self.scoreLabel.textAlignment = NSTextAlignmentCenter;
     [self.scoreLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
@@ -297,16 +297,16 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
             int lossesInt = [losses intValue];
             if (winsInt > 0 && lossesInt > 0) {
                 // NSLog(@"Wins: %@ | Losses: %@", wins, losses);
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: %@", wins, losses];
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: %@ \n Username: %@", wins, losses, [PFUser currentUser].username];
             } else if (winsInt > 0 && lossesInt == 0) {
                 // NSLog(@"Wins: %@ | Losses: 0", wins);
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: 0", wins];
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: %@ | Losses: 0 \n Username: %@", wins, [PFUser currentUser].username];
             } else if (lossesInt > 0 && winsInt == 0) {
                 // NSLog(@"Wins: 0 | Losses: %@", losses);
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: %@", losses];
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: %@ \n Username: %@", losses, [PFUser currentUser].username];
             } else if (lossesInt == 0 && winsInt == 0) {
                 // NSLog(@"Wins: 0 | Losses: 0");
-                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];
+                self.scoreLabel.text = [NSString stringWithFormat:@"Wins: 0 | Losses: 0 \n Username: %@", [PFUser currentUser].username];
             }
         }
     }];
