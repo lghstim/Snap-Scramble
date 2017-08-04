@@ -1118,7 +1118,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tFk-Wy-3c6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="65" width="375" height="552"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                 <inset key="scrollIndicatorInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1176,10 +1176,10 @@
                         <constraints>
                             <constraint firstItem="3iH-lZ-mhm" firstAttribute="leading" secondItem="7gf-g5-35d" secondAttribute="leading" id="1zB-jb-uMV"/>
                             <constraint firstItem="3iH-lZ-mhm" firstAttribute="centerX" secondItem="7gf-g5-35d" secondAttribute="centerX" id="74x-Tf-DVh"/>
-                            <constraint firstItem="tFk-Wy-3c6" firstAttribute="top" secondItem="7gf-g5-35d" secondAttribute="top" id="8jT-0c-INp"/>
+                            <constraint firstItem="tFk-Wy-3c6" firstAttribute="top" secondItem="7gf-g5-35d" secondAttribute="top" constant="65" id="8jT-0c-INp"/>
                             <constraint firstItem="hOd-Ht-Hx1" firstAttribute="top" secondItem="3iH-lZ-mhm" secondAttribute="bottom" id="Etv-5Y-QiD"/>
                             <constraint firstAttribute="trailing" secondItem="tFk-Wy-3c6" secondAttribute="trailing" id="GVe-FG-7UB"/>
-                            <constraint firstItem="tFk-Wy-3c6" firstAttribute="bottom" secondItem="hOd-Ht-Hx1" secondAttribute="top" id="UQU-Qt-QME"/>
+                            <constraint firstItem="tFk-Wy-3c6" firstAttribute="bottom" secondItem="hOd-Ht-Hx1" secondAttribute="top" constant="-50" id="UQU-Qt-QME"/>
                             <constraint firstItem="tFk-Wy-3c6" firstAttribute="leading" secondItem="7gf-g5-35d" secondAttribute="leading" id="Vi9-Lh-dnL"/>
                             <constraint firstAttribute="trailing" secondItem="3iH-lZ-mhm" secondAttribute="trailing" id="mFg-F0-ZkI"/>
                         </constraints>

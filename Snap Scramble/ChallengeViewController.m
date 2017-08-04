@@ -54,8 +54,9 @@
     self.refreshControl = [[SSPullToRefreshView alloc] initWithScrollView:self.currentGamesTable delegate:self];
     [self.currentGamesTable addSubview:self.refreshControl];
     self.currentGamesTable.delaysContentTouches = NO;
-    self.currentGamesTable.frame = self.view.bounds;
-    [self.currentGamesTable setContentInset:UIEdgeInsetsMake(43, 0, 50, 0)];
+
+    
+    
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
 
@@ -228,7 +229,6 @@
     [navItem.titleView setFrame:CGRectMake(navItem.titleView.frame.origin.x, navItem.titleView.frame.origin.y + 30, navItem.titleView.frame.size.width, navItem.titleView.frame.size.height)];
     [navbar setItems:@[navItem]];
     [self.view addSubview:navbar];
-    [self.view bringSubviewToFront:navbar];
 }
 
 - (BOOL)prefersStatusBarHidden
