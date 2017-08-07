@@ -109,7 +109,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
     [self.cameraButton addTarget:self action:@selector(playButtonDidPress:) forControlEvents:UIControlEventTouchDown];
     [self.cameraButton addTarget:self action:@selector(animatePlayButton:) forControlEvents:UIControlEventTouchDown];
     [self.cameraButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
-   // [self setUIButtonsAndLabels];
 
     PFUser *currentUser = [PFUser currentUser];
     NSLog(@"current user %@", currentUser);
@@ -311,29 +310,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
         }
     }];
 }
-
-/* - (void)displayAdsButton {
-    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"%id", [adsRemoved boolValue]);
-    if ([adsRemoved boolValue] != TRUE) {
-        _removeAdsButton = [DesignableButton new];
-        [self.removeAdsButton setTitle:@"Press here to remove ads for $1.99" forState:UIControlStateNormal];
-        [self.removeAdsButton setTitleColor:[self colorWithHexString:@"71C7F0"] forState:UIControlStateNormal];
-        self.removeAdsButton.titleLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
-        self.removeAdsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.removeAdsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.headerView);
-            make.topMargin.equalTo(@5);
-        }];
-        self.removeAdsButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-        self.removeAdsButton.titleLabel.contentScaleFactor = 1.0;
-        [self.removeAdsButton addTarget:self action:@selector(goToIAPVC:) forControlEvents:UIControlEventTouchUpInside];
-        [self.removeAdsButton setImage:[self imageByApplyingAlpha:0.6] forState:UIControlStateHighlighted];
-    } else {
-        self.removeAdsButton.hidden = TRUE;
-    }
-} */
 
 # pragma mark - pull to refresh methods
 

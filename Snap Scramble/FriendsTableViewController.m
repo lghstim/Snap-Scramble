@@ -11,6 +11,7 @@
 #import "CreatePuzzleViewController.h"
 #import "FriendsViewModel.h"
 #import "FriendsTableViewCell.h"
+#import "AppDelegate.h"
 @class FriendsTableViewCell;
 
 
@@ -37,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self setNavigationBar];
+    [self setNavigationBar];
     UINib *nib = [UINib nibWithNibName:@"FriendsTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"Cell"];
 }
@@ -87,18 +88,25 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController.navigationBar setHidden:true];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)setNavigationBar {
-    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 65)];
     navbar.backgroundColor = [self colorWithHexString:@"71C7F0"];
     navbar.barTintColor = [self colorWithHexString:@"71C7F0"];
-    UINavigationItem* navItem = [[UINavigationItem alloc] initWithTitle:@"Snap Scramble"];
+    navbar.layer.cornerRadius = 5;
+    navbar.layer.masksToBounds = YES;
+    UINavigationItem* navItem = [[UINavigationItem alloc] initWithTitle:@"Friends List"];
     [navItem.titleView setFrame:CGRectMake(navItem.titleView.frame.origin.x, navItem.titleView.frame.origin.y + 30, navItem.titleView.frame.size.width, navItem.titleView.frame.size.height)];
+    navItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithTitle:@"Add friend" style:UIBarButtonItemStyleDone target:self action:@selector(addFriendButtonDidPress:)];
+    navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-back-small"] style:UIBarButtonItemStyleDone target:self action:@selector(goBackButtonDidPress:)];
+    navbar.tintColor = [UIColor whiteColor];
     [navbar setItems:@[navItem]];
     [self.view addSubview:navbar];
-    [self.view bringSubviewToFront:navbar];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
+
 
 # pragma mark - navigation
 - (IBAction)addFriendButtonDidPress:(id)sender {

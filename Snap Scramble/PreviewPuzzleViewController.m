@@ -571,15 +571,15 @@ NSString * const kSaveImageName = @"download-button";
 
 -(UIImage*)prepareImageForGame:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)]; // portrait; resizing photo so it fits the entire device screen
+        image = [self imageWithGameImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)]; // portrait; resizing photo so it fits the entire device screen
     }
     
     else if (image.size.width > image.size.height) { // landscape
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+        image = [self imageWithGameImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
     }
     
     else if (image.size.width == image.size.height) { // square
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
+        image = [self imageWithGameImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 30)];
     }
     
     NSLog(@"image after resizing: %@", image);
@@ -588,22 +588,22 @@ NSString * const kSaveImageName = @"download-button";
 
 -(UIImage*)prepareImageForPreview:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
+        image = [self imageWithPreviewImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
     }
     
     else if (image.size.width > image.size.height) { // landscape
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+        image = [self imageWithPreviewImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     }
     
     else if (image.size.width == image.size.height) { // square
-        image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height )];
+        image = [self imageWithPreviewImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height )];
     }
     
     NSLog(@"image after resizing: %@", image);
     return image;
 }
 
-- (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
+- (UIImage *)imageWithGameImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
     CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
     CGFloat width = image.size.width * scale;
@@ -613,7 +613,24 @@ NSString * const kSaveImageName = @"download-button";
                                   width,
                                   height);
     
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    [image drawInRect:imageRect];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (UIImage *)imageWithPreviewImage:(UIImage *)image scaledToFillSize:(CGSize)size
+{
+    CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
+    CGFloat width = image.size.width * scale;
+    CGFloat height = image.size.height * scale;
+    CGRect imageRect = CGRectMake((size.width - width)/2.0f,
+                                  (size.height - height)/2.0f,
+                                  width,
+                                  height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     [image drawInRect:imageRect];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
