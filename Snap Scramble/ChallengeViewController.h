@@ -30,7 +30,6 @@
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) NSMutableArray *usernames;
 @property(strong, nonatomic) NSMutableArray *images;
-@property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
 @property (nonatomic, strong)  DesignableLabel *usernameLabel;
 @property (strong, nonatomic) DesignableButton *challengeButton;
 @property (strong, nonatomic) DesignableButton *cameraButton;
@@ -39,8 +38,6 @@
 @property (nonatomic, strong)  UILabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
-
-// background view properties
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 - (void)retrieveUserMatches;

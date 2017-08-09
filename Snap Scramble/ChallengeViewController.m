@@ -32,11 +32,7 @@
 @end
 
 NSString *kButtonTitle = @"Done";
-NSString *kSubtitle = @"You've just displayed this awesome Pop Up View";
 NSString *kInfoTitle = @"Info";
-NSString *kAttributeTitle = @"Attributed string operation successfully completed.";
-
-
 
 
 
@@ -69,8 +65,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
     
     self.bannerView.rootViewController = self;
     self.view.clipsToBounds = TRUE;
-    self.currentGamesTable.delegate = self;
-    self.currentGamesTable.dataSource = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable:) name:@"reloadTheTable" object:nil]; // reload the table if the user receives a notification?
     [self setNavigationBar];
     self.refreshControl = [[SSPullToRefreshView alloc] initWithScrollView:self.currentGamesTable delegate:self];
@@ -81,9 +75,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
     
     UINib *nib = [UINib nibWithNibName:@"SnapScrambleCell" bundle:nil];
     [[self currentGamesTable] registerNib:nib forCellReuseIdentifier:@"Cell"];
-
-    // initialize a view for displaying the empty table screen if a user has no games.
-    self.emptyTableScreen = [[UIImageView alloc] init];
 
     // check for internet connection, send a friendly message.
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -115,7 +106,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
     if (currentUser) {
         NSLog(@"Current userrr: %@", currentUser.username);
         [self.currentGamesTable reloadData]; // reload the table view
-        [self retrieveUserMatches]; // retrieve all games, both pending and current
         NSString* usernameText = @"Username: ";
         usernameText = [usernameText stringByAppendingString:currentUser.username];
         [self.usernameLabel setText:usernameText];
@@ -177,38 +167,6 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
     CreatePuzzleViewController *createVC = ((AppDelegate *)[UIApplication sharedApplication].delegate).bottomVC;
     [createVC deallocate];
 }
-
-/* - (void)setUIButtonsAndLabels {
-    // username label
-    _usernameLabel = [DesignableLabel new];
-    self.usernameLabel.text = [NSString stringWithFormat:@"Current user: %@",  [PFUser currentUser].username];
-    self.usernameLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
-    self.usernameLabel.textAlignment = NSTextAlignmentCenter;
-    [self.usernameLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
-    [self.usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@200);
-        make.centerX.equalTo(self.headerView);
-        make.top.equalTo(self.headerView).offset(50);
-    }];
-    self.usernameLabel.adjustsFontSizeToFitWidth = YES;
-    self.usernameLabel.contentScaleFactor = 1.0;
-    [self.headerView bringSubviewToFront:self.usernameLabel];
-    [self.usernameLabel setFrame:CGRectIntegral(self.usernameLabel.frame)];
-    
-    // score label
-    _scoreLabel = [UILabel new];
-    self.scoreLabel.text =  [NSString stringWithFormat:@"Wins: 0 | Losses: 0"];    [self.headerView addSubview:self.scoreLabel];
-    self.scoreLabel.font = [UIFont fontWithName:@"AvenirNext" size:19];
-    self.scoreLabel.textAlignment = NSTextAlignmentCenter;
-    [self.scoreLabel setTextColor:[self colorWithHexString:@"71C7F0"]];
-    [self.headerView addSubview:self.scoreLabel];
-    [self.scoreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.headerView);
-        make.top.equalTo(self.headerView).offset(30);
-    }];
-    [self.headerView bringSubviewToFront:self.scoreLabel];
-    [self.scoreLabel setFrame:CGRectIntegral(self.scoreLabel.frame)];
-} */
 
 - (void)askToRemoveAds {
     NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
@@ -367,6 +325,7 @@ NSString *kAttributeTitle = @"Attributed string operation successfully completed
             [self.viewModel retrievePendingMatches:^(NSArray *matches, NSError *error) {
                 if (error) {
                     NSLog(@"Error %@ %@", error, [error userInfo]);
+                    [self.refreshControl finishLoading];
                 }
                 
                 else {

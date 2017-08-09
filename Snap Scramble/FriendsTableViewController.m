@@ -40,7 +40,9 @@
     [super viewDidLoad];
     [self setNavigationBar];
     UINib *nib = [UINib nibWithNibName:@"FriendsTableViewCell" bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:@"Cell"];
+    [self.currentFriendsTable registerNib:nib forCellReuseIdentifier:@"Cell"];
+    self.refreshControl = [[SSPullToRefreshView alloc] initWithScrollView:self.currentFriendsTable delegate:self];
+    [self.currentFriendsTable addSubview:self.refreshControl];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,45 +52,29 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:false];
-    
-    self.totalSeconds = [NSNumber numberWithInt:0];
-    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
-    self.friendsRelation = self.viewModel.friendsRelation;
-    [KVNProgress showWithStatus:@"Loading friends list..."];
-    [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"Error %@ %@", error, [error userInfo]);
-            [KVNProgress dismiss];
-            [self.timeoutTimer invalidate];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"An error occurred. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alertView show];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        
-        else {
-            self.friends = objects;
-            self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
-            [self.tableView reloadData];
-            [self.viewModel saveCurrentUser:^(BOOL succeeded, NSError *error) {
-                if (error) {
-                    NSLog(@"Error %@ %@", error, [error userInfo]);
-                }
-                
-                else {
-                    NSLog(@"friends list: %@", self.mutableFriendsList);
-                    [self.timeoutTimer invalidate];
-                    [KVNProgress dismiss];
-                    [self.tableView reloadData];
-                }
-            }];
-        }
-    }];
+    [self.navigationController.navigationBar setHidden:TRUE];
+    [self reloadFriends];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController.navigationBar setHidden:true];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+}
+
+- (void)formatTableView {
+    if ([self.friends count] == 0){
+        // set the "no games" background image. change this code later on.
+        self.backgroundView.hidden = NO;
+        self.currentFriendsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.currentFriendsTable.scrollEnabled = false; // disable scroll if there're no games
+    }
+    
+    
+    if ([self.friends count] != 0) {
+        self.backgroundView.hidden = YES;
+        self.currentFriendsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.currentFriendsTable.scrollEnabled = true;
+    }
 }
 
 - (void)setNavigationBar {
@@ -104,9 +90,14 @@
     navbar.tintColor = [UIColor whiteColor];
     [navbar setItems:@[navItem]];
     [self.view addSubview:navbar];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
+# pragma mark - pull to refresh methods
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view {
+    [self reloadFriends];
+}
 
 # pragma mark - navigation
 - (IBAction)addFriendButtonDidPress:(id)sender {
@@ -119,7 +110,29 @@
 
 # pragma mark - game logic
 
+- (void)reloadFriends {
+    self.friendsRelation = self.viewModel.friendsRelation;
+    [self.viewModel retrieveFriends:^(NSArray *objects, NSError *error) {
+        [self.refreshControl startLoading];
+        if (error) {
+            NSLog(@"Error %@ %@", error, [error userInfo]);
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Woops!" message:@"An error occurred. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+        
+        else {
+            self.friends = objects;
+            self.mutableFriendsList = [NSMutableArray arrayWithArray:self.friends]; // set mutable list
+            [self.currentFriendsTable reloadData];
+        }
+        
+        [self formatTableView];
+        [self.refreshControl finishLoading];
+    }];
+}
+
 - (void)addFriend {
+    self.totalSeconds = [NSNumber numberWithInt:0];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search for a user." message:@"Enter the person's username." preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:nil];
     
@@ -180,7 +193,8 @@
                                     [KVNProgress dismiss];
                                     NSLog(@"new friends list: %@", self.mutableFriendsList);
                                     self.mutableFriendsList = [self sortFriendsList];
-                                    [self.tableView reloadData];
+                                    [self.currentFriendsTable reloadData];
+                                    [self reloadFriends];
                                     
                                 } else {
                                     NSLog(@"error");
@@ -242,7 +256,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [self.mutableFriendsList count];
 }
 
@@ -262,7 +275,6 @@
     cell.detailTextLabel.minimumScaleFactor = 0.5;
     PFUser* friend = [self.mutableFriendsList objectAtIndex:indexPath.row];
     cell.usernameLabel.text = friend.username;
-    //cell.selectionImage.image = [UIImage imageNamed:@"checkbox-empty"];
     cell.usernameLabel.textColor = [self colorWithHexString:@"71C7F0"];
     return cell;
 }
@@ -289,8 +301,6 @@
     // if too much time passed in uploading
     if ([self.totalSeconds intValue] > 20) {
         NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
         [self.timeoutTimer invalidate];
     }
 }

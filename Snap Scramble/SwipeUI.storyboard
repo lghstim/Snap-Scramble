@@ -1365,48 +1365,13 @@
                         <outlet property="opponentSelectionLabel" destination="XBC-qy-lZI" id="rnf-zY-Q3h"/>
                         <outlet property="randomUserButton" destination="ySA-fF-Xvl" id="V7S-lH-eew"/>
                         <outlet property="scoreView" destination="YLR-S8-fjj" id="I6b-fr-glN"/>
-                        <segue destination="Uye-VS-GxK" kind="show" identifier="selectFriend" id="QKz-H8-fHm"/>
                         <segue destination="Ux2-MY-Dgg" kind="show" identifier="startGame" id="EMl-zD-OR4"/>
+                        <segue destination="wTt-zZ-c4R" kind="show" identifier="selectFriend" id="V45-r4-OqU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKQ-gV-Gh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5042" y="-772"/>
-        </scene>
-        <!--Friends Table View Controller-->
-        <scene sceneID="WOc-fX-A2f">
-            <objects>
-                <tableViewController storyboardIdentifier="FriendsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uye-VS-GxK" customClass="FriendsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="R8x-x6-KIL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="scrollIndicatorInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="separatorColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="dh2-qR-I0q" customClass="FriendsTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="375" height="60"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dh2-qR-I0q" id="qpf-Rh-GgX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Uye-VS-GxK" id="Vej-JA-Bkj"/>
-                            <outlet property="delegate" destination="Uye-VS-GxK" id="Fd3-D7-eQl"/>
-                        </connections>
-                    </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="au1-ty-bl0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6252" y="-752.47376311844084"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Trg-hs-FOe">
@@ -2555,6 +2520,82 @@
             </objects>
             <point key="canvasLocation" x="1708" y="-752.47376311844084"/>
         </scene>
+        <!--Snap Scramble-->
+        <scene sceneID="Tae-gD-Nmo">
+            <objects>
+                <viewController id="wTt-zZ-c4R" customClass="FriendsTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Bn-Ta-ei9"/>
+                        <viewControllerLayoutGuide type="bottom" id="mZu-93-bCq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Ov-V9-KPb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gG4-6u-rol">
+                                <rect key="frame" x="0.0" y="65" width="375" height="602"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <inset key="scrollIndicatorInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <color key="separatorColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <color key="sectionIndexBackgroundColor" red="0.94509803920000002" green="0.95686274510000002" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="14J-9w-rnu">
+                                    <rect key="frame" x="0.0" y="82" width="375" height="3"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No friends yet! Press the &quot;Add friend&quot; button." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="0W5-a7-0RR">
+                                            <rect key="frame" x="90" y="120" width="195" height="83"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="83" id="2Es-QY-zp7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
+                                            <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="0W5-a7-0RR" firstAttribute="leading" secondItem="14J-9w-rnu" secondAttribute="leading" constant="90" id="BLG-UT-8ZN"/>
+                                        <constraint firstAttribute="trailing" secondItem="0W5-a7-0RR" secondAttribute="trailing" constant="90" id="s2m-pw-oa8"/>
+                                        <constraint firstItem="0W5-a7-0RR" firstAttribute="top" secondItem="14J-9w-rnu" secondAttribute="top" constant="120" id="tm1-KA-gBC"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="WRo-ft-KJF" customClass="SnapScrambleCell">
+                                        <rect key="frame" x="0.0" y="22" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WRo-ft-KJF" id="OOa-D8-V9v">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.96470588239999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="wTt-zZ-c4R" id="3Co-qc-xfj"/>
+                                    <outlet property="delegate" destination="wTt-zZ-c4R" id="PbY-1g-NeX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="gG4-6u-rol" firstAttribute="bottom" secondItem="mZu-93-bCq" secondAttribute="top" id="TZt-FQ-M44"/>
+                            <constraint firstItem="gG4-6u-rol" firstAttribute="leading" secondItem="7Ov-V9-KPb" secondAttribute="leading" id="fgL-nr-yip"/>
+                            <constraint firstItem="gG4-6u-rol" firstAttribute="top" secondItem="7Ov-V9-KPb" secondAttribute="top" constant="65" id="lEG-23-b6Q"/>
+                            <constraint firstAttribute="trailing" secondItem="gG4-6u-rol" secondAttribute="trailing" id="ylN-eu-GeU"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <navigationItem key="navigationItem" title="Snap Scramble" id="V6W-kd-Rl6"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="14J-9w-rnu" id="ZU2-76-Ifb"/>
+                        <outlet property="currentFriendsTable" destination="gG4-6u-rol" id="bee-hR-E9d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qZE-eL-950" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6268" y="-752.47376311844084"/>
+        </scene>
     </scenes>
     <resources>
         <image name="go-back-button" width="236" height="80"/>
@@ -2566,6 +2607,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="cSC-KM-09h"/>
         <segue reference="7Zg-rM-Lid"/>
-        <segue reference="ksc-EQ-FM8"/>
+        <segue reference="EMl-zD-OR4"/>
     </inferredMetricsTieBreakers>
 </document>

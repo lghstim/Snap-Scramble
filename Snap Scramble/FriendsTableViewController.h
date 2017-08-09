@@ -10,10 +10,12 @@
 #import <Parse/Parse.h>
 #import <KVNProgress/KVNProgress.h>
 #import "UserSelectionViewController.h"
+#import "SSPullToRefresh.h"
+
 
 @class UserSelectionViewController;
 
-@interface FriendsTableViewController : UITableViewController
+@interface FriendsTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) id<UserSelectVCDelegate> delegate;
 @property (nonatomic, strong) PFUser *opponent;
@@ -24,6 +26,12 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *goBackButton;
 @property (nonatomic, strong) NSTimer *timeoutTimer;
 @property (nonatomic, strong) NSNumber* totalSeconds;
+@property (nonatomic, strong) IBOutlet UITableView *currentFriendsTable;
+@property (nonatomic, strong) SSPullToRefreshView *refreshControl;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+
+
+
 
 
 @end

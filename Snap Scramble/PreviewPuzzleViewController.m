@@ -279,13 +279,12 @@ NSString * const kSaveImageName = @"download-button";
             NSString *puzzleSizeText;
             for(NSInteger i=0 ; i<[picker numberOfComponents] ; i++) {
                 self.puzzleSize = [self.puzzleSizes objectAtIndex:[picker selectedRowInComponent:i]];
-               // NSLog(@"index of puzzle size picker %ld", (long)[picker selectedRowInComponent:i]);
                 puzzleSizeText = [NSString stringWithFormat:@"%@%@", @"          ", self.puzzleSize];
             }
             
             NSLog(@"puzzle size selected: %@", self.puzzleSize);
             [self performSegueWithIdentifier:@"chooseOpponent" sender:self];
-        
+            controller.view.userInteractionEnabled = FALSE; // disable so button can't be pressed twice
             self.selectPuzzleSizeButton.titleLabel.text = puzzleSizeText;
         }];
     }
