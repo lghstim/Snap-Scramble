@@ -60,9 +60,9 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     [application setStatusBarHidden:NO];
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        configuration.applicationId = @"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
+        configuration.applicationId = @"3a464fce966a0d2e3e28a70428d67ef7d7f4b12a";
         configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
-        configuration.server = @"http://snapscramble.herokuapp.com/parse";
+        configuration.server = @"http://34.212.226.209/parse";
     }]];    
 
     [FIRApp configure];
