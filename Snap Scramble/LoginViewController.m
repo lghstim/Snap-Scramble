@@ -11,7 +11,11 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "SignupViewController.h"
-
+#import "Snap_Scramble-Swift.h"
+#import <SwipeNavigationController/SwipeNavigationController.h>
+#import "AppDelegate.h"
+#import "SettingsViewController.h"
+@import SwipeNavigationController;
 
 
 
@@ -34,7 +38,7 @@
     return self;
 }
 
-
+# pragma mark - view methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -60,6 +64,10 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setHidden:false];
+    // disable swipe back functionality
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    }
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -67,43 +75,13 @@
     return YES;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    if (theTextField == self.usernameField) {
-        [self.usernameField resignFirstResponder];
-        [self.passwordField becomeFirstResponder];
-    }
-    
-    else if (theTextField == self.passwordField) {
-        [self.passwordField resignFirstResponder];
-    }
-    
-    return YES;
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)dismissKeyboard {
-    if ([self.passwordField isFirstResponder]) {
-        [self.passwordField resignFirstResponder];
-    }
-    
-    else if ([self.usernameField isFirstResponder]) {
-        [self.usernameField resignFirstResponder];
-    }
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+# pragma mark - navigation
 
 - (IBAction)signupScreenButtonDidPress:(id)sender {
     int index = 0;
@@ -117,8 +95,13 @@
     }
 }
 
-
 - (IBAction)loginButtonDidPress:(id)sender {
+    [self loginUser];
+}
+
+# pragma mark - login methods logic
+
+- (void)loginUser {
     NSString *username = [self.usernameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     username = [username lowercaseString]; // make all strings lowercase
     NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -147,7 +130,7 @@
             }
             else {
                 [self.timeoutTimer invalidate];
-                [self.navigationController popToRootViewControllerAnimated:YES]; // go to the main menu
+                [self goToChallengeVC];
                 NSLog(@"User %@ logged in.", user);
                 [KVNProgress dismiss];
                 self.loginView.animation = @"fall";
@@ -157,6 +140,13 @@
         }];
     }
 }
+
+- (void)goToChallengeVC {
+    SwipeNavigationController *swipeVC = [[self.navigationController childViewControllers] objectAtIndex:1];
+    [self.navigationController popToViewController:swipeVC animated:NO];
+}
+
+# pragma mark - timer methods logic
 
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];
@@ -171,8 +161,33 @@
         [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
     }
-    
 }
+
+# pragma mark - keyboard methods logic
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == self.usernameField) {
+        [self.usernameField resignFirstResponder];
+        [self.passwordField becomeFirstResponder];
+    }
+    
+    else if (theTextField == self.passwordField) {
+        [self.passwordField resignFirstResponder];
+    }
+    
+    return YES;
+}
+
+-(void)dismissKeyboard {
+    if ([self.passwordField isFirstResponder]) {
+        [self.passwordField resignFirstResponder];
+    }
+    
+    else if ([self.usernameField isFirstResponder]) {
+        [self.usernameField resignFirstResponder];
+    }
+}
+
 
 
 @end

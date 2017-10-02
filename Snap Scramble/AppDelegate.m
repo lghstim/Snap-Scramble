@@ -16,13 +16,17 @@
 #import "OnboardingContentViewController.h"
 #import "SignupViewController.h"
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import "CameraViewController.h"
+#import "SettingsViewController.h"
+#import "CreatePuzzleViewController.h"
+#import "Snap_Scramble-Swift.h"
+#import <SwipeNavigationController/SwipeNavigationController.h>
 @import Firebase;
 @import SwipeNavigationController;
 
 
 
 static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
-
 
 
 @interface AppDelegate ()
@@ -36,8 +40,7 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
     // determine if the user has onboarded yet or not
@@ -48,18 +51,18 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     if (userHasOnboarded) {
         [self setupNormalRootViewController];
     }
-    
     // otherwise set the root view controller to the onboarding view controller
     else {
         self.window.rootViewController = [self generateStandardOnboardingVC];
     }
     
     application.statusBarStyle = UIStatusBarStyleLightContent;
+    [application setStatusBarHidden:NO];
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-     configuration.applicationId = @"43771d657c7a5be226767e90fcc0edd88527df54";
-     configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
-        configuration.server = @"https://greendoors.us/parse";
+     configuration.applicationId = @"<app id>";
+     configuration.clientKey = @"<client key>";
+        configuration.server = @"<server name/parse>";
      }]];
     
     [FIRApp configure];
@@ -79,55 +82,43 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
         [application registerForRemoteNotifications];
     }
 
-    [self.window makeKeyAndVisible];
-    
-    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName: @"Avenir Next" size: 23 ], NSFontAttributeName, nil];
+    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
     
     return YES;
 }
 
 
 - (void)setupNormalRootViewController {
-    // create whatever your root view controller is going to be, in this case just a simple view controller
-    // wrapped in a navigation controller
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"SwipeUI" bundle:nil];
+    ChallengeViewController *leftVC = [board instantiateViewControllerWithIdentifier:@"left"];
+    CameraViewController *middleVC = [board instantiateViewControllerWithIdentifier:@"middle"];
+    SettingsViewController *topVC = [board instantiateViewControllerWithIdentifier:@"top"];
+    CreatePuzzleViewController *bottomVC = [board instantiateViewControllerWithIdentifier:@"bottom"];
+    SwipeNavigationController *swipeVC = [[SwipeNavigationController alloc] initWithCenterViewController:middleVC];
+    [swipeVC setLeftViewController:leftVC];
+    [swipeVC setTopViewController:topVC];
+    [swipeVC setBottomViewController:bottomVC];
+    self.centerVC = middleVC;
+    self.leftVC = leftVC;
+    self.bottomVC = bottomVC;
+    UINavigationController *navVC = [board instantiateViewControllerWithIdentifier:@"root"];
+    self.window.rootViewController = navVC;
+    [navVC addChildViewController:swipeVC];
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                             bundle: nil];
+   
     
-    UINavigationController *controller = (UINavigationController*)[mainStoryboard
-                                                                   instantiateViewControllerWithIdentifier: @"navSnap"];
-    self.window.rootViewController = controller;
-    
-   /* UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                             bundle: nil];
-    
-    UINavigationController *controller = (UINavigationController*)[mainStoryboard
-                                                                   instantiateViewControllerWithIdentifier: @"navSnap"];
-    
-    CameraViewController *cameraVC = (CameraViewController*)[mainStoryboard
-                                                             instantiateViewControllerWithIdentifier: @"camera"];
-    SettingsViewController *settingsVC = (SettingsViewController*)[mainStoryboard
-                                                                   instantiateViewControllerWithIdentifier: @"settings"];
-    ChallengeViewController *challengeVC = (ChallengeViewController*)[mainStoryboard
-                                                                      instantiateViewControllerWithIdentifier: @"challenge"];
-    
-    
-    //self.window.rootViewController = controller;
-    // set up swipe VC's
-    SwipeNavigationController *navController = [[SwipeNavigationController alloc] initWithCenterViewController:cameraVC];
-    [navController.navigationController.navigationBar setHidden:NO];
-    self.window.rootViewController = controller;
-    [navController setLeftViewController:challengeVC];
-    [navController setRightViewController:settingsVC];
-    [controller addChildViewController:navController]; */
+    self.swipeVC = swipeVC;
+    [navVC setNavigationBarHidden:YES];
+    [self.window makeKeyAndVisible];
 }
 
 - (void)handleOnboardingCompletion {
    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUserHasOnboardedKey];
     
     // PFInstall save
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    [installation saveInBackground];
+    self.installation = [PFInstallation currentInstallation];
+    [self.installation saveInBackground];
     
     // transition to the main application
     [self setupNormalRootViewController];
@@ -155,10 +146,10 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    [installation setDeviceTokenFromData:deviceToken];
-    installation.channels = @[ @"global" ];
-    [installation saveInBackground];
+    self.installation = [PFInstallation currentInstallation];
+    [self.installation setDeviceTokenFromData:deviceToken];
+    self.installation.channels = @[ @"global" ];
+    [self.installation saveInBackground];
 }
 
 - (BOOL)application:(UIApplication *)application
@@ -180,7 +171,6 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    //[self stopRandomUserSearch]; // stop user from being searched for if he closes the app.
 }
 
 
@@ -214,13 +204,14 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     if ([shortcutItem.type isEqualToString:@"com.timgorer.SnapScrambleDescrambleFriends.addFriends"]) {
-        NSLog(@"%@", shortcutItem.type);
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"SwipeUI" bundle: nil];
         FriendsTableViewController *friendsVC = (FriendsTableViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"FriendsVC"];
         [navigationController pushViewController:friendsVC animated:YES];
     }
 }
+
+# pragma mark - other methods
 
 // create a hex color
 -(UIColor*)colorWithHexString:(NSString*)hex {

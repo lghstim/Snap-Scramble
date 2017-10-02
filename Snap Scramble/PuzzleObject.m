@@ -85,7 +85,6 @@
     // check if all the pieces are matched. count would be equal to the number of pieces in this case.
     if (count == self.numberofPieces) {
         for(PieceView* pv in self.pieces) {
-            NSLog(@"hello");
             pv.userInteractionEnabled = NO;
             pv.layer.masksToBounds = NO;
             pv.layer.borderWidth = 0.0f;

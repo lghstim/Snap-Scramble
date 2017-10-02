@@ -9,6 +9,7 @@
 #import "PauseViewController.h"
 #import "GameViewController.h"
 #import "PauseViewModel.h"
+#import "CameraViewController.h"
 @import GoogleMobileAds;
 
 
@@ -31,6 +32,8 @@
     
     return self;
 }
+
+# pragma mark - view methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,18 +64,30 @@
     return interstitial;
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)displayAd{
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
+        // show ad
+        if (self.interstitial.isReady) {
+            [self.interstitial presentFromRootViewController:self];
+        } else {
+            NSLog(@"Ad wasn't ready");
+        }
+    } else {
+        NSLog(@"ads are removed for this user.");
+    }
 }
+
+# pragma mark - navigation
 
 - (IBAction)cancelButtonDidPress:(id)sender {
     self.pauseView.animation = @"fall";
-    self.pauseView.delay = 5.0;
+    self.pauseView.autostart = YES;
     [self.pauseView animate];
     [self.game resume]; // resume the timer
-    [self.navigationController popViewControllerAnimated:YES]; // pop like this
+    [self.navigationController popViewControllerAnimated:NO]; // pop like this
 }
 
 // delete the game if pressed
@@ -89,7 +104,7 @@
             else {
                 NSLog(@"game deleted successfully.");
                 [self displayAd];
-                [self.navigationController popToRootViewControllerAnimated:YES]; // go to main menu
+                [self openChallengeVC];
             }
         }];
     }]];
@@ -102,7 +117,6 @@
     
     [self presentViewController:alert animated:YES
                      completion:nil];
- 
 }
 
 - (IBAction)reportButtonDidPress:(id)sender {
@@ -127,7 +141,7 @@
         NSString *blockedText = [@"Successfully blocked: " stringByAppendingString:self.opponent.username];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Blocked" message:blockedText delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self openChallengeVC];
     }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -138,41 +152,22 @@
     
     [self presentViewController:alert animated:YES
                      completion:nil];
-    
 }
-
 
 - (IBAction)finishSolvingLaterButtonDidPress:(id)sender {
-    NSLog(@"hello");
     [self displayAd];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self openChallengeVC];
 }
 
-
-- (void)displayAd{
-    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"%id", [adsRemoved boolValue]);
-    if ([adsRemoved boolValue] != TRUE) {
-        // show ad
-        if (self.interstitial.isReady) {
-            [self.interstitial presentFromRootViewController:self];
-        } else {
-            NSLog(@"Ad wasn't ready");
+- (void)openChallengeVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
         }
-    } else {
-        NSLog(@"ads are removed for this user.");
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

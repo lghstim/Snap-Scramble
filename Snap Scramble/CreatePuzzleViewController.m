@@ -12,6 +12,9 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "ChallengeViewController.h"
 #import "CameraViewController.h"
+#import "AppDelegate.h"
+@import SwipeNavigationController;
+
 
 @interface CreatePuzzleViewController ()
 
@@ -19,20 +22,23 @@
 
 @implementation CreatePuzzleViewController
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [self colorWithHexString:@"71C7F0"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.navigationController.navigationBar setHidden:true];
+    self.view.clipsToBounds = TRUE;
     self.imagePicker = [[UIImagePickerController alloc] init];
+    self.imagePicker.navigationBar.tintColor = [self colorWithHexString:@"FFFFFF"];
+    self.imagePicker.navigationBar.backgroundColor = [self colorWithHexString:@"71C7F0"];
+    self.imagePicker.navigationBar.barTintColor = [self colorWithHexString:@"71C7F0"];
     self.imagePicker.delegate = self;
     self.imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
     
-    [self.takePhotoButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.choosePhotoButton addTarget:self action:@selector(choosePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.backButton addTarget:self action:@selector(backButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.backButton.adjustsImageWhenHighlighted = YES;
@@ -49,10 +55,7 @@
     self.opponentLabel.text = [NSString stringWithFormat:@"Opponent: %@", self.opponent.username];
 }
 
-- (IBAction)takePhoto:(id)sender {
-    // takes the user to the next view controller so he can take the photo (CameraViewController)
-    [self performSegueWithIdentifier:@"openCamera" sender:self];
-}
+# pragma mark - navigation
 
 - (IBAction)choosePhoto:(id)sender {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
@@ -66,12 +69,10 @@
 }
 
 - (IBAction)backButtonDidPress:(id)sender {
-    self.createPuzzleView.animation = @"fall";
-    [self.createPuzzleView animate];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
 }
 
-#pragma mark - Image Picker Controller delegate
+#pragma mark - image picker controller delegate logic
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -91,6 +92,44 @@
     }
 }
 
+# pragma mark - pass data methods
+
+- (void)passDataToCameraVC {
+    CameraViewController *cameraVC = (CameraViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
+    NSLog(@"cam vc: %@", cameraVC);
+    
+    NSLog(@"Opponent: %@", self.opponent);
+    cameraVC.opponent = self.opponent;
+    cameraVC.createdGame = self.createdGame;
+
+    if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
+        NSLog(@"Game already started: %@", self.createdGame);
+        cameraVC.roundObject = self.roundObject;
+        cameraVC.opponent = self.opponent;
+    }
+    
+    else if (self.createdGame == nil) { // entirely new game
+        NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+    }
+    
+    NSLog(@"image CPVC: %@", self.originalImage);
+    cameraVC.originalImage = self.originalImage;
+    cameraVC.createdGame = self.createdGame;
+    [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController]; // CameraVC
+    [cameraVC performSegueWithIdentifier:@"previewPuzzleSender" sender:cameraVC];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+}
+
+- (void)deallocate{
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+}
+
+# pragma mark - photo editing methods
+
 // this is for resizing an image that is selected from the photo library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
@@ -101,10 +140,9 @@
         NSLog(@"original image: %@", self.originalImage);
         NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
         [self dismissViewControllerAnimated:YES completion:nil]; // dismiss photo picker
-        [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self];
+        [self passDataToCameraVC];
     }
 }
-
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
@@ -146,41 +184,42 @@
     return newImage;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
-        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game.
-            NSLog(@"Game already started: %@", self.createdGame);
-            previewPuzzleViewController.createdGame = self.createdGame;
-            previewPuzzleViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) { // entirely new game
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-            
-        }
-        
-        previewPuzzleViewController.opponent = self.opponent;
-        previewPuzzleViewController.originalImage = self.originalImage;
-        NSLog(@"Opponent: %@", self.opponent);
-    }
+# pragma mark - other methods
+
+// create a hex color
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
-    else if ([segue.identifier isEqualToString:@"openCamera"]) {
-        CameraViewController *cameraViewController = (CameraViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
-            NSLog(@"Game already started: %@", self.createdGame);
-            cameraViewController.createdGame = self.createdGame;
-            cameraViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) { // entirely new game
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-            
-        }
-        
-        NSLog(@"Opponent: %@", self.opponent);
-        cameraViewController.opponent = self.opponent;
-    }
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
 

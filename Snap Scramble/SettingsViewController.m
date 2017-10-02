@@ -10,7 +10,11 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "IAPViewController.h"
+#import "Snap_Scramble-Swift.h"
+#import "LoginViewController.h"
+#import "ChallengeViewController.h"
 @import Firebase;
+@import SwipeNavigationController;
 
 @interface SettingsViewController () <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
@@ -18,12 +22,15 @@
 
 @implementation SettingsViewController
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.clipsToBounds = TRUE;
     [self.logoutButton addTarget:self action:@selector(logoutButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    [self.goBackButton addTarget:self action:@selector(goBackButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.goBackButton.adjustsImageWhenHighlighted = YES;
+    self.view.backgroundColor = [self colorWithHexString:@"71C7F0"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -41,10 +48,7 @@
     [self.navigationController.navigationBar setHidden:false];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+# pragma mark - navigation methods
 
 - (IBAction)logoutButtonDidPress:(id)sender {
     [KVNProgress showWithStatus:@"Logging out..."]; // UI
@@ -59,18 +63,53 @@
             } else {
                 [NSThread sleepForTimeInterval:2];
                 [KVNProgress dismiss];
+                [self showLoginVC];
                 [PFUser logOut]; // log out current user
-                [self.navigationController popToRootViewControllerAnimated:NO];
+            
             }
         }];
     }
 }
 
-- (IBAction)goBackButtonDidPress:(id)sender {
-    self.settingsView.animation = @"fall";
-    [self.settingsView animate];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+- (IBAction)goBackButtonDidPress {
+     [self.containerSwipeNavigationController showCenterVCWithSwipeVC:self.containerSwipeNavigationController];
 }
+
+- (void)showLoginVC {
+    [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
+    ChallengeViewController *challengeVC = (ChallengeViewController*)self.containerSwipeNavigationController.leftViewController;
+    [challengeVC performSegueWithIdentifier:@"showSignup" sender:challengeVC];
+}
+
+- (IBAction)shareButtonDidPress:(id)sender {
+    [FIRAnalytics logEventWithName:kFIREventSelectContent
+                        parameters:@{
+                                     kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
+                                     kFIRParameterItemName:@"share-button-pressed",
+                                     kFIRParameterContentType:@"image"
+                                     }];
+    
+    
+    NSString *textToShare = @"Check out the iPhone game Snap Scramble!";
+    NSURL *myWebsite = [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
+    
+    NSArray *objectsToShare = @[textToShare, myWebsite];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    activityVC.excludedActivityTypes = excludeActivities;
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
+# pragma mark - remove ads (in-app purchase) methods
 
 - (IBAction)restore{
     //this is called when the user restores purchases, you should hook this up to a button
@@ -108,55 +147,49 @@
     }
 }
 
-
 - (void)displayTransactionRestored {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"We restored your purchase." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alertView show];
 }
 
+# pragma mark - other methods
 
-
-- (IBAction)shareButtonDidPress:(id)sender {
-    [FIRAnalytics logEventWithName:kFIREventSelectContent
-                        parameters:@{
-                                     kFIRParameterItemID:[NSString stringWithFormat:@"id-%@", self.title],
-                                     kFIRParameterItemName:@"share-button-pressed",
-                                     kFIRParameterContentType:@"image"
-                                     }];
+// create a hex color
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
     
-    NSString *textToShare = @"Check out the iPhone game Snap Scramble!";
-    NSURL *myWebsite = [NSURL URLWithString:@"https://itunes.apple.com/us/app/snap-scramble-descramble-photos/id1099409958?mt=8"];
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
     
-    NSArray *objectsToShare = @[textToShare, myWebsite];
+    if ([cString length] != 6) return  [UIColor grayColor];
     
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
     
-    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
-                                   UIActivityTypePrint,
-                                   UIActivityTypeAssignToContact,
-                                   UIActivityTypeSaveToCameraRoll,
-                                   UIActivityTypeAddToReadingList,
-                                   UIActivityTypePostToFlickr,
-                                   UIActivityTypePostToVimeo];
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
     
-    activityVC.excludedActivityTypes = excludeActivities;
-    [self presentViewController:activityVC animated:YES completion:nil];
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"chooseToBuyIAP"]) {
-        IAPViewController *viewController = (IAPViewController *)segue.destinationViewController;
-        viewController.IAPlabel.text = @"The full version doesn't have the 10 game limit that the free version has.";
-    }
-}
 
 
 @end

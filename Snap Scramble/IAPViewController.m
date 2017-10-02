@@ -17,11 +17,10 @@
 
 #define kRemoveAdsProductIdentifier @"com.timgorer.SnapScrambleDescrambleFriends.RemoveAds"
 
+# pragma mark - views
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.navigationController.navigationBar setHidden:true];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -29,29 +28,16 @@
     [self.navigationController.navigationBar setHidden:true];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+# pragma mark - navigation
 
 - (IBAction)goBackButtonDidPress:(id)sender {
     self.IAPView.animation = @"fall";
     [self.IAPView animate];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 
-# pragma mark - remove ads methods
+# pragma mark - remove ads methods logic
 
 - (IBAction)tapsRemoveAds{
     NSLog(@"User requests to remove ads");
@@ -63,7 +49,6 @@
         //to have the user purchase a different product, simply define
         //another function and replace kRemoveAdsProductIdentifier with
         //the identifier for the other product
-        
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
         SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
         productsRequest.delegate = self;
@@ -144,7 +129,6 @@
         }
     }
 }
-
 
 
 - (void)displayTransactionPurchased {

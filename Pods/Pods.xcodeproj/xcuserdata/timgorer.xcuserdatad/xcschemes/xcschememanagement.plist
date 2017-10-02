@@ -69,6 +69,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SCLAlertView-Objective-C.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SSPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwipeNavigationController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,7 +97,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0CD2CB1AD668DA3A9859D5AB9AED304A</key>
+		<key>07B7D38D080F263EB87DB693E935A907</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,7 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>256838457B196E1BD59E79A5D5F274E9</key>
+		<key>26EB31F642DFA8B95CCED42D72CAA02F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,12 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D07AB59FE7802251A2F897A7E137C74</key>
+		<key>5C5D08E3DFA1728A1D496E092B5DDCED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7C7A40CA796EF7EEEA54CB14A7AC804F</key>
+		<key>5CDA8A8CB71ACF38F597CDDA0739EA98</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,7 +157,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>DDE1FF01683E893E7C2AD0A6CF31DE0B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E396A93E4C79B22B7816E9F02F62ECED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5B6F8C67B379E93735F7624E16CEC06</key>
 		<dict>
 			<key>primary</key>
 			<true/>

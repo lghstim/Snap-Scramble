@@ -10,6 +10,9 @@
 #import "GameViewController.h"
 #import "Snap_Scramble-Swift.h"
 #import "StartPuzzleViewModel.h"
+#import "CameraViewController.h"
+#import "AppDelegate.h"
+@import SwipeNavigationController;
 
 @interface StartPuzzleViewController ()
 
@@ -31,12 +34,56 @@
     return self;
 }
 
+# pragma mark - view methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.cancelButton addTarget:self action:@selector(cancelButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     self.cancelButton.adjustsImageWhenHighlighted = YES;
     [self setViewModelProperties];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:true];
+    NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
+    [self.startPuzzleButton addTarget:self action:@selector(startGame:) forControlEvents:UIControlEventTouchUpInside]; // start game is when photo resizing happens
+    self.startPuzzleButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.startPuzzleButton.titleLabel.minimumScaleFactor = 0.5;
+    self.cancelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.cancelButton.titleLabel.minimumScaleFactor = 0.5;
+    
+    
+    if (!self.image) { // if the image is being retrieved from the server by the receiving player
+        // Adds a status below the circle
+        self.totalSeconds = [NSNumber numberWithInt:0];
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+        self.timerLabel = [UILabel new];
+        [self.timerLabel setCenter:CGPointMake(self.view.frame.size.width, self.view.frame.size.height)];
+        self.timerLabel.text = @"HELLO";
+        [self.view addSubview:self.timerLabel];
+        [KVNProgress showWithStatus:@"Downloading..."];
+        self.startPuzzleButton.userInteractionEnabled = false;
+        [self.startPuzzleButton setTitle:@"Start Puzzle" forState:UIControlStateNormal];
+        [[self.createdGame objectForKey:@"file"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                self.image = image;
+                NSLog(@"downloaded image: %@", self.image);
+                self.startPuzzleButton.userInteractionEnabled = true;
+                
+                // update the stats view and then dismiss progress view
+                [self updateStatsView];
+            } else { // if error
+                [KVNProgress dismiss];
+                [self openChallengeVC];
+                [self.timeoutTimer invalidate];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alertView show];
+            } // dismiss progressview if first error or after last save. invalidate timer if first error or after last save. go back a VC if error.
+        }];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -58,48 +105,6 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return NO;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:true];
-    NSLog(@"Screen Width: %f    Screen Height: %f", self.view.frame.size.width, self.view.frame.size.height);
-    [self.startPuzzleButton addTarget:self action:@selector(startGame:) forControlEvents:UIControlEventTouchUpInside]; // start game is when photo resizing happens
-    self.startPuzzleButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.startPuzzleButton.titleLabel.minimumScaleFactor = 0.5;
-    self.cancelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.cancelButton.titleLabel.minimumScaleFactor = 0.5;
- 
-
-    if (!self.image) { // if the image is being retrieved from the server by the receiving player
-        // Adds a status below the circle
-        self.totalSeconds = [NSNumber numberWithInt:0];
-        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
-        [KVNProgress showWithStatus:@"Downloading..."];
-        self.startPuzzleButton.userInteractionEnabled = false;
-        [self.startPuzzleButton setTitle:@"Start Puzzle" forState:UIControlStateNormal];
-        [[self.createdGame objectForKey:@"file"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            if (!error) {
-                UIImage *image = [UIImage imageWithData:data];
-                self.image = image;
-                NSLog(@"downloaded image: %@", self.image);
-                self.startPuzzleButton.userInteractionEnabled = true;
-                
-                // update the stats view and then dismiss progress view
-                [self updateStatsView];
-            } else { // if error
-                [KVNProgress dismiss];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                [self.timeoutTimer invalidate];
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alertView show];
-            } // dismiss progressview if first error or after last save. invalidate timer if first error or after last save. go back a VC if error.
-        }];
-    }
-}
-
-- (void)setViewModelProperties {
-    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
 }
 
 - (void)updateStatsView {
@@ -124,7 +129,6 @@
             }
             
             [self.viewModel getRoundObject:^(PFObject *round, NSError *error) { // get previous round object
-                NSLog(@"hello");
                 if (error) {
                     NSLog(@"error");
                 } else {
@@ -134,7 +138,7 @@
                     // display the data from the previous round object
                     self.previousRoundObject = round;
                     
-                
+                    
                     NSString *opponentName = @""; // placeholder
                     
                     // figure out who is who
@@ -150,7 +154,7 @@
                     }
                     
                     NSLog(@"opponent: %@   opponent time: %@    current user time: %@", opponentName, self.opponentTotalSeconds, self.currentUserTotalSeconds);
-                  
+                    
                     
                     // format the current user's time
                     int intValueTotalSeconds = [self.currentUserTotalSeconds intValue];
@@ -216,10 +220,10 @@
                         else if (seconds >= 10) {
                             self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:%d", opponentName, minutes, seconds];
                         }
-
+                        
                         self.headerStatsLabel.text = [NSString stringWithFormat:@"Try to solve the puzzle faster!"];
                         self.currentUserTimeLabel.text = [NSString stringWithFormat:@"You haven't played yet."];
-
+                        
                     }
                 }
             } whereRoundNumberIs:previousRoundNumber];
@@ -227,25 +231,47 @@
     }];
 }
 
-- (void)incrementTime {
-    int value = [self.totalSeconds intValue];
-    self.totalSeconds = [NSNumber numberWithInt:value + 1];
-    NSLog(@"%@", self.totalSeconds);
-    
-    // if too much time passed in uploading
-    if ([self.totalSeconds intValue] > 20) {
-        NSLog(@"timeout error. took longer than 20 seconds");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        [KVNProgress dismiss];
-        [self.timeoutTimer invalidate];
+# pragma mark - navigation
+
+- (IBAction)cancelButtonDidPress:(id)sender {
+    self.scoreView.animation = @"fall";
+    [self.scoreView animate];
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:YES];
+        }
     }
 }
+
+- (void)openCameraVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:YES];
+            [self passDataToCameraVC];
+        }
+    }
+}
+
+- (void)openChallengeVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
+        }
+    }
+}
+
+# pragma mark - game methods logic
 
 - (IBAction)startGame:(id)sender {
     self.totalSeconds = [NSNumber numberWithInt:0];
     // first show preview of the image for a few seconds
-    [KVNProgress showWithStatus:[NSString stringWithFormat:@"Here's a preview of %@'s puzzle! Solve it as fast as possible!", self.opponent.username]];
+    [KVNProgress showProgress:0.0f status:[NSString stringWithFormat:@"Here's a preview of %@'s puzzle! Solve it as fast as possible!", self.opponent.username]];
+    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -257,6 +283,35 @@
     self.view.userInteractionEnabled = FALSE;
     self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pauseForFiveSeconds) userInfo:nil repeats:YES];
 }
+
+# pragma mark - pass data methods
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"beginGame"]) {
+        GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
+        gameViewController.puzzleImage = self.gameImage;
+        gameViewController.opponent = self.opponent;
+        NSLog(@"opponent %@",gameViewController.opponent);
+        gameViewController.createdGame = self.createdGame;
+        gameViewController.delegate = self;
+    }
+}
+
+- (void)passDataToCameraVC {
+    CameraViewController *cameraVC = (CameraViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).centerVC;
+    cameraVC.createdGame = self.createdGame;
+    cameraVC.opponent = self.opponent;
+    cameraVC.roundObject = self.roundObject;
+}
+
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+}
+
+# pragma mark - image editing methods
 
 -(UIImage*)prepareImageForGame:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
@@ -275,7 +330,6 @@
     return image;
 }
 
-
 -(UIImage*)prepareImageForPreview:(UIImage*)image {
     if (image.size.height > image.size.width) { // portrait
         image = [self imageWithImage:image scaledToFillSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)]; // portrait; resizing photo so it fits the entire device screen
@@ -293,7 +347,6 @@
     return image;
 }
 
-
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
     CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);
@@ -309,31 +362,6 @@
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
-}
-
-- (void)pauseForFiveSeconds {
-    int value = [self.totalSeconds intValue];
-    self.totalSeconds = [NSNumber numberWithInt:value + 1];
-    NSLog(@"%@", self.totalSeconds);
-    
-    if ([self.totalSeconds intValue] > 3) {
-        [KVNProgress dismiss];
-    }
-    
-    // if 5 seconds passed in uploading
-    if ([self.totalSeconds intValue] > 5) {
-        // begin game
-        [self.timeoutTimer invalidate];
-        self.view.userInteractionEnabled = TRUE;
-        [self performSegueWithIdentifier:@"beginGame" sender:self];
-    }
-    
-}
-
-- (IBAction)cancelButtonDidPress:(id)sender {
-    self.scoreView.animation = @"fall";
-    [self.scoreView animate];
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (UIImage *)resizeImage:(UIImage *)image withMaxDimension:(CGFloat)maxDimension {
@@ -359,21 +387,64 @@
     return newImage;
 }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"beginGame"]) {
-        GameViewController *gameViewController = (GameViewController *)segue.destinationViewController;
-        gameViewController.puzzleImage = self.gameImage;
-        gameViewController.opponent = self.opponent;
-        NSLog(@"opponent %@",gameViewController.opponent);
-        gameViewController.createdGame = self.createdGame;
-        gameViewController.delegate = self;
+# pragma mark - timer methods
+
+- (void)pauseForFiveSeconds {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    if ([self.totalSeconds intValue] == 1) {
+        [KVNProgress updateProgress:0.25f
+                           animated:YES];
+    }
+    
+    if ([self.totalSeconds intValue] == 2) {
+        [KVNProgress updateProgress:0.5f
+                           animated:YES];
+    }
+    
+    
+    if ([self.totalSeconds intValue] == 3) {
+        [KVNProgress updateProgress:0.75f
+                           animated:YES];
+    }
+    
+    if ([self.totalSeconds intValue] == 4) {
+        [KVNProgress updateProgress:0.85f
+                           animated:YES];
+    }
+    
+    // if 5 seconds passed in uploading
+    if ([self.totalSeconds intValue] >= 5) {
+        // begin game
+        [KVNProgress updateProgress:1.0f animated:YES];
+        [KVNProgress dismiss];
+        [self.timeoutTimer invalidate];
+        self.view.userInteractionEnabled = TRUE;
+        [self performSegueWithIdentifier:@"beginGame" sender:self];
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)incrementTime {
+    int value = [self.totalSeconds intValue];
+    self.totalSeconds = [NSNumber numberWithInt:value + 1];
+    NSLog(@"%@", self.totalSeconds);
+    
+    // if too much time passed in uploading
+    if ([self.totalSeconds intValue] > 20) {
+        NSLog(@"timeout error. took longer than 20 seconds");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        [KVNProgress dismiss];
+        [self.timeoutTimer invalidate];
+    }
+}
+
+# pragma mark - set view model method
+
+- (void)setViewModelProperties {
+    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
 }
 
 #pragma mark - delegate methods
@@ -385,7 +456,10 @@
     
     // delegate allows us to transfer user's data back to ChallengeViewController for creating puzzle game, which then sends data to CreatePuzzleVC
     [self.delegate receiveReplyGameData:self.createdGame andOpponent:self.opponent andRound:self.roundObject];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.scoreView.animation = @"fall";
+    [self.scoreView animate];
+    [self openCameraVC];
+   
 }
 
 

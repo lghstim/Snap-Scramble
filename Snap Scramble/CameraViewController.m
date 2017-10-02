@@ -15,7 +15,8 @@
 #import <Masonry/Masonry.h>
 #import "ChallengeViewController.h"
 #import "SettingsViewController.h"
-@import SwipeNavigationController;
+#import "AppDelegate.h"
+#import "CreatePuzzleViewController.h"
 
 
 
@@ -36,22 +37,17 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-      
+  
     }
     
     return self;
 }
 
+# pragma mark - view methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // hide volume HUD
-    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
-    [self.view addSubview: volumeView];
-    //self.volumeButtonHandler.volumeView = volumeView;
-    
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.backButton = [UIButton new];
@@ -137,7 +133,7 @@
     // ----- camera buttons -------- //
     
     // snap button to capture image
-    self.snapButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.snapButton = [[UIButton alloc] init];
     self.snapButton.frame = CGRectMake(0, 0, 70.0f, 70.0f);
     self.snapButton.clipsToBounds = YES;
     self.snapButton.layer.cornerRadius = self.snapButton.frame.size.width / 2.0f;
@@ -147,15 +143,16 @@
     self.snapButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
     self.snapButton.layer.shouldRasterize = YES;
     [self.snapButton addTarget:self action:@selector(snapButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.snapButton setImage:[UIImage imageNamed:@"take-photo"] forState:UIControlStateNormal];
     [self.view addSubview:self.snapButton];
     [self.view addSubview:self.backButton]; // back button
 
     
     // button to toggle flash
     self.flashButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.flashButton.frame = CGRectMake(0, 0, 16.0f + 20.0f, 24.0f + 20.0f);
+    self.flashButton.frame = CGRectMake(0, 0, 16.0f + 20.0f, 24.0f + 50.0f);
     self.flashButton.tintColor = [UIColor whiteColor];
-    [self.flashButton setImage:[UIImage imageNamed:@"camera-flash.png"] forState:UIControlStateNormal];
+    [self.flashButton setImage:[UIImage imageNamed:@"camera-flash"] forState:UIControlStateNormal];
     self.flashButton.imageEdgeInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
     [self.flashButton addTarget:self action:@selector(flashButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.flashButton];
@@ -163,13 +160,16 @@
     if([LLSimpleCamera isFrontCameraAvailable] && [LLSimpleCamera isRearCameraAvailable]) {
         // button to toggle camera positions
         self.switchButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.switchButton.frame = CGRectMake(0, 0, 29.0f + 20.0f, 22.0f + 20.0f);
+        self.switchButton.frame = CGRectMake(0, 0, 29.0f + 20.0f, 22.0f + 50.0f);
         self.switchButton.tintColor = [UIColor whiteColor];
-        [self.switchButton setImage:[UIImage imageNamed:@"camera-switch.png"] forState:UIControlStateNormal];
+        [self.switchButton setImage:[UIImage imageNamed:@"camera-switch"] forState:UIControlStateNormal];
         self.switchButton.imageEdgeInsets = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
         [self.switchButton addTarget:self action:@selector(switchButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.switchButton];
     }
+    
+    [self setupDoubleTap]; // for camera
+    [self setTopAndBottomButtons];
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)control
@@ -180,48 +180,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.snapButton.userInteractionEnabled = TRUE;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
     // start the camera
     [self.camera start];
     
-   /* // volume button handler
-    self.volumeButtonHandler = [JPSVolumeButtonHandler volumeButtonHandlerWithUpBlock:^{
-        // Volume Up Button Pressed
-        NSLog(@"up volume");
-        __weak typeof(self) weakSelf = self;
-        
-        // capture
-        [self.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
-            if(!error) {
-                self.originalImage = image;
-                self.cameraImage = image;
-                [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
-            }
-            else {
-                NSLog(@"An error has occured: %@", error);
-            }
-        } exactSeenImage:YES];
-        
-    } downBlock:^{
-        NSLog(@"down volume");
-        // Volume Down Button Pressed
-        __weak typeof(self) weakSelf = self;
-        
-        // capture
-        [self.camera capture:^(LLSimpleCamera *camera, UIImage *image, NSDictionary *metadata, NSError *error) {
-            if(!error) {
-                self.originalImage = image;
-                self.cameraImage = image;
-                [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
-            }
-            else {
-                NSLog(@"An error has occured: %@", error);
-            }
-        } exactSeenImage:YES];
-        
-    }];
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        NSLog(@"Current user: %@", currentUser.username);
+    }
     
-    [self.volumeButtonHandler startHandler:YES];*/
+    else {
+        [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -238,7 +210,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self passDataToCreatePuzzleVC];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -246,13 +218,117 @@
 }
 
 
-- (IBAction)backButtonDidPress:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+/* other lifecycle methods */
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    self.camera.view.frame = self.view.contentBounds;
+    
+    self.snapButton.center = self.view.contentCenter;
+    self.snapButton.bottom = self.view.height - 55.0f;
+    
+    self.flashButton.center = self.view.contentCenter;
+    self.flashButton.top = 5.0f;
+    
+    self.switchButton.top = 5.0f;
+    self.switchButton.right = self.view.width - 5.0f;
+    
+    self.segmentedControl.left = 12.0f;
+    self.segmentedControl.bottom = self.view.height - 35.0f;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
+- (void)setTopAndBottomButtons {
+    // bottom button
+    _bottomButton = [DesignableButton new];
+    self.downArrow = [UIImage imageNamed:@"up-arrow"];
+    [self.bottomButton setImage:self.downArrow forState:UIControlStateNormal];
+    [self.view addSubview:self.bottomButton];
+    [self.bottomButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(0);
+        CGFloat newWidth = self.downArrow.size.width / 3;
+        CGFloat newHeight = self.downArrow.size.height / 3;
+        float newWidthInt = (float)newWidth;
+        float newHeightInt = (float)newHeight;
+        NSNumber *width = [NSNumber numberWithFloat:newWidthInt];
+        NSNumber *height = [NSNumber numberWithFloat:newHeightInt];
+        make.width.equalTo(width);
+        make.height.equalTo(height);
+    }];
+    [self.view bringSubviewToFront:self.bottomButton];
+    [self.bottomButton setImage:[self imageByApplyingAlpha:0.6 andImage:self.downArrow] forState:UIControlStateHighlighted];
+    [self.bottomButton addTarget:self action:@selector(showBottomVC) forControlEvents:UIControlEventTouchUpInside];
+    
+    // top button
+    _topButton = [DesignableButton new];
+    self.topArrow = [UIImage imageNamed:@"down-arrow"];
+    [self.topButton setImage:self.topArrow forState:UIControlStateNormal];
+    [self.view addSubview:self.topButton];
+    [self.topButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.view).offset(15);
+        CGFloat newWidth = self.topArrow.size.width / 3;
+        CGFloat newHeight = self.topArrow.size.height / 3;
+        float newWidthInt = (float)newWidth;
+        float newHeightInt = (float)newHeight;
+        NSNumber *width = [NSNumber numberWithFloat:newWidthInt];
+        NSNumber *height = [NSNumber numberWithFloat:newHeightInt];
+        make.width.equalTo(width);
+        make.height.equalTo(height);
+    }];
+    [self.view bringSubviewToFront:self.topButton];
+    [self.topButton setImage:[self imageByApplyingAlpha:0.6 andImage:self.topArrow] forState:UIControlStateHighlighted];
+    [self.topButton addTarget:self action:@selector(showTopVC) forControlEvents:UIControlEventTouchUpInside];
+}
+
+# pragma mark - navigation
+
+- (IBAction)backButtonDidPress:(id)sender {
+    [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
+}
+
+- (void)showLeftVC {
+    [self.containerSwipeNavigationController showLeftVCWithSwipeVC:self.containerSwipeNavigationController];
+}
+
+- (void)showPreviewPuzzleVC {
+    [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
+}
+
+- (void)showBottomVC {
+    [self.containerSwipeNavigationController showBottomVCWithSwipeVC:self.containerSwipeNavigationController];
+    [self passDataToCreatePuzzleVC];
+}
+
+- (void)showTopVC {
+    [self.containerSwipeNavigationController showTopVCWithSwipeVC:self.containerSwipeNavigationController];
+}
+
+# pragma mark - camera methods logic
 
 /* camera button methods */
+
+- (void)setupDoubleTap {
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(flipCamera)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:doubleTap];
+}
+
+- (void)flipCamera{
+    [self.camera togglePosition];
+}
 
 - (void)switchButtonPressed:(UIButton *)button
 {
@@ -284,6 +360,7 @@
 
 - (void)snapButtonPressed:(UIButton *)button
 {
+    self.snapButton.userInteractionEnabled = FALSE;
     __weak typeof(self) weakSelf = self;
     
     // capture
@@ -291,7 +368,7 @@
         if(!error) {
             self.originalImage = image;
             self.cameraImage = image;
-            [self performSegueWithIdentifier:@"previewPuzzleSender" sender:self]; // transfer photo to next view controller (PreviewPuzzleViewController)
+            [self showPreviewPuzzleVC];
         }
         else {
             NSLog(@"An error has occured: %@", error);
@@ -299,36 +376,46 @@
     } exactSeenImage:YES];
 }
 
-/* other lifecycle methods */
+# pragma mark - pass data methods
 
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    self.camera.view.frame = self.view.contentBounds;
-    
-    self.snapButton.center = self.view.contentCenter;
-    self.snapButton.bottom = self.view.height - 15.0f;
-    
-    self.flashButton.center = self.view.contentCenter;
-    self.flashButton.top = 5.0f;
-    
-    self.switchButton.top = 5.0f;
-    self.switchButton.right = self.view.width - 5.0f;
-    
-    self.segmentedControl.left = 12.0f;
-    self.segmentedControl.bottom = self.view.height - 35.0f;
+// pass data to PreviewPuzzleVC
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
+        //[self.volumeButtonHandler stopHandler];
+        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
+        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
+            NSLog(@"Game already started: %@", self.createdGame);
+            previewPuzzleViewController.createdGame = self.createdGame;
+            previewPuzzleViewController.roundObject = self.roundObject;
+        }
+        
+        else if (self.createdGame == nil) {
+            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
+        }
+        
+        NSLog(@"imageeee: %@", self.originalImage);
+        previewPuzzleViewController.originalImage = self.originalImage;
+        previewPuzzleViewController.previewImage = self.cameraImage; // pass the original image for preview since it doesn't need to be resized
+        previewPuzzleViewController.opponent = self.opponent;
+        NSLog(@"Opponent: %@", self.opponent);
+    }
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
+- (void)passDataToCreatePuzzleVC {
+    CreatePuzzleViewController *createPuzzleVC = (CreatePuzzleViewController*)((AppDelegate *)[UIApplication sharedApplication].delegate).bottomVC;
+    createPuzzleVC.opponent = self.opponent;
+    createPuzzleVC.createdGame = self.createdGame;
 }
 
-- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
+- (void)deallocate {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+    self.originalImage = nil;
+    self.cameraImage = nil;
 }
+
+# pragma mark - photo editing methods
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size
 {
@@ -370,31 +457,65 @@
     return newImage;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"previewPuzzleSender"]) {
-        //[self.volumeButtonHandler stopHandler];
-        PreviewPuzzleViewController *previewPuzzleViewController = (PreviewPuzzleViewController *)segue.destinationViewController;
-        if ([self.createdGame objectForKey:@"receiverPlayed"] == [NSNumber numberWithBool:true]) { // this is the condition if the game already exists but the receiver has yet to send back. he's already played. not relevant if it's an entirely new game because an entirely new game is made.
-            NSLog(@"Game already started: %@", self.createdGame);
-            previewPuzzleViewController.createdGame = self.createdGame;
-            previewPuzzleViewController.roundObject = self.roundObject;
-        }
-        
-        else if (self.createdGame == nil) {
-            NSLog(@"Game hasn't been started yet: %@", self.createdGame);
-        }
-        
-        previewPuzzleViewController.originalImage = self.originalImage;
-        previewPuzzleViewController.previewImage = self.cameraImage; // pass the original image for preview since it doesn't need to be resized
-        previewPuzzleViewController.opponent = self.opponent;
-        NSLog(@"Opponent: %@", self.opponent);
-    }
+# pragma mark - other methods
+
+-(UIColor*)colorWithHexString:(NSString*)hex {
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
+- (UIImage *)imageByApplyingAlpha:(CGFloat) alpha andImage:(UIImage*)image {
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    
+    CGContextSetAlpha(ctx, alpha);
+    
+    CGContextDrawImage(ctx, area, [image CGImage]);
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 @end

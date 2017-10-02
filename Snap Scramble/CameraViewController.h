@@ -10,6 +10,7 @@
 #import "LLSimpleCamera.h"
 #import <Parse/Parse.h>
 #import "JPSVolumeButtonHandler.h"
+#import "Snap_Scramble-Swift.h"
 
 
 @interface CameraViewController : UIViewController
@@ -19,9 +20,15 @@
 @property (nonatomic, strong) PFObject* createdGame;
 @property (nonatomic, strong) PFUser* opponent;
 @property (nonatomic, strong) UIButton *backButton;
+@property (nonatomic, strong) DesignableButton *bottomButton;
+@property (nonatomic, strong) DesignableButton *topButton;
+@property (nonatomic, strong) UIImage *downArrow;
+@property (nonatomic, strong) UIImage *topArrow;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (nonatomic, strong) JPSVolumeButtonHandler* volumeButtonHandler;
 
+- (void)showLeftVC;
+- (void)deallocate;
 
 
 

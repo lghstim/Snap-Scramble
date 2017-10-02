@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7C7A40CA796EF7EEEA54CB14A7AC804F"
+               BlueprintIdentifier = "E5B6F8C67B379E93735F7624E16CEC06"
                BuildableName = "Pods_Snap_Scramble.framework"
                BlueprintName = "Pods-Snap Scramble"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7C7A40CA796EF7EEEA54CB14A7AC804F"
+            BlueprintIdentifier = "E5B6F8C67B379E93735F7624E16CEC06"
             BuildableName = "Pods_Snap_Scramble.framework"
             BlueprintName = "Pods-Snap Scramble"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -11,5 +11,7 @@
 @interface LegalViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIWebView* legalWebView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *goBackButton;
+
 
 @end

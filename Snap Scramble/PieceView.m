@@ -41,7 +41,6 @@
             self.center = CGPointMake(pt.x - self.xOffset, pt.y - self.yOffset);
         }
     }
-    
     // NSLog(@"pieceView x-coordinate: %f    pieceView y-coordinate: %f", self.frame.origin.x, self.frame.origin.y);
 }
 

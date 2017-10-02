@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "SSPullToRefresh.h"
+#import "Snap_Scramble-Swift.h"
+#import "SCLAlertView.h"
 @import GoogleMobileAds;
+@class SwipeNavigationController;
+@import SwipeNavigationController;
 
 
 @protocol ChallengeVCDelegate <NSObject>
@@ -20,20 +25,19 @@
 @property (nonatomic, strong) NSArray *currentGames;
 @property (nonatomic, strong) NSArray *currentPendingGames;
 @property (nonatomic, strong) PFObject *selectedGame;
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) SSPullToRefreshView *refreshControl;
 @property (nonatomic, strong) IBOutlet UITableView *currentGamesTable;
 @property (nonatomic, strong) PFUser *opponent;
 @property (nonatomic, strong) NSMutableArray *usernames;
 @property(strong, nonatomic) NSMutableArray *images;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (strong, nonatomic) IBOutlet UIImageView *emptyTableScreen;
-@property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *challengeButton;
-@property (weak, nonatomic) IBOutlet UIButton *removeAdsButton;
-@property (nonatomic, strong) IBOutlet UILabel *scoreLabel;
+@property (nonatomic, strong)  DesignableLabel *usernameLabel;
+@property (strong, nonatomic) DesignableButton *challengeButton;
+@property (strong, nonatomic) DesignableButton *cameraButton;
+@property (strong, nonatomic) UIImage *cameraImage;
+@property (strong, nonatomic)  DesignableButton *removeAdsButton;
+@property (nonatomic, strong)  UILabel *scoreLabel;
 @property (nonatomic, strong) PFObject* roundObject;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
-// background view properties
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 - (void)retrieveUserMatches;

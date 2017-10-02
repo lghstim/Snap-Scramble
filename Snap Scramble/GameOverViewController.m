@@ -12,6 +12,7 @@
 #import "GameOverViewModel.h"
 #import "GameViewController.h"
 #import "PuzzleView.h"
+#import "CameraViewController.h"
 @import GoogleMobileAds;
 
 
@@ -36,6 +37,8 @@
     
     return self;
 }
+
+# pragma mark - view methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -66,12 +69,6 @@
     [self.navigationController.navigationBar setHidden:false];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 - (GADInterstitial *)createAndLoadInterstitial {
     GADInterstitial *interstitial =
     [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-9099568248089334/6148429408"];
@@ -80,19 +77,21 @@
     return interstitial;
 }
 
-
-# pragma mark - set view model properties
-
-- (void)setViewModelProperties {
-    self.viewModel.createdGame = self.createdGame;
-    self.viewModel.currentUserTotalSeconds = self.currentUserTotalSeconds;
-    self.viewModel.opponent = self.opponent;
-    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
-    self.viewModel.roundObject = [PFObject objectWithClassName:@"Round"]; // round object
+- (void)displayAd{
+    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"%id", [adsRemoved boolValue]);
+    if ([adsRemoved boolValue] != TRUE) {
+        // show ad
+        if (self.interstitial.isReady) {
+            [self.interstitial presentFromRootViewController:self];
+        } else {
+            NSLog(@"Ad wasn't ready");
+        }
+    } else {
+        NSLog(@"ads are removed for this user.");
+    }
 }
-
-
-# pragma mark - view controller methods
 
 - (void)updateStatsView {
     // format the current user's time
@@ -123,82 +122,84 @@
         if (error) {
             [self.timeoutTimer invalidate];
             [KVNProgress dismiss];
-             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try playing again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-             [alertView show];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-         } else {
-             [self.timeoutTimer invalidate];
-             [KVNProgress dismiss];
-             NSLog(@"game saved successfully. %@", self.createdGame);
-             // update the game appropriately once current user has played
-             if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him.
-                 NSString *opponentName = [self.createdGame objectForKey:@"senderName"];
-                 self.opponentTotalSeconds = [self.createdGame objectForKey:@"senderTime"];
-                 
-                 int opponentTotalSecondsInt = [self.opponentTotalSeconds intValue];
-                 int currentUserTotalSecondsInt = [self.currentUserTotalSeconds intValue];
-                 if (opponentTotalSecondsInt > 0) { // make sure opponent played if current user is receiver
-                     
-                     // format the opponent's time
-                     int intValueTotalSeconds = [self.opponentTotalSeconds intValue];
-                     int minutes = 0; int seconds = 0;
-                     
-                     seconds = intValueTotalSeconds % 60;
-                     if (intValueTotalSeconds >= 60) {
-                         minutes = intValueTotalSeconds / 60;
-                     }
-                     
-                     if (seconds < 10) {
-                         self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:0%d", opponentName, minutes, seconds];
-                     }
-                     
-                     else if (seconds >= 10) {
-                         self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:%d", opponentName, minutes, seconds];
-                     }
-                     
-                     // check who won
-                     if (currentUserTotalSecondsInt > opponentTotalSecondsInt) { // if current user lost
-                         self.headerStatsLabel.text = @"You lost! It is your turn to reply now.";
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try playing again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+            [self openChallengeVC];
+        } else {
+            [self.timeoutTimer invalidate];
+            [KVNProgress dismiss];
+            NSLog(@"game saved successfully. %@", self.createdGame);
+            // update the game appropriately once current user has played
+            if ([[self.createdGame objectForKey:@"receiverName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the receiver (we want the receiver to send back a puzzle). This code is executed when the user plays a game someone else sent him.
+                NSString *opponentName = [self.createdGame objectForKey:@"senderName"];
+                self.opponentTotalSeconds = [self.createdGame objectForKey:@"senderTime"];
+                
+                int opponentTotalSecondsInt = [self.opponentTotalSeconds intValue];
+                int currentUserTotalSecondsInt = [self.currentUserTotalSeconds intValue];
+                if (opponentTotalSecondsInt > 0) { // make sure opponent played if current user is receiver
+                    
+                    // format the opponent's time
+                    int intValueTotalSeconds = [self.opponentTotalSeconds intValue];
+                    int minutes = 0; int seconds = 0;
+                    
+                    seconds = intValueTotalSeconds % 60;
+                    if (intValueTotalSeconds >= 60) {
+                        minutes = intValueTotalSeconds / 60;
+                    }
+                    
+                    if (seconds < 10) {
+                        self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:0%d", opponentName, minutes, seconds];
+                    }
+                    
+                    else if (seconds >= 10) {
+                        self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@'s time: %d:%d", opponentName, minutes, seconds];
+                    }
+                    
+                    // check who won
+                    if (currentUserTotalSecondsInt > opponentTotalSecondsInt) { // if current user lost
+                        self.headerStatsLabel.text = @"You lost! It is your turn to reply now.";
                         
-                         [self.viewModel incrementCurrentUserLosses]; // update the amount of losses the current user has.
-                         [self.viewModel incrementOpponentWins]; // update the amount of wins the opponent has.
-
-                     } else if (currentUserTotalSecondsInt == opponentTotalSecondsInt) { // if tie
-                         // don't update losses or wins since the game is a tie.
-                         self.headerStatsLabel.text = @"Tie game! It is your turn to reply now.";
-                     } else if (currentUserTotalSecondsInt < opponentTotalSecondsInt) { // if current user won
-                   
-                         [self.viewModel incrementCurrentUserWins]; // update the amount of wins the current user has.
-                         [self.viewModel incrementOpponentLosses]; // update the amount of losses the opponent has.
-
-                         self.headerStatsLabel.text = @"You won! It is your turn to reply now.";
-                     }
-                 }
-                 
-                 else {
-                     NSLog(@"something went wrong.");
-                 }
-             }
-             
-             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
-                 [self.viewModel switchTurns]; // switch turns
-                 [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
-                     if (error) {
-                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                         [alertView show];
-                     }
-                     
-                     else { // sent game
-                         NSLog(@"the turn was switched successfully.");
-                         NSString *opponentName = [self.createdGame objectForKey:@"receiverName"];
-                         self.headerStatsLabel.text = [NSString stringWithFormat:@"It is %@'s turn to play now!", opponentName];
-                         self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@ hasn't played yet.", opponentName];
-                     }
-                 }];
-             }
-         }
-    }]; // dismiss progressview if first error or after last save. 
+                        [self.viewModel incrementCurrentUserLosses]; // update the amount of losses the current user has.
+                        [self.viewModel incrementOpponentWins]; // update the amount of wins the opponent has.
+                        
+                    } else if (currentUserTotalSecondsInt == opponentTotalSecondsInt) { // if tie
+                        // don't update losses or wins since the game is a tie.
+                        self.headerStatsLabel.text = @"Tie game! It is your turn to reply now.";
+                    } else if (currentUserTotalSecondsInt < opponentTotalSecondsInt) { // if current user won
+                        
+                        [self.viewModel incrementCurrentUserWins]; // update the amount of wins the current user has.
+                        [self.viewModel incrementOpponentLosses]; // update the amount of losses the opponent has.
+                        
+                        self.headerStatsLabel.text = @"You won! It is your turn to reply now.";
+                    }
+                }
+                
+                else {
+                    NSLog(@"something went wrong.");
+                }
+            }
+            
+            else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
+                [self.viewModel switchTurns]; // switch turns
+                [self.viewModel saveCurrentGame:^(BOOL succeeded, NSError *error) {
+                    if (error) {
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred." message:@"Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [alertView show];
+                    }
+                    
+                    else { // sent game
+                        NSLog(@"the turn was switched successfully.");
+                        NSString *opponentName = [self.createdGame objectForKey:@"receiverName"];
+                        self.headerStatsLabel.text = [NSString stringWithFormat:@"It is %@'s turn to play now!", opponentName];
+                        self.opponentTimeLabel.text = [NSString stringWithFormat:@"%@ hasn't played yet.", opponentName];
+                    }
+                }];
+            }
+        }
+    }]; // dismiss progressview if first error or after last save.
 }
+
+# pragma mark - navigation
 
 - (IBAction)doneButtonDidPress:(id)sender {
     //This for loop iterates through all the view controllers in navigation stack.
@@ -215,23 +216,43 @@
                 NSLog(@"current user is the receiver, show reply button UI");
                 gameViewController.roundObject = self.viewModel.roundObject;
                 [gameViewController updateToReplyButtonUI];
-                
+                [gameViewController deallocGameProperties];
+                self.statsView.animation = @"fall";
+                [self.statsView animate];
+                [self.navigationController popToViewController:gameViewController animated:NO];
             }
             
             else if ([[self.createdGame objectForKey:@"senderName"] isEqualToString:[PFUser currentUser].username]) { // if current user is the sender. This code is executed when the user starts sending his own game to someone else.
                 NSLog(@"current user is the sender, now go back to main menu");
                 [self displayAd]; // display ads or not
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self openChallengeVC];
             }
-            
-            [gameViewController deallocGameProperties];
-            self.statsView.animation = @"fall";
-            [self.statsView animate];
-            [self.navigationController popToViewController:gameViewController animated:YES];
             break;
         }
     }
 }
+
+- (void)openChallengeVC {
+    for (UIViewController* viewController in self.navigationController.viewControllers) {
+        if ([viewController isKindOfClass:[SwipeNavigationController class]] ) {
+            SwipeNavigationController *VC = (SwipeNavigationController*)viewController;
+            [self.navigationController popToViewController:VC animated:NO];
+            CameraViewController* centerVC = (CameraViewController*)VC.centerViewController;
+            [centerVC showLeftVC];
+        }
+    }
+}
+
+# pragma mark - pass data methods
+
+- (void)dealloc {
+    self.opponent = nil;
+    self.createdGame = nil;
+    self.roundObject = nil;
+    self.game = nil;
+}
+
+# pragma mark - timer methods
 
 - (void)incrementTime {
     int value = [self.totalSeconds intValue];
@@ -246,35 +267,17 @@
         [KVNProgress dismiss];
         [self.timeoutTimer invalidate];
     }
-    
 }
 
-- (void)displayAd{
-    NSNumber *adsRemoved = [[NSUserDefaults standardUserDefaults] objectForKey:@"adsRemoved"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"%id", [adsRemoved boolValue]);
-    if ([adsRemoved boolValue] != TRUE) {
-        // show ad
-        if (self.interstitial.isReady) {
-            [self.interstitial presentFromRootViewController:self];
-        } else {
-            NSLog(@"Ad wasn't ready");
-        }
-    } else {
-        NSLog(@"ads are removed for this user.");
-    }
+# pragma mark - set view model method
+
+- (void)setViewModelProperties {
+    self.viewModel.createdGame = self.createdGame;
+    self.viewModel.currentUserTotalSeconds = self.currentUserTotalSeconds;
+    self.viewModel.opponent = self.opponent;
+    self.viewModel.roundsRelation = [self.createdGame relationForKey:@"rounds"];
+    self.viewModel.roundObject = [PFObject objectWithClassName:@"Round"]; // round object
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
