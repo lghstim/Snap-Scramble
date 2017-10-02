@@ -388,17 +388,16 @@
 		6A112AAA1B5DFB0D0035A75C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A4FF8391F81FB3900C22740 /* UI-Libraries */,
 				6A4B652F1EA349FC00B95420 /* Reachability.h */,
 				6A4B65301EA349FC00B95420 /* Reachability.m */,
-				6A6B7B771E8DE5F2009C0CD2 /* JPSVolumeButtonHandler */,
+				6A112AAE1B5DFB0D0035A75C /* AppDelegate.h */,
+				6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */,
 				6A77C0EB1E8BB6F800FE23D8 /* GoogleService-Info.plist */,
 				6A217C2C1E36DB7800317F5F /* fontawesome-webfont.ttf */,
 				6A2F1DE31E1E24C100DAAA87 /* Snap Scramble.entitlements */,
-				6A4B650C1EA3474200B95420 /* Spring-master */,
 				6AC60B041D58720600681C90 /* UIImage+Scale.h */,
 				6AC60B051D58720600681C90 /* UIImage+Scale.m */,
-				6A112AAE1B5DFB0D0035A75C /* AppDelegate.h */,
-				6A112AAF1B5DFB0D0035A75C /* AppDelegate.m */,
 				6A8F2FE81D45E0F90031A8A0 /* Utility */,
 				6AD28CE21B5E092E00BCD802 /* Images.xcassets */,
 				6A112AAB1B5DFB0D0035A75C /* Info.plist */,
@@ -473,6 +472,15 @@
 				6A4B650B1EA3474200B95420 /* VerticalScrollViewController.swift */,
 			);
 			path = "Spring-master";
+			sourceTree = "<group>";
+		};
+		6A4FF8391F81FB3900C22740 /* UI-Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				6A6B7B771E8DE5F2009C0CD2 /* JPSVolumeButtonHandler */,
+				6A4B650C1EA3474200B95420 /* Spring-master */,
+			);
+			name = "UI-Libraries";
 			sourceTree = "<group>";
 		};
 		6A508CE31CC3621C0011B317 /* Models */ = {
