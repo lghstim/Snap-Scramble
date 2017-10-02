@@ -60,9 +60,9 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     [application setStatusBarHidden:NO];
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-     configuration.applicationId = @"<app id>";
-     configuration.clientKey = @"<client key>";
-        configuration.server = @"<server name/parse>";
+     configuration.applicationId = @"43771d657c7a5be226767e90fcc0edd88527df54";
+     configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
+        configuration.server = @"https://greendoors.us/parse";
      }]];
     
     [FIRApp configure];
