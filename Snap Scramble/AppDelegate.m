@@ -60,11 +60,11 @@ static NSString * const kUserHasOnboardedKey = @"user_has_onboarded";
     [application setStatusBarHidden:NO];
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-     configuration.applicationId = @"<app id>";
-     configuration.clientKey = @"<client key>";
-        configuration.server = @"<server name/parse>";
-     }]];
-    
+        configuration.applicationId = @"2rlZlKrUJamuyrJjCwZUMZvw2fazOQTNLr42KRK1";
+        configuration.clientKey = @"hoG9ypisimFCmPstjHcEYfK6g9DoJU0qrY9sTS8X";
+        configuration.server = @"http://snapscramble.herokuapp.com/parse";
+    }]];    
+
     [FIRApp configure];
     [GADMobileAds configureWithApplicationID:@"ca-app-pub-9099568248089334~3194963006"];
     [[FBSDKApplicationDelegate sharedInstance] application:application
